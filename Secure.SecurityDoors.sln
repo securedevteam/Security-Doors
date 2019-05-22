@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.App", "Securi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.DataAccessLayer", "SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj", "{E666A4E4-6FB9-4462-A2F8-379A6CFED9D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.BusinessLogicLayer", "SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj", "{870072AC-67CB-4EE2-975C-45403603AEB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E666A4E4-6FB9-4462-A2F8-379A6CFED9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E666A4E4-6FB9-4462-A2F8-379A6CFED9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E666A4E4-6FB9-4462-A2F8-379A6CFED9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870072AC-67CB-4EE2-975C-45403603AEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870072AC-67CB-4EE2-975C-45403603AEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870072AC-67CB-4EE2-975C-45403603AEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870072AC-67CB-4EE2-975C-45403603AEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
