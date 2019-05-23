@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SecurityDoors.DataAccessLayer.Models
+﻿namespace SecurityDoors.DataAccessLayer.Models
 {
-    class Card
+    /// <summary>
+    /// Карточка пользователя.
+    /// </summary>
+    public class Card
     {
         /// <summary>
-        /// Id карты
+        /// Id карты.
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
-        /// Уникальный номер карты
+        /// Уникальный номер карты.
         /// </summary>
         public string UniqueNumber { get; set; }
+
         /// <summary>
-        /// Действительна ли карта
+        /// Статус карточки (Действительна ли?).
         /// </summary>
         public bool Status { get; set; }
 
         /// <summary>
-        /// Навигационное свойство
+        /// Навигационное свойство PersonId.
         /// </summary>
         public int PersonId { get; set; }
         public Person Person { get; set; }

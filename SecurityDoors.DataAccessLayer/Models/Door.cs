@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
-    class Door
+    /// <summary>
+    /// Контроллер дверей.
+    /// </summary>
+    public class Door
     {
         /// <summary>
-        /// Id контроллера
+        /// Id дверного контроллера.
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
-        /// Дата и время прохода через контроллер
+        /// Дата и время прохода пользователя через контроллер.
         /// </summary>
         public DateTime PersonEnter { get; set; } = DateTime.Now;
+
         /// <summary>
-        /// Вход/выход
+        /// Вход/выход пользователя.
         /// </summary>
         public bool InOut { get; set; }
 
