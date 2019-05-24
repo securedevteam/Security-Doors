@@ -20,6 +20,10 @@ namespace SecurityDoors.App
         public bool IsEnabled(LogLevel logLevel)
         {
             return true;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
             throw new NotImplementedException();
         }
 
