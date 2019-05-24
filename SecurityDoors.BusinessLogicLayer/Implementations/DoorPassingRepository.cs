@@ -8,39 +8,65 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     public class DoorPassingRepository : IDoorPassingRepository
     {
+
+        private ApplicationContext db;
+
+        public DoorPassingRepository()
+        {
+            db = new ApplicationContext;
+        }
+
         public void Create(DoorPassing item)
         {
-            throw new NotImplementedException();
+            db.DoorPassings.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            DoorPassing doorPassing = db.DoorPassings.Find(id);
+            if (doorPassing != null)
+            {
+                db.DoorPassings.Remove(doorPassing);
+            }
         }
 
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public DoorPassing GetDoorPassing(int id)
         {
-            throw new NotImplementedException();
+            return db.DoorPassings.Find(id);
         }
 
         public IEnumerable<DoorPassing> GetDoorsPassingList()
         {
-            throw new NotImplementedException();
+            return db.DoorPassings;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(DoorPassing item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }

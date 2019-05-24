@@ -8,34 +8,45 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     public class PersonRepository : IPersonRepository
     {
+        private ApplicationContext db;
+
+        public PersonRepository()
+        {
+            db = new ApplicationContext();
+        }
         public void Create(Person item)
         {
-            throw new NotImplementedException();
+            db.People.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Person person = db.People.Find(id);
+            if (person != null)
+            {
+                db.People.Remove(person);
+            }
         }
 
         public IEnumerable<Person> GetPeopleList()
         {
-            throw new NotImplementedException();
+            return db.People;
         }
 
         public Person GetPerson(int id)
         {
-            throw new NotImplementedException();
+            return db.People.Find(id);
+
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(Person item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }
