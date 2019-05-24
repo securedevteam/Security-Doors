@@ -20,6 +20,12 @@ namespace SecurityDoors.DataAccessLayer.Models
             Database.EnsureDeleted();
 		}
 
+
+        //public EquipmentAccountingContext(DbContextOptions<EquipmentAccountingContext> options) : base(options)
+        //{
+        //    Database.EnsureCreated();
+        //}
+
 		/// <summary>
 		/// Устанавливает строку подключения из файла конфигураций к localDb
 		/// Вариации строк можно посмотреть здесь https://www.connectionstrings.com/sql-server/
@@ -39,7 +45,7 @@ namespace SecurityDoors.DataAccessLayer.Models
             //	optionsBuilder.UseSqlServer(connectionString);
             //}
 
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Integrated Security=True");
 
         }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
