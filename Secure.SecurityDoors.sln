@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.RemoteControl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.Modeling", "SecurityDoors.Modeling\SecurityDoors.Modeling.csproj", "{5E58E6FA-D6D3-47B7-A4F7-330E369C0BDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.PresentationLayer", "SecurityDoors.PresentationLayer\SecurityDoors.PresentationLayer.csproj", "{18B54218-B3B7-406E-A9CA-81C178DF1B18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5E58E6FA-D6D3-47B7-A4F7-330E369C0BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E58E6FA-D6D3-47B7-A4F7-330E369C0BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E58E6FA-D6D3-47B7-A4F7-330E369C0BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B54218-B3B7-406E-A9CA-81C178DF1B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B54218-B3B7-406E-A9CA-81C178DF1B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B54218-B3B7-406E-A9CA-81C178DF1B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B54218-B3B7-406E-A9CA-81C178DF1B18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
