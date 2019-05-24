@@ -32,7 +32,8 @@ namespace SecurityDoors.App
 			}
 			app.Run(async (context) =>
 			{
-				await context.Response.WriteAsync("Hello World!");
+                logger.LogInformation("Processing request {0}", context.Request.Path);
+                await context.Response.WriteAsync("Hello World!");
 			});
 		}
 	}
