@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
@@ -36,13 +37,15 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// Паспорт.
         /// </summary>
         public string Passport { get; set; }
+		
+		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
+		public Person()
+		{
+			DoorPassings = new List<DoorPassing>();
+		}
 
-        /// <summary>
-        /// Навигационное свойство
-        /// </summary>
-        public int DoorId { get; set; }
-        public Door Door { get; set; }
-
-        ICollection<Card> Cards { get; set; }
+		[ForeignKey("Card")]
+		public int CardId { get; set; }
+		public Card Card { get; set; }
     }
 }

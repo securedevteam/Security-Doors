@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace SecurityDoors.App
 {
     public class Startup
@@ -24,10 +25,9 @@ namespace SecurityDoors.App
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+				await context.Response.WriteAsync("Hello World!");
             });
         }
     }

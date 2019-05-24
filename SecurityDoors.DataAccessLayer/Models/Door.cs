@@ -13,16 +13,12 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// Дата и время прохода пользователя через контроллер.
-        /// </summary>
-        public DateTime PersonEnter { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// Вход/выход пользователя.
-        /// </summary>
-        public bool InOut { get; set; }
-
-        ICollection<Person> People { get; set; }
-    }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
+		public Door()
+		{
+			DoorPassings = new List<DoorPassing>();
+		}
+	}
 }

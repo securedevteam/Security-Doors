@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.DataAccessLayer.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
     /// Карточка пользователя.
@@ -19,11 +21,6 @@
         /// Статус карточки (Действительна ли?).
         /// </summary>
         public bool Status { get; set; }
-
-        /// <summary>
-        /// Навигационное свойство PersonId.
-        /// </summary>
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
-    }
+		public Person Person { get; set; }
+	}
 }
