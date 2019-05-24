@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-
+using SecurityDoors.BusinessLogicLayer.Implementations;
+using SecurityDoors.BusinessLogicLayer.Interfaces;
 
 namespace SecurityDoors.App
 {
@@ -23,6 +24,12 @@ namespace SecurityDoors.App
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            // Добавлен DI
+            services.AddTransient<ICardRepository, CardRepository>();
+            services.AddTransient<IDoorRepository, DoorRepository>();
+            services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
 
             services.AddMvc();
         }
