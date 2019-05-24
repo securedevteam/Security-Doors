@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 
@@ -30,6 +31,8 @@ namespace SecurityDoors.App
             services.AddTransient<IDoorRepository, DoorRepository>();
             services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
+
+            services.AddScoped<DataManager>();
 
             services.AddMvc();
         }
