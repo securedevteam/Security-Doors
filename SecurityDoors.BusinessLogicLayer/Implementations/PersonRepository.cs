@@ -30,12 +30,12 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         public IEnumerable<Person> GetPeopleList()
         {
-            throw new NotImplementedException();
+            return db.People;
         }
 
         public Person GetPerson(int id)
         {
-            throw new NotImplementedException();
+            return db.People.Find(id);
 
         }
 
