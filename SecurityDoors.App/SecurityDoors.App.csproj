@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\SecurityDoors.PresentationLayer\SecurityDoors.PresentationLayer.csproj" />
   </ItemGroup>
 
 </Project>
