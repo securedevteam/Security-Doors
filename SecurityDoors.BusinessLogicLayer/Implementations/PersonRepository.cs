@@ -6,12 +6,15 @@ using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
+    /// <summary>
+    /// Репозиторий пользователя.
+    /// </summary>
     public class PersonRepository : IPersonRepository
     {
         private ApplicationContext db;
 
         /// <summary>
-        /// Создать базу данных пользователей
+        /// Конструктор.
         /// </summary>
         public PersonRepository()
         {
@@ -19,18 +22,18 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Создать пользователя
+        /// Создать пользователя.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Create(Person item)
         {
             db.People.Add(item);
         }
 
         /// <summary>
-        /// Удалить пользователя
+        /// Удалить пользователя.
         /// </summary>
-        /// <param name="id"></param> идентификатор пользователя
+        /// <param name="id">идентификатор.</param>
         public void Delete(int id)
         {
             Person person = db.People.Find(id);
@@ -41,7 +44,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить коллекцию пользователей
+        ///  Получить коллекцию пользователей.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Person> GetPeopleList()
@@ -50,9 +53,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Получить пользователя
+        /// Получить пользователя.
         /// </summary>
-        /// <param name="id"></param> идентификатор пользователя
+        /// <param name="id">идентификатор.</param>
         /// <returns></returns>
         public Person GetPerson(int id)
         {
@@ -61,7 +64,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Сохранить изменения
+        ///  Сохранить изменения.
         /// </summary>
         public void Save()
         {
@@ -69,9 +72,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Обновить пользователя
+        /// Обновить пользователя.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Update(Person item)
         {
             db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
