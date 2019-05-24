@@ -17,7 +17,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// </summary>
 		public ApplicationContext()
 		{
-			Database.EnsureCreated();
+            Database.EnsureDeleted();
 		}
 
 		/// <summary>
@@ -26,17 +26,20 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// </summary>
 		protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
 		{
-			var builder = new ConfigurationBuilder();
-			builder.SetBasePath(Directory.GetCurrentDirectory());
-			builder.AddJsonFile("appsettings.json");
-			var config = builder.Build();
-			string connectionString = config.GetConnectionString("DefaultConnection");
+            //var builder = new ConfigurationBuilder();
+            //builder.SetBasePath(Directory.GetCurrentDirectory());
+            //builder.AddJsonFile("appsettings.json");
+            //var config = builder.Build();
+            //string connectionString = config.GetConnectionString("DefaultConnection");
 
-			if (!optionsBuilder.IsConfigured)
-			{
-				optionsBuilder.UseSqlServer(connectionString);
-			}
-		}
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //	optionsBuilder.UseSqlServer(connectionString);
+            //}
+
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;");
+
+        }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Card>().HasData(
