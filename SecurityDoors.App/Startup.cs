@@ -12,29 +12,29 @@ using SecurityDoors.App.Logger;
 
 namespace SecurityDoors.App
 {
-	public class Startup
-	{
-		// This method gets called by the runtime. Use this method to add services to the container.
-		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-		public void ConfigureServices(IServiceCollection services)
-		{
-		}
+    public class Startup
+    {
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+        }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-		{
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
             var logger = loggerFactory.CreateLogger("FileLogger");
 
             if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			app.Run(async (context) =>
-			{
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.Run(async (context) =>
+            {
                 logger.LogInformation("Processing request {0}", context.Request.Path);
                 await context.Response.WriteAsync("Hello World!");
-			});
-		}
-	}
+            });
+        }
+    }
 }
