@@ -45,7 +45,6 @@ namespace SecurityDoors.App
         {
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
             var logger = loggerFactory.CreateLogger("FileLogger");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
