@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 
 namespace SecurityDoors.App
@@ -19,14 +20,18 @@ namespace SecurityDoors.App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {            
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.Run(async (context) =>
-            {               
+            {
+                var logger = loggerFactory.CreateLogger("RequestInfoLogger");
+                logger.LogInformation("Processing request {0}", context.Request.Path);
                 await context.Response.WriteAsync("Hello World!");
             });
         }
