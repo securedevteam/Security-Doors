@@ -19,22 +19,20 @@ namespace SecurityDoors.RemoteControl
             using (var context = new ApplicationContext())
             {
 
-
                 context.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
                 
-                // TODO: Ошибка в сохранении.
                 
-                //var count = db.SaveChanges();
+                var count = context.SaveChanges();
 
-                //Console.WriteLine("{0} records saved to database", count);
+                Console.WriteLine("{0} records saved to database", count);
 
-                //Console.WriteLine();
-                //Console.WriteLine("All blogs in database:");
+                Console.WriteLine();
+                Console.WriteLine("All blogs in database:");
 
-                //foreach (var item in db.Cards)
-                //{
-                //    Console.WriteLine(" - {0}", item.UniqueNumber);
-                //}
+                foreach (var item in context.Cards)
+                {
+                    Console.WriteLine(" - {0}", item.UniqueNumber);
+                }
             }
 
             // TODO: Постараться сделать.

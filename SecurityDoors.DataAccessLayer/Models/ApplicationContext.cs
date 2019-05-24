@@ -17,8 +17,8 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// </summary>
 		public ApplicationContext()
 		{
-            Database.EnsureDeleted();
-		}
+            Database.EnsureCreated();
+        }
 
 
         //public EquipmentAccountingContext(DbContextOptions<EquipmentAccountingContext> options) : base(options)
@@ -45,7 +45,7 @@ namespace SecurityDoors.DataAccessLayer.Models
             //	optionsBuilder.UseSqlServer(connectionString);
             //}
 
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Integrated Security=True");
 
         }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
