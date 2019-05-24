@@ -13,7 +13,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         public DoorPassingRepository()
         {
-            db = new ApplicationContext;
+            db = new ApplicationContext();
         }
 
         public void Create(DoorPassing item)
