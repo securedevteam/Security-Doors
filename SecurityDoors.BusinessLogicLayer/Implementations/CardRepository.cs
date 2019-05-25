@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    /// Репозиторий карт.
+    /// Репозиторий карта.
     /// </summary>
     public class CardRepository : ICardRepository
     {        

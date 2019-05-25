@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
-    /// Интерфейс дверей.
+    /// Интерфейс дверь.
     /// </summary>
     public interface IDoorRepository : IDisposable
     {

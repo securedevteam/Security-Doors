@@ -5,37 +5,37 @@ using System.Collections.Generic;
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
-    /// Интерфейс карты.
+    /// Интерфейс карта.
     /// </summary>
     public interface ICardRepository : IDisposable
     {
         /// <summary>
-        ///  Коллекция карт.
+        /// Коллекция карт.
         /// </summary>
         /// <returns>Список карт.</returns>
         IEnumerable<Card> GetCardsList();
 
         /// <summary>
-        ///  Получить карту.
+        /// Получить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         /// <returns>Карта.</returns>
         Card GetCardById(int id);
 
         /// <summary>
-        ///  Создать карту.
+        /// Создать карту.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Create(Card item);
 
         /// <summary>
-        ///  Обновить карту.
+        /// Обновить карту.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Update(Card item);
 
         /// <summary>
-        ///  Удалить карту.
+        /// Удалить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         void Delete(int id);

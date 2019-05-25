@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    ///  Репозиторий пользователя.
+    /// Репозиторий пользователь.
     /// </summary>
     public class PersonRepository : IPersonRepository
     {

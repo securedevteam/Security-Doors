@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    /// Репозиторий дверей.
+    /// Репозиторий дверь.
     /// </summary>
     public class DoorRepository : IDoorRepository
     {

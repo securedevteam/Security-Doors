@@ -1,49 +1,49 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
-    ///  Интерфейс прохода.
+    /// Интерфейс проход.
     /// </summary>
     public interface IDoorPassingRepository : IDisposable
     {
         /// <summary>
-        ///  Коллекция проходов.
+        /// Коллекция проходов.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список проходов.</returns>
         IEnumerable<DoorPassing> GetDoorsPassingList();
 
         /// <summary>
-        ///  Получить проход.
+        /// Получить проход.
         /// </summary>
         /// <param name="id">идентификатор прохода.</param>
-        /// <returns></returns>
+        /// <returns>Проход.</returns>
         DoorPassing GetDoorPassingById(int id);
 
         /// <summary>
-        ///  Создать проход.
+        /// Создать проход.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Create(DoorPassing item);
 
         /// <summary>
-        ///  Обновить проход.
+        /// Обновить проход.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Update(DoorPassing item);
 
         /// <summary>
-        ///  Удалить проход.
+        /// Удалить проход.
         /// </summary>
         /// <param name="id">идентификатор прохода.</param>
         void Delete(int id);
 
         /// <summary>
-        ///  Сохранить изменения.
+        /// Сохранить изменения.
         /// </summary>
-        void Save();
+        /// <param name="item">элемент.</param>
+        void Save(DoorPassing item);
     }
 }
