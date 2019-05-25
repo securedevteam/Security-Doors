@@ -13,15 +13,15 @@
     <title>List</title>
 </head>
 <body>
-    <h2>Список карточек пользователей</h2>
-
+    <h2>Список карточек</h2>
+    <a asp-action="Create" asp-controller="Card">Добавить новую</a>
     <div>
         <table>
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Уникальный номер</th>
-                    <th scope="col">Статус</th>
+                    <th>#</th>
+                    <th>Уникальный номер</th>
+                    <th>Статус</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,15 +35,14 @@
                                 <td>@item.UniqueNumber</td>
                                 <td>@item.Status</td>
                                 <td>
-                                    <a asp-action="Details" asp-controller="Page" asp-route-id="@item.Id">Подробнее</a> |
-                                    <a asp-action="Edit" asp-controller="Page" asp-route-id="@item.Id">Изменить</a> |
-                                    <a asp-action="Delete" asp-controller="Page" asp-route-id="@item.Id">Удалить</a>
+                                    <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> |
+                                    <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a> |
+                                    <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
                                 </td>
                             </tr>
                         }
                     }
                 }
-
             </tbody>
         </table>
     </div>

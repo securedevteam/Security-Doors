@@ -1,8 +1,6 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
@@ -16,7 +14,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     {
         public int Id { get; set; }
 
-        [Required (ErrorMessage = "Уникальный номер не указан")]
+        [Required(ErrorMessage = "Уникальный номер не указан")]
         [Display(Name = "Уникальный номер")]
         public string UniqueNumber { get; set; }
 
