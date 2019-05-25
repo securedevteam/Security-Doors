@@ -13,8 +13,9 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         ICollection<DoorViewModel> Doors { get; set; }
     }
 
-    public class DoorPassingEditModel
+    public class DoorPassingEditModel:DoorPassing
     {
+		/*
         public int Id { get; set; }
 
         [Required]
@@ -25,5 +26,6 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
         [Required]
         public int? PersonId { get; set; }
+		*/
     }
 }
