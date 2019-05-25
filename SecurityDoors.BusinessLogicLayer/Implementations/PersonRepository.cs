@@ -7,14 +7,14 @@ using System.Text;
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    /// Репозиторий пользователя.
+    ///  Репозиторий пользователя.
     /// </summary>
     public class PersonRepository : IPersonRepository
     {
         private ApplicationContext db;
 
         /// <summary>
-        /// Конструктор.
+        ///  Конструктор.
         /// </summary>
         public PersonRepository()
         {
@@ -22,7 +22,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Создать пользователя.
+        ///  Создать пользователя.
         /// </summary>
         /// <param name="item">элемент.</param>
         public void Create(Person item)
@@ -31,7 +31,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Удалить пользователя.
+        ///  Удалить пользователя.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         public void Delete(int id)
@@ -53,7 +53,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Получить пользователя.
+        ///  Получить пользователя.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Обновить пользователя.
+        ///  Обновить пользователя.
         /// </summary>
         /// <param name="item">элемент.</param>
         public void Update(Person item)

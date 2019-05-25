@@ -6,13 +6,16 @@ using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
+    /// <summary>
+    ///  Репозиторий прохода.
+    /// </summary>
     public class DoorPassingRepository : IDoorPassingRepository
     {
 
         private ApplicationContext db;
 
         /// <summary>
-        ///  Создать базу данных проходов
+        ///  Конструктор.
         /// </summary>
         public DoorPassingRepository()
         {
@@ -20,18 +23,18 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Создать проход  
+        ///  Создать проход.  
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Create(DoorPassing item)
         {
             db.DoorPassings.Add(item);
         }
 
         /// <summary>
-        /// Удалить проход
+        ///  Удалить проход.
         /// </summary>
-        /// <param name="id"></param> идентификатор прохода
+        /// <param name="id">идентификатор прохода.</param>
         public void Delete(int id)
         {
             DoorPassing doorPassing = db.DoorPassings.Find(id);
@@ -69,9 +72,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Получить проход 
+        ///  Получить проход. 
         /// </summary>
-        /// <param name="id"></param> иденитификатор прохода
+        /// <param name="id">иденитификатор прохода.</param>
         /// <returns></returns>
         public DoorPassing GetDoorPassing(int id)
         {
@@ -79,7 +82,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Получить коллекцию
+        ///  Получить коллекцию проходов.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<DoorPassing> GetDoorsPassingList()
@@ -88,7 +91,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Сохранить изменения в базе данных
+        ///  Сохранить изменения.
         /// </summary>
         public void Save()
         {
@@ -96,9 +99,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Обновить проход
+        ///  Обновить проход.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Update(DoorPassing item)
         {
             db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

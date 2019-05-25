@@ -7,12 +7,15 @@ using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
+    /// <summary>
+    ///  Репозиторий карты.
+    /// </summary>
     public class CardRepository : ICardRepository
     {        
         private ApplicationContext db;
 
         /// <summary>
-        ///  Создать базу данных карт  
+        ///  Конструктор.  
         /// </summary>
         public CardRepository()
         {
@@ -20,18 +23,18 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Добавить карту пользователя
+        ///  Создать карту.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Create(Card item)
         {
             db.Cards.Add(item);
         }
 
         /// <summary>
-        ///  Удалить пользователя
+        ///  Удалить карту.
         /// </summary>
-        /// <param name="id"></param> идентификатор карты
+        /// <param name="id">идентификатор карты.</param>
         public void Delete(int id)
         {
             Card card = db.Cards.Find(id);
@@ -69,9 +72,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить карту
+        ///  Получить карту.
         /// </summary>
-        /// <param name="id"></param> идентификатор карты
+        /// <param name="id">идентификатор карты.</param>
         /// <returns></returns>
         public Card GetCard(int id)
         {
@@ -79,7 +82,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить коллекцию
+        ///  Получить коллекцию карт.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Card> GetCardsList()
@@ -88,7 +91,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Сохранить изменения
+        ///  Сохранить изменения.
         /// </summary>
         public void Save()
         {
@@ -96,9 +99,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Обновить карту пользователя
+        ///  Обновить карту.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Update(Card item)
         {
             db.Entry(item).State = EntityState.Modified;

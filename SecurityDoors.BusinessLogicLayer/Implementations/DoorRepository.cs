@@ -6,13 +6,16 @@ using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
+    /// <summary>
+    ///  Репозиторий двери.
+    /// </summary>
     public class DoorRepository : IDoorRepository
     {
 
         private ApplicationContext db;
 
         /// <summary>
-        ///  Создать базу данных дверей
+        ///  Конструктор.
         /// </summary>
         public DoorRepository()
         {
@@ -20,18 +23,18 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        /// Создать дверь  
+        ///  Создать дверь.  
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param> 
         public void Create(Door item)
         {
             db.Doors.Add(item);
         }
 
         /// <summary>
-        ///  Удалить дверь
+        ///  Удалить дверь.
         /// </summary>
-        /// <param name="id"></param> идентификатор двери
+        /// <param name="id">идентификатор двери.</param>
         public void Delete(int id)
         {
             Door door = db.Doors.Find(id);
@@ -69,9 +72,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить дверь
+        ///  Получить дверь.
         /// </summary>
-        /// <param name="id"></param> идентификатор двери
+        /// <param name="id">идентификатор двери.</param>
         /// <returns></returns>
         public Door GetDoor(int id)
         {
@@ -79,7 +82,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить коллекцию дверей
+        ///  Получить коллекцию дверей.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Door> GetDoorsList()
@@ -88,7 +91,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Сохранить изменения
+        ///  Сохранить изменения.
         /// </summary>
         public void Save()
         {
@@ -96,9 +99,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Обновить дверь
+        ///  Обновить дверь.
         /// </summary>
-        /// <param name="item"></param> элемент
+        /// <param name="item">элемент.</param>
         public void Update(Door item)
         {
             db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
