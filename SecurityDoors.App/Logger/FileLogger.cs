@@ -28,8 +28,9 @@ namespace SecurityDoors.App
             if(formatter != null)
             {
                 lock (_lock)
-                {                   
-                    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                {         
+                    // TODO: Решить данную проблему (!)
+                    // File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
                 }
                 Console.WriteLine();
             }
