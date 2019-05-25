@@ -22,8 +22,8 @@ namespace SecurityDoors.RemoteControl
             using (var context = new ApplicationContext())
             {
 
-
                 context.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
+
 
 				
 				/// TODO: Ошибка в сохранении. Fixed
@@ -41,6 +41,7 @@ namespace SecurityDoors.RemoteControl
 					Console.WriteLine(" - {0}", item.UniqueNumber);
 				}
 			}
+
 
             // TODO: Постараться сделать.
 
