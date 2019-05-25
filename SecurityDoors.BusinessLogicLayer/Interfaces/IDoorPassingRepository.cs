@@ -21,7 +21,7 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="id">идентификатор прохода.</param>
         /// <returns></returns>
-        DoorPassing GetDoorPassing(int id);
+        DoorPassing GetDoorPassingById(int id);
 
         /// <summary>
         ///  Создать проход.

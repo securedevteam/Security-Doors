@@ -15,7 +15,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         private ApplicationContext db;
 
         /// <summary>
-        ///  Конструктор.  
+        /// Конструктор.  
         /// </summary>
         public CardRepository()
         {
@@ -23,7 +23,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Создать карту.
+        /// Создать карту.
         /// </summary>
         /// <param name="item">элемент.</param>
         public void Create(Card item)
@@ -32,7 +32,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Удалить карту.
+        /// Удалить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         public void Delete(int id)
@@ -72,29 +72,39 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
-        ///  Получить карту.
+        /// Получить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         /// <returns></returns>
-        public Card GetCard(int id)
+        public Card GetCardById(int id)
         {
             return db.Cards.Find(id);
         }
 
         /// <summary>
-        ///  Получить коллекцию карт.
+        /// Получить коллекцию карт.
         /// </summary>
-        /// <returns>Список карт</returns>
+        /// <returns>Список карт.</returns>
         public IEnumerable<Card> GetCardsList()
         {
             return db.Cards;
         }
 
         /// <summary>
-        ///  Сохранить изменения.
+        /// Сохранить изменения.
         /// </summary>
-        public void Save()
+        /// <param name="item">элемент.</param>
+        public void Save(Card item)
         {
+            if (item.Id == 0)
+            {
+                db.Cards.Add(item);
+            }
+            else
+            {
+                db.Entry(item).State = EntityState.Modified;
+            }
+                
             db.SaveChanges();
         }
 

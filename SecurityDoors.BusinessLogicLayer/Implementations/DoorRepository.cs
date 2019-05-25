@@ -77,7 +77,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// </summary>
         /// <param name="id">идентификатор двери.</param>
         /// <returns></returns>
-        public Door GetDoor(int id)
+        public Door GetDoorById(int id)
         {
             return db.Doors.Find(id);
         }

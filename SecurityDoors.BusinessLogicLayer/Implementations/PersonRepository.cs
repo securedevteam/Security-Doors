@@ -58,7 +58,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns></returns>
-        public Person GetPerson(int id)
+        public Person GetPersonById(int id)
         {
             return db.People.Find(id);
 

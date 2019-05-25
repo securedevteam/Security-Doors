@@ -21,7 +21,7 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="id">идентификатор пользователя.</param>
         /// <returns></returns>
-        Person GetPerson(int id);
+        Person GetPersonById(int id);
 
         /// <summary>
         ///  Создать пользователя.

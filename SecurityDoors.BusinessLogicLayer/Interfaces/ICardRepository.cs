@@ -21,7 +21,7 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         /// <returns></returns>
-        Card GetCard(int id);
+        Card GetCardById(int id);
 
         /// <summary>
         ///  Создать карту.
@@ -44,6 +44,6 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// <summary>
         ///  Сохранить изменения.
         /// </summary>
-        void Save();
+        void Save(Card item);
     }
 }
