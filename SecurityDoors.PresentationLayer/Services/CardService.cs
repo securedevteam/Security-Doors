@@ -30,6 +30,7 @@ namespace SecurityDoors.PresentationLayer.Services
             var _dbModel = dataManager.Cards.GetCardById(cardId);
             var _editModel = new CardEditModel()
             {
+				///TODO: Это нормально? 
                 Id = _dbModel.Id = _dbModel.Id,
                 UniqueNumber = _dbModel.UniqueNumber = _dbModel.UniqueNumber,
                 Status = _dbModel.Status = _dbModel.Status
@@ -40,18 +41,14 @@ namespace SecurityDoors.PresentationLayer.Services
 
         public CardViewModel SaveCardEditModelToDatabase(CardEditModel cardEditModel)
         {
-            Card card;
+            Card card = new Card();
 
             if (cardEditModel.Id != 0)
             {
                 card = dataManager.Cards.GetCardById(cardEditModel.Id);
             }
-            else
-            {
-                card = new Card();
-            }
 
-            card.UniqueNumber = card.UniqueNumber;
+            card.UniqueNumber = cardEditModel.UniqueNumber;
             card.Status = cardEditModel.Status;
 
             dataManager.Cards.Save(card);

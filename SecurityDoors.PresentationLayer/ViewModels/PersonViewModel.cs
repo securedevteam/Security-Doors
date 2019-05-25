@@ -11,8 +11,9 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public Person Person { get; set; }
     }
 
-    public class PersonEditModel
+    public class PersonEditModel : Person
     {
+		/*
         public int Id { get; set; }
 
         [Required]
@@ -30,6 +31,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required]
         public string Passport { get; set; }
 
-        public int? CardId { get; set; }
+        public int? CardId { get; set; }*/
+		
     }
 }
