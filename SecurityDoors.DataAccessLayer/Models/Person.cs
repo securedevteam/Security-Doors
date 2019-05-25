@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
+	///TODO: Запретить NULL значения
     /// <summary>
     /// Пользователь.
     /// </summary>
@@ -45,7 +46,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		}
 
 		[ForeignKey("Card")]
-		public int CardId { get; set; }
+		public int? CardId { get; set; }
 		public Card Card { get; set; }
     }
 }
