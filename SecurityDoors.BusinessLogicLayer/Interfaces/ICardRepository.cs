@@ -1,26 +1,25 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
-    ///  Интерфейс карты.
+    /// Интерфейс карты.
     /// </summary>
     public interface ICardRepository : IDisposable
     {
         /// <summary>
         ///  Коллекция карт.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список карт.</returns>
         IEnumerable<Card> GetCardsList();
 
         /// <summary>
         ///  Получить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
-        /// <returns></returns>
+        /// <returns>Карта.</returns>
         Card GetCardById(int id);
 
         /// <summary>

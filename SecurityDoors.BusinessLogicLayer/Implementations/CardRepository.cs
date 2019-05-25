@@ -3,12 +3,11 @@ using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    ///  Репозиторий карты.
+    /// Репозиторий карты.
     /// </summary>
     public class CardRepository : ICardRepository
     {        
@@ -23,12 +22,40 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <summary>
+        /// Получить коллекцию карт.
+        /// </summary>
+        /// <returns>Список карт.</returns>
+        public IEnumerable<Card> GetCardsList()
+        {
+            return db.Cards;
+        }
+
+        /// <summary>
+        /// Получить карту.
+        /// </summary>
+        /// <param name="id">идентификатор карты.</param>
+        /// <returns>Карта.</returns>
+        public Card GetCardById(int id)
+        {
+            return db.Cards.Find(id);
+        }
+
+        /// <summary>
         /// Создать карту.
         /// </summary>
         /// <param name="item">элемент.</param>
         public void Create(Card item)
         {
             db.Cards.Add(item);
+        }
+
+        /// <summary>
+        ///  Обновить карту.
+        /// </summary>
+        /// <param name="item">элемент.</param>
+        public void Update(Card item)
+        {
+            db.Entry(item).State = EntityState.Modified;
         }
 
         /// <summary>
@@ -42,52 +69,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             {
                 db.Cards.Remove(card);
             }
-        }
-
-        private bool disposed = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    db.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Получить карту.
-        /// </summary>
-        /// <param name="id">идентификатор карты.</param>
-        /// <returns></returns>
-        public Card GetCardById(int id)
-        {
-            return db.Cards.Find(id);
-        }
-
-        /// <summary>
-        /// Получить коллекцию карт.
-        /// </summary>
-        /// <returns>Список карт.</returns>
-        public IEnumerable<Card> GetCardsList()
-        {
-            return db.Cards;
         }
 
         /// <summary>
@@ -104,17 +85,30 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             {
                 db.Entry(item).State = EntityState.Modified;
             }
-                
+
             db.SaveChanges();
         }
 
-        /// <summary>
-        ///  Обновить карту.
-        /// </summary>
-        /// <param name="item">элемент.</param>
-        public void Update(Card item)
+
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
         {
-            db.Entry(item).State = EntityState.Modified;
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        } 
     }
 }
