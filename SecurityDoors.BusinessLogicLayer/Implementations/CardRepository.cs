@@ -52,6 +52,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             if (card != null)
             {
                 db.Cards.Remove(card);
+                db.SaveChanges();
             }
         }
 

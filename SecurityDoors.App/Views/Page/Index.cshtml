@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<SecurityDoors.DataAccessLayer.Models.Card>
+@model IEnumerable<SecurityDoors.PresentationLayer.ViewModels.CardViewModel>
 
 @{
     Layout = null;
@@ -25,19 +25,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var models in Model)
                 {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.UniqueNumber</td>
-                        <td>@item.Status</td>
-                        <td>
-                            <a asp-action="Details" asp-controller="Page" asp-route-id="@item.Id">Подробнее</a> |
-                            <a asp-action="Edit" asp-controller="Page" asp-route-id="@item.Id">Изменить</a> |
-                            <a asp-action="Delete" asp-controller="Page" asp-route-id="@item.Id">Удалить</a>
-                        </td>
-                    </tr>
+                    foreach (var item in models.Cards)
+                    {
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.UniqueNumber</td>
+                                <td>@item.Status</td>
+                                <td>
+                                    <a asp-action="Details" asp-controller="Page" asp-route-id="@item.Id">Подробнее</a> |
+                                    <a asp-action="Edit" asp-controller="Page" asp-route-id="@item.Id">Изменить</a> |
+                                    <a asp-action="Delete" asp-controller="Page" asp-route-id="@item.Id">Удалить</a>
+                                </td>
+                            </tr>
+                        }
+                    }
                 }
+
             </tbody>
         </table>
     </div>
