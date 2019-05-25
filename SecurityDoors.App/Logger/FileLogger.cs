@@ -19,7 +19,7 @@ namespace SecurityDoors.App
 
         public bool IsEnabled(LogLevel logLevel)
         {
-            return true;
+            return logLevel == LogLevel.Trace;            
             throw new NotImplementedException();
         }      
 
@@ -28,9 +28,8 @@ namespace SecurityDoors.App
             if(formatter != null)
             {
                 lock (_lock)
-                {
-                    // TODO: Разобраться
-                    //File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                {                   
+                    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
                 }
                 Console.WriteLine();
             }
