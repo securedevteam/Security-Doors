@@ -1,0 +1,45 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<SecurityDoors.DataAccessLayer.Models.Card>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+    <h2>Список карточек пользователей</h2>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Уникальный номер</th>
+                    <th scope="col">Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.UniqueNumber</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Page" asp-route-id="@item.Id">Подробнее</a> |
+                            <a asp-action="Edit" asp-controller="Page" asp-route-id="@item.Id">Изменить</a> |
+                            <a asp-action="Delete" asp-controller="Page" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

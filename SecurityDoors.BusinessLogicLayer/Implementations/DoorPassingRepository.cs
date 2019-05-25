@@ -2,12 +2,12 @@
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    ///  Репозиторий прохода.
+    /// Репозиторий проход.
     /// </summary>
     public class DoorPassingRepository : IDoorPassingRepository
     {
@@ -15,26 +15,40 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         private ApplicationContext db;
 
         /// <summary>
-        ///  Конструктор.
+        /// Конструктор.
         /// </summary>
         public DoorPassingRepository()
         {
             db = new ApplicationContext();
         }
 
-        /// <summary>
-        ///  Создать проход.  
-        /// </summary>
-        /// <param name="item">элемент.</param>
+        /// <inheritdoc/>
+        public IEnumerable<DoorPassing> GetDoorsPassingList()
+        {
+            return db.DoorPassings;
+        }
+
+        /// <inheritdoc/>
+        public DoorPassing GetDoorPassingById(int id)
+        {
+            return db.DoorPassings.Find(id);
+        }
+
+        /// <inheritdoc/>
         public void Create(DoorPassing item)
         {
             db.DoorPassings.Add(item);
         }
 
-        /// <summary>
-        ///  Удалить проход.
-        /// </summary>
-        /// <param name="id">идентификатор прохода.</param>
+        /// <inheritdoc/>
+        public void Update(DoorPassing item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+        }
+
+
+
+        /// <inheritdoc/>
         public void Delete(int id)
         {
             DoorPassing doorPassing = db.DoorPassings.Find(id);
@@ -44,12 +58,25 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             }
         }
 
+        /// <inheritdoc/>
+        public void Save(DoorPassing item)
+        {
+            if (item.Id == 0)
+            {
+                db.DoorPassings.Add(item);
+            }
+            else
+            {
+                db.Entry(item).State = EntityState.Modified;
+            }
+
+            db.SaveChanges();
+        }
+
+
+
         private bool disposed = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -62,49 +89,10 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             this.disposed = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        ///  Получить проход. 
-        /// </summary>
-        /// <param name="id">иденитификатор прохода.</param>
-        /// <returns></returns>
-        public DoorPassing GetDoorPassing(int id)
-        {
-            return db.DoorPassings.Find(id);
-        }
-
-        /// <summary>
-        ///  Получить коллекцию проходов.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<DoorPassing> GetDoorsPassingList()
-        {
-            return db.DoorPassings;
-        }
-
-        /// <summary>
-        ///  Сохранить изменения.
-        /// </summary>
-        public void Save()
-        {
-            db.SaveChanges();
-        }
-
-        /// <summary>
-        ///  Обновить проход.
-        /// </summary>
-        /// <param name="item">элемент.</param>
-        public void Update(DoorPassing item)
-        {
-            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-        }
+        }   
     }
 }

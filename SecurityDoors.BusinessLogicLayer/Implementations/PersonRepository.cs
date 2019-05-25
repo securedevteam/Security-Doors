@@ -1,41 +1,54 @@
-﻿using SecurityDoors.BusinessLogicLayer.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    ///  Репозиторий пользователя.
+    /// Репозиторий пользователь.
     /// </summary>
     public class PersonRepository : IPersonRepository
     {
         private ApplicationContext db;
 
         /// <summary>
-        ///  Конструктор.
+        /// Конструктор.
         /// </summary>
         public PersonRepository()
         {
             db = new ApplicationContext();
         }
 
-        /// <summary>
-        ///  Создать пользователя.
-        /// </summary>
-        /// <param name="item">элемент.</param>
+        /// <inheritdoc/>
+        public IEnumerable<Person> GetPeopleList()
+        {
+            return db.People;
+        }
+
+        /// <inheritdoc/>
+        public Person GetPersonById(int id)
+        {
+            return db.People.Find(id);
+
+        }
+
+        /// <inheritdoc/>
         public void Create(Person item)
         {
             db.People.Add(item);
         }
 
-		/// <summary>
-		///  Удалить пользователя.
-		/// </summary>
-		/// <param name="id">идентификатор.</param>
-		/// TODO: Человек являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на него в DoorPassing, если они есть
-		public void Delete(int id)
+        /// <inheritdoc/>
+        public void Update(Person item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+        }
+
+        /// TODO: Человек являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на него в DoorPassing, если они есть
+        /// <inheritdoc/>
+        public void Delete(int id)
         {
             Person person = db.People.Find(id);
             if (person != null)
@@ -44,41 +57,41 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             }
         }
 
-        /// <summary>
-        ///  Получить коллекцию пользователей.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Person> GetPeopleList()
+        /// <inheritdoc/>
+        public void Save(Person item)
         {
-            return db.People;
-        }
+            if (item.Id == 0)
+            {
+                db.People.Add(item);
+            }
+            else
+            {
+                db.Entry(item).State = EntityState.Modified;
+            }
 
-        /// <summary>
-        ///  Получить пользователя.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns></returns>
-        public Person GetPerson(int id)
-        {
-            return db.People.Find(id);
-
-        }
-
-        /// <summary>
-        ///  Сохранить изменения.
-        /// </summary>
-        public void Save()
-        {
             db.SaveChanges();
         }
 
-        /// <summary>
-        ///  Обновить пользователя.
-        /// </summary>
-        /// <param name="item">элемент.</param>
-        public void Update(Person item)
+
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
         {
-            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

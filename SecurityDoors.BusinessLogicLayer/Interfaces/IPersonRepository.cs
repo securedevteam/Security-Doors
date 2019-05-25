@@ -1,49 +1,49 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
-    ///  Интерфейс пользователя.
+    /// Интерфейс сотрудник.
     /// </summary>
-    public interface IPersonRepository
+    public interface IPersonRepository : IDisposable
     {
         /// <summary>
-        ///  Коллекция пользователей.
+        /// Коллекция сотрудников.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список сотрудников.</returns>
         IEnumerable<Person> GetPeopleList();
 
         /// <summary>
-        ///  Получить пользователя.
+        /// Получить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор пользователя.</param>
-        /// <returns></returns>
-        Person GetPerson(int id);
+        /// <returns>Сотрудник.</returns>
+        Person GetPersonById(int id);
 
         /// <summary>
-        ///  Создать пользователя.
+        /// Создать сотрудника.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Create(Person item);
 
         /// <summary>
-        ///  Обновить пользователя.
+        /// Обновить сотрудника.
         /// </summary>
         /// <param name="item">элемент.</param>
         void Update(Person item);
 
         /// <summary>
-        ///  Удалить пользователя.
+        /// Удалить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор пользователя.</param>
         void Delete(int id);
 
         /// <summary>
-        ///  Сохранить изменения.
+        /// Сохранить изменения.
         /// </summary>
-        void Save();
+        /// <param name="item">элемент.</param>
+        void Save(Person item);
     }
 }

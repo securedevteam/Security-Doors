@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
@@ -9,12 +10,16 @@ namespace SecurityDoors.DataAccessLayer.Models
 	/// </summary>
 	public class Door
     {
-        /// <summary>
-        /// Id дверного контроллера.
-        /// </summary>
-        public int Id { get; set; }
+		/// <summary>
+		/// Id дверного контроллера.
+		/// </summary>
 
+		public int Id { get; set; }
+
+		[Required]
 		public string Name { get; set; }
+
+		[Required]
 		public string Description { get; set; }
 		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 		public Door()

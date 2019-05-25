@@ -2,12 +2,12 @@
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
     /// <summary>
-    ///  Репозиторий двери.
+    /// Репозиторий дверь.
     /// </summary>
     public class DoorRepository : IDoorRepository
     {
@@ -15,28 +15,40 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         private ApplicationContext db;
 
         /// <summary>
-        ///  Конструктор.
+        /// Конструктор.
         /// </summary>
         public DoorRepository()
         {
             db = new ApplicationContext();
         }
 
-        /// <summary>
-        ///  Создать дверь.  
-        /// </summary>
-        /// <param name="item">элемент.</param> 
+        /// <inheritdoc/>
+        public IEnumerable<Door> GetDoorsList()
+        {
+            return db.Doors;
+        }
+
+        /// <inheritdoc/>
+        public Door GetDoorById(int id)
+        {
+            return db.Doors.Find(id);
+        }
+
+        
         public void Create(Door item)
         {
             db.Doors.Add(item);
         }
 
-		/// <summary>
-		///  Удалить дверь.
-		/// </summary>
-		/// <param name="id">идентификатор двери.</param>
-		/// TODO: Дверь являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на дверь в DoorPassing, если они есть
-		public void Delete(int id)
+        
+        public void Update(Door item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+        }
+
+        /// TODO: Дверь являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на дверь в DoorPassing, если они есть
+        /// <inheritdoc/>
+        public void Delete(int id)
         {
             Door door = db.Doors.Find(id);
             if (door != null)
@@ -45,12 +57,25 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             }
         }
 
+        /// <inheritdoc/>
+        public void Save(Door item)
+        {
+            if (item.Id == 0)
+            {
+                db.Doors.Add(item);
+            }
+            else
+            {
+                db.Entry(item).State = EntityState.Modified;
+            }
+
+            db.SaveChanges();
+        }
+
+
+
         private bool disposed = false;
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
@@ -63,49 +88,10 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             this.disposed = true;
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        ///  Получить дверь.
-        /// </summary>
-        /// <param name="id">идентификатор двери.</param>
-        /// <returns></returns>
-        public Door GetDoor(int id)
-        {
-            return db.Doors.Find(id);
-        }
-
-        /// <summary>
-        ///  Получить коллекцию дверей.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Door> GetDoorsList()
-        {
-            return db.Doors;
-        }
-
-        /// <summary>
-        ///  Сохранить изменения.
-        /// </summary>
-        public void Save()
-        {
-            db.SaveChanges();
-        }
-
-        /// <summary>
-        ///  Обновить дверь.
-        /// </summary>
-        /// <param name="item">элемент.</param>
-        public void Update(Door item)
-        {
-            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-        }
+        }   
     }
 }
