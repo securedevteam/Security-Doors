@@ -13,7 +13,23 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
     public class PersonEditModel
     {
+        public int Id { get; set; }
+
         [Required]
-        public int PersonId { get; set; }
+        public string FirstName { get; set; }
+
+        [Required]
+        public string SecondName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public bool Gender { get; set; }
+
+        [Required]
+        public string Passport { get; set; }
+
+        public int? CardId { get; set; }
     }
 }

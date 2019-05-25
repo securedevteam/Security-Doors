@@ -13,7 +13,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
     public class CardEditModel
     {
+        public int Id { get; set; }
+
         [Required]
-        public int CardId { get; set; }
+        public string UniqueNumber { get; set; }
+
+        [Required]
+        public bool Status { get; set; }
     }
 }

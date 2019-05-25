@@ -13,7 +13,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
     public class DoorEditModel
     {
+        public int Id { get; set; }
+
         [Required]
-        public int PersonId { get; set; }
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
     }
 }
