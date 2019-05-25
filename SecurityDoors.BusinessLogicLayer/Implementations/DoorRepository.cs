@@ -31,11 +31,12 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db.Doors.Add(item);
         }
 
-        /// <summary>
-        ///  Удалить дверь.
-        /// </summary>
-        /// <param name="id">идентификатор двери.</param>
-        public void Delete(int id)
+		/// <summary>
+		///  Удалить дверь.
+		/// </summary>
+		/// <param name="id">идентификатор двери.</param>
+		/// TODO: Дверь являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на дверь в DoorPassing, если они есть
+		public void Delete(int id)
         {
             Door door = db.Doors.Find(id);
             if (door != null)

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
-    /// <summary>
-    /// Контроллер дверей.
-    /// </summary>
-    public class Door
+	///TODO: Запретить NULL значения
+	/// <summary>
+	/// Модель двери.
+	/// </summary>
+	public class Door
     {
         /// <summary>
         /// Id дверного контроллера.

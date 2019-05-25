@@ -30,11 +30,12 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db.People.Add(item);
         }
 
-        /// <summary>
-        ///  Удалить пользователя.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        public void Delete(int id)
+		/// <summary>
+		///  Удалить пользователя.
+		/// </summary>
+		/// <param name="id">идентификатор.</param>
+		/// TODO: Человек являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на него в DoorPassing, если они есть
+		public void Delete(int id)
         {
             Person person = db.People.Find(id);
             if (person != null)

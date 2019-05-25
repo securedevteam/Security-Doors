@@ -12,10 +12,11 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// Уникальный номер карты.
-        /// </summary>
-        public string UniqueNumber { get; set; }
+		/// <summary>
+		/// Уникальный номер карты.
+		/// </summary>
+		///TODO: Запретить NULL значения
+		public string UniqueNumber { get; set; }
 
         /// <summary>
         /// Статус карточки (Действительна ли?).

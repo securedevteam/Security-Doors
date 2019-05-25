@@ -84,7 +84,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <summary>
         ///  Получить коллекцию карт.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список карт</returns>
         public IEnumerable<Card> GetCardsList()
         {
             return db.Cards;

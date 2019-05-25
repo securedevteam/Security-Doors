@@ -11,7 +11,10 @@ namespace SecurityDoors.RemoteControl
     class Program
     {
         //private static SiteService _siteService;
-        //private static ApplicationContext db;
+		/// <summary>
+		/// TODO Atention: реализовать, либо не использовать 
+		/// </summary>
+        private static ApplicationContext db = new ApplicationContext();
 
         static void Main(string[] args)
         {
@@ -21,21 +24,23 @@ namespace SecurityDoors.RemoteControl
 
 
                 context.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
-                
-                // TODO: Ошибка в сохранении.
-                
-                //var count = db.SaveChanges();
 
-                //Console.WriteLine("{0} records saved to database", count);
+				
+				/// TODO: Ошибка в сохранении. Fixed
+				/// Если изменения сделаны одним контекстом, то им они и должны сохраняться
 
-                //Console.WriteLine();
-                //Console.WriteLine("All blogs in database:");
+				var count = context.SaveChanges();
 
-                //foreach (var item in db.Cards)
-                //{
-                //    Console.WriteLine(" - {0}", item.UniqueNumber);
-                //}
-            }
+				Console.WriteLine("{0} records saved to database", count);
+
+				Console.WriteLine();
+				Console.WriteLine("All cards in database:");
+
+				foreach (var item in db.Cards)
+				{
+					Console.WriteLine(" - {0}", item.UniqueNumber);
+				}
+			}
 
             // TODO: Постараться сделать.
 
