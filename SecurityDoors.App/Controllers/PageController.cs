@@ -22,10 +22,31 @@ namespace SecurityDoors.App.Controllers
 
         public IActionResult Index()
         {
-            CardViewModel _viewModel;
-            _viewModel = _serviceManager.Cards.CardDatabaseModelToView(1);
-            return View(_viewModel);
+            var viewModels = _serviceManager.Cards.CardsDatabaseModelsToView();
+            return View(viewModels);
+
+            
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            CardEditModel _editModel;
+            _editModel = _serviceManager.Cards.GetCardEditModel(id);
+            return View(_editModel);
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CardEditModel card)
+        {
+            var viewModel = _serviceManager.Cards.SaveCardEditModelToDatabase(card);
+
+
+            return RedirectToAction("Index");
+        }
+
 
         //public IActionResult CardEdit(int cardId)
         //{

@@ -1,4 +1,5 @@
-﻿using SecurityDoors.BusinessLogicLayer;
+﻿using AutoMapper;
+using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
@@ -10,9 +11,18 @@ namespace SecurityDoors.PresentationLayer.Services
     public class CardService
     {
         private DataManager dataManager;
+        private Mapper _mapper;
+
         public CardService(DataManager dataManager)
         {
             this.dataManager = dataManager;
+        }
+
+        public IEnumerable<Card> CardsDatabaseModelsToView()
+        {
+            var models = dataManager.Cards.GetCardsList();
+
+            return models;
         }
 
         public CardViewModel CardDatabaseModelToView(int cardId)
@@ -51,7 +61,7 @@ namespace SecurityDoors.PresentationLayer.Services
                 card = new Card();
             }
 
-            card.UniqueNumber = card.UniqueNumber;
+            card.UniqueNumber = cardEditModel.UniqueNumber;
             card.Status = cardEditModel.Status;
 
             dataManager.Cards.Save(card);

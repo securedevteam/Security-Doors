@@ -9,6 +9,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     public class CardViewModel
     {
         public Card Card { get; set; }
+        public List<Card> Cards { get; set; }
     }
 
     public class CardEditModel
