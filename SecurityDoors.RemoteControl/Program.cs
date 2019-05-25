@@ -24,11 +24,6 @@ namespace SecurityDoors.RemoteControl
 
                 context.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
 
-
-				
-				/// TODO: Ошибка в сохранении. Fixed
-				/// Если изменения сделаны одним контекстом, то им они и должны сохраняться
-
 				var count = context.SaveChanges();
 
 				Console.WriteLine("{0} records saved to database", count);

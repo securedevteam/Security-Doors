@@ -11,8 +11,9 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public Door Door { get; set; }
     }
 
-    public class DoorEditModel
+    public class DoorEditModel:Door
     {
+		/*
         public int Id { get; set; }
 
         [Required]
@@ -20,5 +21,6 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
         [Required]
         public string Description { get; set; }
+		*/
     }
 }
