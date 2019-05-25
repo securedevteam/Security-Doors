@@ -21,47 +21,31 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db = new ApplicationContext();
         }
 
-        /// <summary>
-        /// Получить коллекцию карт.
-        /// </summary>
-        /// <returns>Список карт.</returns>
+        /// <inheritdoc/>
         public IEnumerable<Card> GetCardsList()
         {
             return db.Cards;
         }
 
-        /// <summary>
-        /// Получить карту.
-        /// </summary>
-        /// <param name="id">идентификатор карты.</param>
-        /// <returns>Карта.</returns>
+        /// <inheritdoc/>
         public Card GetCardById(int id)
         {
             return db.Cards.Find(id);
         }
 
-        /// <summary>
-        /// Создать карту.
-        /// </summary>
-        /// <param name="item">элемент.</param>
+        /// <inheritdoc/>
         public void Create(Card item)
         {
             db.Cards.Add(item);
         }
 
-        /// <summary>
-        ///  Обновить карту.
-        /// </summary>
-        /// <param name="item">элемент.</param>
+        /// <inheritdoc/>
         public void Update(Card item)
         {
             db.Entry(item).State = EntityState.Modified;
         }
 
-        /// <summary>
-        /// Удалить карту.
-        /// </summary>
-        /// <param name="id">идентификатор карты.</param>
+        /// <inheritdoc/>
         public void Delete(int id)
         {
             Card card = db.Cards.Find(id);
@@ -71,10 +55,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             }
         }
 
-        /// <summary>
-        /// Сохранить изменения.
-        /// </summary>
-        /// <param name="item">элемент.</param>
+        /// <inheritdoc/>
         public void Save(Card item)
         {
             if (item.Id == 0)

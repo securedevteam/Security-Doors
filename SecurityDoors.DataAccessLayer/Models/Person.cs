@@ -5,12 +5,12 @@ namespace SecurityDoors.DataAccessLayer.Models
 {
 	///TODO: Запретить NULL значения
     /// <summary>
-    /// Пользователь.
+    /// Сотрудник.
     /// </summary>
     public class Person
     {
         /// <summary>
-        /// Id пользователя.
+        /// Id сотрудника.
         /// </summary>
         public int Id { get; set; }
 

@@ -41,8 +41,9 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         void Delete(int id);
 
         /// <summary>
-        ///  Сохранить изменения.
+        /// Сохранить изменения.
         /// </summary>
+        /// <param name="item">элемент.</param>
         void Save(Card item);
     }
 }
