@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
   </ItemGroup>

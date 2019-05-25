@@ -1,69 +1,73 @@
-﻿using AutoMapper;
-using SecurityDoors.BusinessLogicLayer;
+﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
     public class CardService
     {
         private DataManager dataManager;
-        private Mapper _mapper;
 
         public CardService(DataManager dataManager)
         {
             this.dataManager = dataManager;
         }
 
-        public IEnumerable<Card> CardsDatabaseModelsToView()
+        public IEnumerable<CardViewModel> GetCards()
         {
-            var models = dataManager.Cards.GetCardsList();
-
-            return models;
-        }
-
-        public CardViewModel CardDatabaseModelToView(int cardId)
-        {
-            var _model = new CardViewModel()
+            var models = new CardViewModel()
             {
-                Card = dataManager.Cards.GetCardById(cardId),
+                Cards = dataManager.Cards.GetCardsList()
             };
 
-            return _model;
+            yield return models;
         }
 
-        public CardEditModel GetCardEditModel(int cardId)
+        public CardViewModel GetCardById(int id)
         {
-            var _dbModel = dataManager.Cards.GetCardById(cardId);
-            var _editModel = new CardEditModel()
+            var model = new CardViewModel()
+            {
+                Card = dataManager.Cards.GetCardById(id)
+            };
+
+            return model;
+        }
+
+        public CardEditModel EditCardById(int id)
+        {
+            var model = dataManager.Cards.GetCardById(id);
+            var editModel = new CardEditModel()
             {
 				///TODO: Это нормально? 
-                Id = _dbModel.Id = _dbModel.Id,
-                UniqueNumber = _dbModel.UniqueNumber = _dbModel.UniqueNumber,
-                Status = _dbModel.Status = _dbModel.Status
+                Id = model.Id,
+                UniqueNumber = model.UniqueNumber,
+                Status = model.Status
             };
 
-            return _editModel;
+            return editModel;
         }
 
-        public CardViewModel SaveCardEditModelToDatabase(CardEditModel cardEditModel)
+        public void DeleteCardById(int id)
         {
-            Card card = new Card();
+            dataManager.Cards.Delete(id);
+        }
 
-            if (cardEditModel.Id != 0)
+        public CardViewModel SaveCard(CardEditModel model)
+        {
+            var card = new Card();
+
+            if (model.Id != 0)
             {
-                card = dataManager.Cards.GetCardById(cardEditModel.Id);
+                card = dataManager.Cards.GetCardById(model.Id);
             }
 
-            card.UniqueNumber = cardEditModel.UniqueNumber;
-            card.Status = cardEditModel.Status;
+            card.UniqueNumber = model.UniqueNumber;
+            card.Status = model.Status;
 
             dataManager.Cards.Save(card);
 
-            return CardDatabaseModelToView(card.Id);
+            return GetCardById(card.Id);
         }
     }
 }
