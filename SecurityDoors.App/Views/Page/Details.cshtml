@@ -1,0 +1,31 @@
+﻿@model SecurityDoors.PresentationLayer.ViewModels.CardViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <h1>Модель @Model.Card.Id</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Уникальный номер</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Card.UniqueNumber</td>
+                <td>@Model.Card.Status</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

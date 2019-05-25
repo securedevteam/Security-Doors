@@ -22,10 +22,20 @@ namespace SecurityDoors.App.Controllers
 
         public IActionResult Index()
         {
-            var viewModels = _serviceManager.Cards.CardsDatabaseModelsToView();
-            return View(viewModels);
+            var models = _serviceManager.Cards.CardsDatabaseModelsToView();
+            return View(models);
 
             
+        }
+
+
+        public async Task<IActionResult> Details(int id)
+        {
+
+
+            var model = _serviceManager.Cards.CardDatabaseModelToView(id);
+            return View(model);
+
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -35,18 +45,30 @@ namespace SecurityDoors.App.Controllers
             _editModel = _serviceManager.Cards.GetCardEditModel(id);
             return View(_editModel);
 
-
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(CardEditModel card)
         {
-            var viewModel = _serviceManager.Cards.SaveCardEditModelToDatabase(card);
-
-
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _serviceManager.Cards.SaveCardEditModelToDatabase(card);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(card);
+            }
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+
+
+            _serviceManager.Cards.DeleteCardDatabaseModel(id);
+            return RedirectToAction("Index");
+
+        }
 
         //public IActionResult CardEdit(int cardId)
         //{

@@ -5,6 +5,7 @@ using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
@@ -18,21 +19,24 @@ namespace SecurityDoors.PresentationLayer.Services
             this.dataManager = dataManager;
         }
 
-        public IEnumerable<Card> CardsDatabaseModelsToView()
+        public IEnumerable<CardViewModel> CardsDatabaseModelsToView()
         {
-            var models = dataManager.Cards.GetCardsList();
+            var models = new CardViewModel()
+            {
+                Cards = dataManager.Cards.GetCardsList()
+            };
 
-            return models;
+            yield return models;
         }
 
         public CardViewModel CardDatabaseModelToView(int cardId)
         {
-            var _model = new CardViewModel()
+            var model = new CardViewModel()
             {
                 Card = dataManager.Cards.GetCardById(cardId),
             };
 
-            return _model;
+            return model;
         }
 
         public CardEditModel GetCardEditModel(int cardId)
@@ -47,6 +51,11 @@ namespace SecurityDoors.PresentationLayer.Services
             };
 
             return _editModel;
+        }
+
+        public void DeleteCardDatabaseModel(int cardId)
+        {
+            dataManager.Cards.Delete(cardId);
         }
 
         public CardViewModel SaveCardEditModelToDatabase(CardEditModel cardEditModel)

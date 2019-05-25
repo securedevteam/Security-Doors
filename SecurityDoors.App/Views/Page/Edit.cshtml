@@ -13,22 +13,28 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Edit</title>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    <form asp-action="Edit" asp-controller="Page" asp-route-id="@Model.Id">
+    <form method="post" asp-controller="Page" asp-action="Edit" asp-route-id="@Model.Id">
+        <div asp-validation-summary="ModelOnly"></div>
 
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Основные данные: </span>
             </div>
-            <input type="text" asp-for="UniqueNumber" class="form-control" placeholder="Подразделение" />
-            <input type="text" asp-for="Status" class="form-control" placeholder="Номер кабинета" />
+            <input type="text" asp-for="UniqueNumber" class="form-control" />
+            <span asp-validation-for="UniqueNumber"></span>
+            <input type="text" asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status"></span>
         </div>
 
         <br />
 
         <div class="form-group">
-            <input type="submit" value="Подтвердить редактирование" class="btn btn-warning btn-lg btn-block" />
+            <input type="submit" value="Подтвердить редактирование" />
         </div>
     </form>
 </body>
