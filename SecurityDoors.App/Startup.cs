@@ -17,6 +17,8 @@ namespace SecurityDoors.App
 {
     public class Startup
     {
+        public object EventLogEntryType { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -45,6 +47,8 @@ namespace SecurityDoors.App
         {
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
             var logger = loggerFactory.CreateLogger("FileLogger");
+
+           
 
             if (env.IsDevelopment())
             {
