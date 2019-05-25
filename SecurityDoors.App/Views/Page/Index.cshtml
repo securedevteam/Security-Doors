@@ -1,0 +1,12 @@
+﻿@using SecurityDoors.PresentationLayer.ViewModels;
+
+@model CardViewModel
+
+
+@if (Model is CardViewModel)
+{
+    var _currentModel = (CardViewModel)Model;
+    <h1>@_currentModel.Card.Id</h1>
+    <p>@Html.Raw(_currentModel.Card.UniqueNumber)</p>
+    <p>@Html.Raw(_currentModel.Card.Status)</p>
+}

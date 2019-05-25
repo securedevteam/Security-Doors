@@ -45,15 +45,27 @@ namespace SecurityDoors.App
         {
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
             var logger = loggerFactory.CreateLogger("FileLogger");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.Run(async (context) =>
+
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
             {
-                logger.LogInformation("Processing request {0}", context.Request.Path);
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Page}/{action=Index}/{id?}");
             });
+
+            // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
+            //app.Run(async (context) =>
+            //{
+            //    logger.LogInformation("Processing request {0}", context.Request.Path);
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }
