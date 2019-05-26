@@ -1,4 +1,5 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.RemoteControl.Builders;
 using System;
 
 
@@ -9,24 +10,25 @@ namespace SecurityDoors.RemoteControl
     {
         public static bool addPerson()
         {
+            PersonBuilder personBuilder = new PersonBuilder();
             Console.WriteLine("Enter name");
-            string name = Console.ReadLine();
+            personBuilder.setName(Console.ReadLine());
             Console.WriteLine("Enter second name");
-            string secondName = Console.ReadLine();
+            personBuilder.setSecondName(Console.ReadLine());
             Console.WriteLine("Enter last name");
-            string lastName = Console.ReadLine();
+            personBuilder.setLastName(Console.ReadLine());
             Console.WriteLine("Enter gander\n1 - male\n2 - female");
             string input = Console.ReadLine();
             bool gender;
             if (input.Equals("1"))
             {
                 //мужской пол
-                gender = true;
+                personBuilder.setGender(true);
             }
             else if (input.Equals("1"))
             {
                 //женский пол
-                gender = false;
+                personBuilder.setGender(false);
             }
             else
             {
@@ -34,7 +36,7 @@ namespace SecurityDoors.RemoteControl
                 return false;
             }
             Console.WriteLine("Enter passport");
-            string passport = Console.ReadLine();
+            personBuilder.setPassport(Console.ReadLine());
             Console.WriteLine("want to add a card to an person\n1 - yes\n2 - no");
             input = Console.ReadLine();
             Card card = null;
@@ -60,34 +62,30 @@ namespace SecurityDoors.RemoteControl
                 } while (Db.FindCard(id) != null);
                 card = Db.FindCard(id);
             }
-            Person person = new Person();
-            person.FirstName = name;
-            person.LastName = lastName;
-            person.SecondName = secondName;
-            person.Gender = gender;
-            person.Passport = passport;
-            person.Card = card;
-            Db.addPerson(person);
+            if (card != null)
+            {
+                personBuilder.setCard(card);
+            }
+            Db.addPerson(personBuilder.build());
             return true;
         }
 
         internal static bool addDoor()
         {
+            DoorBuilder doorBuilder = new DoorBuilder();
             Console.WriteLine("Enter name");
-            string name = Console.ReadLine();
+            doorBuilder.setName(Console.ReadLine());
             Console.WriteLine("Enter description");
-            string description = Console.ReadLine();
-            Door door = new Door();
-            door.Name = name;
-            door.Description = description;
-            Db.addDoor(door);
+            doorBuilder.setDescription(Console.ReadLine());
+            Db.addDoor(doorBuilder.build());
             return true;
         }
 
         internal static bool addCard()
         {
+            CardBuilder cardBuilder = new CardBuilder();
             Console.WriteLine("Enter GUID");
-            string guid = Console.ReadLine();
+            cardBuilder.setGUID(Console.ReadLine());
             Console.WriteLine("want to add a person to an card\n1 - yes\n2 - no");
             string input = Console.ReadLine();
             Person person = null;
@@ -113,14 +111,12 @@ namespace SecurityDoors.RemoteControl
                 } while (Db.FindPerson(id) != null);
                 person = Db.FindPerson(id);
             }
-            Card card = new Card();
-            card.UniqueNumber = guid;
-            card.Status = true;
+            cardBuilder.setStatus(true);
             if (person != null)
             {
-                card.Person = person;
+                cardBuilder.setPerson(person);
             }
-            Db.addCard(card);
+            Db.addCard(cardBuilder.build());
             return true;
         }
     }

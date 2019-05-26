@@ -35,19 +35,19 @@ namespace SecurityDoors.RemoteControl
         public static void addPerson(Person person)
         {
             db.People.Add(person);
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
 
         public static void addCard(Card card)
         {
             db.Cards.Add(card);
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
 
         public static void addDoor(Door door)
         {
             db.Doors.Add(door);
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
 
         public static Person FindPerson(int id)
