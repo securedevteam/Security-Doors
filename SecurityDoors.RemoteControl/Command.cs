@@ -55,8 +55,8 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (Db.db.Cards.Find(id) != null);
-                card = Db.db.Cards.Find(id);
+                } while (Db.FindCard(id) != null);
+                card = Db.FindCard(id);
             }
             Person person = new Person();
             person.FirstName = name;
@@ -65,7 +65,7 @@ namespace SecurityDoors.RemoteControl
             person.Gender = gender;
             person.Passport = passport;
             person.Card = card;
-            Db.db.People.Add(person);
+            Db.addPerson(person);
             return true;
         }
 
@@ -78,7 +78,7 @@ namespace SecurityDoors.RemoteControl
             Door door = new Door();
             door.Name = name;
             door.Description = description;
-            Db.db.Doors.Add(door);
+            Db.addDoor(door);
             return true;
         }
 
@@ -108,8 +108,8 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (Db.db.People.Find(id) != null);
-                person = Db.db.People.Find(id);
+                } while (Db.FindPerson(id) != null);
+                person = Db.FindPerson(id);
             }
             Card card = new Card();
             card.UniqueNumber = guid;
@@ -118,7 +118,7 @@ namespace SecurityDoors.RemoteControl
             {
                 card.Person = person;
             }
-            Db.db.Cards.Add(card);
+            Db.addCard(card);
             return true;
         }
     }

@@ -1,4 +1,9 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.BusinessLogicLayer.Implementations;
+using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.DataAccessLayer.Models;
 using System;
 
 namespace SecurityDoors.RemoteControl
@@ -10,8 +15,7 @@ namespace SecurityDoors.RemoteControl
         /// TODO Atention: реализовать, либо не использовать 
         /// </summary>
         /// 
-        public static ApplicationContext db { get; } = new ApplicationContext();
-
+        private static ApplicationContext db = new ApplicationContext();
         public static void init()
         {
             using (var context = new ApplicationContext())
@@ -31,44 +35,71 @@ namespace SecurityDoors.RemoteControl
                     Console.WriteLine(" - {0}", item.UniqueNumber);
                 }
             }
+        }
 
+        public static void addPerson(Person person)
+        {
+            db.People.Add(person);
+            db.SaveChanges();
+        }
 
-            // TODO: Постараться сделать.
+        public static void addCard(Card card)
+        {
+            db.Cards.Add(card);
+            db.SaveChanges();
+        }
 
-            //var serviceProvider = new ServiceCollection()
+        public static void addDoor(Door door)
+        {
+            db.Doors.Add(door);
+            db.SaveChanges();
+        }
 
-            ////.AddTransient<ICardRepository, CardRepository>()
-            ////.AddTransient<IDoorRepository, DoorRepository>()
-            ////.AddTransient<IDoorPassingRepository, DoorPassingRepository>()
-            ////.AddTransient<IPersonRepository, PersonRepository>()
-            ////.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"))
-            ////.AddScoped<DataManager>()
-            //.AddDbContext<ApplicationContext>(options =>
-            //    options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"), ServiceLifetime.Transient)
+        public static Person FindPerson(int id)
+        {
+            return db.People.Find(id);
+        }
 
-
-            //.BuildServiceProvider();
-
-            //var db = serviceProvider.GetRequiredService<ApplicationContext>();
-
-            //db.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
-            //db.SaveChanges();
-
-
-            //var services = new ServiceCollection();
-
-            //services.AddTransient<ICardRepository, CardRepository>();
-            //services.AddTransient<IDoorRepository, DoorRepository>();
-            //services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
-            //services.AddTransient<IPersonRepository, PersonRepository>();
-
-            //services.AddScoped<DataManager>();
-
-            //services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"));
-
-            //var serviceProvider = services.BuildServiceProvider();
-            //_siteService = serviceProvider.GetService<SiteService>();
-            //_appDbContext = serviceProvider.GetService<ApplicationDbContext>();
+        public static Card FindCard(int id)
+        {
+            return db.Cards.Find(id);
         }
     }
 }
+
+// TODO: Постараться сделать.
+
+//var serviceProvider = new ServiceCollection()
+
+////.AddTransient<ICardRepository, CardRepository>()
+////.AddTransient<IDoorRepository, DoorRepository>()
+////.AddTransient<IDoorPassingRepository, DoorPassingRepository>()
+////.AddTransient<IPersonRepository, PersonRepository>()
+////.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"))
+////.AddScoped<DataManager>()
+//.AddDbContext<ApplicationContext>(options =>
+//    options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"), ServiceLifetime.Transient)
+
+
+//.BuildServiceProvider();
+
+//var db = serviceProvider.GetRequiredService<ApplicationContext>();
+
+//db.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
+//db.SaveChanges();
+
+
+//var services = new ServiceCollection();
+
+//services.AddTransient<ICardRepository, CardRepository>();
+//services.AddTransient<IDoorRepository, DoorRepository>();
+//services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
+//services.AddTransient<IPersonRepository, PersonRepository>();
+
+//services.AddScoped<DataManager>();
+
+//services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"));
+
+//var serviceProvider = services.BuildServiceProvider();
+//_siteService = serviceProvider.GetService<SiteService>();
+//_appDbContext = serviceProvider.GetService<ApplicationDbContext>();
