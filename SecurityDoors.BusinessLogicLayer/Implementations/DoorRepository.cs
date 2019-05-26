@@ -54,6 +54,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             if (door != null)
             {
                 db.Doors.Remove(door);
+                db.SaveChanges();
             }
         }
 
