@@ -1,63 +1,83 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.BusinessLogicLayer.Implementations;
+using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.DataAccessLayer.Models;
+using System;
 
 namespace SecurityDoors.RemoteControl
 {
     class Program
     {
-      
+        //private static SiteService _siteService;
+		/// <summary>
+		/// TODO Atention: реализовать, либо не использовать 
+		/// </summary>
+        private static ApplicationContext db = new ApplicationContext();
+
         static void Main(string[] args)
         {
-            Db.init();
-            Console.WriteLine("Wellcome to remote Controll system");
-            Console.WriteLine("type quit to exit program");
-            Console.WriteLine("aviable command:\n" +
-                "add-person || a-p\n" +
-                "add-door   || a-d\n" +
-                "add-card   || a-c");
-            while (true)
+
+            using (var context = new ApplicationContext())
             {
-                string input = Console.ReadLine();
-                if (input.Equals("quit"))
-                {
-                    break;
-                }
-                switch (input)
-                {
-                    case "add person":
-                    case "a-p":
-                        if (Command.addPerson())
-                        {
-                            Console.WriteLine("person added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("person added failed");
-                        }
-                        break;
-                    case "add-door":
-                    case "a-d":
-                        if (Command.addDoor())
-                        {
-                            Console.WriteLine("door added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("door added failed");
-                        }
-                        break;
-                    case "add-card":
-                    case "a-c":
-                        if (Command.addCard())
-                        {
-                            Console.WriteLine("card added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("card added failed");
-                        }
-                        break;
-                }
-            }
+
+                context.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
+
+				var count = context.SaveChanges();
+
+				Console.WriteLine("{0} records saved to database", count);
+
+				Console.WriteLine();
+				Console.WriteLine("All cards in database:");
+
+				foreach (var item in db.Cards)
+				{
+					Console.WriteLine(" - {0}", item.UniqueNumber);
+				}
+			}
+
+
+            // TODO: Постараться сделать.
+
+            //var serviceProvider = new ServiceCollection()
+
+            ////.AddTransient<ICardRepository, CardRepository>()
+            ////.AddTransient<IDoorRepository, DoorRepository>()
+            ////.AddTransient<IDoorPassingRepository, DoorPassingRepository>()
+            ////.AddTransient<IPersonRepository, PersonRepository>()
+            ////.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"))
+            ////.AddScoped<DataManager>()
+            //.AddDbContext<ApplicationContext>(options =>
+            //    options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"), ServiceLifetime.Transient)
+
+
+            //.BuildServiceProvider();
+
+            //var db = serviceProvider.GetRequiredService<ApplicationContext>();
+
+            //db.Cards.Add(new Card { UniqueNumber = Guid.NewGuid().ToString(), Status = true });
+            //db.SaveChanges();
+
+
+            //var services = new ServiceCollection();
+
+            //services.AddTransient<ICardRepository, CardRepository>();
+            //services.AddTransient<IDoorRepository, DoorRepository>();
+            //services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
+            //services.AddTransient<IPersonRepository, PersonRepository>();
+
+            //services.AddScoped<DataManager>();
+
+            //services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DoorsApp;Trusted_Connection=True;"));
+
+            //var serviceProvider = services.BuildServiceProvider();
+            //_siteService = serviceProvider.GetService<SiteService>();
+            //_appDbContext = serviceProvider.GetService<ApplicationDbContext>();
+
+
+            Console.WriteLine("Hello World!");
+            Console.ReadLine();
         }
     }
 }
