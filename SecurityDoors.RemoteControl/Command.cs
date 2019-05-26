@@ -15,7 +15,7 @@ namespace SecurityDoors.RemoteControl
             string secondName = Console.ReadLine();
             Console.WriteLine("Enter last name");
             string lastName = Console.ReadLine();
-            Console.WriteLine("Enter gander\n1 - male\n2 - female");
+            Console.WriteLine("Enter gander\n1) - male\n2) - female");
             string input = Console.ReadLine();
             bool gender;
             if (input.Equals("1"))
