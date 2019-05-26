@@ -6,8 +6,9 @@ namespace SecurityDoors.RemoteControl
     {
         static void Main(string[] args)
         {
+            Cli cli = new Cli();
             Db.init();
-            Cli.run();
+            cli.run();
         }
     }
 }

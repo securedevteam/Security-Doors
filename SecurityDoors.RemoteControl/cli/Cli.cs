@@ -5,7 +5,8 @@ namespace SecurityDoors.RemoteControl.cli
 {
     class Cli
     {
-        public static void run()
+        private Command command = new Command();
+        public void run()
         {
             Console.WriteLine("Wellcome to remote Controll system");
             Console.WriteLine("type quit to exit program");
@@ -24,7 +25,7 @@ namespace SecurityDoors.RemoteControl.cli
                 {
                     case "add person":
                     case "a-p":
-                        if (Command.addPerson())
+                        if (command.addPerson())
                         {
                             Console.WriteLine("person added succesfull");
                         }
@@ -35,7 +36,7 @@ namespace SecurityDoors.RemoteControl.cli
                         break;
                     case "add-door":
                     case "a-d":
-                        if (Command.addDoor())
+                        if (command.addDoor())
                         {
                             Console.WriteLine("door added succesfull");
                         }
@@ -46,7 +47,7 @@ namespace SecurityDoors.RemoteControl.cli
                         break;
                     case "add-card":
                     case "a-c":
-                        if (Command.addCard())
+                        if (command.addCard())
                         {
                             Console.WriteLine("card added succesfull");
                         }

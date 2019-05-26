@@ -32,30 +32,30 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        public static void addPerson(Person person)
+        public void addPerson(Person person)
         {
             db.People.Add(person);
             db.SaveChangesAsync();
         }
 
-        public static void addCard(Card card)
+        public void addCard(Card card)
         {
             db.Cards.Add(card);
             db.SaveChangesAsync();
         }
 
-        public static void addDoor(Door door)
+        public void addDoor(Door door)
         {
             db.Doors.Add(door);
             db.SaveChangesAsync();
         }
 
-        public static Person FindPerson(int id)
+        public Person FindPerson(int id)
         {
             return db.People.Find(id);
         }
 
-        public static Card FindCard(int id)
+        public Card FindCard(int id)
         {
             return db.Cards.Find(id);
         }

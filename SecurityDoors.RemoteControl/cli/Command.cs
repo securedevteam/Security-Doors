@@ -8,7 +8,8 @@ namespace SecurityDoors.RemoteControl
 
     class Command
     {
-        public static bool addPerson()
+        private Db db = new Db();
+        public bool addPerson()
         {
             PersonBuilder personBuilder = new PersonBuilder();
             Console.WriteLine("Enter name");
@@ -19,7 +20,6 @@ namespace SecurityDoors.RemoteControl
             personBuilder.setLastName(Console.ReadLine());
             Console.WriteLine("Enter gander\n1 - male\n2 - female");
             string input = Console.ReadLine();
-            bool gender;
             if (input.Equals("1"))
             {
                 //мужской пол
@@ -59,29 +59,29 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (Db.FindCard(id) != null);
-                card = Db.FindCard(id);
+                } while (db.FindCard(id) != null);
+                card = db.FindCard(id);
             }
             if (card != null)
             {
                 personBuilder.setCard(card);
             }
-            Db.addPerson(personBuilder.build());
+            db.addPerson(personBuilder.build());
             return true;
         }
 
-        internal static bool addDoor()
+        internal bool addDoor()
         {
             DoorBuilder doorBuilder = new DoorBuilder();
             Console.WriteLine("Enter name");
             doorBuilder.setName(Console.ReadLine());
             Console.WriteLine("Enter description");
             doorBuilder.setDescription(Console.ReadLine());
-            Db.addDoor(doorBuilder.build());
+            db.addDoor(doorBuilder.build());
             return true;
         }
 
-        internal static bool addCard()
+        internal bool addCard()
         {
             CardBuilder cardBuilder = new CardBuilder();
             Console.WriteLine("Enter GUID");
@@ -108,15 +108,15 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (Db.FindPerson(id) != null);
-                person = Db.FindPerson(id);
+                } while (db.FindPerson(id) != null);
+                person = db.FindPerson(id);
             }
             cardBuilder.setStatus(true);
             if (person != null)
             {
                 cardBuilder.setPerson(person);
             }
-            Db.addCard(cardBuilder.build());
+            db.addCard(cardBuilder.build());
             return true;
         }
     }
