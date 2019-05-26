@@ -55,6 +55,9 @@ namespace SecurityDoors.RemoteControl.cli
                             Console.WriteLine("card added failed");
                         }
                         break;
+                    default:
+                        Console.WriteLine("command unrecognized");
+                        break;
                 }
             }
         }
