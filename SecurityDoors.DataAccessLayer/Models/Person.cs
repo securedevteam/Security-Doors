@@ -55,5 +55,10 @@ namespace SecurityDoors.DataAccessLayer.Models
 		[ForeignKey("Card")]
 		public int? CardId { get; set; }
 		public Card Card { get; set; }
-	}
+
+        public static implicit operator Person(bool v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
