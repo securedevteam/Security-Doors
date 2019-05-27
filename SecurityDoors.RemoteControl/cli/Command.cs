@@ -8,7 +8,7 @@ namespace SecurityDoors.RemoteControl
 
     class Command
     {
-        private Db db = new Db();
+        private Database db = new Database();
         public bool addPerson()
         {
             PersonBuilder personBuilder = new PersonBuilder();
@@ -59,8 +59,8 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (db.FindCard(id) != null);
-                card = db.FindCard(id);
+                } while (db.getCardById(id) != null);
+                card = db.getCardById(id);
             }
             if (card != null)
             {
@@ -70,7 +70,171 @@ namespace SecurityDoors.RemoteControl
             return true;
         }
 
-        internal bool addDoor()
+        internal void clearScreen()
+        {
+            Console.Clear();
+        }
+
+        internal void printHelp()
+        {
+            Console.WriteLine("aviable command:\n" +
+                           "help            || h  \n" +
+                           "clear           || c  \n" +
+                           "add-person      || a-p\n" +
+                           "add-door        || a-d\n" +
+                           "add-card        || a-c\n" +
+                           "count-record    || c-r\n" +
+                           "list-person     || l-p\n" +
+                           "list-card       || l-c\n" +
+                           "list-door       || l-d\n" +
+                           "list-doorPassing|| l-dp\n" +
+                           "show-person     || s-p\n" +
+                           "show-card       || s-c\n" +
+                           "show-door       || s-d");
+        }
+
+        internal void printDoor()
+        {
+            int id = -1;
+            Console.WriteLine("enter door id");
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                //TODO error message
+            }
+            Door door = db.getDoorById(id);
+            if (door != null)
+            {
+                Console.WriteLine("id\t{0}", door.Id);
+                Console.WriteLine("description\t{0}", door.Description);
+            }
+            else
+            {
+                Console.WriteLine("card with given id does not exitst");
+            }
+        }
+
+        internal void printCard()
+        {
+            int id = -1;
+            Console.WriteLine("enter card id");
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            } catch (FormatException)
+            {
+                //TODO error message
+            }
+            Card card = db.getCardById(id);
+            if  (card != null)
+            {
+                Console.WriteLine("id:\t{0}", card.Id);
+                Console.WriteLine("person:\t{0}", card.Person);
+                Console.WriteLine("status:\t{0}", card.Status);
+                Console.WriteLine("GUID:\t{0}", card.UniqueNumber);
+            } else
+            {
+                Console.WriteLine("card with given id does not exitst");
+            }
+        }
+
+        internal void printPerson()
+        {
+            int id = -1;
+            Console.WriteLine("enter person id");
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                //TODO error message
+            }
+            Person person = db.getPersonById(id);
+            if (person != null)
+            {
+                Console.WriteLine("id:\t{0}", person.Id);
+                Console.WriteLine("name:\t{0}", person.FirstName);
+                Console.WriteLine("second name:\t{0}", person.SecondName);
+                Console.WriteLine("last name:\t{0}", person.LastName);
+                if (person.Gender)
+                {
+                    Console.WriteLine("gender\tmale");
+                } else
+                {
+                    Console.WriteLine("gender:\tfemale");
+                }
+                Console.WriteLine("passport:\t{0}", person.Passport);
+            } else
+            {
+                Console.WriteLine("person with given id does not exitst");
+            }
+        }
+
+        internal void printListOfDoorPassing()
+        {
+            Console.Write("id");
+            Console.Write("\t");
+            Console.WriteLine("time");
+            foreach (DoorPassing doorPassing in db.getDoorPassings())
+            {
+                Console.Write(doorPassing.Id);
+                Console.Write("\t");
+                Console.WriteLine(doorPassing.PassingTime);
+            }
+        }
+
+        internal void printCountOfRecord()
+        {
+            Console.WriteLine("DoorPassing:\t{0}", db.getCountOfDoorPassing());
+            Console.WriteLine("person:\t{0}", db.getCountOfPerson());
+            Console.WriteLine("card:\t{0}", db.getCountOfCard());
+            Console.WriteLine("Door:\t{0}", db.getCountOfDoor());
+        }
+
+        internal void printListOfCard()
+        {
+            Console.Write("id");
+            Console.Write("\t");
+            Console.WriteLine("GUID");
+            foreach (Card card in db.getCards())
+            {
+                Console.Write(card.Id);
+                Console.Write("\t");
+                Console.WriteLine(card.UniqueNumber);
+            }
+        }
+
+        internal void printListOfPerson()
+        {
+            Console.Write("id");
+            Console.Write("\t");
+            Console.WriteLine("name\tsecond name\tlast name");
+            foreach (Person person in db.getPersons())
+            {
+                Console.Write(person.Id);
+                Console.Write("\t");
+                Console.WriteLine("{0}\t{1}\t{2}", person.FirstName, person.SecondName, person.LastName);
+            }
+        }
+
+        internal void printListOfDoor()
+        {
+            Console.Write("id");
+            Console.Write("\t");
+            Console.WriteLine("description");
+            foreach (Door door in db.getDoors())
+            {
+                Console.Write(door.Id);
+                Console.Write("\t");
+                Console.WriteLine(door.Description);
+            }
+        }
+
+        public bool addDoor()
         {
             DoorBuilder doorBuilder = new DoorBuilder();
             Console.WriteLine("Enter name");
@@ -81,7 +245,7 @@ namespace SecurityDoors.RemoteControl
             return true;
         }
 
-        internal bool addCard()
+        public bool addCard()
         {
             CardBuilder cardBuilder = new CardBuilder();
             Console.WriteLine("Enter GUID");
@@ -108,8 +272,8 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (db.FindPerson(id) != null);
-                person = db.FindPerson(id);
+                } while (db.getPersonById(id) != null);
+                person = db.getPersonById(id);
             }
             cardBuilder.setStatus(true);
             if (person != null)
