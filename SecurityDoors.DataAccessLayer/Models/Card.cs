@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SecurityDoors.DataAccessLayer.Models
+﻿namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
-    /// Карточка пользователя.
+    /// Карточка сотрудника.
     /// </summary>
     public class Card
     {
@@ -19,7 +17,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public string UniqueNumber { get; set; }
 
         /// <summary>
-        /// Статус карточки (Действительна ли?).
+        /// Статус карточки.
         /// </summary>
         public bool Status { get; set; }
 		public Person Person { get; set; }

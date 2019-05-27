@@ -1,25 +1,47 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
+    /// <summary>
+    /// Модель для просмотра.
+    /// </summary>
     public class CardViewModel
     {
-        public Card Card { get; set; }
-        public IEnumerable<Card> Cards { get; set; }
-    }
-
-    public class CardEditModel
-    {
+        /// <summary>
+        /// Id карты.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Уникальный номер карты.
+        /// </summary>
         [Required(ErrorMessage = "Уникальный номер не указан")]
         [Display(Name = "Уникальный номер")]
         public string UniqueNumber { get; set; }
 
-        [Required (ErrorMessage = "Не верный статус")]
+        /// <summary>
+        /// Статус карточки.
+        /// </summary>
+        [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// Модель для изменения.
+    /// </summary>
+    public class CardEditModel
+    {
+        /// <summary>
+        /// Id карты.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Статус карточки.
+        /// </summary>
+        [Required (ErrorMessage = "Неверный статус")]
+        [Display(Name = "Статус")]
+        public string Status { get; set; }
     }
 }

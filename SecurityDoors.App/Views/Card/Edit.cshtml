@@ -19,22 +19,22 @@
     <form method="post" asp-controller="Card" asp-action="Edit" asp-route-id="@Model.Id">
         <div asp-validation-summary="ModelOnly"></div>
 
-        <div class="input-group">
+        <div>
             <div>
-                <span class="input-group-text">Основные данные карточки @Model.Id: </span>
+                <h2>Данные для изменения карточки №@Model.Id</h2>
             </div>
+
             <div>
-                <input type="text" asp-for="UniqueNumber" class="form-control" />
-                <span asp-validation-for="UniqueNumber"></span>
-            </div>
-            <div>
-                <input type="text" asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status"></span>
+                <label asp-for="Status">Статус карточки: </label>
+                <select asp-for="Status">
+                    <option>Активна</option>
+                    <option>Закрыта</option>
+                </select>
             </div>
 
             <br />
 
-            <div class="form-group">
+            <div>
                 <input type="submit" value="Подтвердить редактирование" />
             </div>
         </div>
