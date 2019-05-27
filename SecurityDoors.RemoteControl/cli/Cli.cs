@@ -14,7 +14,7 @@ namespace SecurityDoors.RemoteControl.cli
             while (true)
             {
                 string input = Console.ReadLine();
-                if (input.Equals("quit"))
+                if (input.Equals("quit") || input.Equals("exit"))
                 {
                     break;
                 }

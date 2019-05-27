@@ -9,6 +9,8 @@ namespace SecurityDoors.RemoteControl
     class Command
     {
         private Database db = new Database();
+
+        //------------------методы для добавления обьектов в БД---------------------------------------
         public bool addPerson()
         {
             PersonBuilder personBuilder = new PersonBuilder();
@@ -70,6 +72,58 @@ namespace SecurityDoors.RemoteControl
             return true;
         }
 
+        public bool addDoor()
+        {
+            DoorBuilder doorBuilder = new DoorBuilder();
+            Console.WriteLine("Enter name");
+            doorBuilder.setName(Console.ReadLine());
+            Console.WriteLine("Enter description");
+            doorBuilder.setDescription(Console.ReadLine());
+            db.addDoor(doorBuilder.build());
+            return true;
+        }
+
+        public bool addCard()
+        {
+            CardBuilder cardBuilder = new CardBuilder();
+            Console.WriteLine("Enter GUID");
+            cardBuilder.setGUID(Console.ReadLine());
+            Console.WriteLine("want to add a person to an card\n1 - yes\n2 - no");
+            string input = Console.ReadLine();
+            Person person = null;
+            if (input.Equals("1"))
+            {
+                Console.WriteLine("enter id of person which you want to add\nenter q to exit");
+                int id = -1;
+                do
+                {
+                    try
+                    {
+                        input = Console.ReadLine();
+                        if (input.Equals("q"))
+                        {
+                            break;
+                        }
+                        id = int.Parse(input);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("input don't number");
+                    }
+                } while (db.getPersonById(id) != null);
+                person = db.getPersonById(id);
+            }
+            cardBuilder.setStatus(true);
+            if (person != null)
+            {
+                cardBuilder.setPerson(person);
+            }
+            db.addCard(cardBuilder.build());
+            return true;
+        }
+
+        //------------------служебные методы для помощи пользователю программы---------------------------------------
+
         internal void clearScreen()
         {
             Console.Clear();
@@ -92,6 +146,16 @@ namespace SecurityDoors.RemoteControl
                            "show-card       || s-c\n" +
                            "show-door       || s-d");
         }
+
+        internal void printCountOfRecord()
+        {
+            Console.WriteLine("DoorPassing:\t{0}", db.getCountOfDoorPassing());
+            Console.WriteLine("person:\t{0}", db.getCountOfPerson());
+            Console.WriteLine("card:\t{0}", db.getCountOfCard());
+            Console.WriteLine("Door:\t{0}", db.getCountOfDoor());
+        }
+
+        //------------------методы для печати обьектов из БД---------------------------------------
 
         internal void printDoor()
         {
@@ -174,6 +238,8 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        //------------------методы для печати списка обьектов из БД---------------------------------------
+
         internal void printListOfDoorPassing()
         {
             Console.Write("id");
@@ -185,14 +251,6 @@ namespace SecurityDoors.RemoteControl
                 Console.Write("\t");
                 Console.WriteLine(doorPassing.PassingTime);
             }
-        }
-
-        internal void printCountOfRecord()
-        {
-            Console.WriteLine("DoorPassing:\t{0}", db.getCountOfDoorPassing());
-            Console.WriteLine("person:\t{0}", db.getCountOfPerson());
-            Console.WriteLine("card:\t{0}", db.getCountOfCard());
-            Console.WriteLine("Door:\t{0}", db.getCountOfDoor());
         }
 
         internal void printListOfCard()
@@ -232,56 +290,6 @@ namespace SecurityDoors.RemoteControl
                 Console.Write("\t");
                 Console.WriteLine(door.Description);
             }
-        }
-
-        public bool addDoor()
-        {
-            DoorBuilder doorBuilder = new DoorBuilder();
-            Console.WriteLine("Enter name");
-            doorBuilder.setName(Console.ReadLine());
-            Console.WriteLine("Enter description");
-            doorBuilder.setDescription(Console.ReadLine());
-            db.addDoor(doorBuilder.build());
-            return true;
-        }
-
-        public bool addCard()
-        {
-            CardBuilder cardBuilder = new CardBuilder();
-            Console.WriteLine("Enter GUID");
-            cardBuilder.setGUID(Console.ReadLine());
-            Console.WriteLine("want to add a person to an card\n1 - yes\n2 - no");
-            string input = Console.ReadLine();
-            Person person = null;
-            if (input.Equals("1"))
-            {
-                Console.WriteLine("enter id of person which you want to add\nenter q to exit");
-                int id = -1;
-                do
-                {
-                    try
-                    {
-                        input = Console.ReadLine();
-                        if (input.Equals("q"))
-                        {
-                            break;
-                        }
-                        id = int.Parse(input);
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("input don't number");
-                    }
-                } while (db.getPersonById(id) != null);
-                person = db.getPersonById(id);
-            }
-            cardBuilder.setStatus(true);
-            if (person != null)
-            {
-                cardBuilder.setPerson(person);
-            }
-            db.addCard(cardBuilder.build());
-            return true;
         }
     }
 }
