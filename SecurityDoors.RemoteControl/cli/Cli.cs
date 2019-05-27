@@ -13,13 +13,11 @@ namespace SecurityDoors.RemoteControl.cli
             command.printHelp();
             while (true)
             {
-                string input = Console.ReadLine();
-                if (input.Equals("quit") || input.Equals("exit"))
+                switch (Console.ReadLine())
                 {
-                    break;
-                }
-                switch (input)
-                {
+                    case "quit":
+                    case "q":
+                        return;
                     case "help":
                     case "h":
                         command.printHelp();
@@ -30,36 +28,15 @@ namespace SecurityDoors.RemoteControl.cli
                         break;
                     case "add person":
                     case "a-p":
-                        if (command.addPerson())
-                        {
-                            Console.WriteLine("person added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("person added failed");
-                        }
+                        command.addPerson();
                         break;
                     case "add-door":
                     case "a-d":
-                        if (command.addDoor())
-                        {
-                            Console.WriteLine("door added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("door added failed");
-                        }
+                        command.addDoor();
                         break;
                     case "add-card":
                     case "a-c":
-                        if (command.addCard())
-                        {
-                            Console.WriteLine("card added succesfull");
-                        }
-                        else
-                        {
-                            Console.WriteLine("card added failed");
-                        }
+                        command.addCard();
                         break;
                     case "count-record":
                     case "c-r":

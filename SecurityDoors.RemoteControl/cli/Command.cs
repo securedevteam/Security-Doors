@@ -10,8 +10,8 @@ namespace SecurityDoors.RemoteControl
     {
         private Database db = new Database();
 
-        //------------------методы для добавления обьектов в БД---------------------------------------
-        public bool addPerson()
+        #region методы для добавления обьектов в БД
+        public void addPerson()
         {
             PersonBuilder personBuilder = new PersonBuilder();
             Console.WriteLine("Enter name");
@@ -35,7 +35,6 @@ namespace SecurityDoors.RemoteControl
             else
             {
                 Console.WriteLine("error");
-                return false;
             }
             Console.WriteLine("Enter passport");
             personBuilder.setPassport(Console.ReadLine());
@@ -69,10 +68,10 @@ namespace SecurityDoors.RemoteControl
                 personBuilder.setCard(card);
             }
             db.addPerson(personBuilder.build());
-            return true;
+            Console.WriteLine("person added succesfull");
         }
 
-        public bool addDoor()
+        public void addDoor()
         {
             DoorBuilder doorBuilder = new DoorBuilder();
             Console.WriteLine("Enter name");
@@ -80,10 +79,10 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("Enter description");
             doorBuilder.setDescription(Console.ReadLine());
             db.addDoor(doorBuilder.build());
-            return true;
+            Console.WriteLine("door added succesfull");
         }
 
-        public bool addCard()
+        public void addCard()
         {
             CardBuilder cardBuilder = new CardBuilder();
             Console.WriteLine("Enter GUID");
@@ -119,11 +118,11 @@ namespace SecurityDoors.RemoteControl
                 cardBuilder.setPerson(person);
             }
             db.addCard(cardBuilder.build());
-            return true;
+            Console.WriteLine("card added succesfull");
         }
+        #endregion
 
-        //------------------служебные методы для помощи пользователю программы---------------------------------------
-
+        #region служебные методы для помощи пользователю программы
         internal void clearScreen()
         {
             Console.Clear();
@@ -131,7 +130,8 @@ namespace SecurityDoors.RemoteControl
 
         internal void printHelp()
         {
-            Console.WriteLine("aviable command:\n" +
+            Console.WriteLine("aviable command:   \n" +
+                           "quit            || q  \n" +
                            "help            || h  \n" +
                            "clear           || c  \n" +
                            "add-person      || a-p\n" +
@@ -150,13 +150,13 @@ namespace SecurityDoors.RemoteControl
         internal void printCountOfRecord()
         {
             Console.WriteLine("DoorPassing:\t{0}", db.getCountOfDoorPassing());
-            Console.WriteLine("person:\t{0}", db.getCountOfPerson());
-            Console.WriteLine("card:\t{0}", db.getCountOfCard());
-            Console.WriteLine("Door:\t{0}", db.getCountOfDoor());
+            Console.WriteLine("person:     \t{0}", db.getCountOfPerson());
+            Console.WriteLine("card:       \t{0}", db.getCountOfCard());
+            Console.WriteLine("Door:       \t{0}", db.getCountOfDoor());
         }
+        #endregion
 
-        //------------------методы для печати обьектов из БД---------------------------------------
-
+        #region методы для печати обьектов из БД
         internal void printDoor()
         {
             int id = -1;
@@ -193,7 +193,7 @@ namespace SecurityDoors.RemoteControl
                 //TODO error message
             }
             Card card = db.getCardById(id);
-            if  (card != null)
+            if (card != null)
             {
                 Console.WriteLine("id:\t{0}", card.Id);
                 Console.WriteLine("person:\t{0}", card.Person);
@@ -237,9 +237,9 @@ namespace SecurityDoors.RemoteControl
                 Console.WriteLine("person with given id does not exitst");
             }
         }
+        #endregion
 
-        //------------------методы для печати списка обьектов из БД---------------------------------------
-
+        #region методы для печати списка обьектов из БД
         internal void printListOfDoorPassing()
         {
             Console.Write("id");
@@ -291,5 +291,6 @@ namespace SecurityDoors.RemoteControl
                 Console.WriteLine(door.Description);
             }
         }
+        #endregion
     }
 }
