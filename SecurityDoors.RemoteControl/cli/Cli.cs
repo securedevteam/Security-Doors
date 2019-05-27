@@ -11,6 +11,7 @@ namespace SecurityDoors.RemoteControl.cli
             Console.WriteLine("Wellcome to remote Controll system");
             Console.WriteLine("type quit to exit program");
             command.printHelp();
+            #region основной цикл разбора ввода на команды
             while (true)
             {
                 switch (Console.ReadLine())
@@ -74,6 +75,7 @@ namespace SecurityDoors.RemoteControl.cli
                         Console.WriteLine("command unrecognized");
                         break;
                 }
+                #endregion
             }
         }
     }

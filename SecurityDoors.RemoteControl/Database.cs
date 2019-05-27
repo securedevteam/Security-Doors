@@ -29,7 +29,7 @@ namespace SecurityDoors.RemoteControl
                 command.printCountOfRecord();
             }
         }
-
+        #region методы для добавление обьектов в БД
         public void addPerson(Person person)
         {
             db.People.Add(person);
@@ -47,7 +47,9 @@ namespace SecurityDoors.RemoteControl
             db.Doors.Add(door);
             db.SaveChangesAsync();
         }
+        #endregion
 
+        #region методы для вывода количества обьектов в таблицах БД
         public int getCountOfPerson()
         {
             return db.People.Count();
@@ -67,7 +69,9 @@ namespace SecurityDoors.RemoteControl
         {
             return db.Cards.Count();
         }
+        #endregion
 
+        #region методы получения множества обьектов
         public DbSet<Person> getPersons()
         {
             return db.People;
@@ -87,7 +91,9 @@ namespace SecurityDoors.RemoteControl
         {
             return db.DoorPassings;
         }
+        #endregion
 
+        #region методы получения обьекта по id
         public Person getPersonById(int id)
         {
             return db.People.Find(id);
@@ -102,5 +108,6 @@ namespace SecurityDoors.RemoteControl
         {
             return db.Doors.Find(id);
         }
+        #endregion
     }
 }
