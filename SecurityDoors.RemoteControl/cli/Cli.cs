@@ -5,26 +5,32 @@ namespace SecurityDoors.RemoteControl.cli
 {
     class Cli
     {
-        public static void run()
+        private Command command = new Command();
+        public void run()
         {
             Console.WriteLine("Wellcome to remote Controll system");
             Console.WriteLine("type quit to exit program");
-            Console.WriteLine("aviable command:\n" +
-                "add-person || a-p\n" +
-                "add-door   || a-d\n" +
-                "add-card   || a-c");
+            command.printHelp();
             while (true)
             {
                 string input = Console.ReadLine();
-                if (input.Equals("quit"))
+                if (input.Equals("quit") || input.Equals("exit"))
                 {
                     break;
                 }
                 switch (input)
                 {
+                    case "help":
+                    case "h":
+                        command.printHelp();
+                        break;
+                    case "clear":
+                    case "c":
+                        command.clearScreen();
+                        break;
                     case "add person":
                     case "a-p":
-                        if (Command.addPerson())
+                        if (command.addPerson())
                         {
                             Console.WriteLine("person added succesfull");
                         }
@@ -35,7 +41,7 @@ namespace SecurityDoors.RemoteControl.cli
                         break;
                     case "add-door":
                     case "a-d":
-                        if (Command.addDoor())
+                        if (command.addDoor())
                         {
                             Console.WriteLine("door added succesfull");
                         }
@@ -46,7 +52,7 @@ namespace SecurityDoors.RemoteControl.cli
                         break;
                     case "add-card":
                     case "a-c":
-                        if (Command.addCard())
+                        if (command.addCard())
                         {
                             Console.WriteLine("card added succesfull");
                         }
@@ -54,6 +60,38 @@ namespace SecurityDoors.RemoteControl.cli
                         {
                             Console.WriteLine("card added failed");
                         }
+                        break;
+                    case "count-record":
+                    case "c-r":
+                        command.printCountOfRecord();
+                        break;
+                    case "list-person":
+                    case "l-p":
+                        command.printListOfPerson();
+                        break;
+                    case "list-card":
+                    case "l-c":
+                        command.printListOfCard();
+                        break;
+                    case "list-door":
+                    case "l-d":
+                        command.printListOfDoor();
+                        break;
+                    case "list-doorPassing":
+                    case "l-dp":
+                        command.printListOfDoorPassing();
+                        break;
+                    case "show-person":
+                    case "s-p":
+                        command.printPerson();
+                        break;
+                    case "show-card":
+                    case "s-c":
+                        command.printCard();
+                        break;
+                    case "show-door":
+                    case "s-d":
+                        command.printDoor();
                         break;
                     default:
                         Console.WriteLine("command unrecognized");
