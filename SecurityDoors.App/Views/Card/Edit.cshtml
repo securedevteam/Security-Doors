@@ -1,4 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using SecurityDoors.DataAccessLayer.Constants;
 @model SecurityDoors.PresentationLayer.ViewModels.CardEditModel
 
 @{
@@ -25,10 +26,12 @@
             </div>
 
             <div>
-                <label asp-for="Status">Статус карточки: </label>
+                <label asp-for="Status">Статус: </label>
                 <select asp-for="Status">
-                    <option>Активна</option>
-                    <option>Закрыта</option>
+                    <option>@Constants.IsActive</option>
+                    <option>@Constants.IsClosed</option>
+                    <option>@Constants.IsLost</option>
+                    <option>@Constants.IsSuspended</option>
                 </select>
             </div>
 

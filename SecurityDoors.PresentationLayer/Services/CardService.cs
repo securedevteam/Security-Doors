@@ -1,5 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.DataAccessLayer.Constants;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Enums;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,10 +32,10 @@ namespace SecurityDoors.PresentationLayer.Services
 			
             switch (model.Status)
 			{
-				case 3: { status = "Приостановлена"; } break;
-				case 2: { status = "Утеряна"; } break;
-				case 1: { status = "Активна"; } break;
-                case 0: { status = "Закрыта"; } break;
+                case (int) CardStatus.IsClosed: { status = Constants.IsClosed; } break;
+                case (int)CardStatus.IsActive: { status = Constants.IsActive; } break;
+                case (int)CardStatus.IsLost: { status = Constants.IsLost; } break;
+                case (int)CardStatus.IsSuspended: { status = Constants.IsSuspended; } break;
             }
 			
             return status;
@@ -41,15 +43,15 @@ namespace SecurityDoors.PresentationLayer.Services
 
         private int ChangeStatus(CardViewModel model)
         {
-			var status = new Int32();
+			var status = 0;
 
 			switch (model.Status)
 			{
-				case "Закрыта": { status = 0; } break;
-				case "Активна": { status = 1; } break;
-				case "Утеряна": { status = 2; } break;
-				case "Приостановлена": { status = 3; } break;
-			}
+                case Constants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
+                case Constants.IsActive: { status = (int)CardStatus.IsActive; } break;
+                case Constants.IsLost: { status = (int)CardStatus.IsLost; } break;
+                case Constants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
+            }
 
 			return status;
         }
@@ -60,10 +62,10 @@ namespace SecurityDoors.PresentationLayer.Services
 
             switch (model.Status)
             {
-				case "Закрыта": { status = 0; } break;
-                case "Активна": { status = 1; } break;
-				case "Утеряна": { status = 2; } break;
-				case "Приостановлена": { status = 3; } break;
+				case Constants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
+                case Constants.IsActive: { status = (int)CardStatus.IsActive; } break;
+				case Constants.IsLost: { status = (int)CardStatus.IsLost; } break;
+				case Constants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
 			}
 
             return status;

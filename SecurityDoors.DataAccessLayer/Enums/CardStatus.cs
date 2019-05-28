@@ -1,34 +1,28 @@
 ﻿namespace SecurityDoors.PresentationLayer.Enums
 {
     /// <summary>
-    /// Статусы карточки.
+    /// Перечисление.
     /// </summary>
-    public class CardStatus
+    public enum CardStatus
     {
         /// <summary>
-        /// Перечисление.
+        /// Закрыта.
         /// </summary>
-        enum Card
-        {
-            /// <summary>
-            /// Закрыта.
-            /// </summary>
-            IsClosed = 0,
+        IsClosed = 0,
 
-            /// <summary>
-            /// Активна.
-            /// </summary>
-            Active = 1,
+        /// <summary>
+        /// Активна.
+        /// </summary>
+        IsActive = 1,
 
-            /// <summary>
-            /// Утеряна.
-            /// </summary>
-            Lost = 2,
+        /// <summary>
+        /// Утеряна.
+        /// </summary>
+        IsLost = 2,
 
-            /// <summary>
-            /// Приостановлена.
-            /// </summary>
-            Suspended = 3
-        }
+        /// <summary>
+        /// Приостановлена.
+        /// </summary>
+        IsSuspended = 3
     }
 }
