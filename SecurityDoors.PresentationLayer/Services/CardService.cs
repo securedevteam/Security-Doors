@@ -102,9 +102,7 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = string.Empty;
-            // TODO: Заменить на использование модели с int.
-            status = ChangeStatus(model);
+            var status = ChangeStatus(model);
 
             var viewModel = new CardViewModel()
             {
@@ -126,9 +124,7 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            // TODO: Заменить на использование модели с int.
-            var status = string.Empty;
-            status = ChangeStatus(model);
+            var status = ChangeStatus(model);
 
             var editModel = new CardEditModel()
             {
@@ -168,7 +164,6 @@ namespace SecurityDoors.PresentationLayer.Services
                 model.UniqueNumber = Guid.NewGuid().ToString();
             }
 
-            // TODO: Заменить на использование модели с int.
             var status = ChangeStatus(model);
 
             card.UniqueNumber = model.UniqueNumber;
@@ -194,7 +189,6 @@ namespace SecurityDoors.PresentationLayer.Services
                 card = dataManager.Cards.GetCardById(model.Id);
             }
 
-            // TODO: Заменить на использование модели с int.
             var status = ChangeStatus(model);
 
             card.Status = status;
