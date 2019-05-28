@@ -1,20 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
+    /// <summary>
+    /// Модель дверного контроллера.
+    /// </summary>
 	public class DoorPassing
 	{
+        /// <summary>
+        /// Id дверного контроллера.
+        /// </summary>
 		public int Id { get; set; }
-		[Required]
+		
+        /// <summary>
+        /// Время прохода.
+        /// </summary>
 		public DateTime PassingTime { get; set; } = DateTime.Now;
-		[Required]
+		
+        /// <summary>
+        /// Id двери.
+        /// </summary>
 		public int DoorId { get; set; }
 		public virtual Door Door { get; set; }
-		[Required]
+		
+        /// <summary>
+        /// Id сотрудника.
+        /// </summary>
 		public int PersonId { get; set; }
 		public virtual Person Person { get; set; }
 	}
