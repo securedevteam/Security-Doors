@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SecurityDoors.BusinessLogicLayer.Implementations;
 
 namespace SecurityDoors.RemoteControl
 {
@@ -36,6 +37,11 @@ namespace SecurityDoors.RemoteControl
 
         public void addCard(Card card)
         {
+            // TODO: Пример использования BLL
+            //var cr = new CardRepository();
+            //cr.Create(card);
+            //cr.Save();
+
             db.Cards.Add(card);
             db.SaveChangesAsync();
         }
