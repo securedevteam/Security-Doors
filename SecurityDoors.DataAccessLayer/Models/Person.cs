@@ -18,12 +18,12 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public string FirstName { get; set; }
 
 		/// <summary>
-		/// Фамилия.
+		/// Отчество.
 		/// </summary>
 		public string SecondName { get; set; }
 
 		/// <summary>
-		/// Отчество.
+		/// Фамилия.
 		/// </summary>
 		public string LastName { get; set; }
 

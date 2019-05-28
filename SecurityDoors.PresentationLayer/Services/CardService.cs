@@ -85,7 +85,7 @@ namespace SecurityDoors.PresentationLayer.Services
             foreach (var model in models)
             {
                 status = ChangeStatus(model);
-                viewModels.Add(new CardViewModel { Id = model.Id, UniqueNumber = model.UniqueNumber, Status = status });
+                viewModels.Add(new CardViewModel { Id = model.Id, UniqueNumber = model.UniqueNumber, Status = status, Comment = model.Comment });
             }
 
             return viewModels;
@@ -108,7 +108,8 @@ namespace SecurityDoors.PresentationLayer.Services
             {
                 Id = model.Id,
                 UniqueNumber = model.UniqueNumber,
-                Status = status
+                Status = status,
+                Comment = model.Comment
             };
 
             return viewModel;
@@ -130,7 +131,8 @@ namespace SecurityDoors.PresentationLayer.Services
             var editModel = new CardEditModel()
             {
                 Id = model.Id,
-                Status = status
+                Status = status,
+                Comment = model.Comment
             };
 
             return editModel;
@@ -169,6 +171,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
             card.UniqueNumber = model.UniqueNumber;
             card.Status = status;
+            card.Comment = model.Comment;
 
             dataManager.Cards.Save(card);
 
@@ -193,6 +196,7 @@ namespace SecurityDoors.PresentationLayer.Services
             var status = ChangeStatus(model);
 
             card.Status = status;
+            card.Comment = model.Comment;
 
             dataManager.Cards.Save(card);
 

@@ -27,22 +27,24 @@
                     <th>#</th>
                     <th>Уникальный номер</th>
                     <th>Статус</th>
+                    <th>Комментарий</th>
                     <th>Доступные действия</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.UniqueNumber</td>
-                        <td>@item.Status</td>
-                        <td>
-                            <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> |
-                            <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a> |
-                            <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.UniqueNumber</td>
+                    <td>@item.Status</td>
+                    <td>@item.Comment</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> |
+                        <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

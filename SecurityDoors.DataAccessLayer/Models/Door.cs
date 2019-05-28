@@ -10,7 +10,6 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// <summary>
 		/// Id двери.
 		/// </summary>
-
 		public int Id { get; set; }
 
         /// <summary>

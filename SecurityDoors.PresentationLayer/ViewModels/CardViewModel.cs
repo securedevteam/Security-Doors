@@ -20,11 +20,18 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string UniqueNumber { get; set; }
 
         /// <summary>
-        /// Статус карточки.
+        /// Статус.
         /// </summary>
         [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Комментарий.
+        /// </summary>
+        [Required(ErrorMessage = "Неверный комментарий")]
+        [Display(Name = "Комментарий")]
+        public string Comment { get; set; }
     }
 
     /// <summary>
@@ -43,5 +50,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required (ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Комментарий.
+        /// </summary>
+        [Required(ErrorMessage = "Неверный комментарий")]
+        [Display(Name = "Комментарий")]
+        public string Comment { get; set; }
     }
 }
