@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.DataAccessLayer.Models
+﻿using System;
+
+namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
     /// Карточка сотрудника.
@@ -15,11 +17,26 @@
 		/// </summary>
 		///TODO: Запретить NULL значения
 		public string UniqueNumber { get; set; }
+		/*
+		/// <summary>
+		/// Дата создания карты
+		/// </summary>
+		public DateTime CreationDate { get; set; } = DateTime.Now;
+		*/
+		/// <summary>
+		/// Статус карточки.
+		/// </summary>
+		public int Status { get; set; }
+		/// <summary>
+		/// Дополнительная информация о карте
+		/// </summary>
+		public string Comment { get; set; }
+		/*
+		/// <summary>
+		/// Дата прекращения работы карты
+		/// </summary>
+		public DateTime? ValidThru { get; set; } = DateTime.Now.AddMonths(1);*/
 
-        /// <summary>
-        /// Статус карточки.
-        /// </summary>
-        public bool Status { get; set; }
 		public Person Person { get; set; }
 	}
 }

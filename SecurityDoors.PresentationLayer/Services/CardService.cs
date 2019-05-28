@@ -24,41 +24,47 @@ namespace SecurityDoors.PresentationLayer.Services
 
         #region Вспомогательные методы для смены статуса карточки для ViewModel
 
-        private string ChangeStatus(Card model, string status)
+        private string ChangeStatus(Card model)
         {
-            status = string.Empty;
-
+            var status = string.Empty;
+			
             switch (model.Status)
-            {
-                case true: { status = "Активна"; } break;
-                case false: { status = "Закрыта"; } break;
+			{
+				case 3: { status = "Приостановлена"; } break;
+				case 2: { status = "Утеряна"; } break;
+				case 1: { status = "Активна"; } break;
+                case 0: { status = "Закрыта"; } break;
             }
-
+			
             return status;
         }
 
-        private bool ChangeStatus(CardViewModel model)
+        private int ChangeStatus(CardViewModel model)
         {
-            var status = false;
+			var status = new Int32();
 
-            switch (model.Status)
-            {
-                case "Активна": { status = true; } break;
-                case "Закрыта": { status = false; } break;
-            }
+			switch (model.Status)
+			{
+				case "Закрыта": { status = 0; } break;
+				case "Активна": { status = 1; } break;
+				case "Утеряна": { status = 2; } break;
+				case "Приостановлена": { status = 3; } break;
+			}
 
-            return status;
+			return status;
         }
 
-        private bool ChangeStatus(CardEditModel model)
+        private int ChangeStatus(CardEditModel model)
         {
-            var status = false;
+            var status = 0;
 
             switch (model.Status)
             {
-                case "Активна": { status = true; } break;
-                case "Закрыта": { status = false; } break;
-            }
+				case "Закрыта": { status = 0; } break;
+                case "Активна": { status = 1; } break;
+				case "Утеряна": { status = 2; } break;
+				case "Приостановлена": { status = 3; } break;
+			}
 
             return status;
         }
@@ -78,7 +84,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
             foreach (var model in models)
             {
-                status = ChangeStatus(model, status);
+                status = ChangeStatus(model);
                 viewModels.Add(new CardViewModel { Id = model.Id, UniqueNumber = model.UniqueNumber, Status = status });
             }
 
@@ -96,7 +102,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
             var status = string.Empty;
             // TODO: Заменить на использование модели с int.
-            status = ChangeStatus(model, status);
+            status = ChangeStatus(model);
 
             var viewModel = new CardViewModel()
             {
@@ -119,7 +125,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
             // TODO: Заменить на использование модели с int.
             var status = string.Empty;
-            status = ChangeStatus(model, status);
+            status = ChangeStatus(model);
 
             var editModel = new CardEditModel()
             {

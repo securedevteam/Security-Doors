@@ -108,12 +108,13 @@ namespace SecurityDoors.RemoteControl
                     }
                     catch (FormatException)
                     {
-                        Console.WriteLine("input don't number");
+                        Console.WriteLine("input doesn't number");
                     }
                 } while (db.getPersonById(id) != null);
                 person = db.getPersonById(id);
             }
-            cardBuilder.setStatus(true);
+			///TODO: Реализовать выбор типа статуса
+            cardBuilder.setStatus(1);
             if (person != null)
             {
                 cardBuilder.setPerson(person);

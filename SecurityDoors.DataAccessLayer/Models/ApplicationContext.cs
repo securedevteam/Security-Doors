@@ -51,24 +51,21 @@ namespace SecurityDoors.DataAccessLayer.Models
         }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			/// TODO: Решить с автозаполнением данных
-			/// БД заполнится ими в 2-х случаях, если в конструкторе будет EnsureCreated или в случае миграции
-			/// EnsureDeleted только формирует структуру
 			#region Автозаполнение (закоментировано)
 			/*
 			modelBuilder.Entity<Card>().HasData(
 				new Card[]
 				{
-					new Card { Id = 1, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 2, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 3, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 4, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 5, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 6, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 7, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 8, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 9, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 10, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
+					new Card { Id = 1, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 2, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 3, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 4, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 5, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 6, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 7, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 8, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 9, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 10, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
 				}
 				);
 			modelBuilder.Entity<Person>().HasData(

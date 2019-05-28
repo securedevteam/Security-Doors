@@ -7,10 +7,6 @@ namespace SecurityDoors.RemoteControl
 {
     class Database
     {
-        /// <summary>
-        /// TODO Atention: реализовать, либо не использовать 
-        /// </summary>
-        /// 
         private ApplicationContext db = new ApplicationContext();
         public static void init()
         {
@@ -20,8 +16,10 @@ namespace SecurityDoors.RemoteControl
                 {
                     context.Cards.Add(new Card {
                         UniqueNumber = Guid.NewGuid().ToString(),
-                        Status = true
-                    });
+						//TODO: Исправить в связи с изменением структуры БД
+						Status = 1
+						// Раньше было : Status = true
+					});
                     context.SaveChangesAsync();
                 }
                 Console.WriteLine("count of record in database:");
