@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
-	///TODO: Запретить NULL значения
     /// <summary>
     /// Сотрудник.
     /// </summary>
@@ -19,31 +15,26 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// <summary>
 		/// Имя.
 		/// </summary>
-		[Required]
 		public string FirstName { get; set; }
 
 		/// <summary>
 		/// Фамилия.
 		/// </summary>
-		[Required]
 		public string SecondName { get; set; }
 
 		/// <summary>
 		/// Отчество.
 		/// </summary>
-		[Required]
 		public string LastName { get; set; }
 
 		/// <summary>
 		/// Пол.
 		/// </summary>
-		[Required]
 		public bool Gender { get; set; }
 
 		/// <summary>
 		/// Паспорт.
 		/// </summary>
-		[Required]
 		public string Passport { get; set; }
 		
 		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
@@ -52,7 +43,9 @@ namespace SecurityDoors.DataAccessLayer.Models
 			DoorPassings = new List<DoorPassing>();
 		}
 
-		[ForeignKey("Card")]
+        /// <summary>
+        /// Id карточки.
+        /// </summary>
 		public int? CardId { get; set; }
 		public Card Card { get; set; }
 	}
