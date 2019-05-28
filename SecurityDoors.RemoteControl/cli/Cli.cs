@@ -8,8 +8,8 @@ namespace SecurityDoors.RemoteControl.cli
         private Command command = new Command();
         public void run()
         {
-            Console.WriteLine("Wellcome to remote Controll system");
-            Console.WriteLine("type quit to exit program");
+            Color.writeInfo("Wellcome to remote Controll system");
+            Color.writeInfo("type quit to exit program");
             command.printHelp();
             #region основной цикл разбора ввода на команды
             while (true)

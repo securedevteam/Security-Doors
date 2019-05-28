@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.Builders;
+using SecurityDoors.RemoteControl.cli;
 using System;
 
 
@@ -34,7 +35,7 @@ namespace SecurityDoors.RemoteControl
             }
             else
             {
-                Console.WriteLine("error");
+                Color.writeError("error");
             }
             Console.WriteLine("Enter passport");
             personBuilder.setPassport(Console.ReadLine());
