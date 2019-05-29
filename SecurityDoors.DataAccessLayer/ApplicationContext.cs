@@ -28,20 +28,28 @@ namespace SecurityDoors.DataAccessLayer.Models
 		protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
 		{
             // TODO: Удалить после приведение кода в порядок.
+            /*
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
-            //var builder = new ConfigurationBuilder();
-            //builder.SetBasePath(Directory.GetCurrentDirectory());
-            //builder.AddJsonFile("appsettings.json");
-            //var config = builder.Build();
-            //string connectionString = config.GetConnectionString("DefaultConnection");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+            */
 
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //	optionsBuilder.UseSqlServer(connectionString);
-            //}
+            // TODO: Еще один рабочий вариант, если путь находить в проекте appsettings.json
+            /*IConfigurationRoot configuration = new ConfigurationBuilder()
+                                               .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                               .AddJsonFile("appsettings.json")
+                                               .Build();
+
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));*/
 
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true");
-
         }
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
