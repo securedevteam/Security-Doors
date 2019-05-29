@@ -15,30 +15,49 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
 			this.dataManager = dataManager;
 		}
-		public DoorViewModel DoorDatabaseModelToView(int doorId)
-			=> new DoorViewModel()
-			{
-				Door = dataManager.Doors.GetDoorById(doorId)
-			};
-		public DoorEditModel GetDoorEditModel(int doorId)
-		{
-			var _dbModel = dataManager.Doors.GetDoorById(doorId);
 
-			return (DoorEditModel)_dbModel;
-		}
-		public DoorViewModel SaveDoorEditModel (DoorEditModel doorEditModel)
+		public List<DoorViewModel> GetDoors()
 		{
-			Door door = new Door();
+			var models = dataManager.Doors.GetDoorsList();
+			var viewModels = new List<DoorViewModel>();
 
-			if (doorEditModel.Id != 0)
+			foreach (var model in models)
 			{
-				door = dataManager.Doors.GetDoorById(doorEditModel.Id);
+				viewModels.Add((DoorViewModel)model);
 			}
 
-			door = doorEditModel;
+			return viewModels;
+		}
+
+		public DoorViewModel GetDoorById(int id)
+		{
+			var model = dataManager.Doors.GetDoorById(id);
+			var viewModel = (DoorViewModel)model;
+			return viewModel;
+		}
+
+		public DoorEditModel EditDoorDyId(int id)
+		{
+			var model = dataManager.Doors.GetDoorById(id);
+			var editModel = (DoorEditModel)model;
+			return editModel;
+		}
+
+		public void DeleteDoorById(int id)
+		{
+			dataManager.Doors.Delete(id);
+		}
+
+		public DoorViewModel SaveDoor(DoorViewModel model)
+		{
+			var door = new Door();
+			if (model.Id != 0)
+			{
+				door = dataManager.Doors.GetDoorById(model.Id);
+			}
 			dataManager.Doors.Save(door);
 
-			return DoorDatabaseModelToView(door.Id);
+			return GetDoorById(door.Id);
 		}
 	}
 }
