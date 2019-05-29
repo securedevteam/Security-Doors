@@ -107,5 +107,26 @@ namespace SecurityDoors.RemoteControl
             return db.Doors.Find(id);
         }
         #endregion
+
+        #region методы удаления объектов из БД
+        public void deletePerson(Person person)
+        {
+            db.People.Remove(person);
+            db.SaveChangesAsync();
+        }
+
+        public void deleteCard(Card card)
+        {
+            db.Cards.Remove(card);
+            db.SaveChangesAsync();
+        }
+
+        public void deleteDoor(Door door)
+        {
+            db.Doors.Remove(door);
+            db.SaveChangesAsync();
+        }
+
+        #endregion
     }
 }
