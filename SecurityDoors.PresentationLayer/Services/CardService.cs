@@ -1,7 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Constants;
 using SecurityDoors.DataAccessLayer.Models;
-using SecurityDoors.PresentationLayer.Enums;
+using SecurityDoors.DataAccessLayer.Enums;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;

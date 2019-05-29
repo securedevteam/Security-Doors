@@ -3,13 +3,14 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SecurityDoors.BusinessLogicLayer.Implementations;
+using SecurityDoors.DataAccessLayer.Enums;
 
 namespace SecurityDoors.RemoteControl
 {
     class Database
     {
         private ApplicationContext db = new ApplicationContext();
-        public static void init()
+        public static void Init()
         {
             using (var context = new ApplicationContext())
             {
@@ -17,9 +18,7 @@ namespace SecurityDoors.RemoteControl
                 {
                     context.Cards.Add(new Card {
                         UniqueNumber = Guid.NewGuid().ToString(),
-						//TODO: Исправить в связи с изменением структуры БД
-						Status = 1
-						// Раньше было : Status = true
+						Status = (int)CardStatus.IsActive,
 					});
                     context.SaveChangesAsync();
                 }
@@ -29,13 +28,13 @@ namespace SecurityDoors.RemoteControl
             }
         }
         #region методы для добавление обьектов в БД
-        public void addPerson(Person person)
+        public void AddPerson(Person person)
         {
             db.People.Add(person);
             db.SaveChangesAsync();
         }
 
-        public void addCard(Card card)
+        public void AddCard(Card card)
         {
             // TODO: Пример использования BLL
             //var cr = new CardRepository();
@@ -46,7 +45,7 @@ namespace SecurityDoors.RemoteControl
             db.SaveChangesAsync();
         }
 
-        public void addDoor(Door door)
+        public void AddDoor(Door door)
         {
             db.Doors.Add(door);
             db.SaveChangesAsync();
@@ -54,61 +53,61 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region методы для вывода количества обьектов в таблицах БД
-        public int getCountOfPerson()
+        public int GetCountOfPerson()
         {
             return db.People.Count();
         }
 
-        public int getCountOfDoor()
+        public int GetCountOfDoor()
         {
             return db.Doors.Count();
         }
 
-        public int getCountOfDoorPassing()
+        public int GetCountOfDoorPassing()
         {
             return db.DoorPassings.Count();
         }
 
-        public int getCountOfCard()
+        public int GetCountOfCard()
         {
             return db.Cards.Count();
         }
         #endregion
 
         #region методы получения множества обьектов
-        public DbSet<Person> getPersons()
+        public DbSet<Person> GetPersons()
         {
             return db.People;
         }
 
-        public DbSet<Card> getCards()
+        public DbSet<Card> GetCards()
         {
             return db.Cards;
         }
 
-        public DbSet<Door> getDoors()
+        public DbSet<Door> GetDoors()
         {
             return db.Doors;
         }
 
-        public DbSet<DoorPassing> getDoorPassings()
+        public DbSet<DoorPassing> GetDoorPassings()
         {
             return db.DoorPassings;
         }
         #endregion
 
         #region методы получения обьекта по id
-        public Person getPersonById(int id)
+        public Person GetPersonById(int id)
         {
             return db.People.Find(id);
         }
 
-        public Card getCardById(int id)
+        public Card GetCardById(int id)
         {
             return db.Cards.Find(id);
         }
 
-        public Door getDoorById(int id)
+        public Door GetDoorById(int id)
         {
             return db.Doors.Find(id);
         }
