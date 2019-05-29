@@ -1,0 +1,19 @@
+﻿@model DoorViewModel
+
+<h2>Информация двери №@Model.Id</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <td>Комментарий</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+            <td>@Model.Comment</td>
+        </tr>
+    </tbody>
+</table>
