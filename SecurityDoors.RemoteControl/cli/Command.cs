@@ -61,14 +61,14 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input don't number");
                     }
-                } while (db.getCardById(id) != null);
-                card = db.getCardById(id);
+                } while (db.GetCardById(id) != null);
+                card = db.GetCardById(id);
             }
             if (card != null)
             {
                 personBuilder.setCard(card);
             }
-            db.addPerson(personBuilder.build());
+            db.AddPerson(personBuilder.build());
             Console.WriteLine("person added succesfull");
         }
 
@@ -79,7 +79,7 @@ namespace SecurityDoors.RemoteControl
             doorBuilder.setName(Console.ReadLine());
             Console.WriteLine("Enter description");
             doorBuilder.setDescription(Console.ReadLine());
-            db.addDoor(doorBuilder.build());
+            db.AddDoor(doorBuilder.build());
             Console.WriteLine("door added succesfull");
         }
 
@@ -110,8 +110,8 @@ namespace SecurityDoors.RemoteControl
                     {
                         Console.WriteLine("input doesn't number");
                     }
-                } while (db.getPersonById(id) != null);
-                person = db.getPersonById(id);
+                } while (db.GetPersonById(id) != null);
+                person = db.GetPersonById(id);
             }
 			///TODO: Реализовать выбор типа статуса
             cardBuilder.setStatus(1);
@@ -119,7 +119,7 @@ namespace SecurityDoors.RemoteControl
             {
                 cardBuilder.setPerson(person);
             }
-            db.addCard(cardBuilder.build());
+            db.AddCard(cardBuilder.build());
             Console.WriteLine("card added succesfull");
         }
         #endregion
@@ -151,10 +151,10 @@ namespace SecurityDoors.RemoteControl
 
         internal void printCountOfRecord()
         {
-            Console.WriteLine("DoorPassing:\t{0}", db.getCountOfDoorPassing());
-            Console.WriteLine("person:     \t{0}", db.getCountOfPerson());
-            Console.WriteLine("card:       \t{0}", db.getCountOfCard());
-            Console.WriteLine("Door:       \t{0}", db.getCountOfDoor());
+            Console.WriteLine("DoorPassing:\t{0}", db.GetCountOfDoorPassing());
+            Console.WriteLine("person:     \t{0}", db.GetCountOfPerson());
+            Console.WriteLine("card:       \t{0}", db.GetCountOfCard());
+            Console.WriteLine("Door:       \t{0}", db.GetCountOfDoor());
         }
         #endregion
 
@@ -171,7 +171,7 @@ namespace SecurityDoors.RemoteControl
             {
                 //TODO error message
             }
-            Door door = db.getDoorById(id);
+            Door door = db.GetDoorById(id);
             if (door != null)
             {
                 Console.WriteLine("id\t{0}", door.Id);
@@ -194,7 +194,7 @@ namespace SecurityDoors.RemoteControl
             {
                 //TODO error message
             }
-            Card card = db.getCardById(id);
+            Card card = db.GetCardById(id);
             if (card != null)
             {
                 Console.WriteLine("id:\t{0}", card.Id);
@@ -219,7 +219,7 @@ namespace SecurityDoors.RemoteControl
             {
                 //TODO error message
             }
-            Person person = db.getPersonById(id);
+            Person person = db.GetPersonById(id);
             if (person != null)
             {
                 Console.WriteLine("id:\t{0}", person.Id);
@@ -247,7 +247,7 @@ namespace SecurityDoors.RemoteControl
             Console.Write("id");
             Console.Write("\t");
             Console.WriteLine("time");
-            foreach (DoorPassing doorPassing in db.getDoorPassings())
+            foreach (DoorPassing doorPassing in db.GetDoorPassings())
             {
                 Console.Write(doorPassing.Id);
                 Console.Write("\t");
@@ -260,7 +260,7 @@ namespace SecurityDoors.RemoteControl
             Console.Write("id");
             Console.Write("\t");
             Console.WriteLine("GUID");
-            foreach (Card card in db.getCards())
+            foreach (Card card in db.GetCards())
             {
                 Console.Write(card.Id);
                 Console.Write("\t");
@@ -273,7 +273,7 @@ namespace SecurityDoors.RemoteControl
             Console.Write("id");
             Console.Write("\t");
             Console.WriteLine("name\tsecond name\tlast name");
-            foreach (Person person in db.getPersons())
+            foreach (Person person in db.GetPersons())
             {
                 Console.Write(person.Id);
                 Console.Write("\t");
@@ -286,7 +286,7 @@ namespace SecurityDoors.RemoteControl
             Console.Write("id");
             Console.Write("\t");
             Console.WriteLine("description");
-            foreach (Door door in db.getDoors())
+            foreach (Door door in db.GetDoors())
             {
                 Console.Write(door.Id);
                 Console.Write("\t");

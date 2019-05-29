@@ -15,7 +15,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqueNumber = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
