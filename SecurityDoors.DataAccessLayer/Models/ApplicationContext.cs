@@ -13,19 +13,13 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public DbSet<DoorPassing> DoorPassings { get; set; }
 
 		/// <summary>
-		/// При отсутствии бд - создает пустую БД с нужной структурой
+		/// При отсутствии бд - создает пустую БД с нужной структурой или применяет миграции
 		/// </summary>
 		public ApplicationContext()
 		{
-
+			Database.Migrate();
 			Database.EnsureCreated();
 		}
-
-
-        //public EquipmentAccountingContext(DbContextOptions<EquipmentAccountingContext> options) : base(options)
-        //{
-        //    Database.EnsureCreated();
-        //}
 
 		/// <summary>
 		/// Устанавливает строку подключения из файла конфигураций к localDb
@@ -46,9 +40,10 @@ namespace SecurityDoors.DataAccessLayer.Models
             //	optionsBuilder.UseSqlServer(connectionString);
             //}
 
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true");
 
         }
+		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			#region Автозаполнение (закоментировано)

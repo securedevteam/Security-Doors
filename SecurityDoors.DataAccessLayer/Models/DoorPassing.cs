@@ -16,17 +16,21 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// Время прохода.
         /// </summary>
 		public DateTime PassingTime { get; set; } = DateTime.Now;
-		
-        /// <summary>
-        /// Id двери.
-        /// </summary>
+
+		/// <summary>
+		/// Комментарий.
+		/// </summary>
+		public string Comment { get; set; }
+		/// <summary>
+		/// Id двери.
+		/// </summary>
 		public int DoorId { get; set; }
-		public virtual Door Door { get; set; }
+		public Door Door { get; set; }
 		
         /// <summary>
         /// Id сотрудника.
         /// </summary>
 		public int PersonId { get; set; }
-		public virtual Person Person { get; set; }
+		public Person Person { get; set; }
 	}
 }

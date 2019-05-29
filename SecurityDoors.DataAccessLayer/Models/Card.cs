@@ -14,13 +14,6 @@
 		/// Уникальный номер.
 		/// </summary>
 		public string UniqueNumber { get; set; }
-		
-        /*
-		/// <summary>
-		/// Дата создания карты
-		/// </summary>
-		public DateTime CreationDate { get; set; } = DateTime.Now;
-		*/
 
 		/// <summary>
 		/// Статус.
@@ -31,13 +24,6 @@
 		/// Комментарий.
 		/// </summary>
 		public string Comment { get; set; }
-		
-        /*
-		/// <summary>
-		/// Дата прекращения работы карты
-		/// </summary>
-		public DateTime? ValidThru { get; set; } = DateTime.Now.AddMonths(1);
-        */
 
 		public Person Person { get; set; }
 	}

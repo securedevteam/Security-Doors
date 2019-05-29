@@ -42,11 +42,11 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Comment");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -58,6 +58,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
 
                     b.Property<int>("DoorId");
 
@@ -80,27 +82,24 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CardId");
+                    b.Property<int>("CardId");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired();
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("FirstName");
 
                     b.Property<bool>("Gender");
 
-                    b.Property<string>("LastName")
-                        .IsRequired();
+                    b.Property<string>("LastName");
 
-                    b.Property<string>("Passport")
-                        .IsRequired();
+                    b.Property<string>("Passport");
 
-                    b.Property<string>("SecondName")
-                        .IsRequired();
+                    b.Property<string>("SecondName");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CardId")
-                        .IsUnique()
-                        .HasFilter("[CardId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("People");
                 });
@@ -122,7 +121,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                 {
                     b.HasOne("SecurityDoors.DataAccessLayer.Models.Card", "Card")
                         .WithOne("Person")
-                        .HasForeignKey("SecurityDoors.DataAccessLayer.Models.Person", "CardId");
+                        .HasForeignKey("SecurityDoors.DataAccessLayer.Models.Person", "CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
