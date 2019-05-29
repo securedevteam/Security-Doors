@@ -15,31 +15,33 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
 			this.dataManager = dataManager;
 		}
-
-		public DoorPassingViewModel DoorPassingDatabseModelToView(int doorPassingId) => new DoorPassingViewModel()
+		public List<DoorPassingViewModel> GetDoorPassings()
 		{
-			DoorPassing = dataManager.DoorsPassing.GetDoorPassingById(doorPassingId)
-		};
+			var models = dataManager.DoorsPassing.GetDoorsPassingList();
+			var viewModels = new List<DoorPassingViewModel>();
 
-		public DoorPassingEditModel GetDoorPassingEditModel(int doorPassingId)
+			foreach (var model in models)
+			{
+				viewModels.Add((DoorPassingViewModel)model);
+			}
+			return viewModels;
+		}
+		public DoorPassingViewModel GetDoorPassingById(int id)
+		=> (DoorPassingViewModel)dataManager.DoorsPassing.GetDoorPassingById(id);
+
+		public DoorPassingEditModel EditDoorPassingById(int id)
+				=> (DoorPassingEditModel)dataManager.DoorsPassing.GetDoorPassingById(id);
+
+		public void DeleteDoorPassingById(int id)
 		{
-			var _dbModel = dataManager.DoorsPassing.GetDoorPassingById(doorPassingId);
-			return (DoorPassingEditModel)_dbModel;
+			dataManager.DoorsPassing.Delete(id);
 		}
 
-		public DoorPassingViewModel SaveDoorPassingEditModel (DoorPassingEditModel doorPassingEditModel)
+		public DoorPassingViewModel SaveDoorPassing(DoorPassingViewModel model)
 		{
-			DoorPassing doorPassing;
-
-			if (doorPassingEditModel.Id != 0)
-			{
-				doorPassing = dataManager.DoorsPassing.GetDoorPassingById(doorPassingEditModel.Id);
-			}
-			doorPassing = doorPassingEditModel;
-
+			var doorPassing = model;
 			dataManager.DoorsPassing.Save(doorPassing);
-
-			return DoorPassingDatabseModelToView(doorPassing.Id);
+			return GetDoorPassingById(doorPassing.Id);
 		}
 	}
 }

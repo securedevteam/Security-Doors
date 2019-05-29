@@ -50,11 +50,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
 		public DoorViewModel SaveDoor(DoorViewModel model)
 		{
-			var door = new Door();
-			if (model.Id != 0)
-			{
-				door = dataManager.Doors.GetDoorById(model.Id);
-			}
+			var door = model;
 			dataManager.Doors.Save(door);
 
 			return GetDoorById(door.Id);

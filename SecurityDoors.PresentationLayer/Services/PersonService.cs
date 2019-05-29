@@ -15,43 +15,35 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
 			this.dataManager = dataManager;
 		}
-		public PersonViewModel PersonDatabaseModelToView(int personId) => new PersonViewModel()
-		{
-			Person = dataManager.People.GetPersonById(personId)
-		};
-		public PersonEditModel GetPersonEditModel(int personId)
-		{
-			var _dbModel = dataManager.People.GetPersonById(personId);
-			/*
-			var _editModel = new PersonEditModel()
-			{
-				Id = _dbModel.Id,
-				FirstName = _dbModel.FirstName,
-				SecondName = _dbModel.SecondName,
-				LastName = _dbModel.LastName,
-				Passport = _dbModel.Passport,
-				Gender = _dbModel.Gender,
-				CardId = _dbModel.CardId
-			};
 
-			return _editModel;*/
-			return (PersonEditModel)_dbModel;
-		}
-		public PersonViewModel SavePersonEditModel (PersonEditModel personEditModel)
+		public List<PersonViewModel> GetPeople()
 		{
-			Person person;
+			var models = dataManager.People.GetPeopleList();
+			var viewModels = new List<PersonViewModel>();
 
-			///TODO: а зачем этот код вообще нужен? 
-			if (personEditModel.Id != 0)
+			foreach (var model in models)
 			{
-				person = dataManager.People.GetPersonById(personEditModel.Id);
+				viewModels.Add((PersonViewModel)model);
 			}
+			return viewModels;
+		}
 
-			person = personEditModel;
-			
+		public PersonViewModel GetPersonById(int id)
+		=> (PersonViewModel)dataManager.People.GetPersonById(id);
+
+		public PersonEditModel EditPersonById(int id)
+		=> (PersonEditModel)dataManager.People.GetPersonById(id);
+
+		public void DeletePersonById(int id)
+		{
+			dataManager.People.Delete(id);
+		}
+
+		public PersonViewModel SavePerson(PersonViewModel model)
+		{
+			var person = model;
 			dataManager.People.Save(person);
-
-			return PersonDatabaseModelToView(person.Id);
+			return GetPersonById(person.Id);
 		}
 	}
 }

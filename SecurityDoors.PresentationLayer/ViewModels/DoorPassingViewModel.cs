@@ -6,26 +6,31 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
-    public class DoorPassingViewModel
-    {
-        public DoorPassing DoorPassing { get; set; }
-        ICollection<PersonViewModel> People { get; set; }
-        ICollection<DoorViewModel> Doors { get; set; }
-    }
+    public class DoorPassingViewModel:DoorPassing
+	{
+		[Required]
+		public new int Id { get; set; }
+		[Required]
+		public new DateTime PassingTime { get; set; } = DateTime.Now;
+		[Required]
+		public new string Comment { get; set; }
+		[Required]
+		public new int DoorId { get; set; }
+		[Required]
+		public new int PersonId { get; set; }
+	}
 
     public class DoorPassingEditModel:DoorPassing
-    {
-		/*
-        public int Id { get; set; }
-
-        [Required]
-        public DateTime PassingTime { get; set; } = DateTime.Now;
-
-        [Required]
-        public int? DoorId { get; set; }
-
-        [Required]
-        public int? PersonId { get; set; }
-		*/
-    }
+	{
+		[Required]
+		public new int Id { get; set; }
+		[Required]
+		public new DateTime PassingTime { get; set; } = DateTime.Now;
+		[Required]
+		public new string Comment { get; set; }
+		[Required]
+		public new int DoorId { get; set; }
+		[Required]
+		public new int PersonId { get; set; }
+	}
 }

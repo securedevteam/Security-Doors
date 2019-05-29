@@ -6,32 +6,39 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
-    public class PersonViewModel
-    {
-        public Person Person { get; set; }
-    }
+    public class PersonViewModel:Person
+	{
+		[Required]
+		public new string FirstName { get; set; }
+
+		[Required]
+		public new string SecondName { get; set; }
+
+		[Required]
+		public new string LastName { get; set; }
+
+		[Required]
+		public new bool Gender { get; set; }
+
+		[Required]
+		public new string Passport { get; set; }
+	}
 
     public class PersonEditModel : Person
     {
-		/*
-        public int Id { get; set; }
+        [Required]
+        public new string FirstName { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public new string SecondName { get; set; }
 
         [Required]
-        public string SecondName { get; set; }
+        public new string LastName { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public new bool Gender { get; set; }
 
         [Required]
-        public bool Gender { get; set; }
-
-        [Required]
-        public string Passport { get; set; }
-
-        public int? CardId { get; set; }*/
-		
+        public new string Passport { get; set; }
     }
 }
