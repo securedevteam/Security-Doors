@@ -1,39 +1,26 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<SecurityDoors.PresentationLayer.ViewModels.CardViewModel>
+﻿@model IEnumerable<SecurityDoors.PresentationLayer.ViewModels.CardViewModel>
 
-@{
-    Layout = null;
-}
+<h1>Список карточек</h1>
+<div>
+    <a asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
+</div>
 
-<!DOCTYPE html>
+<br />
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>List</title>
-</head>
-<body>
-    <h1>Список карточек</h1>
-    <div>
-        <a asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
-    </div>
-
-    <br />
-
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Уникальный номер</th>
-                    <th>Статус</th>
-                    <th>Комментарий</th>
-                    <th>Доступные действия</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Уникальный номер</th>
+                <th>Статус</th>
+                <th>Комментарий</th>
+                <th>Доступные действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.UniqueNumber</td>
@@ -45,9 +32,7 @@
                         <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+            }
+        </tbody>
+    </table>
+</div>

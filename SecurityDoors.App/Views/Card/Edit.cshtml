@@ -1,52 +1,38 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@using SecurityDoors.DataAccessLayer.Constants;
-@model SecurityDoors.PresentationLayer.ViewModels.CardEditModel
+﻿@model CardEditModel
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
+<div>
+    <h2>Данные для изменения карточки №@Model.Id</h2>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
+<form method="post" asp-controller="Card" asp-action="Edit" asp-route-id="@Model.Id">
+    <div asp-validation-summary="ModelOnly"></div>
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-</head>
-<body>
-    <form method="post" asp-controller="Card" asp-action="Edit" asp-route-id="@Model.Id">
-        <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <h2>Данные для изменения карточки №@Model.Id</h2>
+        </div>
 
         <div>
-            <div>
-                <h2>Данные для изменения карточки №@Model.Id</h2>
-            </div>
-
-            <div>
-                <label asp-for="Status">Статус: </label>
-                <select asp-for="Status">
-                    <option>@Constants.IsActive</option>
-                    <option>@Constants.IsClosed</option>
-                    <option>@Constants.IsLost</option>
-                    <option>@Constants.IsSuspended</option>
-                </select>
-            </div>
-
-            <div>
-                <label asp-for="Comment">Комментарий: </label>
-                <input type="text" asp-for="Comment" />
-                <span asp-validation-for="Comment"></span>
-            </div>
-
-            <br />
-
-            <div>
-                <input type="submit" value="Подтвердить редактирование" />
-            </div>
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option>@Constants.IsActive</option>
+                <option>@Constants.IsClosed</option>
+                <option>@Constants.IsLost</option>
+                <option>@Constants.IsSuspended</option>
+            </select>
         </div>
-    </form>
-</body>
-</html>
+
+        <div>
+            <label asp-for="Comment">Комментарий: </label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" value="Подтвердить редактирование" />
+        </div>
+    </div>
+</form>
