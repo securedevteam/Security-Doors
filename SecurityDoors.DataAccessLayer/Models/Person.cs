@@ -37,16 +37,18 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// </summary>
 		public string Passport { get; set; }
 		
-		public virtual List<DoorPassing> DoorPassings { get; set; }
+		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 
 		/// <summary>
 		/// Комментарий.
 		/// </summary>
 		public string Comment { get; set; }
+
 		/// <summary>
 		/// Id карточки.
 		/// </summary>
 		public int CardId { get; set; }
+
 		public Card Card { get; set; }
 	}
 }

@@ -21,16 +21,19 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// Комментарий.
 		/// </summary>
 		public string Comment { get; set; }
+
 		/// <summary>
 		/// Id двери.
 		/// </summary>
 		public int DoorId { get; set; }
+
 		public Door Door { get; set; }
 		
         /// <summary>
         /// Id сотрудника.
         /// </summary>
 		public int PersonId { get; set; }
+
 		public Person Person { get; set; }
 	}
 }

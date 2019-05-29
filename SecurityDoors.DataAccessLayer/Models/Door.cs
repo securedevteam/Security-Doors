@@ -26,6 +26,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// Комментарий.
 		/// </summary>
 		public string Comment { get; set; }
-		public virtual List<DoorPassing> DoorPassings { get; set; }
+
+		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 	}
 }
