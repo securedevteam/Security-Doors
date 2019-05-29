@@ -148,7 +148,7 @@ namespace SecurityDoors.PresentationLayer.Services
         /// <summary>
         /// Сохранить карточку с сигнатурой CardViewModel.
         /// </summary>
-        /// <param name="model">Модель карточки для сохранения.</param>
+        /// <param name="model">модель карточки для сохранения.</param>
         /// <returns>Карточка.</returns>
         public CardViewModel SaveCard(CardViewModel model)
         {

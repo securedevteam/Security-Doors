@@ -1,25 +1,68 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
-	class DoorViewModel : Door
+    /// <summary>
+    /// Модель двери для просмотра.
+    /// </summary>
+	public class DoorViewModel
 	{
-		[Required]
-		public new int Id { get; set; }
-		[Required]
-		public new int Name { get; set; }
-		[Required]
-		public new string Description { get; set; }
-	}
+        /// <summary>
+        /// Id двери.
+        /// </summary>
+		public int Id { get; set; }
 
-	public class DoorEditModel : Door
+        /// <summary>
+        /// Название.
+        /// </summary>
+        [Required(ErrorMessage = "Неверное название")]
+        [Display(Name = "Название")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Описание.
+        /// </summary>
+		[Required(ErrorMessage = "Неверное описание")]
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
+        /// <summary>
+		/// Комментарий.
+		/// </summary>
+        [Required(ErrorMessage = "Неверный комментарий")]
+        [Display(Name = "Комментарий")]
+        public string Comment { get; set; }
+    }
+
+    /// <summary>
+    /// Модель двери для изменения.
+    /// </summary>
+	public class DoorEditModel
 	{
-		[Required]
-		public new int Id { get; set; }
-		[Required]
-		public new int Name { get; set; }
-		[Required]
-		public new string Description { get; set; }
-	}
+        /// <summary>
+        /// Id двери.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Название.
+        /// </summary>
+        [Required(ErrorMessage = "Неверное название")]
+        [Display(Name = "Название")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Описание.
+        /// </summary>
+		[Required(ErrorMessage = "Неверное описание")]
+        [Display(Name = "Описание")]
+        public string Description { get; set; }
+
+        /// <summary>
+		/// Комментарий.
+		/// </summary>
+        [Required(ErrorMessage = "Неверный комментарий")]
+        [Display(Name = "Комментарий")]
+        public string Comment { get; set; }
+    }
 }

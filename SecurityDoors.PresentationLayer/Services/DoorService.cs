@@ -7,15 +7,27 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
-	class DoorService
+    /// <summary>
+    /// Сервис для работы с контроллером.
+    /// </summary>
+	public class DoorService
 	{
-		DataManager dataManager;
 
+        DataManager dataManager;
+
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public DoorService(DataManager dataManager)
 		{
 			this.dataManager = dataManager;
 		}
 
+        /// <summary>
+        /// Получить двери.
+        /// </summary>
+        /// <returns>Список дверей.</returns>
 		public List<DoorViewModel> GetDoors()
 		{
 			var models = dataManager.Doors.GetDoorsList();
@@ -23,37 +35,105 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-				viewModels.Add((DoorViewModel)model);
+				viewModels.Add(new DoorViewModel { Id = model.Id, Name = model.Name, Description = model.Description, Comment = model.Comment});
 			}
 
 			return viewModels;
 		}
 
+        /// <summary>
+        /// Получить дверь.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Дверь.</returns>
 		public DoorViewModel GetDoorById(int id)
 		{
 			var model = dataManager.Doors.GetDoorById(id);
-			var viewModel = (DoorViewModel)model;
-			return viewModel;
+
+            var viewModel = new DoorViewModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Comment = model.Comment
+            };
+
+            return viewModel;
 		}
 
+        /// <summary>
+        /// Изменить дверь.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Дверь.</returns>
 		public DoorEditModel EditDoorDyId(int id)
 		{
 			var model = dataManager.Doors.GetDoorById(id);
-			var editModel = (DoorEditModel)model;
-			return editModel;
+
+            var editModel = new DoorEditModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                Comment = model.Comment
+            };
+
+            return editModel;
 		}
 
+        /// <summary>
+        /// Удалить дверь.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
 		public void DeleteDoorById(int id)
 		{
 			dataManager.Doors.Delete(id);
 		}
 
+        /// <summary>
+        /// Сохранить дверь с сигнатурой DoorViewModel.
+        /// </summary>
+        /// <param name="model">модель двери для сохранения.</param>
+        /// <returns>Дверь.</returns>
 		public DoorViewModel SaveDoor(DoorViewModel model)
 		{
-			var door = model;
-			dataManager.Doors.Save(door);
+            var door = new Door();
 
-			return GetDoorById(door.Id);
-		}
-	}
+            if (model.Id != 0)
+            {
+                door = dataManager.Doors.GetDoorById(model.Id);
+            }
+
+            door.Name = model.Name;
+            door.Description = model.Description;
+            door.Comment = model.Comment;
+
+            dataManager.Doors.Save(door);
+
+            return GetDoorById(door.Id);
+        }
+
+        /// <summary>
+        /// Сохранить дверь с сигнатурой DoorEditModel.
+        /// </summary>
+        /// <param name="model">модель двери для сохранения.</param>
+        /// <returns>Дверь.</returns>
+        public DoorViewModel SaveCard(DoorEditModel model)
+        {
+            var door = new Door();
+
+            if (model.Id != 0)
+            {
+                door = dataManager.Doors.GetDoorById(model.Id);
+            }
+
+            door.Name = model.Name;
+            door.Description = model.Description;
+            door.Comment = model.Comment;
+
+            dataManager.Doors.Save(door);
+
+            return GetDoorById(door.Id);
+        }
+    }
 }
