@@ -62,7 +62,7 @@ namespace SecurityDoors.App
                 // TODO: Поменять с добавлением контроллера Home
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Card}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
