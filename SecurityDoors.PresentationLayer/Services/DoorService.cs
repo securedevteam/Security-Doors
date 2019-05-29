@@ -118,7 +118,7 @@ namespace SecurityDoors.PresentationLayer.Services
         /// </summary>
         /// <param name="model">модель двери для сохранения.</param>
         /// <returns>Дверь.</returns>
-        public DoorViewModel SaveCard(DoorEditModel model)
+        public DoorViewModel SaveDoor(DoorEditModel model)
         {
             var door = new Door();
 
