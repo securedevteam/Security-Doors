@@ -1,0 +1,39 @@
+﻿@model DoorEditModel
+
+<div>
+    <h2>Данные для изменения двери №@Model.Id</h2>
+</div>
+
+<form method="post" asp-controller="Door" asp-action="Edit" asp-route-id="@Model.Id">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <div>
+            <h2>Данные для изменения двери №@Model.Id</h2>
+        </div>
+
+        <div>
+            <label asp-for="Name">Название: </label>
+            <input type="text" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description">Описание: </label>
+            <input type="text" asp-for="Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <div>
+            <label asp-for="Comment">Комментарий: </label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" value="Подтвердить редактирование" />
+        </div>
+    </div>
+</form>
