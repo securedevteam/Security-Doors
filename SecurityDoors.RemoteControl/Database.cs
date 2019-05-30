@@ -1,15 +1,18 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.DataAccessLayer.Enums;
+using System.Collections.Generic;
 
 namespace SecurityDoors.RemoteControl
 {
     class Database
     {
-        private ApplicationContext db = new ApplicationContext();
+        private readonly CardRepository cardRepository     = new CardRepository();
+        private readonly PersonRepository personRepository = new PersonRepository();
+        private readonly DoorRepository doorRepository     = new DoorRepository();
+        private readonly DoorPassingRepository doorPassingRepository = new DoorPassingRepository();
         public static void Init()
         {
             using (var context = new ApplicationContext())
@@ -30,106 +33,95 @@ namespace SecurityDoors.RemoteControl
         #region методы для добавление обьектов в БД
         public void AddPerson(Person person)
         {
-            db.People.Add(person);
-            db.SaveChangesAsync();
+            personRepository.Save(person);
         }
 
         public void AddCard(Card card)
         {
-            // TODO: Пример использования BLL
-            //var cr = new CardRepository();
-            //cr.Create(card);
-            //cr.Save();
-
-            db.Cards.Add(card);
-            db.SaveChangesAsync();
+            cardRepository.Save(card);
         }
 
         public void AddDoor(Door door)
         {
-            db.Doors.Add(door);
-            db.SaveChangesAsync();
+            doorRepository.Save(door);
         }
         #endregion
 
         #region методы для вывода количества обьектов в таблицах БД
         public int GetCountOfPerson()
         {
-            return db.People.Count();
+            return personRepository.GetPeopleList().Count();
         }
 
         public int GetCountOfDoor()
         {
-            return db.Doors.Count();
+            return doorRepository.GetDoorsList().Count();
         }
 
         public int GetCountOfDoorPassing()
         {
-            return db.DoorPassings.Count();
+            return doorRepository.GetDoorsList().Count();
         }
 
         public int GetCountOfCard()
         {
-            return db.Cards.Count();
+            return cardRepository.GetCardsList().Count();
         }
         #endregion
 
         #region методы получения множества обьектов
-        public DbSet<Person> GetPersons()
+        public IEnumerable<Person> GetPersons()
         {
-            return db.People;
+            return personRepository.GetPeopleList();
         }
 
-        public DbSet<Card> GetCards()
+        public IEnumerable<Card> GetCards()
         {
-            return db.Cards;
+            return cardRepository.GetCardsList();
         }
 
-        public DbSet<Door> GetDoors()
+        public IEnumerable<Door> GetDoors()
         {
-            return db.Doors;
+            return doorRepository.GetDoorsList();
         }
 
-        public DbSet<DoorPassing> GetDoorPassings()
+        public IEnumerable<DoorPassing> GetDoorPassings()
         {
-            return db.DoorPassings;
+            return doorPassingRepository.GetDoorsPassingList();
         }
         #endregion
 
         #region методы получения обьекта по id
         public Person GetPersonById(int id)
         {
-            return db.People.Find(id);
+            return personRepository.GetPersonById(id);
         }
 
         public Card GetCardById(int id)
         {
-            return db.Cards.Find(id);
+            return cardRepository.GetCardById(id);
         }
 
         public Door GetDoorById(int id)
         {
-            return db.Doors.Find(id);
+            return doorRepository.GetDoorById(id);
         }
         #endregion
 
         #region методы удаления объектов из БД
         public void deletePerson(Person person)
         {
-            db.People.Remove(person);
-            db.SaveChangesAsync();
+            personRepository.Delete(person.Id);
         }
 
         public void deleteCard(Card card)
         {
-            db.Cards.Remove(card);
-            db.SaveChangesAsync();
+            cardRepository.Delete(card.Id);
         }
 
         public void deleteDoor(Door door)
         {
-            db.Doors.Remove(door);
-            db.SaveChangesAsync();
+            doorRepository.Delete(door.Id);
         }
 
         #endregion
