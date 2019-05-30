@@ -32,7 +32,7 @@ namespace SecurityDoors.RemoteControl
             return this;
         }
 
-        public PersonBuilder setGender(bool gender)
+        public PersonBuilder setGender(int gender)
         {
             person.Gender = gender;
             return this;

@@ -27,12 +27,12 @@ namespace SecurityDoors.RemoteControl
             if (input.Equals("1"))
             {
                 //мужской пол
-                personBuilder.setGender(true);
+                personBuilder.setGender(1);
             }
             else if (input.Equals("1"))
             {
                 //женский пол
-                personBuilder.setGender(false);
+                personBuilder.setGender(0);
             }
             else
             {
@@ -231,10 +231,11 @@ namespace SecurityDoors.RemoteControl
                 Console.WriteLine("name:\t{0}", person.FirstName);
                 Console.WriteLine("second name:\t{0}", person.SecondName);
                 Console.WriteLine("last name:\t{0}", person.LastName);
-                if (person.Gender)
+                if (person.Gender == 1)
                 {
                     Console.WriteLine("gender\tmale");
-                } else
+                }
+                else
                 {
                     Console.WriteLine("gender:\tfemale");
                 }
