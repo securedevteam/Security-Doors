@@ -1,7 +1,7 @@
 ﻿namespace SecurityDoors.DataAccessLayer.Constants
 {
     /// <summary>
-    /// Константы карточки.
+    /// Константы карты.
     /// </summary>
     public class CardConstants
     {
