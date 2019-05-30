@@ -54,9 +54,10 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		public string Comment { get; set; }
 
         /// <summary>
-        /// Id карты.
+        /// Уникальный номер карты.
         /// </summary>
-		[Display(Name = "Id карты")]
+        [Required(ErrorMessage = "Неверный уникальный номер карты")]
+		[Display(Name = "Уникальный номер карты")]
 		public string Card { get; set; }
 	}
 
@@ -109,9 +110,10 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Comment { get; set; }
 
         /// <summary>
-        /// Id карты.
+        /// Уникальный номер карты.
         /// </summary>
-		[Display(Name = "Id карты")]
+		[Required(ErrorMessage = "Неверный уникальный номер карты")]
+        [Display(Name = "Уникальный номер карты")]
         public string Card { get; set; }
     }
 }

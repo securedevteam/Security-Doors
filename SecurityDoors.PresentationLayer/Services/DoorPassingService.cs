@@ -31,11 +31,14 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-				viewModels.Add(new DoorPassingViewModel()
+                var personModel = dataManager.People.GetPersonById(model.PersonId);
+                var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
+
+                viewModels.Add(new DoorPassingViewModel()
 				{
 					Id = model.Id,
-					DoorId = model.DoorId,
-					PersonId = model.PersonId,
+					Door = doorModel.Name,
+					Person = $"{personModel.FirstName} {personModel.LastName} {personModel.SecondName}",
 					PassingTime = model.PassingTime,
                     Status = model.Status,
 					Comment = model.Comment
