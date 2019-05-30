@@ -16,8 +16,10 @@
         <div>
             <label asp-for="Status">Статус: </label>
             <select asp-for="Status">
-                <option>Активна</option>
-                <option>Закрыта</option>
+                <option>@Constants.IsActive</option>
+                <option>@Constants.IsClosed</option>
+                <option>@Constants.IsLost</option>
+                <option>@Constants.IsSuspended</option>
             </select>
         </div>
 

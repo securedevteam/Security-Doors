@@ -3,6 +3,7 @@ using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -33,8 +34,14 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             return db.Cards.Find(id);
         }
 
-		/// <inheritdoc/>
-		[Obsolete]
+        /// <inheritdoc/>
+        public Card GetCardByUniqueNumber(string uniqueNumber)
+        {
+            return db.Cards.FirstOrDefault(c => c.UniqueNumber == uniqueNumber);
+        }
+
+        /// <inheritdoc/>
+        [Obsolete]
 		public void Create(Card item)
         {
             db.Cards.Add(item);

@@ -26,13 +26,13 @@ namespace SecurityDoors.PresentationLayer.Services
 
         #region Вспомогательные методы для смены статуса карточки для ViewModel
 
-        private string ChangeStatus(Card model)
+        private string ConvertStatus(Card model)
         {
             var status = string.Empty;
 			
             switch (model.Status)
 			{
-                case (int) CardStatus.IsClosed: { status = Constants.IsClosed; } break;
+                case (int)CardStatus.IsClosed: { status = Constants.IsClosed; } break;
                 case (int)CardStatus.IsActive: { status = Constants.IsActive; } break;
                 case (int)CardStatus.IsLost: { status = Constants.IsLost; } break;
                 case (int)CardStatus.IsSuspended: { status = Constants.IsSuspended; } break;
@@ -41,7 +41,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return status;
         }
 
-        private int ChangeStatus(CardViewModel model)
+        private int ConvertStatus(CardViewModel model)
         {
 			var status = 0;
 
@@ -56,7 +56,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			return status;
         }
 
-        private int ChangeStatus(CardEditModel model)
+        private int ConvertStatus(CardEditModel model)
         {
             var status = 0;
 
@@ -86,8 +86,14 @@ namespace SecurityDoors.PresentationLayer.Services
 
             foreach (var model in models)
             {
-                status = ChangeStatus(model);
-                viewModels.Add(new CardViewModel { Id = model.Id, UniqueNumber = model.UniqueNumber, Status = status, Comment = model.Comment });
+                status = ConvertStatus(model);
+                viewModels.Add(new CardViewModel
+                {
+                    Id = model.Id,
+                    UniqueNumber = model.UniqueNumber,
+                    Status = status,
+                    Comment = model.Comment
+                });
             }
 
             return viewModels;
@@ -102,7 +108,7 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = ChangeStatus(model);
+            var status = ConvertStatus(model);
 
             var viewModel = new CardViewModel()
             {
@@ -124,7 +130,7 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = ChangeStatus(model);
+            var status = ConvertStatus(model);
 
             var editModel = new CardEditModel()
             {
@@ -164,7 +170,7 @@ namespace SecurityDoors.PresentationLayer.Services
                 model.UniqueNumber = Guid.NewGuid().ToString();
             }
 
-            var status = ChangeStatus(model);
+            var status = ConvertStatus(model);
 
             card.UniqueNumber = model.UniqueNumber;
             card.Status = status;
@@ -189,7 +195,7 @@ namespace SecurityDoors.PresentationLayer.Services
                 card = dataManager.Cards.GetCardById(model.Id);
             }
 
-            var status = ChangeStatus(model);
+            var status = ConvertStatus(model);
 
             card.Status = status;
             card.Comment = model.Comment;

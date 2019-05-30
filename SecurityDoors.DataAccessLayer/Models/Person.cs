@@ -30,7 +30,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// <summary>
 		/// Пол.
 		/// </summary>
-		public bool Gender { get; set; }
+		public int Gender { get; set; }
 
 		/// <summary>
 		/// Паспорт.
@@ -47,7 +47,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// <summary>
 		/// Id карточки.
 		/// </summary>
-		public int? CardId { get; set; }
+		public int CardId { get; set; }
 
 		public Card Card { get; set; }
 	}

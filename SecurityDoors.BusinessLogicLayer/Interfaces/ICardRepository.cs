@@ -16,17 +16,24 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         IEnumerable<Card> GetCardsList();
 
         /// <summary>
-        /// Получить карту.
+        /// Получить карту по Id.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         /// <returns>Карта.</returns>
         Card GetCardById(int id);
 
-		/// <summary>
-		/// Создать карту.
-		/// </summary>
-		/// <param name="item">элемент.</param>
-		[Obsolete]
+        /// <summary>
+        /// Получить карту по уникальному номеру.
+        /// </summary>
+        /// <param name="uniqueNumber">уникальный номер.</param>
+        /// <returns>Карта.</returns>
+        Card GetCardByUniqueNumber(string uniqueNumber);
+
+        /// <summary>
+        /// Создать карту.
+        /// </summary>
+        /// <param name="item">элемент.</param>
+        [Obsolete]
 		void Create(Card item);
 
         /// <summary>

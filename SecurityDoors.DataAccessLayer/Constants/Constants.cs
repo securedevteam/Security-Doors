@@ -24,5 +24,15 @@
         /// Карточка приостановлена.
         /// </summary>
         public const string IsSuspended = "Приостановлена";
+
+        /// <summary>
+        /// Мужской пол.
+        /// </summary>
+        public const string IsMale = "Мужской";
+
+        /// <summary>
+        /// Женский пол.
+        /// </summary>
+        public const string IsFemale = "Женский";
     }
 }

@@ -29,11 +29,11 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.FirstName</td>
-                    <td>@(item.SecondName == string.Empty ? "отсутствует" : item.SecondName)</td>
+                    <td>@item.SecondName</td>
                     <td>@item.LastName</td>
-                    <td>@(item.Gender == true ? "Мужской" : "Женский")</td>
+                    <td>@item.Gender</td>
                     <td>@item.Passport</td>
-                    <td>@item.CardId</td>
+                    <td>@item.Card</td>
                     <td>@item.Comment</td>
                     <td>
                         <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> |

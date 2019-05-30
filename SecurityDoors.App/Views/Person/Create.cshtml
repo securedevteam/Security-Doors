@@ -1,49 +1,48 @@
 ﻿@model PersonViewModel
 
-    <form method="post" asp-controller="Person" asp-action="Create">
-        <div asp-validation-summary="ModelOnly"></div>
+<form method="post" asp-controller="Person" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
 
+
+    <div>
         <div>
-            <div>
-                <label asp-for="FirstName">Имя</label>
-                <input type="text" asp-for="FirstName" />
-                <span asp-validation-for="FirstName"></span>
-            </div>
-            <div>
-                <label asp-for="SecondName">Отчество</label>
-                <input type="text" asp-for="SecondName" />
-                <span asp-validation-for="SecondName"></span>
-            </div>
-            <div>
-                <label asp-for="LastName">Фамилия</label>
-                <input type="text" asp-for="LastName" />
-                <span asp-validation-for="LastName"></span>
-            </div>
-            <div>
-                <label asp-for="Gender">Пол</label>
-                <select asp-for="Gender">
-                    <option value="true" selected="selected">М</option>
-                    <option value="false">Ж</option>
-                </select>
-                <span asp-validation-for="Gender"></span>
-            </div>
-            <div>
-                <label asp-for="Passport">Паспорт</label>
-                <input type="text" asp-for="Passport" />
-                <span asp-validation-for="Passport"></span>
-            </div>
-            <div>
-                <label asp-for="Comment">Комментарий</label>
-                <input type="text" asp-for="Comment" />
-                <span asp-validation-for="Comment"></span>
-            </div>
-            <div>
-                TODO: Добавить функционал выбора карты и имеющихся свободных карт или добавление новой <br />
-                <label asp-for="CardId"># карты </label>
-                <input type="text" asp-for="CardId" />
-                <span asp-validation-for="CardId"></span>
-            </div>
+            <label asp-for="FirstName">Имя</label>
+            <input type="text" asp-for="FirstName" />
+            <span asp-validation-for="FirstName"></span>
         </div>
-        <input type="submit" value="Подтвердить" />
-        <input type="reset" value="Очистить" />
-    </form>
+        <div>
+            <label asp-for="SecondName">Отчество</label>
+            <input type="text" asp-for="SecondName" />
+            <span asp-validation-for="SecondName"></span>
+        </div>
+        <div>
+            <label asp-for="LastName">Фамилия</label>
+            <input type="text" asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="Gender">Пол</label>
+            <select asp-for="Gender">
+                <option>@Constants.IsMale</option>
+                <option>@Constants.IsFemale</option>
+            </select>
+        </div>
+        <div>
+            <label asp-for="Passport">Паспорт</label>
+            <input type="text" asp-for="Passport" />
+            <span asp-validation-for="Passport"></span>
+        </div>
+        <div>
+            <label asp-for="Comment">Комментарий</label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+        <div>
+            <label asp-for="Card"># карты </label>
+            <input type="text" asp-for="Card" />
+            <span asp-validation-for="Card"></span>
+        </div>
+    </div>
+    <input type="submit" value="Подтвердить" />
+    <input type="reset" value="Очистить" />
+</form>

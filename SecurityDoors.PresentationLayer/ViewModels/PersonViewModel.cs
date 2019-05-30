@@ -1,69 +1,117 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
+    /// <summary>
+    /// Модель карты для просмотра.
+    /// </summary>
     public class PersonViewModel
 	{
-		[Display(Name = "ID")]
+        /// <summary>
+        /// Id сотрудника.
+        /// </summary>
+		[Display(Name = "Id")]
 		public int Id { get; set; }
+
+        /// <summary>
+        /// Имя.
+        /// </summary>
 		[Required(ErrorMessage = "Неверное имя")]
 		[Display(Name = "Имя")]
 		public string FirstName { get; set; }
 
+        /// <summary>
+        /// Отчество.
+        /// </summary>
 		[Display(Name = "Отчество")]
 		public string SecondName { get; set; }
 
+        /// <summary>
+        /// Фамилия.
+        /// </summary>
 		[Required(ErrorMessage = "Неверная фамилия")]
 		[Display(Name = "Фамилия")]
 		public string LastName { get; set; }
 
+        /// <summary>
+        /// Пол.
+        /// </summary>
 		[Required(ErrorMessage = "Неверный пол")]
 		[Display(Name = "Пол")]
-		public bool Gender { get; set; }
+		public string Gender { get; set; }
 
-		[Required(ErrorMessage = "Неверный паспорт")]
+        /// <summary>
+        /// Паспорт.
+        /// </summary>
+		[Required(ErrorMessage = "Неверный номер паспорта")]
 		[Display(Name = "Паспорт")]
 		public string Passport { get; set; }
 
+        /// <summary>
+        /// Комментарий.
+        /// </summary>
 		[Display(Name = "Комментарий")]
 		public string Comment { get; set; }
 
-		[Display(Name = "ID карты")]
-		public int? CardId { get; set; }
-
+        /// <summary>
+        /// Id карты.
+        /// </summary>
+		[Display(Name = "Id карты")]
+		public string Card { get; set; }
 	}
 
     public class PersonEditModel
 	{
-		[Display(Name = "ID")]
-		public int Id { get; set; }
+        /// <summary>
+        /// Id сотрудника.
+        /// </summary>
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Имя.
+        /// </summary>
 		[Required(ErrorMessage = "Неверное имя")]
-		[Display(Name = "Имя")]
-		public string FirstName { get; set; }
+        [Display(Name = "Имя")]
+        public string FirstName { get; set; }
 
+        /// <summary>
+        /// Отчество.
+        /// </summary>
 		[Display(Name = "Отчество")]
-		public string SecondName { get; set; }
+        public string SecondName { get; set; }
 
+        /// <summary>
+        /// Фамилия.
+        /// </summary>
 		[Required(ErrorMessage = "Неверная фамилия")]
-		[Display(Name = "Фамилия")]
-		public string LastName { get; set; }
+        [Display(Name = "Фамилия")]
+        public string LastName { get; set; }
 
+        /// <summary>
+        /// Пол.
+        /// </summary>
 		[Required(ErrorMessage = "Неверный пол")]
-		[Display(Name = "Пол")]
-		public bool Gender { get; set; }
+        [Display(Name = "Пол")]
+        public string Gender { get; set; }
 
+        /// <summary>
+        /// Паспорт.
+        /// </summary>
 		[Required(ErrorMessage = "Неверный паспорт")]
-		[Display(Name = "Паспорт")]
-		public string Passport { get; set; }
+        [Display(Name = "Паспорт")]
+        public string Passport { get; set; }
 
+        /// <summary>
+        /// Комментарий.
+        /// </summary>
 		[Display(Name = "Комментарий")]
-		public string Comment { get; set; }
+        public string Comment { get; set; }
 
-		[Display(Name = "ID карты")]
-		public int? CardId { get; set; }
-	}
+        /// <summary>
+        /// Id карты.
+        /// </summary>
+		[Display(Name = "Id карты")]
+        public string Card { get; set; }
+    }
 }
