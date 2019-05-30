@@ -17,7 +17,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// </summary>
 		public ApplicationContext()
 		{
-			Database.Migrate();
+			//Database.Migrate();
 			Database.EnsureCreated();
 		}
 		/// <summary>

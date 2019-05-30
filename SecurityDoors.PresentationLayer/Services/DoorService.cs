@@ -12,8 +12,7 @@ namespace SecurityDoors.PresentationLayer.Services
     /// </summary>
 	public class DoorService
 	{
-
-        DataManager dataManager;
+        private DataManager dataManager;
 
         /// <summary>
         /// Конструктор.
@@ -35,7 +34,13 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-				viewModels.Add(new DoorViewModel { Id = model.Id, Name = model.Name, Description = model.Description, Comment = model.Comment});
+				viewModels.Add(new DoorViewModel
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                    Comment = model.Comment
+                });
 			}
 
 			return viewModels;

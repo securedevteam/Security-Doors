@@ -1,0 +1,27 @@
+﻿@model PersonViewModel
+
+<h2>Информация карточки №@Model.Id</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Фамилия</th>
+            <th>Пол</th>
+            <th>Паспорт</th>
+            <th>Id карты</th>
+            <th>Коментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.FirstName</td>
+            <td>@(Model.SecondName == string.Empty ? "отсутствует" : Model.SecondName)</td>
+            <td>@Model.LastName</td>
+            <td>@(Model.Gender == true ? "Мужской" : "Женский")</td>
+            <td>@Model.Passport</td>
+            <td>@Model.CardId</td>
+            <td>@Model.Comment</td>
+        </tr>
+    </tbody>
+</table>

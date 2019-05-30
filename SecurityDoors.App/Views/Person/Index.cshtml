@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<PersonViewModel>
-@{
-    ViewData["Title"] = "Index";
-}
 
 <h1>Список людей</h1>
 
@@ -21,7 +18,7 @@
                 <th>Фамилия</th>
                 <th>Пол</th>
                 <th>Паспорт</th>
-                <th># карты</th>
+                <th>Id карты</th>
                 <th>Коментарий</th>
                 <th>Доступные действия</th>
             </tr>
@@ -32,13 +29,14 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.FirstName</td>
-                    <td>@(item.SecondName == "" ? "отсутствует" : item.SecondName)</td>
+                    <td>@(item.SecondName == string.Empty ? "отсутствует" : item.SecondName)</td>
                     <td>@item.LastName</td>
-                    <td>@(item.Gender == true ? "М" : "Ж")</td>
+                    <td>@(item.Gender == true ? "Мужской" : "Женский")</td>
                     <td>@item.Passport</td>
                     <td>@item.CardId</td>
                     <td>@item.Comment</td>
                     <td>
+                        <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> |
                         <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> |
                         <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
                     </td>

@@ -27,7 +27,8 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление</returns>
         public IActionResult Index()
 		{
-			return View(_serviceManager.Person.GetPeople());
+            var models = _serviceManager.Person.GetPeople();
+            return View(models);
 		}
 
         /// <summary>

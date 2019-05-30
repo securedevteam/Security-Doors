@@ -1,8 +1,5 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
@@ -21,8 +18,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Display(Name = "Id двери")]
 		public int DoorId { get; set; }
 
-		[Required(ErrorMessage = "Неверный Id человека")]
-		[Display(Name = "Id человека")]
+		[Required(ErrorMessage = "Неверный Id сотрудника")]
+		[Display(Name = "Id сотрудника")]
 		public int PersonId { get; set; }
 	}
 
@@ -41,8 +38,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Display(Name = "Id двери")]
 		public int DoorId { get; set; }
 
-		[Required(ErrorMessage = "Неверный Id человека")]
-		[Display(Name = "Id человека")]
+		[Required(ErrorMessage = "Неверный Id сотрудника")]
+		[Display(Name = "Id сотрудника")]
 		public int PersonId { get; set; }
 	}
 }
