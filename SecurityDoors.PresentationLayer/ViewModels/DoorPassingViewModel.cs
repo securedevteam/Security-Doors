@@ -13,7 +13,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
         [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         [Display(Name = "Комментарий")]
 		public string Comment { get; set; }
@@ -37,7 +37,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 
         [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         [Display(Name = "Комментарий")]
         public string Comment { get; set; }

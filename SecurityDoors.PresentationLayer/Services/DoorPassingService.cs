@@ -1,4 +1,6 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.DataAccessLayer.Constants;
+using SecurityDoors.DataAccessLayer.Enums;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
@@ -20,6 +22,24 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
+        #region Вспомогательные методы для смены статуса карточки для ViewModel
+
+        private string ConvertStatus(int statusModel)
+        {
+            var status = string.Empty;
+
+            switch (statusModel)
+            {
+                case (int)DoorPassingStatus.WithoutСontrol: { status = DoorPassingConstants.WithoutСontrol; } break;
+                case (int)DoorPassingStatus.OnControl: { status = DoorPassingConstants.OnControl; } break;
+                case (int)DoorPassingStatus.IsAnnul: { status = DoorPassingConstants.IsAnnul; } break;
+            }
+
+            return status;
+        }
+
+        #endregion
+
         /// <summary>
         /// Получить все проходы.
         /// </summary>
@@ -34,13 +54,15 @@ namespace SecurityDoors.PresentationLayer.Services
                 var personModel = dataManager.People.GetPersonById(model.PersonId);
                 var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
 
+                var status = ConvertStatus(model.Status);
+
                 viewModels.Add(new DoorPassingViewModel()
 				{
 					Id = model.Id,
 					Door = doorModel.Name,
 					Person = $"{personModel.FirstName} {personModel.LastName} {personModel.SecondName}",
 					PassingTime = model.PassingTime,
-                    Status = model.Status,
+                    Status = status,
 					Comment = model.Comment
 				});
 			}
