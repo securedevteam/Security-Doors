@@ -134,20 +134,24 @@ namespace SecurityDoors.RemoteControl
         internal void printHelp()
         {
             Console.WriteLine("aviable command:   \n" +
-                           "quit            || q  \n" +
-                           "help            || h  \n" +
-                           "clear           || c  \n" +
-                           "add-person      || a-p\n" +
-                           "add-door        || a-d\n" +
-                           "add-card        || a-c\n" +
-                           "count-record    || c-r\n" +
-                           "list-person     || l-p\n" +
-                           "list-card       || l-c\n" +
-                           "list-door       || l-d\n" +
-                           "list-doorPassing|| l-dp\n" +
-                           "show-person     || s-p\n" +
-                           "show-card       || s-c\n" +
-                           "show-door       || s-d");
+                           "quit              || q  \n" +
+                           "help              || h  \n" +
+                           "clear             || c  \n" +
+                           "add-person        || a-p\n" +
+                           "add-door          || a-d\n" +
+                           "add-card          || a-c\n" +
+                           "count-record      || c-r\n" +
+                           "list-person       || l-p\n" +
+                           "list-card         || l-c\n" +
+                           "list-door         || l-d\n" +
+                           "list-doorPassing  || l-dp\n" +
+                           "show-person       || s-p\n" +
+                           "show-card         || s-c\n" +
+                           "show-door         || s-d\n" +
+                           "delete-person     || d-p\n" +
+                           "delete-card       || d-c\n" +
+                           "delete-door       || d-d\n" +
+                           "delete-doorPassing|| d-dp");
         }
 
         internal void printCountOfRecord()
@@ -293,6 +297,67 @@ namespace SecurityDoors.RemoteControl
                 Console.Write("\t");
                 Console.WriteLine(door.Description);
             }
+        }
+        #endregion
+
+        #region методы для удаления обьектов из БД
+        public void DeletePerson()
+        {
+            Console.WriteLine("enter person id");
+            int id = -1;
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }catch (FormatException)
+            {
+                Color.writeError("input does not number");
+            }
+            db.deletePerson(id);
+        }
+
+        public void DeleteCard()
+        {
+            Console.WriteLine("enter card id");
+            int id = -1;
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Color.writeError("input does not number");
+            }
+            db.deleteCard(id);
+        }
+
+        public void DeleteDoor()
+        {
+            Console.WriteLine("enter door id");
+            int id = -1;
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Color.writeError("input does not number");
+            }
+            db.deleteDoor(id);
+        }
+
+        public void DeleteDoorPassing()
+        {
+            Console.WriteLine("enter doorPassing id");
+            int id = -1;
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Color.writeError("input does not number");
+            }
+            db.deleteDoorPassing(id);
         }
         #endregion
     }

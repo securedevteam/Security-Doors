@@ -71,6 +71,22 @@ namespace SecurityDoors.RemoteControl.cli
                     case "s-d":
                         command.printDoor();
                         break;
+                    case "delete-person":
+                    case "d-p":
+                        command.DeletePerson();
+                        break;
+                    case "delete-card":
+                    case "d-c":
+                        command.DeleteCard();
+                        break;
+                    case "delete-door":
+                    case "d-d":
+                        command.DeleteDoor();
+                        break;
+                    case "delete-doorPassing":
+                    case "d-dp":
+                        command.DeleteDoorPassing();
+                        break;
                     default:
                         Console.WriteLine("command unrecognized");
                         break;

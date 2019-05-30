@@ -109,21 +109,25 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region методы удаления объектов из БД
-        public void deletePerson(Person person)
+        public void deletePerson(int id)
         {
-            personRepository.Delete(person.Id);
+            personRepository.Delete(id);
         }
 
-        public void deleteCard(Card card)
+        public void deleteCard(int id)
         {
-            cardRepository.Delete(card.Id);
+            cardRepository.Delete(id);
         }
 
-        public void deleteDoor(Door door)
+        public void deleteDoor(int id)
         {
-            doorRepository.Delete(door.Id);
+            doorRepository.Delete(id);
         }
 
+        public void deleteDoorPassing(int id)
+        {
+            doorPassingRepository.Delete(id);
+        }
         #endregion
     }
 }
