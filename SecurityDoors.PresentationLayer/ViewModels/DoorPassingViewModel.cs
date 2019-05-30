@@ -6,31 +6,43 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
-    public class DoorPassingViewModel:DoorPassing
+    public class DoorPassingViewModel
 	{
-		[Required]
-		public new int Id { get; set; }
-		[Required]
-		public new DateTime PassingTime { get; set; } = DateTime.Now;
-		[Required]
-		public new string Comment { get; set; }
-		[Required]
-		public new int DoorId { get; set; }
-		[Required]
-		public new int PersonId { get; set; }
+		public int Id { get; set; }
+
+		[Required(ErrorMessage = "Неверное время прохода")]
+		[Display(Name = "Время прохода")]
+		public DateTime PassingTime { get; set; } = DateTime.Now;
+
+		[Display(Name = "Комментарий")]
+		public string Comment { get; set; }
+		
+		[Required(ErrorMessage = "Неверный Id двери")]
+		[Display(Name = "Id двери")]
+		public int DoorId { get; set; }
+
+		[Required(ErrorMessage = "Неверный Id человека")]
+		[Display(Name = "Id человека")]
+		public int PersonId { get; set; }
 	}
 
-    public class DoorPassingEditModel:DoorPassing
+    public class DoorPassingEditModel
 	{
-		[Required]
-		public new int Id { get; set; }
-		[Required]
-		public new DateTime PassingTime { get; set; } = DateTime.Now;
-		[Required]
-		public new string Comment { get; set; }
-		[Required]
-		public new int DoorId { get; set; }
-		[Required]
-		public new int PersonId { get; set; }
+		public int Id { get; set; }
+
+		[Required(ErrorMessage = "Неверное время прохода")]
+		[Display(Name = "Время прохода")]
+		public DateTime PassingTime { get; set; } = DateTime.Now;
+
+		[Display(Name = "Комментарий")]
+		public string Comment { get; set; }
+
+		[Required(ErrorMessage = "Неверный Id двери")]
+		[Display(Name = "Id двери")]
+		public int DoorId { get; set; }
+
+		[Required(ErrorMessage = "Неверный Id человека")]
+		[Display(Name = "Id человека")]
+		public int PersonId { get; set; }
 	}
 }

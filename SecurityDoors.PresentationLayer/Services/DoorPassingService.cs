@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
-	class DoorPassingService
+	public class DoorPassingService
 	{
 		DataManager dataManager;
 
@@ -22,15 +22,42 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-				viewModels.Add((DoorPassingViewModel)model);
+				viewModels.Add(new DoorPassingViewModel()
+				{
+					Id = model.Id,
+					DoorId = model.DoorId,
+					PersonId = model.PersonId,
+					PassingTime = model.PassingTime,
+					Comment = model.Comment
+				});
 			}
 			return viewModels;
 		}
 		public DoorPassingViewModel GetDoorPassingById(int id)
-		=> (DoorPassingViewModel)dataManager.DoorsPassing.GetDoorPassingById(id);
+		{
+			var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+			return new DoorPassingViewModel()
+			{
+				Id = model.Id,
+				DoorId = model.DoorId,
+				PersonId = model.PersonId,
+				Comment = model.Comment,
+				PassingTime = model.PassingTime
+			};
+		}
 
 		public DoorPassingEditModel EditDoorPassingById(int id)
-				=> (DoorPassingEditModel)dataManager.DoorsPassing.GetDoorPassingById(id);
+		{
+			var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+			return new DoorPassingEditModel()
+			{
+				Id = model.Id,
+				DoorId = model.DoorId,
+				PersonId = model.PersonId,
+				Comment = model.Comment,
+				PassingTime = model.PassingTime
+			};
+		}
 
 		public void DeleteDoorPassingById(int id)
 		{
@@ -39,7 +66,14 @@ namespace SecurityDoors.PresentationLayer.Services
 
 		public DoorPassingViewModel SaveDoorPassing(DoorPassingViewModel model)
 		{
-			var doorPassing = model;
+			var doorPassing = new DoorPassing()
+			{
+				Id = model.Id,
+				DoorId = model.DoorId,
+				PersonId = model.PersonId,
+				Comment = model.Comment,
+				PassingTime = model.PassingTime
+			};
 			dataManager.DoorsPassing.Save(doorPassing);
 			return GetDoorPassingById(doorPassing.Id);
 		}
