@@ -1,0 +1,52 @@
+﻿@model SecurityDoors.PresentationLayer.ViewModels.PersonEditModel
+
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Id"></label>
+                <input asp-for="Id" disabled="disabled"/>
+                <span asp-validation-for="Id"></span>
+            </div>
+            <div>
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName"/>
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div>
+                <label asp-for="SecondName"></label>
+                <input asp-for="SecondName"/>
+                <span asp-validation-for="SecondName"></span>
+            </div>
+            <div>
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName"/>
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div>
+                <label asp-for="Gender">Пол</label>
+                <select asp-for="Gender">
+                    <option value="true" selected="selected">М</option>
+                    <option value="false">Ж</option>
+                </select>
+                <span asp-validation-for="Gender"></span>
+            </div>
+            <div>
+                <label asp-for="Passport"></label>
+                <input asp-for="Passport"/>
+                <span asp-validation-for="Passport"></span>
+            </div>
+            <div>
+                <label asp-for="Comment"></label>
+                <input asp-for="Comment"/>
+                <span asp-validation-for="Comment"></span>
+            </div>
+            <div>
+                <label asp-for="CardId"></label>
+                <input asp-for="CardId"/>
+                <span asp-validation-for="CardId"></span>
+            </div>
+            <div>
+                <input type="submit" value="Save"  />
+            </div>
+        </form>

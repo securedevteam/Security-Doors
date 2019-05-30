@@ -20,15 +20,15 @@ namespace SecurityDoors.DataAccessLayer.Models
 			Database.Migrate();
 			Database.EnsureCreated();
 		}
-
 		/// <summary>
 		/// Устанавливает строку подключения из файла конфигураций к localDb
 		/// Вариации строк можно посмотреть здесь https://www.connectionstrings.com/sql-server/
 		/// </summary>
 		protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
 		{
-            // TODO: Удалить после приведение кода в порядок.
-            /*
+			// TODO: Удалить после приведения кода в порядок.
+			#region Удалить после приведения кода в порядок
+			/*
             var builder = new ConfigurationBuilder();
             builder.SetBasePath(Directory.GetCurrentDirectory());
             builder.AddJsonFile("appsettings.json");
@@ -41,15 +41,15 @@ namespace SecurityDoors.DataAccessLayer.Models
             }
             */
 
-            // TODO: Еще один рабочий вариант, если путь находить в проекте appsettings.json
-            /*IConfigurationRoot configuration = new ConfigurationBuilder()
+			// TODO: Еще один рабочий вариант, если путь находить в проекте appsettings.json
+			/*IConfigurationRoot configuration = new ConfigurationBuilder()
                                                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                                                .AddJsonFile("appsettings.json")
                                                .Build();
 
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));*/
-
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true");
+			#endregion
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

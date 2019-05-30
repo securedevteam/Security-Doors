@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
-	class PersonService
+	public class PersonService
 	{
 		DataManager dataManager;
 
@@ -23,25 +23,88 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-				viewModels.Add((PersonViewModel)model);
+				viewModels.Add(new PersonViewModel()
+				{
+					Id = model.Id,
+					FirstName = model.FirstName,
+					SecondName = model.SecondName,
+					LastName = model.LastName,
+					Gender = model.Gender,
+					Passport = model.Passport,
+					Comment = model.Comment,
+					CardId = model.CardId
+				});
 			}
 			return viewModels;
 		}
 
 		public PersonViewModel GetPersonById(int id)
-		=> (PersonViewModel)dataManager.People.GetPersonById(id);
+		{
+			var model = dataManager.People.GetPersonById(id);
+			return new PersonViewModel()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = model.Gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = model.CardId
+			};
+		}
 
 		public PersonEditModel EditPersonById(int id)
-		=> (PersonEditModel)dataManager.People.GetPersonById(id);
+		{
+			var model = dataManager.People.GetPersonById(id);
+			return new PersonEditModel()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = model.Gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = model.CardId
+			};
+		}
 
 		public void DeletePersonById(int id)
 		{
 			dataManager.People.Delete(id);
 		}
 
+		public PersonViewModel SavePerson(PersonEditModel model)
+		{
+			var person = new Person()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = model.Gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = model.CardId
+			};
+			dataManager.People.Save(person);
+			return GetPersonById(person.Id);
+		}
+
 		public PersonViewModel SavePerson(PersonViewModel model)
 		{
-			var person = model;
+			var person = new Person()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = model.Gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = model.CardId
+			};
 			dataManager.People.Save(person);
 			return GetPersonById(person.Id);
 		}

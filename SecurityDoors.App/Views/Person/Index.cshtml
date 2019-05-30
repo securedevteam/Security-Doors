@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PersonViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Список людей</h1>
+
+<div>
+    <a asp-action="Create" asp-controller="Person">Добавить нового человека</a>
+</div>
+
+<br />
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Фамилия</th>
+                <th>Пол</th>
+                <th>Паспорт</th>
+                <th># карты</th>
+                <th>Коментарий</th>
+                <th>Доступные действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FirstName</td>
+                    <td>@(item.SecondName == "" ? "отсутствует" : item.SecondName)</td>
+                    <td>@item.LastName</td>
+                    <td>@(item.Gender == true ? "М" : "Ж")</td>
+                    <td>@item.Passport</td>
+                    <td>@item.CardId</td>
+                    <td>@item.Comment</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
