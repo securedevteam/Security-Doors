@@ -37,6 +37,7 @@ namespace SecurityDoors.PresentationLayer.Services
 					DoorId = model.DoorId,
 					PersonId = model.PersonId,
 					PassingTime = model.PassingTime,
+                    Status = model.Status,
 					Comment = model.Comment
 				});
 			}

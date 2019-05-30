@@ -11,7 +11,11 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Display(Name = "Время прохода")]
 		public DateTime PassingTime { get; set; } = DateTime.Now;
 
-		[Display(Name = "Комментарий")]
+        [Required(ErrorMessage = "Неверный статус")]
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
+
+        [Display(Name = "Комментарий")]
 		public string Comment { get; set; }
 		
 		[Required(ErrorMessage = "Неверный Id двери")]
@@ -31,7 +35,11 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Display(Name = "Время прохода")]
 		public DateTime PassingTime { get; set; } = DateTime.Now;
 
-		[Display(Name = "Комментарий")]
+        [Required(ErrorMessage = "Неверный статус")]
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
+
+        [Display(Name = "Комментарий")]
 		public string Comment { get; set; }
 
 		[Required(ErrorMessage = "Неверный Id двери")]
