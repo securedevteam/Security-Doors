@@ -22,11 +22,12 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// <returns>Карта.</returns>
         Card GetCardById(int id);
 
-        /// <summary>
-        /// Создать карту.
-        /// </summary>
-        /// <param name="item">элемент.</param>
-        void Create(Card item);
+		/// <summary>
+		/// Создать карту.
+		/// </summary>
+		/// <param name="item">элемент.</param>
+		[Obsolete]
+		void Create(Card item);
 
         /// <summary>
         /// Обновить карту.

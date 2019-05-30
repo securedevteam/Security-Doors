@@ -33,8 +33,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             return db.Cards.Find(id);
         }
 
-        /// <inheritdoc/>
-        public void Create(Card item)
+		/// <inheritdoc/>
+		[Obsolete]
+		public void Create(Card item)
         {
             db.Cards.Add(item);
         }
