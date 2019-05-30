@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190530221224_ControlMigration_2")]
+    partial class ControlMigration_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
 
                     b.Property<DateTime>("PassingTime");
 
+                    b.Property<int?>("PersonId");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
@@ -74,6 +78,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.HasIndex("CardId");
 
                     b.HasIndex("DoorId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("DoorPassings");
                 });
@@ -109,7 +115,7 @@ namespace SecurityDoors.DataAccessLayer.Migrations
             modelBuilder.Entity("SecurityDoors.DataAccessLayer.Models.DoorPassing", b =>
                 {
                     b.HasOne("SecurityDoors.DataAccessLayer.Models.Card", "Card")
-                        .WithMany("DoorPassings")
+                        .WithMany()
                         .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -117,6 +123,10 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .WithMany("DoorPassings")
                         .HasForeignKey("DoorId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SecurityDoors.DataAccessLayer.Models.Person")
+                        .WithMany("DoorPassings")
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("SecurityDoors.DataAccessLayer.Models.Person", b =>

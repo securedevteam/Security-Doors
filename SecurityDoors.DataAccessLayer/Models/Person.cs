@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SecurityDoors.DataAccessLayer.Models
+﻿namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
     /// Сотрудник.
@@ -36,8 +34,6 @@ namespace SecurityDoors.DataAccessLayer.Models
 		/// Паспорт.
 		/// </summary>
 		public string Passport { get; set; }
-		
-		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 
 		/// <summary>
 		/// Комментарий.

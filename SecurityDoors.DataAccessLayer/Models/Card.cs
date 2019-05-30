@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.DataAccessLayer.Models
+﻿using System.Collections.Generic;
+
+namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
     /// Карточка сотрудника.
@@ -25,6 +27,8 @@
 		/// </summary>
 		public string Comment { get; set; }
 
-		public Person Person { get; set; }
+        public virtual ICollection<DoorPassing> DoorPassings { get; set; }
+
+        public Person Person { get; set; }
 	}
 }
