@@ -1,4 +1,5 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
+﻿using SecurityDoors.DataAccessLayer.Enums;
+using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.Builders;
 using SecurityDoors.RemoteControl.cli;
 using System;
@@ -114,7 +115,7 @@ namespace SecurityDoors.RemoteControl
                 person = db.GetPersonById(id);
             }
 			///TODO: Реализовать выбор типа статуса
-            cardBuilder.setStatus(1);
+            cardBuilder.setStatus((int)CardStatus.IsActive);
             if (person != null)
             {
                 cardBuilder.setPerson(person);
@@ -199,7 +200,7 @@ namespace SecurityDoors.RemoteControl
             {
                 Console.WriteLine("id:\t{0}", card.Id);
                 Console.WriteLine("person:\t{0}", card.Person);
-                Console.WriteLine("status:\t{0}", card.Status);
+                Console.WriteLine("status:\t{0}", card.Status.ToString());
                 Console.WriteLine("GUID:\t{0}", card.UniqueNumber);
             } else
             {
