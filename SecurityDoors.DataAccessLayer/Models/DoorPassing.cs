@@ -35,10 +35,10 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public Door Door { get; set; }
 		
         /// <summary>
-        /// Id сотрудника.
+        /// Id карточки.
         /// </summary>
-		public int PersonId { get; set; }
+		public int CardId { get; set; }
 
-		public Person Person { get; set; }
+		public Card Card { get; set; }
 	}
 }

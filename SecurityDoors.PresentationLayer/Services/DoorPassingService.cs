@@ -51,7 +51,7 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			foreach (var model in models)
 			{
-                var personModel = dataManager.People.GetPersonById(model.PersonId);
+                var cardModel = dataManager.Cards.GetCardById(model.CardId);
                 var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
 
                 var status = ConvertStatus(model.Status);
@@ -60,7 +60,7 @@ namespace SecurityDoors.PresentationLayer.Services
 				{
 					Id = model.Id,
 					Door = doorModel.Name,
-					Person = $"{personModel.FirstName} {personModel.LastName} {personModel.SecondName}",
+					Card = cardModel.UniqueNumber,
 					PassingTime = model.PassingTime,
                     Status = status,
 					Comment = model.Comment

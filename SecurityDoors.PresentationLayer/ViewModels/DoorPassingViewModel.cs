@@ -22,9 +22,9 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Display(Name = "Дверь")]
 		public string Door { get; set; }
 
-		[Required(ErrorMessage = "Неверный сотрудник")]
-		[Display(Name = "Сотрудник")]
-		public string Person { get; set; }
+		[Required(ErrorMessage = "Неверный уникальный номер карточки")]
+		[Display(Name = "Уникальный номер карточки")]
+		public string Card { get; set; }
 	}
 
     public class DoorPassingEditModel
@@ -46,8 +46,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Display(Name = "Дверь")]
         public string Door { get; set; }
 
-        [Required(ErrorMessage = "Неверный сотрудник")]
-        [Display(Name = "Сотрудник")]
-        public string Person { get; set; }
+        [Required(ErrorMessage = "Неверный уникальный номер карточки")]
+        [Display(Name = "Уникальный номер карточки")]
+        public string Card { get; set; }
     }
 }
