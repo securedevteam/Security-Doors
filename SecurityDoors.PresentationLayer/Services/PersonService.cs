@@ -26,8 +26,8 @@ namespace SecurityDoors.PresentationLayer.Services
 
             switch (model.Gender)
             {
-                case (int)PersonGender.IsMale: { status = Constants.IsMale; } break;
-                case (int)PersonGender.IsFemale: { status = Constants.IsFemale; } break;
+                case (int)PersonGender.IsMale: { status = PersonConstants.IsMale; } break;
+                case (int)PersonGender.IsFemale: { status = PersonConstants.IsFemale; } break;
             }
 
             return status;
@@ -39,8 +39,8 @@ namespace SecurityDoors.PresentationLayer.Services
 
             switch (model.Gender)
             {
-                case Constants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case Constants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
+                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
+                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
             }
 
             return status;
@@ -52,8 +52,8 @@ namespace SecurityDoors.PresentationLayer.Services
 
             switch (model.Gender)
             {
-                case Constants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case Constants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
+                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
+                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
             }
 
             return status;

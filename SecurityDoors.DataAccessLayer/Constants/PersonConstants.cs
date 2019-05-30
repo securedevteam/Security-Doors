@@ -1,14 +1,10 @@
 ﻿namespace SecurityDoors.DataAccessLayer.Constants
 {
     /// <summary>
-    /// Основные константы проекта.
+    /// Константы сотрудников.
     /// </summary>
-    public class Constants
+    public class PersonConstants
     {
-        
-
-        
-
         /// <summary>
         /// Мужской пол.
         /// </summary>
