@@ -32,10 +32,10 @@ namespace SecurityDoors.PresentationLayer.Services
 			
             switch (model.Status)
 			{
-                case (int)CardStatus.IsClosed: { status = Constants.IsClosed; } break;
-                case (int)CardStatus.IsActive: { status = Constants.IsActive; } break;
-                case (int)CardStatus.IsLost: { status = Constants.IsLost; } break;
-                case (int)CardStatus.IsSuspended: { status = Constants.IsSuspended; } break;
+                case (int)CardStatus.IsClosed: { status = CardConstants.IsClosed; } break;
+                case (int)CardStatus.IsActive: { status = CardConstants.IsActive; } break;
+                case (int)CardStatus.IsLost: { status = CardConstants.IsLost; } break;
+                case (int)CardStatus.IsSuspended: { status = CardConstants.IsSuspended; } break;
             }
 			
             return status;
@@ -47,10 +47,10 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			switch (model.Status)
 			{
-                case Constants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
-                case Constants.IsActive: { status = (int)CardStatus.IsActive; } break;
-                case Constants.IsLost: { status = (int)CardStatus.IsLost; } break;
-                case Constants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
+                case CardConstants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
+                case CardConstants.IsActive: { status = (int)CardStatus.IsActive; } break;
+                case CardConstants.IsLost: { status = (int)CardStatus.IsLost; } break;
+                case CardConstants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
             }
 
 			return status;
@@ -62,10 +62,10 @@ namespace SecurityDoors.PresentationLayer.Services
 
             switch (model.Status)
             {
-				case Constants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
-                case Constants.IsActive: { status = (int)CardStatus.IsActive; } break;
-				case Constants.IsLost: { status = (int)CardStatus.IsLost; } break;
-				case Constants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
+				case CardConstants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
+                case CardConstants.IsActive: { status = (int)CardStatus.IsActive; } break;
+				case CardConstants.IsLost: { status = (int)CardStatus.IsLost; } break;
+				case CardConstants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
 			}
 
             return status;
