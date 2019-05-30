@@ -51,7 +51,7 @@ namespace SecurityDoors.App.Controllers
             if (ModelState.IsValid)
             {
                 _serviceManager.Doors.SaveDoor(door);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -92,7 +92,7 @@ namespace SecurityDoors.App.Controllers
             if (ModelState.IsValid)
             {
                 _serviceManager.Doors.SaveDoor(door);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -108,7 +108,7 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Delete(int id)
         {
             _serviceManager.Doors.DeleteDoorById(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

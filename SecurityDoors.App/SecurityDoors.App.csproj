@@ -10,6 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\**" />
+    <Compile Remove="wwwroot\js\**" />
+    <Content Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="appsettings.json" />
   </ItemGroup>
 
@@ -32,15 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
-    <Folder Include="wwwroot\lib\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="wwwroot\lib\bootstrap-4.3.1\css\bootstrap.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
