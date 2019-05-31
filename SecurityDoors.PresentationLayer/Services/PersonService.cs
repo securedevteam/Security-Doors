@@ -2,6 +2,7 @@
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
@@ -23,49 +24,6 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
-        #region Вспомогательные методы для смены пола для ViewModel
-
-        private string ConvertGender(Person model)
-        {
-            var status = string.Empty;
-
-            switch (model.Gender)
-            {
-                case (int)PersonGender.IsMale: { status = PersonConstants.IsMale; } break;
-                case (int)PersonGender.IsFemale: { status = PersonConstants.IsFemale; } break;
-            }
-
-            return status;
-        }
-
-        private int ConvertGender(PersonViewModel model)
-        {
-            var status = 0;
-
-            switch (model.Gender)
-            {
-                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
-            }
-
-            return status;
-        }
-
-        private int ConvertGender(PersonEditModel model)
-        {
-            var status = 0;
-
-            switch (model.Gender)
-            {
-                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
-            }
-
-            return status;
-        }
-
-        #endregion
-
         /// <summary>
         /// Получить сотрудником.
         /// </summary>
@@ -81,7 +39,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			{
                 var cardModel = dataManager.Cards.GetCardById(model.CardId);
 
-                gender = ConvertGender(model);
+                gender = model.ConvertGender();
 
                 viewModels.Add(new PersonViewModel()
 				{
@@ -108,7 +66,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			var model = dataManager.People.GetPersonById(id);
             var cardModel = dataManager.Cards.GetCardById(model.CardId);
 
-            var gender = ConvertGender(model);
+            var gender = model.ConvertGender();
 
             return new PersonViewModel()
 			{
@@ -133,7 +91,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			var model = dataManager.People.GetPersonById(id);
             var cardModel = dataManager.Cards.GetCardById(model.CardId);
 
-            var gender = ConvertGender(model);
+            var gender = model.ConvertGender();
 
             return new PersonEditModel()
 			{
@@ -166,7 +124,7 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
             var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
 
-            var gender = ConvertGender(model);
+            var gender = model.ConvertGender();
 
             var person = new Person()
 			{
@@ -194,7 +152,7 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
             var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
 
-            var gender = ConvertGender(model);
+            var gender = model.ConvertGender();
 
             var person = new Person()
 			{
