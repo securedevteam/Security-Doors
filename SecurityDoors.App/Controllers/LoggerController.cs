@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
+    [Route("api/[controller]")]
     public class LoggerController : Controller
     {
         private readonly ILoggerRepository _loggerRepository;
