@@ -1,4 +1,4 @@
-﻿using SecurityDoors.DataAccessLayer.Enums;
+﻿using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.Builders;
 using SecurityDoors.RemoteControl.cli;

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using SecurityDoors.BusinessLogicLayer.Implementations;
-using SecurityDoors.DataAccessLayer.Enums;
+using SecurityDoors.Core.Enums;
 using System.Collections.Generic;
 
 namespace SecurityDoors.RemoteControl
