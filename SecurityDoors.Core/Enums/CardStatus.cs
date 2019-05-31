@@ -1,7 +1,7 @@
-﻿namespace SecurityDoors.DataAccessLayer.Enums
+﻿namespace SecurityDoors.Core.Enums
 {
     /// <summary>
-    /// Перечисление.
+    /// Перечисление статусов карты.
     /// </summary>
     public enum CardStatus
     {

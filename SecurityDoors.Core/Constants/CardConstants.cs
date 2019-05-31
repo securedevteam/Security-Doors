@@ -1,4 +1,4 @@
-﻿namespace SecurityDoors.DataAccessLayer.Constants
+﻿namespace SecurityDoors.Core.Constants
 {
     /// <summary>
     /// Константы карты.

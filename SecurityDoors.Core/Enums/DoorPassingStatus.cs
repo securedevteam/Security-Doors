@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SecurityDoors.DataAccessLayer.Enums
+﻿namespace SecurityDoors.Core.Enums
 {
+    /// <summary>
+    /// Перечисления проходов.
+    /// </summary>
     public enum DoorPassingStatus
     {
         /// <summary>
