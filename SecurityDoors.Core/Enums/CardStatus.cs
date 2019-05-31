@@ -1,4 +1,4 @@
-﻿namespace SecurityDoors.DataAccessLayer.Enums
+﻿namespace SecurityDoors.Core.Enums
 {
     /// <summary>
     /// Перечисление.
