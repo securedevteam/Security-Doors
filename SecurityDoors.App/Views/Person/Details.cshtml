@@ -1,0 +1,27 @@
+﻿@model PersonViewModel
+
+<h2>Информация карточки №@Model.Id</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Пол</th>
+            <th>Паспорт</th>
+            <th>Уникальный номер карты</th>
+            <th>Коментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.SecondName</td>
+            <td>@Model.Gender</td>
+            <td>@Model.Passport</td>
+            <td>@Model.Card</td>
+            <td>@Model.Comment</td>
+        </tr>
+    </tbody>
+</table>

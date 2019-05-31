@@ -2,39 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20190524090441_0.cs" />
-    <Compile Remove="Migrations\20190524090441_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524090535_FirstVersionOfDatabase.cs" />
-    <Compile Remove="Migrations\20190524090535_FirstVersionOfDatabase.Designer.cs" />
-    <Compile Remove="Migrations\20190524120012_0.cs" />
-    <Compile Remove="Migrations\20190524120012_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524121517_0.cs" />
-    <Compile Remove="Migrations\20190524121517_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524125102_6.cs" />
-    <Compile Remove="Migrations\20190524125102_6.Designer.cs" />
-    <Compile Remove="Migrations\20190524125250_0.cs" />
-    <Compile Remove="Migrations\20190524125250_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524125438_0.cs" />
-    <Compile Remove="Migrations\20190524125438_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524130420_0.cs" />
-    <Compile Remove="Migrations\20190524130420_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524130508_0.cs" />
-    <Compile Remove="Migrations\20190524130508_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524130654_0.cs" />
-    <Compile Remove="Migrations\20190524130654_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524134142_0.cs" />
-    <Compile Remove="Migrations\20190524134142_0.Designer.cs" />
-    <Compile Remove="Migrations\20190524134304_0.cs" />
-    <Compile Remove="Migrations\20190524134304_0.Designer.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />

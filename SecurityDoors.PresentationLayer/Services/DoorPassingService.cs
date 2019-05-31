@@ -1,45 +1,54 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
-	class DoorPassingService
+    /// <summary>
+    /// Сервис для работы с контроллером.
+    /// </summary>
+	public class DoorPassingService
 	{
-		DataManager dataManager;
+		private DataManager dataManager;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public DoorPassingService(DataManager dataManager)
 		{
 			this.dataManager = dataManager;
 		}
 
-		public DoorPassingViewModel DoorPassingDatabseModelToView(int doorPassingId) => new DoorPassingViewModel()
+        /// <summary>
+        /// Получить все проходы.
+        /// </summary>
+        /// <returns>Список проходов.</returns>
+		public List<DoorPassingViewModel> GetDoorPassings()
 		{
-			DoorPassing = dataManager.DoorsPassing.GetDoorPassingById(doorPassingId)
-		};
+			var models = dataManager.DoorsPassing.GetDoorsPassingList();
+			var viewModels = new List<DoorPassingViewModel>();
 
-		public DoorPassingEditModel GetDoorPassingEditModel(int doorPassingId)
-		{
-			var _dbModel = dataManager.DoorsPassing.GetDoorPassingById(doorPassingId);
-			return (DoorPassingEditModel)_dbModel;
-		}
-
-		public DoorPassingViewModel SaveDoorPassingEditModel (DoorPassingEditModel doorPassingEditModel)
-		{
-			DoorPassing doorPassing;
-
-			if (doorPassingEditModel.Id != 0)
+			foreach (var model in models)
 			{
-				doorPassing = dataManager.DoorsPassing.GetDoorPassingById(doorPassingEditModel.Id);
+                var cardModel = dataManager.Cards.GetCardById(model.CardId);
+                var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
+
+                var status = model.Status.ConvertStatus();
+
+                viewModels.Add(new DoorPassingViewModel()
+				{
+					Id = model.Id,
+					Door = doorModel.Name,
+					Card = cardModel.UniqueNumber,
+					PassingTime = model.PassingTime,
+                    Status = status,
+					Comment = model.Comment
+				});
 			}
-			doorPassing = doorPassingEditModel;
 
-			dataManager.DoorsPassing.Save(doorPassing);
-
-			return DoorPassingDatabseModelToView(doorPassing.Id);
+			return viewModels;
 		}
 	}
 }

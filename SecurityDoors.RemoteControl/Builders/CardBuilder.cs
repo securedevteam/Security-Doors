@@ -21,7 +21,7 @@ namespace SecurityDoors.RemoteControl.Builders
             return this;
         }
 
-        public CardBuilder setStatus(bool status)
+        public CardBuilder setStatus(int status)
         {
             card.Status = status;
             return this;

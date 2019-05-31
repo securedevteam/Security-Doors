@@ -1,57 +1,174 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
-	class PersonService
+    /// <summary>
+    /// Сервис для работы с контроллером.
+    /// </summary>
+	public class PersonService
 	{
 		DataManager dataManager;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public PersonService(DataManager dataManager)
 		{
 			this.dataManager = dataManager;
 		}
-		public PersonViewModel PersonDatabaseModelToView(int personId) => new PersonViewModel()
-		{
-			Person = dataManager.People.GetPersonById(personId)
-		};
-		public PersonEditModel GetPersonEditModel(int personId)
-		{
-			var _dbModel = dataManager.People.GetPersonById(personId);
-			/*
-			var _editModel = new PersonEditModel()
-			{
-				Id = _dbModel.Id,
-				FirstName = _dbModel.FirstName,
-				SecondName = _dbModel.SecondName,
-				LastName = _dbModel.LastName,
-				Passport = _dbModel.Passport,
-				Gender = _dbModel.Gender,
-				CardId = _dbModel.CardId
-			};
 
-			return _editModel;*/
-			return (PersonEditModel)_dbModel;
-		}
-		public PersonViewModel SavePersonEditModel (PersonEditModel personEditModel)
+        /// <summary>
+        /// Получить сотрудником.
+        /// </summary>
+        /// <returns>Список сотрудников.</returns>
+        public List<PersonViewModel> GetPeople()
 		{
-			Person person;
+			var models = dataManager.People.GetPeopleList();
+			var viewModels = new List<PersonViewModel>();
 
-			///TODO: а зачем этот код вообще нужен? 
-			if (personEditModel.Id != 0)
+            var gender = string.Empty;
+
+            foreach (var model in models)
 			{
-				person = dataManager.People.GetPersonById(personEditModel.Id);
+                var cardModel = dataManager.Cards.GetCardById(model.CardId);
+
+                gender = model.ConvertGender();
+
+                viewModels.Add(new PersonViewModel()
+				{
+					Id = model.Id,
+					FirstName = model.FirstName,
+					SecondName = model.SecondName,
+					LastName = model.LastName,
+					Gender = gender,
+					Passport = model.Passport,
+					Comment = model.Comment,
+					Card = cardModel.UniqueNumber
+                });
 			}
+			return viewModels;
+		}
 
-			person = personEditModel;
-			
+        /// <summary>
+        /// Получить сотрудника.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Сотрудник.</returns>
+		public PersonViewModel GetPersonById(int id)
+		{
+			var model = dataManager.People.GetPersonById(id);
+            var cardModel = dataManager.Cards.GetCardById(model.CardId);
+
+            var gender = model.ConvertGender();
+
+            return new PersonViewModel()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				Card = cardModel.UniqueNumber
+            };
+		}
+
+        /// <summary>
+        /// Изменить сотрудника.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Сотрудник.</returns>
+		public PersonEditModel EditPersonById(int id)
+		{
+			var model = dataManager.People.GetPersonById(id);
+            var cardModel = dataManager.Cards.GetCardById(model.CardId);
+
+            var gender = model.ConvertGender();
+
+            return new PersonEditModel()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				Card = cardModel.UniqueNumber
+            };
+		}
+
+        /// <summary>
+        /// Удалить сотрудника.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+		public void DeletePersonById(int id)
+		{
+			dataManager.People.Delete(id);
+		}
+
+        /// <summary>
+        /// Сохранить сотрудника с сигнатурой PersonViewModel.
+        /// </summary>
+        /// <param name="model">модель сотрудника для сохранения.</param>
+        /// <returns>Сотрудник.</returns>
+		public PersonViewModel SavePerson(PersonEditModel model)
+		{
+            var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
+
+            var gender = model.ConvertGender();
+
+            var person = new Person()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = cardModel.Id
+            };
+
 			dataManager.People.Save(person);
 
-			return PersonDatabaseModelToView(person.Id);
+			return GetPersonById(person.Id);
+		}
+
+        /// <summary>
+        /// Сохранить сотрудника с сигнатурой PersonEditModel.
+        /// </summary>
+        /// <param name="model">модель сотрудника для сохранения.</param>
+        /// <returns>Сотрудник.</returns>
+		public PersonViewModel SavePerson(PersonViewModel model)
+		{
+            var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
+
+            var gender = model.ConvertGender();
+
+            var person = new Person()
+			{
+				Id = model.Id,
+				FirstName = model.FirstName,
+				SecondName = model.SecondName,
+				LastName = model.LastName,
+				Gender = gender,
+				Passport = model.Passport,
+				Comment = model.Comment,
+				CardId = cardModel.Id
+            };
+
+			dataManager.People.Save(person);
+
+			return GetPersonById(person.Id);
 		}
 	}
 }

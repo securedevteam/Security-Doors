@@ -3,10 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\SecurityDoors.Core\SecurityDoors.Core.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
   </ItemGroup>
 

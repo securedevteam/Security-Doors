@@ -13,62 +13,62 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public DbSet<DoorPassing> DoorPassings { get; set; }
 
 		/// <summary>
-		/// При отсутствии бд - создает пустую БД с нужной структурой
+		/// При отсутствии бд - создает пустую БД с нужной структурой или применяет миграции
 		/// </summary>
 		public ApplicationContext()
 		{
-
+			//Database.Migrate();
 			Database.EnsureCreated();
 		}
-
-
-        //public EquipmentAccountingContext(DbContextOptions<EquipmentAccountingContext> options) : base(options)
-        //{
-        //    Database.EnsureCreated();
-        //}
-
 		/// <summary>
 		/// Устанавливает строку подключения из файла конфигураций к localDb
 		/// Вариации строк можно посмотреть здесь https://www.connectionstrings.com/sql-server/
 		/// </summary>
 		protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
 		{
-            // TODO: Удалить после приведение кода в порядок.
+			// TODO: Удалить после приведения кода в порядок.
+			#region Удалить после приведения кода в порядок
+			/*
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
-            //var builder = new ConfigurationBuilder();
-            //builder.SetBasePath(Directory.GetCurrentDirectory());
-            //builder.AddJsonFile("appsettings.json");
-            //var config = builder.Build();
-            //string connectionString = config.GetConnectionString("DefaultConnection");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+            */
 
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //	optionsBuilder.UseSqlServer(connectionString);
-            //}
+			// TODO: Еще один рабочий вариант, если путь находить в проекте appsettings.json
+			/*IConfigurationRoot configuration = new ConfigurationBuilder()
+                                               .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                               .AddJsonFile("appsettings.json")
+                                               .Build();
 
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Integrated Security=True");
-
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));*/
+			#endregion
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
+		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			/// TODO: Решить с автозаполнением данных
-			/// БД заполнится ими в 2-х случаях, если в конструкторе будет EnsureCreated или в случае миграции
-			/// EnsureDeleted только формирует структуру
 			#region Автозаполнение (закоментировано)
 			/*
 			modelBuilder.Entity<Card>().HasData(
 				new Card[]
 				{
-					new Card { Id = 1, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 2, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 3, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 4, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 5, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 6, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 7, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 8, UniqueNumber = Guid.NewGuid().ToString(), Status = true},
-					new Card { Id = 9, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
-					new Card { Id = 10, UniqueNumber = Guid.NewGuid().ToString(), Status = false},
+					new Card { Id = 1, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 2, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 3, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 4, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 5, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 6, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 7, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 8, UniqueNumber = Guid.NewGuid().ToString(), Status = 1},
+					new Card { Id = 9, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
+					new Card { Id = 10, UniqueNumber = Guid.NewGuid().ToString(), Status = 2},
 				}
 				);
 			modelBuilder.Entity<Person>().HasData(

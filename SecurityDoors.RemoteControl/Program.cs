@@ -6,8 +6,9 @@ namespace SecurityDoors.RemoteControl
     {
         static void Main(string[] args)
         {
-            Db.init();
-            Cli.run();
+            Cli cli = new Cli();
+            Database.Init();
+            cli.run();
         }
     }
 }

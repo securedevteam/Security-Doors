@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DoorPassingViewModel>
+
+<h1>Список дверных проходов</h1>
+
+<br />
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Время прохода</th>
+                <th>Название двери</th>
+                <th>Уникальный номер карточки</th>
+                <th>Комментарий</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.PassingTime</td>
+                <td>@item.Door</td>
+                <td>@item.Card</td>
+                <td>@item.Comment</td>
+                <td>@item.Status</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+﻿@model PersonViewModel
+
+<form method="post" asp-controller="Person" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+
+
+    <div>
+        <div>
+            <label asp-for="FirstName">Имя</label>
+            <input type="text" asp-for="FirstName" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label asp-for="LastName">Фамилия</label>
+            <input type="text" asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="SecondName">Отчество</label>
+            <input type="text" asp-for="SecondName" />
+            <span asp-validation-for="SecondName"></span>
+        </div>
+        <div>
+            <label asp-for="Gender">Пол</label>
+            <select asp-for="Gender">
+                <option>@PersonConstants.IsMale</option>
+                <option>@PersonConstants.IsFemale</option>
+            </select>
+        </div>
+        <div>
+            <label asp-for="Passport">Паспорт</label>
+            <input type="text" asp-for="Passport" />
+            <span asp-validation-for="Passport"></span>
+        </div>
+        <div>
+            <label asp-for="Comment">Комментарий</label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+        <div>
+            <label asp-for="Card">Уникальный номер карты</label>
+            <input type="text" asp-for="Card" />
+            <span asp-validation-for="Card"></span>
+        </div>
+    </div>
+    <input type="submit" value="Подтвердить" />
+    <input type="reset" value="Очистить" />
+</form>

@@ -15,7 +15,7 @@ namespace SecurityDoors.DataAccessLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -25,7 +25,9 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Status");
+                    b.Property<string>("Comment");
+
+                    b.Property<int>("Status");
 
                     b.Property<string>("UniqueNumber");
 
@@ -39,6 +41,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
 
                     b.Property<string>("Description");
 
@@ -55,17 +59,21 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CardId");
+
+                    b.Property<string>("Comment");
+
                     b.Property<int>("DoorId");
 
                     b.Property<DateTime>("PassingTime");
 
-                    b.Property<int>("PersonId");
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoorId");
+                    b.HasIndex("CardId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("DoorId");
 
                     b.ToTable("DoorPassings");
                 });
@@ -76,11 +84,13 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CardId");
+                    b.Property<int>("CardId");
+
+                    b.Property<string>("Comment");
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("Gender");
+                    b.Property<int>("Gender");
 
                     b.Property<string>("LastName");
 
@@ -91,22 +101,21 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CardId")
-                        .IsUnique()
-                        .HasFilter("[CardId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("People");
                 });
 
             modelBuilder.Entity("SecurityDoors.DataAccessLayer.Models.DoorPassing", b =>
                 {
+                    b.HasOne("SecurityDoors.DataAccessLayer.Models.Card", "Card")
+                        .WithMany("DoorPassings")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SecurityDoors.DataAccessLayer.Models.Door", "Door")
                         .WithMany("DoorPassings")
                         .HasForeignKey("DoorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SecurityDoors.DataAccessLayer.Models.Person", "Person")
-                        .WithMany("DoorPassings")
-                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -114,7 +123,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                 {
                     b.HasOne("SecurityDoors.DataAccessLayer.Models.Card", "Card")
                         .WithOne("Person")
-                        .HasForeignKey("SecurityDoors.DataAccessLayer.Models.Person", "CardId");
+                        .HasForeignKey("SecurityDoors.DataAccessLayer.Models.Person", "CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

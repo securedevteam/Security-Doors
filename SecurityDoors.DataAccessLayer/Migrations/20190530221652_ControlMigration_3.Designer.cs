@@ -10,14 +10,14 @@ using SecurityDoors.DataAccessLayer.Models;
 namespace SecurityDoors.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190524134451_0")]
-    partial class _0
+    [Migration("20190530221652_ControlMigration_3")]
+    partial class ControlMigration_3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -27,7 +27,9 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Status");
+                    b.Property<string>("Comment");
+
+                    b.Property<int>("Status");
 
                     b.Property<string>("UniqueNumber");
 
@@ -41,6 +43,8 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
 
                     b.Property<string>("Description");
 
@@ -57,17 +61,21 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CardId");
+
+                    b.Property<string>("Comment");
+
                     b.Property<int>("DoorId");
 
                     b.Property<DateTime>("PassingTime");
 
-                    b.Property<int>("PersonId");
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoorId");
+                    b.HasIndex("CardId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("DoorId");
 
                     b.ToTable("DoorPassings");
                 });
@@ -80,9 +88,11 @@ namespace SecurityDoors.DataAccessLayer.Migrations
 
                     b.Property<int>("CardId");
 
+                    b.Property<string>("Comment");
+
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("Gender");
+                    b.Property<int>("Gender");
 
                     b.Property<string>("LastName");
 
@@ -100,14 +110,14 @@ namespace SecurityDoors.DataAccessLayer.Migrations
 
             modelBuilder.Entity("SecurityDoors.DataAccessLayer.Models.DoorPassing", b =>
                 {
+                    b.HasOne("SecurityDoors.DataAccessLayer.Models.Card", "Card")
+                        .WithMany("DoorPassings")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SecurityDoors.DataAccessLayer.Models.Door", "Door")
                         .WithMany("DoorPassings")
                         .HasForeignKey("DoorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SecurityDoors.DataAccessLayer.Models.Person", "Person")
-                        .WithMany("DoorPassings")
-                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -34,7 +34,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             return db.Doors.Find(id);
         }
 
-        
+        [Obsolete]
         public void Create(Door item)
         {
             db.Doors.Add(item);

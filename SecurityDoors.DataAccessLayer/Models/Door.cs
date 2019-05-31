@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
-	///TODO: Запретить NULL значения
 	/// <summary>
 	/// Модель двери.
 	/// </summary>
 	public class Door
     {
 		/// <summary>
-		/// Id дверного контроллера.
+		/// Id двери.
 		/// </summary>
-
 		public int Id { get; set; }
 
-		[Required]
+        /// <summary>
+        /// Название.
+        /// </summary>
 		public string Name { get; set; }
-
-		[Required]
+        
+        /// <summary>
+        /// Описание.
+        /// </summary>
 		public string Description { get; set; }
+
+		/// <summary>
+		/// Комментарий.
+		/// </summary>
+		public string Comment { get; set; }
+
 		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
-		public Door()
-		{
-			DoorPassings = new List<DoorPassing>();
-		}
 	}
 }

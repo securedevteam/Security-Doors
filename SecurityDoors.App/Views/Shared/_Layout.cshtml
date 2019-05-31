@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+
+</head>
+<body>
+    <a href="/Home/Index">Home</a> <br />
+    <a href="/Home/About">About</a> <br />
+    
+    <br />
+
+    <a asp-action="Index" asp-controller="Card">Cards</a> <br />
+    <a asp-action="Index" asp-controller="Door">Door</a> <br />
+    <a asp-action="Index" asp-controller="Person">Person</a> <br />
+    <a asp-action="Index" asp-controller="DoorPassing">Door Passings</a> <br />
+
+    @RenderBody()
+</body>
+</html>

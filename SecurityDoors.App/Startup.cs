@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SecurityDoors.App.Logger;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.Infrastructure;
+using SecurityDoors.Core.Logger.Interfaces;
 
 namespace SecurityDoors.App
 {
     public class Startup
     {
-        public object EventLogEntryType { get; private set; }
+        private readonly ILogger _logger;
+
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        {
+            Configuration = configuration;
+            _logger = logger;
+        }
+        public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -39,36 +50,43 @@ namespace SecurityDoors.App
 
             services.AddScoped<DataManager>();
 
-            services.AddMvc();
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Add our repository type
+            services.AddSingleton<ILoggerRepository, LoggerRepository>();
+            _logger.LogInformation("Added TodoRepository to services");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
-            var logger = loggerFactory.CreateLogger("FileLogger");
-
-           
-
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {                     
             if (env.IsDevelopment())
             {
+                _logger.LogInformation("In Development environment");
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
                 // TODO: Поменять с добавлением контроллера Home
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Card}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
             //app.Run(async (context) =>
             //{
-            //    logger.LogInformation("Processing request {0}", context.Request.Path);
             //    await context.Response.WriteAsync("Hello World!");
             //});
         }

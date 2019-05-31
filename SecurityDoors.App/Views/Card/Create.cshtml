@@ -1,40 +1,39 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model SecurityDoors.PresentationLayer.ViewModels.CardEditModel
+﻿@model CardViewModel
 
-@{
-    Layout = null;
-}
+<div>
+    <h2>Создать новую карточку</h2>
+</div>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-</head>
-<body>
-    <form method="post" asp-controller="Card" asp-action="Create">
-        <div asp-validation-summary="ModelOnly"></div>
-
-        <div class="input-group">
-            <div>
-                <input type="text" asp-for="UniqueNumber" class="form-control" />
-                <span asp-validation-for="UniqueNumber"></span>
-            </div>
-            <div>
-                <input type="text" asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status"></span>
-            </div>
-
-            <br />
-
-            <div class="form-group">
-                <input type="submit" value="Подтвердить" />
-            </div>
+<form method="post" asp-controller="Card" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="UniqueNumber">Уникальный номер: </label>
+            <input type="text" asp-for="UniqueNumber" />
+            <span asp-validation-for="UniqueNumber"></span>
         </div>
-    </form>
-</body>
-</html>
+
+        <div>
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option>@CardConstants.IsActive</option>
+                <option>@CardConstants.IsClosed</option>
+                <option>@CardConstants.IsLost</option>
+                <option>@CardConstants.IsSuspended</option>
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="Comment">Комментарий: </label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" value="Подтвердить" />
+            <input type="reset" value="Очистить" />
+        </div>
+    </div>
+</form>

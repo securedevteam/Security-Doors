@@ -34,8 +34,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         }
 
-        /// <inheritdoc/>
-        public void Create(Person item)
+		/// <inheritdoc/>
+		[Obsolete]
+		public void Create(Person item)
         {
             db.People.Add(item);
         }
@@ -54,8 +55,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             if (person != null)
             {
                 db.People.Remove(person);
-            }
-        }
+				db.SaveChanges();
+			}
+		}
 
         /// <inheritdoc/>
         public void Save(Person item)

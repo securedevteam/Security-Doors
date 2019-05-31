@@ -1,0 +1,35 @@
+﻿@model DoorViewModel
+
+<div>
+    <h2>Создать новую дверь</h2>
+</div>
+
+<form method="post" asp-controller="Door" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="Name">Название: </label>
+            <input type="text" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description">Описание: </label>
+            <input type="text" asp-for="Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <div>
+            <label asp-for="Comment">Комментарий: </label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" value="Подтвердить" />
+            <input type="reset" value="Очистить" />
+        </div>
+    </div>
+</form>

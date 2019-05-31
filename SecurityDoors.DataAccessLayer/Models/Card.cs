@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
-    /// Карточка пользователя.
+    /// Карточка сотрудника.
     /// </summary>
     public class Card
     {
@@ -13,15 +13,22 @@ namespace SecurityDoors.DataAccessLayer.Models
         public int Id { get; set; }
 
 		/// <summary>
-		/// Уникальный номер карты.
+		/// Уникальный номер.
 		/// </summary>
-		///TODO: Запретить NULL значения
 		public string UniqueNumber { get; set; }
 
-        /// <summary>
-        /// Статус карточки (Действительна ли?).
-        /// </summary>
-        public bool Status { get; set; }
-		public Person Person { get; set; }
+		/// <summary>
+		/// Статус.
+		/// </summary>
+		public int Status { get; set; }
+
+		/// <summary>
+		/// Комментарий.
+		/// </summary>
+		public string Comment { get; set; }
+
+        public virtual ICollection<DoorPassing> DoorPassings { get; set; }
+
+        public Person Person { get; set; }
 	}
 }
