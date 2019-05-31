@@ -5,8 +5,16 @@ using SecurityDoors.PresentationLayer.ViewModels;
 
 namespace SecurityDoors.PresentationLayer.Extensions
 {
+    /// <summary>
+    /// Методы расширени для Card.
+    /// </summary>
     public static class CardExtensions
     {
+        /// <summary>
+        /// Конвертация статуса в string.
+        /// </summary>
+        /// <param name="model">модель Card.</param>
+        /// <returns>Статус.</returns>
         public static string ConvertStatus(this Card model)
         {
             var status = string.Empty;
@@ -22,6 +30,11 @@ namespace SecurityDoors.PresentationLayer.Extensions
             return status;
         }
 
+        /// <summary>
+        /// Конвертация статуса в int.
+        /// </summary>
+        /// <param name="model">модель CardViewModel.</param>
+        /// <returns>Статус.</returns>
         public static int ConvertStatus(this CardViewModel model)
         {
             var status = 0;
@@ -37,6 +50,11 @@ namespace SecurityDoors.PresentationLayer.Extensions
             return status;
         }
 
+        /// <summary>
+        /// Конвертация статуса в int.
+        /// </summary>
+        /// <param name="model">модель CardEditModel.</param>
+        /// <returns>Статус.</returns>
         public static int ConvertStatus(this CardEditModel model)
         {
             var status = 0;
