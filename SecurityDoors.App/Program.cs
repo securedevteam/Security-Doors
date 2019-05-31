@@ -29,6 +29,7 @@ namespace SecurityDoors.App
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 logging.AddConsole();
                 logging.AddDebug();
+                logging.AddEventLog();
                 logging.AddEventSourceLogger();
             })
             .UseStartup<Startup>()
