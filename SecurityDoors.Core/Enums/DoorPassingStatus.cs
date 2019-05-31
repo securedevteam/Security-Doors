@@ -1,5 +1,8 @@
 ﻿namespace SecurityDoors.Core.Enums
 {
+    /// <summary>
+    /// Перечисления проходов.
+    /// </summary>
     public enum DoorPassingStatus
     {
         /// <summary>

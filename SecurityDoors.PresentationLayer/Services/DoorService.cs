@@ -1,9 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
