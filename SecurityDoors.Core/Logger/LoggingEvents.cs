@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.App.Core
+namespace SecurityDoors.Core.Logger
 {
     public class LoggingEvents
     {

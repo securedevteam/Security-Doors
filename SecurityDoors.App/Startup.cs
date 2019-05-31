@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SecurityDoors.App.Core.Interfaces;
-using SecurityDoors.App.Infrastructure;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.Infrastructure;
+using SecurityDoors.Core.Logger.Interfaces;
 
 namespace SecurityDoors.App
 {

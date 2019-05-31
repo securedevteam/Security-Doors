@@ -1,10 +1,10 @@
-﻿using SecurityDoors.App.Core.Model;
+﻿using SecurityDoors.Core.Logger.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.App.Core.Interfaces
+namespace SecurityDoors.Core.Logger.Interfaces
 {
     public interface ILoggerRepository
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SecurityDoors.App.Core;
-using SecurityDoors.App.Core.Interfaces;
-using SecurityDoors.App.Core.Model;
+using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Logger.Interfaces;
+using SecurityDoors.Core.Logger.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
