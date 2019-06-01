@@ -36,15 +36,17 @@ namespace SecurityDoors.PresentationLayer.Services
                 var cardModel = dataManager.Cards.GetCardById(model.CardId);
                 var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
 
-                var status = model.Status.ConvertStatus();
+                // Статус. Нахождение.
+                var result = model.ConvertStatus();
 
                 viewModels.Add(new DoorPassingViewModel()
 				{
 					Id = model.Id,
 					Door = doorModel.Name,
 					Card = cardModel.UniqueNumber,
+                    Location = result.Item2,
 					PassingTime = model.PassingTime,
-                    Status = status,
+                    Status = result.Item1,
 					Comment = model.Comment
 				});
 			}
@@ -61,12 +63,14 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.DoorsPassing.GetDoorPassingById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
 
             var viewModel = new DoorPassingViewModel()
             {
                 Id = model.Id,
-                Status = status,
+                Location = result.Item2,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -82,12 +86,14 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.DoorsPassing.GetDoorPassingById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
 
             var editModel = new DoorPassingEditModel()
             {
                 Id = model.Id,
-                Status = status,
+                Location = result.Item2,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -108,9 +114,11 @@ namespace SecurityDoors.PresentationLayer.Services
                 doorPassing = dataManager.DoorsPassing.GetDoorPassingById(model.Id);
             }
 
-            var status = model.ConvertStatus();
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
 
-            doorPassing.Status = status;
+            doorPassing.Location = result.Item2;
+            doorPassing.Status = result.Item1;
             doorPassing.Comment = model.Comment;
 
             dataManager.DoorsPassing.Save(doorPassing);

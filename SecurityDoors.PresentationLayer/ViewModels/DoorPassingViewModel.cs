@@ -28,6 +28,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Status { get; set; }
 
         /// <summary>
+        /// Нахождение.
+        /// </summary>
+        [Display(Name = "Нахождение")]
+        public string Location { get; set; }
+
+        /// <summary>
         /// Комментарий.
         /// </summary>
         [Display(Name = "Комментарий")]
@@ -64,6 +70,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Нахождение.
+        /// </summary>
+        [Display(Name = "Нахождение")]
+        public string Location { get; set; }
 
         /// <summary>
         /// Комментарий.

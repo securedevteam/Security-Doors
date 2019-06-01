@@ -12,7 +12,7 @@ namespace SecurityDoors.PresentationLayer.Extensions
     public static class CardExtensions
     {
         /// <summary>
-        /// Конвертация статуса в string.
+        /// Конвертация статуса.
         /// </summary>
         /// <param name="model">модель Card.</param>
         /// <returns>Кортеж из статуса, уровня и нахождения.</returns>
@@ -55,7 +55,7 @@ namespace SecurityDoors.PresentationLayer.Extensions
         }
 
         /// <summary>
-        /// Конвертация статуса в int.
+        /// Конвертация статуса.
         /// </summary>
         /// <param name="model">модель CardViewModel.</param>
         /// <returns>Кортеж из статуса, уровня и нахождения.</returns>

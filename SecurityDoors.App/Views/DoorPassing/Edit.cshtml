@@ -10,6 +10,14 @@
     <div>
 
         <div>
+            <label asp-for="Location">Проход: </label>
+            <select asp-for="Location">
+                <option>@DoorPassingConstants.Entrance</option>
+                <option>@DoorPassingConstants.Exit</option>
+            </select>
+        </div>
+
+        <div>
             <label asp-for="Status">Статус: </label>
             <select asp-for="Status">
                 <option>@DoorPassingConstants.WithoutСontrol</option>

@@ -13,7 +13,9 @@
                 <th>Название двери</th>
                 <th>Уникальный номер карточки</th>
                 <th>Статус</th>
+                <th>Проход</th>
                 <th>Комментарий</th>
+                <th>Доступные действия</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +27,7 @@
                 <td>@item.Door</td>
                 <td>@item.Card</td>
                 <td>@item.Status</td>
+                <td>@item.Location</td>
                 <td>@item.Comment</td>
                 <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
             </tr>

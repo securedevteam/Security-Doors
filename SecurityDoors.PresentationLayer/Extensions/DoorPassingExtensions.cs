@@ -11,42 +11,33 @@ namespace SecurityDoors.PresentationLayer.Extensions
     public static class DoorPassingExtensions
     {
         /// <summary>
-        /// Конвертация статуса в string.
+        /// Конвертация статуса и прохода.
         /// </summary>
-        /// <param name="model">статус в int.</param>
-        /// <returns>Статус.</returns>
-        public static string ConvertStatus(this int statusModel)
+        /// <param name="model">модель DoorPassing.</param>
+        /// <returns>Кортеж из статуса и прохода.</returns>
+        public static (string, string) ConvertStatus(this DoorPassing model)
         {
             var status = string.Empty;
+            var location = string.Empty;
 
-            switch (statusModel)
+            switch (model.Status)
             {
                 case (int)DoorPassingStatus.WithoutСontrol: { status = DoorPassingConstants.WithoutСontrol; } break;
                 case (int)DoorPassingStatus.OnControl: { status = DoorPassingConstants.OnControl; } break;
                 case (int)DoorPassingStatus.IsAnnul: { status = DoorPassingConstants.IsAnnul; } break;
             }
 
-            return status;
-        }
-
-        /// <summary>
-        /// Конвертация статуса в string.
-        /// </summary>
-        /// <param name="model">модель DoorPassing.</param>
-        /// <returns>Статус.</returns>
-        public static string ConvertStatus(this DoorPassing model)
-        {
-            var status = string.Empty;
-
-            switch (model.Status)
+            switch (model.Location)
             {
-                case (int)CardStatus.IsClosed: { status = CardConstants.IsClosed; } break;
-                case (int)CardStatus.IsActive: { status = CardConstants.IsActive; } break;
-                case (int)CardStatus.IsLost: { status = CardConstants.IsLost; } break;
-                case (int)CardStatus.IsSuspended: { status = CardConstants.IsSuspended; } break;
+                case CardConstants.IsExit: { location = CardConstants.Exit; } break;
+                case CardConstants.IsEntrance: { location = CardConstants.Entrance; } break;
             }
 
-            return status;
+            var result = (string.Empty, string.Empty);
+            result.Item1 = status;
+            result.Item2 = location;
+
+            return result;
         }
 
         /// <summary>
@@ -54,9 +45,10 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// </summary>
         /// <param name="model">модель DoorPassingEditModel.</param>
         /// <returns>Статус.</returns>
-        public static int ConvertStatus(this DoorPassingEditModel model)
+        public static (int, bool) ConvertStatus(this DoorPassingViewModel model)
         {
             var status = 0;
+            var location = false;
 
             switch (model.Status)
             {
@@ -65,7 +57,47 @@ namespace SecurityDoors.PresentationLayer.Extensions
                 case DoorPassingConstants.IsAnnul: { status = (int)DoorPassingStatus.IsAnnul; } break;
             }
 
-            return status;
+            switch (model.Location)
+            {
+                case CardConstants.Exit: { location = CardConstants.IsExit; } break;
+                case CardConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+            }
+
+            var result = (0, false);
+            result.Item1 = status;
+            result.Item2 = location;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Конвертация статуса в int.
+        /// </summary>
+        /// <param name="model">модель DoorPassingEditModel.</param>
+        /// <returns>Статус.</returns>
+        public static (int, bool) ConvertStatus(this DoorPassingEditModel model)
+        {
+            var status = 0;
+            var location = false;
+
+            switch (model.Status)
+            {
+                case DoorPassingConstants.WithoutСontrol: { status = (int)DoorPassingStatus.WithoutСontrol; } break;
+                case DoorPassingConstants.OnControl: { status = (int)DoorPassingStatus.OnControl; } break;
+                case DoorPassingConstants.IsAnnul: { status = (int)DoorPassingStatus.IsAnnul; } break;
+            }
+
+            switch (model.Location)
+            {
+                case CardConstants.Exit: { location = CardConstants.IsExit; } break;
+                case CardConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+            }
+
+            var result = (0, false);
+            result.Item1 = status;
+            result.Item2 = location;
+
+            return result;
         }
     }
 }
