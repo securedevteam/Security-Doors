@@ -27,7 +27,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление со списком дверных проходов.</returns>
 		public ActionResult Index()
         {
-            var models = _serviceManager.DoorPassing.GetDoorPassings();
+            var models = _serviceManager.DoorPassings.GetDoorPassings();
             return View(models);
         }
 
@@ -38,7 +38,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         public IActionResult Edit(int id)
         {
-            var model = _serviceManager.DoorPassing.EditDoorPassingById(id);
+            var model = _serviceManager.DoorPassings.EditDoorPassingById(id);
             return View(model);
         }
 
@@ -52,7 +52,7 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _serviceManager.DoorPassing.SaveCard(doorPassing);
+                _serviceManager.DoorPassings.SaveCard(doorPassing);
                 return RedirectToAction("Index");
             }
             else

@@ -46,6 +46,6 @@ namespace SecurityDoors.PresentationLayer
         /// <summary>
         /// Сервис дверного контроллера.
         /// </summary>
-        public DoorPassingService DoorPassing { get { return _doorPassingService; } }
+        public DoorPassingService DoorPassings { get { return _doorPassingService; } }
     }
 }
