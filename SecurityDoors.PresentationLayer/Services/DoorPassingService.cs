@@ -1,4 +1,5 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
@@ -50,5 +51,50 @@ namespace SecurityDoors.PresentationLayer.Services
 
 			return viewModels;
 		}
-	}
+
+        /// <summary>
+        /// Получить проход.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Карточка.</returns>
+        public DoorPassingViewModel GetDoorPassingById(int id)
+        {
+            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+
+            //var status = model.ConvertStatus();
+
+            var viewModel = new DoorPassingViewModel()
+            {
+                Id = model.Id,
+                //Status = status,
+                Comment = model.Comment
+            };
+
+            return viewModel;
+        }
+
+        /// <summary>
+        /// Сохранить проход с сигнатурой DoorPassingEditModel.
+        /// </summary>
+        /// <param name="model">Модель карточки для сохранения.</param>
+        /// <returns>Карточка.</returns>
+        public DoorPassingViewModel SaveCard(DoorPassingEditModel model)
+        {
+            var doorPassing = new DoorPassing();
+
+            if (model.Id != 0)
+            {
+                doorPassing = dataManager.DoorsPassing.GetDoorPassingById(model.Id);
+            }
+
+            //var status = model.ConvertStatus();
+
+            //doorPassing.Status = status;
+            doorPassing.Comment = model.Comment;
+
+            dataManager.DoorsPassing.Save(doorPassing);
+
+            return GetDoorPassingById(doorPassing.Id);
+        }
+    }
 }
