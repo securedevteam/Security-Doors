@@ -22,10 +22,15 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// </summary>
 		public string Description { get; set; }
 
-		/// <summary>
-		/// Комментарий.
+        /// <summary>
+		/// Статус.
 		/// </summary>
-		public string Comment { get; set; }
+		public int Status { get; set; }
+
+        /// <summary>
+        /// Комментарий.
+        /// </summary>
+        public string Comment { get; set; }
 
 		public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 	}
