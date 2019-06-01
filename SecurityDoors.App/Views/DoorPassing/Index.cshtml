@@ -12,8 +12,8 @@
                 <th>Время прохода</th>
                 <th>Название двери</th>
                 <th>Уникальный номер карточки</th>
-                <th>Комментарий</th>
                 <th>Статус</th>
+                <th>Комментарий</th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +24,8 @@
                 <td>@item.PassingTime</td>
                 <td>@item.Door</td>
                 <td>@item.Card</td>
-                <td>@item.Comment</td>
                 <td>@item.Status</td>
+                <td>@item.Comment</td>
                 <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
             </tr>
             }
