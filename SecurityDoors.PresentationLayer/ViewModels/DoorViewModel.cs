@@ -27,6 +27,20 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Description { get; set; }
 
         /// <summary>
+        /// Уровень.
+        /// </summary>
+		[Required(ErrorMessage = "Неверный уровень")]
+        [Display(Name = "Уровень")]
+        public string Level { get; set; }
+
+        /// <summary>
+        /// Статус.
+        /// </summary>
+        [Required(ErrorMessage = "Неверный статус")]
+        [Display(Name = "Статус")]
+        public string Status { get; set; }
+
+        /// <summary>
 		/// Комментарий.
 		/// </summary>
         [Required(ErrorMessage = "Неверный комментарий")]
@@ -57,6 +71,13 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Required(ErrorMessage = "Неверное описание")]
         [Display(Name = "Описание")]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Статус карточки.
+        /// </summary>
+        [Required(ErrorMessage = "Неверный статус")]
+        [Display(Name = "Статус")]
+        public string Status { get; set; }
 
         /// <summary>
 		/// Комментарий.

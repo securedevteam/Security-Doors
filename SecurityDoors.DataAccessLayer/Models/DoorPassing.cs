@@ -23,6 +23,11 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public int Status { get; set; }
 
         /// <summary>
+		/// Нахождение.
+		/// </summary>
+		public bool Location { get; set; }
+
+        /// <summary>
         /// Комментарий.
         /// </summary>
         public string Comment { get; set; }  

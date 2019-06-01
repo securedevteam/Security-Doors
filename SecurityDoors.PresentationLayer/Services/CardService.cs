@@ -32,16 +32,18 @@ namespace SecurityDoors.PresentationLayer.Services
             var models = dataManager.Cards.GetCardsList();
             var viewModels = new List<CardViewModel>();
 
-            var status = string.Empty;
-
             foreach (var model in models)
             {
-                status = model.ConvertStatus();
+                // Статус. Уровень. Нахождение.
+                (string, string, string) result = model.ConvertStatus();
+
                 viewModels.Add(new CardViewModel
                 {
                     Id = model.Id,
                     UniqueNumber = model.UniqueNumber,
-                    Status = status,
+                    Status = result.Item1,
+                    Level = result.Item2,
+                    Location = result.Item3,
                     Comment = model.Comment
                 });
             }
@@ -58,13 +60,16 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень. Нахождение.
+            (string, string, string) result = model.ConvertStatus();
 
             var viewModel = new CardViewModel()
             {
                 Id = model.Id,
                 UniqueNumber = model.UniqueNumber,
-                Status = status,
+                Status = result.Item1,
+                Level = result.Item2,
+                Location = result.Item3,
                 Comment = model.Comment
             };
 
@@ -80,12 +85,13 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень. Нахождение.
+            (string, string, string) result = model.ConvertStatus();
 
             var editModel = new CardEditModel()
             {
                 Id = model.Id,
-                Status = status,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -120,10 +126,13 @@ namespace SecurityDoors.PresentationLayer.Services
                 model.UniqueNumber = Guid.NewGuid().ToString();
             }
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень. Нахождение.
+            (int, int, bool) result = model.ConvertStatus();
 
             card.UniqueNumber = model.UniqueNumber;
-            card.Status = status;
+            card.Status = result.Item1;
+            card.Level = result.Item2;
+            card.Location = result.Item3;
             card.Comment = model.Comment;
 
             dataManager.Cards.Save(card);

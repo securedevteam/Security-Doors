@@ -41,11 +41,11 @@ namespace SecurityDoors.PresentationLayer
         /// <summary>
         /// Сервис сотрудников.
         /// </summary>
-		public PersonService Person { get { return _personService; } }
+		public PersonService People { get { return _personService; } }
 
         /// <summary>
         /// Сервис дверного контроллера.
         /// </summary>
-        public DoorPassingService DoorPassing { get { return _doorPassingService; } }
+        public DoorPassingService DoorPassings { get { return _doorPassingService; } }
     }
 }

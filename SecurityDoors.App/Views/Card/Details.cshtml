@@ -5,13 +5,17 @@
     <thead>
         <tr>
             <th>Уникальный номер</th>
+            <th>Уровень доступа</th>
+            <th>Нахождение в данный момент</th>
             <th>Статус</th>
-            <td>Комментарий</td>
+            <th>Комментарий</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@Model.UniqueNumber</td>
+            <td>@Model.Level</td>
+            <td>@Model.Location</td>
             <td>@Model.Status</td>
             <td>@Model.Comment</td>
         </tr>

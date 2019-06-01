@@ -1,0 +1,41 @@
+﻿@model DoorPassingEditModel
+
+<div>
+    <h2>Данные для изменения прохода №@Model.Id</h2>
+</div>
+
+<form method="post" asp-controller="DoorPassing" asp-action="Edit" asp-route-id="@Model.Id">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+
+        <div>
+            <label asp-for="Location">Проход: </label>
+            <select asp-for="Location">
+                <option>@DoorPassingConstants.Entrance</option>
+                <option>@DoorPassingConstants.Exit</option>
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option>@DoorPassingConstants.WithoutСontrol</option>
+                <option>@DoorPassingConstants.OnControl</option>
+                <option>@DoorPassingConstants.IsAnnul</option>
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="Comment">Комментарий: </label>
+            <input type="text" asp-for="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" value="Подтвердить редактирование" />
+        </div>
+    </div>
+</form>
