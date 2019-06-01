@@ -54,5 +54,15 @@
         /// Выход.
         /// </summary>
         public const string Exit = "Выход";
+
+        /// <summary>
+        /// Вход.
+        /// </summary>
+        public const bool IsEntrance = true;
+
+        /// <summary>
+        /// Выход.
+        /// </summary>
+        public const bool IsExit = false;
     }
 }
