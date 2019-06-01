@@ -74,6 +74,27 @@ namespace SecurityDoors.PresentationLayer.Services
         }
 
         /// <summary>
+        /// Изменить проход.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Проход.</returns>
+        public DoorPassingEditModel EditDoorPassingById(int id)
+        {
+            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+
+            var status = model.ConvertStatus();
+
+            var editModel = new DoorPassingEditModel()
+            {
+                Id = model.Id,
+                Status = status,
+                Comment = model.Comment
+            };
+
+            return editModel;
+        }
+
+        /// <summary>
         /// Сохранить проход с сигнатурой DoorPassingEditModel.
         /// </summary>
         /// <param name="model">Модель карточки для сохранения.</param>
