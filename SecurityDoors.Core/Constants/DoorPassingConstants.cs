@@ -29,5 +29,10 @@
         /// Выход.
         /// </summary>
         public const string Exit = "Выход";
+
+        /// <summary>
+        /// Доступ запрещен.
+        /// </summary>
+        public const string AccessDenied = "Доступ запрещен";
     }
 }

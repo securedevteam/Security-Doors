@@ -29,8 +29,8 @@ namespace SecurityDoors.PresentationLayer.Extensions
 
             switch (model.Location)
             {
-                case CardConstants.IsExit: { location = CardConstants.Exit; } break;
-                case CardConstants.IsEntrance: { location = CardConstants.Entrance; } break;
+                case CardConstants.IsExit: { location = DoorPassingConstants.Exit; } break;
+                case CardConstants.IsEntrance: { location = DoorPassingConstants.Entrance; } break;
             }
 
             var result = (string.Empty, string.Empty);
@@ -59,8 +59,8 @@ namespace SecurityDoors.PresentationLayer.Extensions
 
             switch (model.Location)
             {
-                case CardConstants.Exit: { location = CardConstants.IsExit; } break;
-                case CardConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+                case DoorPassingConstants.Exit: { location = CardConstants.IsExit; } break;
+                case DoorPassingConstants.Entrance: { location = CardConstants.IsEntrance; } break;
             }
 
             var result = (0, false);
@@ -89,8 +89,8 @@ namespace SecurityDoors.PresentationLayer.Extensions
 
             switch (model.Location)
             {
-                case CardConstants.Exit: { location = CardConstants.IsExit; } break;
-                case CardConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+                case DoorPassingConstants.Exit: { location = CardConstants.IsExit; } break;
+                case DoorPassingConstants.Entrance: { location = CardConstants.IsEntrance; } break;
             }
 
             var result = (0, false);

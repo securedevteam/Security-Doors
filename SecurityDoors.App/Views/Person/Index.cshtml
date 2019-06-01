@@ -13,9 +13,9 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>
-                <th>Фамилия</th>
                 <th>Пол</th>
                 <th>Паспорт</th>
                 <th>Уникальный номер карты</th>
@@ -26,21 +26,21 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.FirstName</td>
-                    <td>@item.SecondName</td>
-                    <td>@item.LastName</td>
-                    <td>@item.Gender</td>
-                    <td>@item.Passport</td>
-                    <td>@item.Card</td>
-                    <td>@item.Comment</td>
-                    <td>
-                        <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> |
-                        <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> |
-                        <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.LastName</td>
+                <td>@item.FirstName</td>
+                <td>@item.SecondName</td>
+                <td>@item.Gender</td>
+                <td>@item.Passport</td>
+                <td>@item.Card</td>
+                <td>@item.Comment</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
