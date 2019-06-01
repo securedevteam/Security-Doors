@@ -22,6 +22,15 @@
         </div>
 
         <div>
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option>@DoorConstants.IsActive</option>
+                <option>@DoorConstants.IsClosed</option>
+                <option>@DoorConstants.OnRepair</option>
+            </select>
+        </div>
+
+        <div>
             <label asp-for="Comment">Комментарий: </label>
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
