@@ -11,18 +11,23 @@
         IsGuest = 0,
 
         /// <summary>
-        /// Уровень 1 - Сотрудник.
+        /// Уровень 1 - Стажер.
         /// </summary>
-        IsEmployee = 1,
+        IsIntern = 1,
 
         /// <summary>
-        /// Уровень 2 - Администратор.
+        /// Уровень 2 - Сотрудник.
         /// </summary>
-        IsAdministrator = 2,
+        IsEmployee = 2,
 
         /// <summary>
-        /// Уровень 3 - Управляющий.
+        /// Уровень 3 - Администратор.
         /// </summary>
-        IsManager = 3
+        IsAdministrator = 3,
+
+        /// <summary>
+        /// Уровень 4 - Управляющий.
+        /// </summary>
+        IsManager = 4
     }
 }

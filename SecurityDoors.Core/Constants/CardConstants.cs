@@ -31,29 +31,34 @@
         public const string IsGuest = "Гость";
 
         /// <summary>
-        /// Уровень 1 - Сотрудник.
+        /// Уровень 1 - Стажер.
+        /// </summary>
+        public const string IsIntern = "Стажер";
+
+        /// <summary>
+        /// Уровень 2 - Сотрудник.
         /// </summary>
         public const string IsEmployee = "Сотрудник";
 
         /// <summary>
-        /// Уровень 2 - Администратор.
+        /// Уровень 3 - Администратор.
         /// </summary>
         public const string IsAdministrator = "Администратор";
 
         /// <summary>
-        /// Уровень 3 - Управляющий.
+        /// Уровень 4 - Управляющий.
         /// </summary>
         public const string IsManager = "Управляющий";
 
         /// <summary>
         /// Вход.
         /// </summary>
-        public const string Entrance = "Вход";
+        public const string Entrance = "В здании";
 
         /// <summary>
         /// Выход.
         /// </summary>
-        public const string Exit = "Выход";
+        public const string Exit = "За пределами здания";
 
         /// <summary>
         /// Вход.
