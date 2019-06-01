@@ -41,7 +41,7 @@ namespace SecurityDoors.PresentationLayer
         /// <summary>
         /// Сервис сотрудников.
         /// </summary>
-		public PersonService Person { get { return _personService; } }
+		public PersonService People { get { return _personService; } }
 
         /// <summary>
         /// Сервис дверного контроллера.

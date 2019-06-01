@@ -27,7 +27,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление</returns>
         public IActionResult Index()
 		{
-            var models = _serviceManager.Person.GetPeople();
+            var models = _serviceManager.People.GetPeople();
             return View(models);
 		}
 
@@ -50,7 +50,7 @@ namespace SecurityDoors.App.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_serviceManager.Person.SavePerson(person);
+				_serviceManager.People.SavePerson(person);
 				return RedirectToAction(nameof(Index));
 			}
 			else
@@ -66,7 +66,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление</returns>
         public IActionResult Details(int id)
         {
-            var model = _serviceManager.Person.GetPersonById(id);
+            var model = _serviceManager.People.GetPersonById(id);
             return View(model);
         }
 
@@ -77,7 +77,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
 		public IActionResult Edit (int id)
 		{
-			var editModel = _serviceManager.Person.EditPersonById(id);
+			var editModel = _serviceManager.People.EditPersonById(id);
 			return View(editModel);
 		}
 
@@ -91,7 +91,7 @@ namespace SecurityDoors.App.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_serviceManager.Person.SavePerson(person);
+				_serviceManager.People.SavePerson(person);
 				return RedirectToAction(nameof(Index));
 			}
 			else
@@ -107,7 +107,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление главной страницы.</returns>
 		public IActionResult Delete (int id)
 		{
-			_serviceManager.Person.DeletePersonById(id);
+			_serviceManager.People.DeletePersonById(id);
 			return RedirectToAction(nameof(Index));
 		}
 	}
