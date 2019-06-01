@@ -24,5 +24,35 @@
         /// Приостановлена.
         /// </summary>
         public const string IsSuspended = "Приостановлена";
+
+        /// <summary>
+        /// Уровень 0 - Гостевой.
+        /// </summary>
+        public const string IsGuest = "Гость";
+
+        /// <summary>
+        /// Уровень 1 - Сотрудник.
+        /// </summary>
+        public const string IsEmployee = "Сотрудник";
+
+        /// <summary>
+        /// Уровень 2 - Администратор.
+        /// </summary>
+        public const string IsAdministrator = "Администратор";
+
+        /// <summary>
+        /// Уровень 3 - Управляющий.
+        /// </summary>
+        public const string IsManager = "Управляющий";
+
+        /// <summary>
+        /// Вход.
+        /// </summary>
+        public const string Entrance = "Вход";
+
+        /// <summary>
+        /// Выход.
+        /// </summary>
+        public const string Exit = "Выход";
     }
 }
