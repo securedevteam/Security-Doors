@@ -31,17 +31,18 @@ namespace SecurityDoors.PresentationLayer.Services
 			var models = dataManager.Doors.GetDoorsList();
 			var viewModels = new List<DoorViewModel>();
 
-            var status = string.Empty;
-
             foreach (var model in models)
 			{
-                status = model.ConvertStatus();
+                // Статус. Уровень.
+                var result = model.ConvertStatus();
+
                 viewModels.Add(new DoorViewModel
                 {
                     Id = model.Id,
                     Name = model.Name,
                     Description = model.Description,
-                    Status = status,
+                    Status = result.Item1,
+                    Level = result.Item2,
                     Comment = model.Comment
                 });
 			}
@@ -58,14 +59,16 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
 			var model = dataManager.Doors.GetDoorById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень.
+            var result = model.ConvertStatus();
 
             var viewModel = new DoorViewModel()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                Status = status,
+                Level = result.Item2,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -81,14 +84,15 @@ namespace SecurityDoors.PresentationLayer.Services
 		{
 			var model = dataManager.Doors.GetDoorById(id);
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень.
+            var result = model.ConvertStatus();
 
             var editModel = new DoorEditModel()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                Status = status,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -118,11 +122,13 @@ namespace SecurityDoors.PresentationLayer.Services
                 door = dataManager.Doors.GetDoorById(model.Id);
             }
 
-            var status = model.ConvertStatus();
+            // Статус. Уровень.
+            var result = model.ConvertStatus();
 
             door.Name = model.Name;
             door.Description = model.Description;
-            door.Status = status;
+            door.Status = result.Item1;
+            door.Level = result.Item2;
             door.Comment = model.Comment;
 
             dataManager.Doors.Save(door);

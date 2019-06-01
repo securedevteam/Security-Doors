@@ -27,6 +27,13 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Description { get; set; }
 
         /// <summary>
+        /// Уровень.
+        /// </summary>
+		[Required(ErrorMessage = "Неверный уровень")]
+        [Display(Name = "Уровень")]
+        public string Level { get; set; }
+
+        /// <summary>
         /// Статус.
         /// </summary>
         [Required(ErrorMessage = "Неверный статус")]

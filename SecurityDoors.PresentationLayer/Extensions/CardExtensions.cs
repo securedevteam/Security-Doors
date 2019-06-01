@@ -75,11 +75,11 @@ namespace SecurityDoors.PresentationLayer.Extensions
 
             switch (model.Level)
             {
-                case CardConstants.IsGuest: { status = (int)CardLevels.IsGuest; } break;
-                case CardConstants.IsIntern: { status = (int)CardLevels.IsIntern; } break;
-                case CardConstants.IsEmployee: { status = (int)CardLevels.IsEmployee; } break;
-                case CardConstants.IsAdministrator: { status = (int)CardLevels.IsAdministrator; } break;
-                case CardConstants.IsManager: { status = (int)CardLevels.IsManager; } break;
+                case CardConstants.IsGuest: { level = (int)CardLevels.IsGuest; } break;
+                case CardConstants.IsIntern: { level = (int)CardLevels.IsIntern; } break;
+                case CardConstants.IsEmployee: { level = (int)CardLevels.IsEmployee; } break;
+                case CardConstants.IsAdministrator: { level = (int)CardLevels.IsAdministrator; } break;
+                case CardConstants.IsManager: { level = (int)CardLevels.IsManager; } break;
             }
 
             switch (model.Location)

@@ -20,6 +20,15 @@
         </div>
 
         <div>
+            <label asp-for="Level">Уровень: </label>
+            <select asp-for="Level">
+                <option>@DoorConstants.IsCommon</option>
+                <option>@DoorConstants.IsSpecial</option>
+                <option>@DoorConstants.IsGuarded</option>
+            </select>
+        </div>
+
+        <div>
             <label asp-for="Status">Статус: </label>
             <select asp-for="Status">
                 <option>@DoorConstants.IsActive</option>
