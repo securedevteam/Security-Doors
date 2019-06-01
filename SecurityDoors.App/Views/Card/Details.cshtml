@@ -5,6 +5,8 @@
     <thead>
         <tr>
             <th>Уникальный номер</th>
+            <th>Уровень доступа</th>
+            <th>Нахождение в данный момент (Вход - в здании / Выход - за пределами):</th>
             <th>Статус</th>
             <td>Комментарий</td>
         </tr>
@@ -12,6 +14,8 @@
     <tbody>
         <tr>
             <td>@Model.UniqueNumber</td>
+            <td>@Model.Level</td>
+            <td>@Model.Location</td>
             <td>@Model.Status</td>
             <td>@Model.Comment</td>
         </tr>

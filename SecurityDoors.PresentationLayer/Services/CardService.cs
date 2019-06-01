@@ -154,11 +154,9 @@ namespace SecurityDoors.PresentationLayer.Services
                 card = dataManager.Cards.GetCardById(model.Id);
             }
 
-            (int, int, bool) result = model.ConvertStatus();
+            var status = model.ConvertStatus();
 
-            card.Status = result.Item1;
-            card.Level = result.Item2;
-            card.Location = result.Item3;
+            card.Status = status;
             card.Comment = model.Comment;
 
             dataManager.Cards.Save(card);

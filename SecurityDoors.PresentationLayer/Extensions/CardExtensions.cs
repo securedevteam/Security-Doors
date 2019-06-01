@@ -15,7 +15,7 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// Конвертация статуса в string.
         /// </summary>
         /// <param name="model">модель Card.</param>
-        /// <returns>Статус. Уровень. Нахождение.</returns>
+        /// <returns>Кортеж из статуса, уровня и нахождения.</returns>
         public static (string, string, string) ConvertStatus(this Card model)
         {
             var status = string.Empty;
@@ -57,7 +57,7 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// Конвертация статуса в int.
         /// </summary>
         /// <param name="model">модель CardViewModel.</param>
-        /// <returns>Статус.</returns>
+        /// <returns>Кортеж из статуса, уровня и нахождения.</returns>
         public static (int, int, bool) ConvertStatus(this CardViewModel model)
         {
             var status = 0;
@@ -100,11 +100,9 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// </summary>
         /// <param name="model">модель CardEditModel.</param>
         /// <returns>Статус.</returns>
-        public static (int, int, bool) ConvertStatus(this CardEditModel model)
+        public static int ConvertStatus(this CardEditModel model)
         {
             var status = 0;
-            var level = 0;
-            var location = false;
 
             switch (model.Status)
             {
@@ -114,27 +112,7 @@ namespace SecurityDoors.PresentationLayer.Extensions
                 case CardConstants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
             }
 
-            switch (model.Level)
-            {
-                case CardConstants.IsGuest: { status = (int)CardLevels.IsGuest; } break;
-                case CardConstants.IsEmployee: { status = (int)CardLevels.IsEmployee; } break;
-                case CardConstants.IsAdministrator: { status = (int)CardLevels.IsAdministrator; } break;
-                case CardConstants.IsManager: { status = (int)CardLevels.IsManager; } break;
-            }
-
-            switch (model.Location)
-            {
-                case CardConstants.Exit: { location = CardConstants.IsExit; } break;
-                case CardConstants.Entrance: { location = CardConstants.IsEntrance; } break;
-            }
-
-            var result = (0, 0, false);
-
-            result.Item1 = status;
-            result.Item2 = level;
-            result.Item3 = location;
-
-            return result;
+            return status;
         }
     }
 }
