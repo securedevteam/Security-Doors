@@ -23,6 +23,11 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public string Description { get; set; }
 
         /// <summary>
+		/// Уровень.
+		/// </summary>
+		public int Level { get; set; }
+
+        /// <summary>
 		/// Статус.
 		/// </summary>
 		public int Status { get; set; }
