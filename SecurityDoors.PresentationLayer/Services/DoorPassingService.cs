@@ -61,12 +61,12 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.DoorsPassing.GetDoorPassingById(id);
 
-            //var status = model.ConvertStatus();
+            var status = model.ConvertStatus();
 
             var viewModel = new DoorPassingViewModel()
             {
                 Id = model.Id,
-                //Status = status,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -87,9 +87,9 @@ namespace SecurityDoors.PresentationLayer.Services
                 doorPassing = dataManager.DoorsPassing.GetDoorPassingById(model.Id);
             }
 
-            //var status = model.ConvertStatus();
+            var status = model.ConvertStatus();
 
-            //doorPassing.Status = status;
+            doorPassing.Status = status;
             doorPassing.Comment = model.Comment;
 
             dataManager.DoorsPassing.Save(doorPassing);
