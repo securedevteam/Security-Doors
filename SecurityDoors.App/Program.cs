@@ -8,13 +8,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 
 namespace SecurityDoors.App
 {
     public class Program
-    {
+    {     
         public static void Main(string[] args)
         {
+            var settings = new EventLogSettings
+            {
+                LogName = "DoorsApplication",
+                SourceName = "DoorsApplication",
+                Filter = (source, level) => level >= LogLevel.Debug
+            };
             var webHost = new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
@@ -27,10 +34,8 @@ namespace SecurityDoors.App
             .ConfigureLogging((hostingContext, logging) =>
             {
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddConsole();
-                logging.AddDebug();
-                logging.AddEventLog();
-                logging.AddEventSourceLogger();
+                logging.AddConsole(options => options.IncludeScopes = true);
+                logging.AddEventLog(settings);             
             })
             .UseStartup<Startup>()
             .Build();
