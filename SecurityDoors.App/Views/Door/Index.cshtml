@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<DoorViewModel>
 
 <h1>Список дверей</h1>
+
 <div>
     <a asp-action="Create" asp-controller="Door">Добавить новую дверь</a>
 </div>
@@ -14,6 +15,8 @@
                 <th>#</th>
                 <th>Название</th>
                 <th>Описание</th>
+                <th>Уровень</th>
+                <th>Статус</th>
                 <th>Комментарий</th>
                 <th>Доступные действия</th>
             </tr>
@@ -21,18 +24,20 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>@item.Comment</td>
-                    <td>
-                        <a asp-action="Details" asp-controller="Door" asp-route-id="@item.Id">Подробнее</a> |
-                        <a asp-action="Edit" asp-controller="Door" asp-route-id="@item.Id">Изменить</a> 
-                        @*|
-                        <a asp-action="Delete" asp-controller="Door" asp-route-id="@item.Id">Удалить</a>*@
-                    </td>
-                </tr>
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Level</td>
+                <td>@item.Status</td>
+                <td>@item.Comment</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Door" asp-route-id="@item.Id">Подробнее</a> |
+                    <a asp-action="Edit" asp-controller="Door" asp-route-id="@item.Id">Изменить</a>
+                    @*|
+            <a asp-action="Delete" asp-controller="Door" asp-route-id="@item.Id">Удалить</a>*@
+                </td>
+            </tr>
             }
         </tbody>
     </table>

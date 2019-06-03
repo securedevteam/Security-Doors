@@ -1,7 +1,7 @@
 ﻿@model DoorEditModel
 
 <div>
-    <h2>Данные для изменения двери №@Model.Id</h2>
+    <h2>Редактирование двери №@Model.Id</h2>
 </div>
 
 <form method="post" asp-controller="Door" asp-action="Edit" asp-route-id="@Model.Id">
@@ -19,6 +19,15 @@
             <label asp-for="Description">Описание: </label>
             <input type="text" asp-for="Description" />
             <span asp-validation-for="Description"></span>
+        </div>
+
+        <div>
+            <label asp-for="Status">Статус: </label>
+            <select asp-for="Status">
+                <option>@DoorConstants.IsActive</option>
+                <option>@DoorConstants.IsClosed</option>
+                <option>@DoorConstants.OnRepair</option>
+            </select>
         </div>
 
         <div>

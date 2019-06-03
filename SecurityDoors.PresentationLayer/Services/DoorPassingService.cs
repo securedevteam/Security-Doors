@@ -1,6 +1,6 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Enums;
+using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
@@ -22,24 +22,6 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
-        #region Вспомогательные методы для смены статуса карточки для ViewModel
-
-        private string ConvertStatus(int statusModel)
-        {
-            var status = string.Empty;
-
-            switch (statusModel)
-            {
-                case (int)DoorPassingStatus.WithoutСontrol: { status = DoorPassingConstants.WithoutСontrol; } break;
-                case (int)DoorPassingStatus.OnControl: { status = DoorPassingConstants.OnControl; } break;
-                case (int)DoorPassingStatus.IsAnnul: { status = DoorPassingConstants.IsAnnul; } break;
-            }
-
-            return status;
-        }
-
-        #endregion
-
         /// <summary>
         /// Получить все проходы.
         /// </summary>
@@ -54,20 +36,94 @@ namespace SecurityDoors.PresentationLayer.Services
                 var cardModel = dataManager.Cards.GetCardById(model.CardId);
                 var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
 
-                var status = ConvertStatus(model.Status);
+                // Статус. Нахождение.
+                var result = model.ConvertStatus();
 
                 viewModels.Add(new DoorPassingViewModel()
 				{
 					Id = model.Id,
 					Door = doorModel.Name,
 					Card = cardModel.UniqueNumber,
+                    Location = result.Item2,
 					PassingTime = model.PassingTime,
-                    Status = status,
+                    Status = result.Item1,
 					Comment = model.Comment
 				});
 			}
 
 			return viewModels;
 		}
-	}
+
+        /// <summary>
+        /// Получить проход.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Карточка.</returns>
+        public DoorPassingViewModel GetDoorPassingById(int id)
+        {
+            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
+
+            var viewModel = new DoorPassingViewModel()
+            {
+                Id = model.Id,
+                Location = result.Item2,
+                Status = result.Item1,
+                Comment = model.Comment
+            };
+
+            return viewModel;
+        }
+
+        /// <summary>
+        /// Изменить проход.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Проход.</returns>
+        public DoorPassingEditModel EditDoorPassingById(int id)
+        {
+            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
+
+            var editModel = new DoorPassingEditModel()
+            {
+                Id = model.Id,
+                Location = result.Item2,
+                Status = result.Item1,
+                Comment = model.Comment
+            };
+
+            return editModel;
+        }
+
+        /// <summary>
+        /// Сохранить проход с сигнатурой DoorPassingEditModel.
+        /// </summary>
+        /// <param name="model">Модель карточки для сохранения.</param>
+        /// <returns>Карточка.</returns>
+        public DoorPassingViewModel SaveCard(DoorPassingEditModel model)
+        {
+            var doorPassing = new DoorPassing();
+
+            if (model.Id != 0)
+            {
+                doorPassing = dataManager.DoorsPassing.GetDoorPassingById(model.Id);
+            }
+
+            // Статус. Нахождение.
+            var result = model.ConvertStatus();
+
+            doorPassing.Location = result.Item2;
+            doorPassing.Status = result.Item1;
+            doorPassing.Comment = model.Comment;
+
+            dataManager.DoorsPassing.Save(doorPassing);
+
+            return GetDoorPassingById(doorPassing.Id);
+        }
+    }
 }

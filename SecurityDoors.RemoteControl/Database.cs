@@ -4,15 +4,27 @@ using System.Linq;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.Core.Enums;
 using System.Collections.Generic;
+using SecurityDoors.BusinessLogicLayer;
+using Microsoft.Extensions.DependencyInjection;
+using SecurityDoors.BusinessLogicLayer.Interfaces;
 
 namespace SecurityDoors.RemoteControl
 {
     class Database
     {
-        private readonly CardRepository cardRepository     = new CardRepository();
-        private readonly PersonRepository personRepository = new PersonRepository();
-        private readonly DoorRepository doorRepository     = new DoorRepository();
-        private readonly DoorPassingRepository doorPassingRepository = new DoorPassingRepository();
+        private readonly DataManager _dataManager;
+        public Database()
+        {
+            var serviceProvider = new ServiceCollection()
+                .AddTransient<ICardRepository, CardRepository>()
+                .AddTransient<IDoorRepository, DoorRepository>()
+                .AddTransient<IDoorPassingRepository, DoorPassingRepository>()
+                .AddTransient<IPersonRepository, PersonRepository>()
+                .AddScoped<DataManager>()
+                .BuildServiceProvider();
+            _dataManager = serviceProvider.GetService<DataManager>();
+        }
+
         public static void Init()
         {
             using (var context = new ApplicationContext())
@@ -33,100 +45,100 @@ namespace SecurityDoors.RemoteControl
         #region методы для добавление обьектов в БД
         public void AddPerson(Person person)
         {
-            personRepository.Save(person);
+            _dataManager.People.Save(person);
         }
 
         public void AddCard(Card card)
         {
-            cardRepository.Save(card);
+            _dataManager.Cards.Save(card);
         }
 
         public void AddDoor(Door door)
         {
-            doorRepository.Save(door);
+            _dataManager.Doors.Save(door);
         }
         #endregion
 
         #region методы для вывода количества обьектов в таблицах БД
         public int GetCountOfPerson()
         {
-            return personRepository.GetPeopleList().Count();
+            return _dataManager.People.GetPeopleList().Count();
         }
 
         public int GetCountOfDoor()
         {
-            return doorRepository.GetDoorsList().Count();
+            return _dataManager.Doors.GetDoorsList().Count();
         }
 
         public int GetCountOfDoorPassing()
         {
-            return doorRepository.GetDoorsList().Count();
+            return _dataManager.DoorsPassing.GetDoorsPassingList().Count();
         }
 
         public int GetCountOfCard()
         {
-            return cardRepository.GetCardsList().Count();
+            return _dataManager.Cards.GetCardsList().Count();
         }
         #endregion
 
         #region методы получения множества обьектов
         public IEnumerable<Person> GetPersons()
         {
-            return personRepository.GetPeopleList();
+            return _dataManager.People.GetPeopleList();
         }
 
         public IEnumerable<Card> GetCards()
         {
-            return cardRepository.GetCardsList();
+            return _dataManager.Cards.GetCardsList();
         }
 
         public IEnumerable<Door> GetDoors()
         {
-            return doorRepository.GetDoorsList();
+            return _dataManager.Doors.GetDoorsList();
         }
 
         public IEnumerable<DoorPassing> GetDoorPassings()
         {
-            return doorPassingRepository.GetDoorsPassingList();
+            return _dataManager.DoorsPassing.GetDoorsPassingList();
         }
         #endregion
 
         #region методы получения обьекта по id
         public Person GetPersonById(int id)
         {
-            return personRepository.GetPersonById(id);
+            return _dataManager.People.GetPersonById(id);
         }
 
         public Card GetCardById(int id)
         {
-            return cardRepository.GetCardById(id);
+            return _dataManager.Cards.GetCardById(id);
         }
 
         public Door GetDoorById(int id)
         {
-            return doorRepository.GetDoorById(id);
+            return _dataManager.Doors.GetDoorById(id);
         }
         #endregion
 
         #region методы удаления объектов из БД
         public void deletePerson(int id)
         {
-            personRepository.Delete(id);
+            _dataManager.People.Delete(id);
         }
 
         public void deleteCard(int id)
         {
-            cardRepository.Delete(id);
+            _dataManager.Cards.Delete(id);
         }
 
         public void deleteDoor(int id)
         {
-            doorRepository.Delete(id);
+            _dataManager.Doors.Delete(id);
         }
 
         public void deleteDoorPassing(int id)
         {
-            doorPassingRepository.Delete(id);
+            _dataManager.DoorsPassing.Delete(id);
         }
         #endregion
     }

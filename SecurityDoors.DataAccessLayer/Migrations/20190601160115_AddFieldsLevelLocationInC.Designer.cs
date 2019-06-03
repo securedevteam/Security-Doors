@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190601160115_AddFieldsLevelLocationInC")]
+    partial class AddFieldsLevelLocationInC
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +52,6 @@ namespace SecurityDoors.DataAccessLayer.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("Level");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("Status");
@@ -72,8 +72,6 @@ namespace SecurityDoors.DataAccessLayer.Migrations
                     b.Property<string>("Comment");
 
                     b.Property<int>("DoorId");
-
-                    b.Property<bool>("Location");
 
                     b.Property<DateTime>("PassingTime");
 

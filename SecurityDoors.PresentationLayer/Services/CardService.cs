@@ -1,10 +1,9 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
+using SecurityDoors.PresentationLayer.Extensions;
 
 namespace SecurityDoors.PresentationLayer.Services
 {
@@ -24,55 +23,6 @@ namespace SecurityDoors.PresentationLayer.Services
             this.dataManager = dataManager;
         }
 
-        #region Вспомогательные методы для смены статуса карточки для ViewModel
-
-        private string ConvertStatus(Card model)
-        {
-            var status = string.Empty;
-			
-            switch (model.Status)
-			{
-                case (int)CardStatus.IsClosed: { status = CardConstants.IsClosed; } break;
-                case (int)CardStatus.IsActive: { status = CardConstants.IsActive; } break;
-                case (int)CardStatus.IsLost: { status = CardConstants.IsLost; } break;
-                case (int)CardStatus.IsSuspended: { status = CardConstants.IsSuspended; } break;
-            }
-			
-            return status;
-        }
-
-        private int ConvertStatus(CardViewModel model)
-        {
-			var status = 0;
-
-			switch (model.Status)
-			{
-                case CardConstants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
-                case CardConstants.IsActive: { status = (int)CardStatus.IsActive; } break;
-                case CardConstants.IsLost: { status = (int)CardStatus.IsLost; } break;
-                case CardConstants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
-            }
-
-			return status;
-        }
-
-        private int ConvertStatus(CardEditModel model)
-        {
-            var status = 0;
-
-            switch (model.Status)
-            {
-				case CardConstants.IsClosed: { status = (int)CardStatus.IsClosed; } break;
-                case CardConstants.IsActive: { status = (int)CardStatus.IsActive; } break;
-				case CardConstants.IsLost: { status = (int)CardStatus.IsLost; } break;
-				case CardConstants.IsSuspended: { status = (int)CardStatus.IsSuspended; } break;
-			}
-
-            return status;
-        }
-
-        #endregion
-
         /// <summary>
         /// Получить карточки.
         /// </summary>
@@ -82,16 +32,18 @@ namespace SecurityDoors.PresentationLayer.Services
             var models = dataManager.Cards.GetCardsList();
             var viewModels = new List<CardViewModel>();
 
-            var status = string.Empty;
-
             foreach (var model in models)
             {
-                status = ConvertStatus(model);
+                // Статус. Уровень. Нахождение.
+                (string, string, string) result = model.ConvertStatus();
+
                 viewModels.Add(new CardViewModel
                 {
                     Id = model.Id,
                     UniqueNumber = model.UniqueNumber,
-                    Status = status,
+                    Status = result.Item1,
+                    Level = result.Item2,
+                    Location = result.Item3,
                     Comment = model.Comment
                 });
             }
@@ -108,13 +60,16 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = ConvertStatus(model);
+            // Статус. Уровень. Нахождение.
+            (string, string, string) result = model.ConvertStatus();
 
             var viewModel = new CardViewModel()
             {
                 Id = model.Id,
                 UniqueNumber = model.UniqueNumber,
-                Status = status,
+                Status = result.Item1,
+                Level = result.Item2,
+                Location = result.Item3,
                 Comment = model.Comment
             };
 
@@ -130,12 +85,13 @@ namespace SecurityDoors.PresentationLayer.Services
         {
             var model = dataManager.Cards.GetCardById(id);
 
-            var status = ConvertStatus(model);
+            // Статус. Уровень. Нахождение.
+            (string, string, string) result = model.ConvertStatus();
 
             var editModel = new CardEditModel()
             {
                 Id = model.Id,
-                Status = status,
+                Status = result.Item1,
                 Comment = model.Comment
             };
 
@@ -170,10 +126,13 @@ namespace SecurityDoors.PresentationLayer.Services
                 model.UniqueNumber = Guid.NewGuid().ToString();
             }
 
-            var status = ConvertStatus(model);
+            // Статус. Уровень. Нахождение.
+            (int, int, bool) result = model.ConvertStatus();
 
             card.UniqueNumber = model.UniqueNumber;
-            card.Status = status;
+            card.Status = result.Item1;
+            card.Level = result.Item2;
+            card.Location = result.Item3;
             card.Comment = model.Comment;
 
             dataManager.Cards.Save(card);
@@ -195,7 +154,7 @@ namespace SecurityDoors.PresentationLayer.Services
                 card = dataManager.Cards.GetCardById(model.Id);
             }
 
-            var status = ConvertStatus(model);
+            var status = model.ConvertStatus();
 
             card.Status = status;
             card.Comment = model.Comment;

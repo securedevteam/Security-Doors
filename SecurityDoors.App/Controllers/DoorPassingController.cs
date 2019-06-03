@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.PresentationLayer;
-using SecurityDoors.PresentationLayer.Services;
+using SecurityDoors.PresentationLayer.ViewModels;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -27,9 +27,38 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление со списком дверных проходов.</returns>
 		public ActionResult Index()
         {
-            var models = _serviceManager.DoorPassing.GetDoorPassings();
+            var models = _serviceManager.DoorPassings.GetDoorPassings();
             return View(models);
         }
 
+        /// <summary>
+        /// Изменение существующей карточки.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Представление.</returns>
+        public IActionResult Edit(int id)
+        {
+            var model = _serviceManager.DoorPassings.EditDoorPassingById(id);
+            return View(model);
+        }
+
+        /// <summary>
+        /// Изменение существующего прохода (POST).
+        /// </summary>
+        /// <param name="doorPassing">модель прохода.</param>
+        /// <returns>Представление.</returns>
+        [HttpPost]
+        public IActionResult Edit(DoorPassingEditModel doorPassing)
+        {
+            if (ModelState.IsValid)
+            {
+                _serviceManager.DoorPassings.SaveCard(doorPassing);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(doorPassing);
+            }
+        }
     }
 }

@@ -19,5 +19,20 @@
         /// Аннулирован.
         /// </summary>
         public const string IsAnnul = "Аннулирован";
+
+        /// <summary>
+        /// Вход.
+        /// </summary>
+        public const string Entrance = "Вход";
+
+        /// <summary>
+        /// Выход.
+        /// </summary>
+        public const string Exit = "Выход";
+
+        /// <summary>
+        /// Доступ запрещен.
+        /// </summary>
+        public const string AccessDenied = "Доступ запрещен";
     }
 }
