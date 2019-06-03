@@ -35,9 +35,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public Card GetCardByUniqueNumber(string uniqueNumber)
+        public Card GetCardByUniqueNumber(string item)
         {
-            return db.Cards.FirstOrDefault(c => c.UniqueNumber == uniqueNumber);
+            return db.Cards.FirstOrDefault(c => c.UniqueNumber == item);
         }
 
         /// <inheritdoc/>

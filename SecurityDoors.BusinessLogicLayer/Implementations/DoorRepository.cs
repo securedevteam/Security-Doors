@@ -3,6 +3,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -32,6 +33,12 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         public Door GetDoorById(int id)
         {
             return db.Doors.Find(id);
+        }
+
+        /// <inheritdoc/>
+        public Door GetDoorByName(string item)
+        {
+            return db.Doors.FirstOrDefault(d => d.Name == item);
         }
 
         [Obsolete]

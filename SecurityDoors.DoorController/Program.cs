@@ -20,13 +20,14 @@ namespace SecurityDoors.DoorController
 
             var dataManagerService = serviceProvider.GetService<DataManager>();
 
-            var list = dataManagerService.Cards.GetCardsList();
+            var mainController = new MainController(dataManagerService);
 
-            foreach(var item in list)
-            {
-                Console.WriteLine($"{item.Id} {item.UniqueNumber} {item.Level} {item.Status}");
-            }
+            var card = Console.ReadLine();
+            var door = Console.ReadLine();
 
+            mainController.ControllerАctuation(card, door);
+
+            
             Console.ReadLine();
         }
     }

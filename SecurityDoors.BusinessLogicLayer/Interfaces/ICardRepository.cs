@@ -25,9 +25,9 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// <summary>
         /// Получить карту по уникальному номеру.
         /// </summary>
-        /// <param name="uniqueNumber">уникальный номер.</param>
+        /// <param name="item">уникальный номер.</param>
         /// <returns>Карта.</returns>
-        Card GetCardByUniqueNumber(string uniqueNumber);
+        Card GetCardByUniqueNumber(string item);
 
         /// <summary>
         /// Создать карту.

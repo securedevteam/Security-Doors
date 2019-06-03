@@ -62,7 +62,8 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <inheritdoc/>
         public void Save(DoorPassing item)
         {
-            if (item.Id == 0)
+            // TODO: Решить проблему с добавлением нового элемента, возможно придется править логику и в других классах метода Save
+            if (item.Id < 0)
             {
                 db.DoorPassings.Add(item);
             }
