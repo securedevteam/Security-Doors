@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,14 @@ namespace SecurityDoors.App
     {     
         public static void Main(string[] args)
         {
+            string logName = "SecurityDoors.App";
+            string sourceName = "DoorsApplication";
+            if (!EventLog.SourceExists(sourceName))
+            {
+                var eventSourceData = new EventSourceCreationData(sourceName, logName);
+                EventLog.CreateEventSource(eventSourceData);
+            }
+
             var settings = new EventLogSettings
             {
                 LogName = "DoorsApplication",
