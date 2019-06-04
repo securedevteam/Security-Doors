@@ -10,20 +10,18 @@ using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
-    [Route("api/[controller]")]
     public class LoggerController : Controller
     {
         private readonly ILoggerRepository _loggerRepository;
         private readonly ILogger _logger;
 
         public LoggerController(ILoggerRepository loggerRepository,
-            ILogger<LoggerController> logger)
+           ILoggerFactory logger)
         {
             _loggerRepository = loggerRepository;
-            _logger = logger;
+            _logger = logger.CreateLogger("LoggerApiSample.Controllers.LoggerController");
         }
 
-        [HttpGet]
         public IEnumerable<LoggerItem> GetAll()
         {
             using (_logger.BeginScope("Message {HoleValue}", DateTime.Now))
@@ -33,8 +31,6 @@ namespace SecurityDoors.App.Controllers
             }
             return _loggerRepository.GetAll();
         }
-
-        [HttpGet("{id}", Name = "GetLogger")]
         
         public IActionResult GetById(string id)
         {
@@ -48,7 +44,6 @@ namespace SecurityDoors.App.Controllers
             return new ObjectResult(item);
         }
 
-        [HttpPost]
         public IActionResult Create([FromBody] LoggerItem item)
         {
             if (item == null)
@@ -60,7 +55,6 @@ namespace SecurityDoors.App.Controllers
             return CreatedAtRoute("GetLogger", new { controller = "Logger", id = item.Key }, item);
         }
 
-        [HttpPut("{id}")]
         public IActionResult Update(string id, [FromBody] LoggerItem item)
         {
             if (item == null || item.Key != id)
@@ -80,7 +74,6 @@ namespace SecurityDoors.App.Controllers
             return new NoContentResult();
         }
 
-        [HttpDelete("{id}")]
         public void Delete(string id)
         {
             _loggerRepository.Remove(id);

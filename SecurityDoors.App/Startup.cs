@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
@@ -55,12 +56,12 @@ namespace SecurityDoors.App
 
             // Add our repository type
             services.AddSingleton<ILoggerRepository, LoggerRepository>();
-            _logger.LogInformation("Added TodoRepository to services");
+            _logger.LogInformation("Added LoggerRepository to services");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {                     
+        {                       
             if (env.IsDevelopment())
             {
                 _logger.LogInformation("In Development environment");
@@ -75,7 +76,7 @@ namespace SecurityDoors.App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            
             app.UseMvc(routes =>
             {
                 // TODO: Поменять с добавлением контроллера Home
@@ -83,7 +84,7 @@ namespace SecurityDoors.App
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+           
             // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
             //app.Run(async (context) =>
             //{
