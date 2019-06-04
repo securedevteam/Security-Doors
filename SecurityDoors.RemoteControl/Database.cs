@@ -16,10 +16,10 @@ namespace SecurityDoors.RemoteControl
         public Database()
         {
             var serviceProvider = new ServiceCollection()
-                .AddTransient<ICardRepository, CardRepository>()
-                .AddTransient<IDoorRepository, DoorRepository>()
-                .AddTransient<IDoorPassingRepository, DoorPassingRepository>()
-                .AddTransient<IPersonRepository, PersonRepository>()
+                .AddSingleton<ICardRepository, CardRepository>()
+                .AddSingleton<IDoorRepository, DoorRepository>()
+                .AddSingleton<IDoorPassingRepository, DoorPassingRepository>()
+                .AddSingleton<IPersonRepository, PersonRepository>()
                 .AddScoped<DataManager>()
                 .BuildServiceProvider();
             _dataManager = serviceProvider.GetService<DataManager>();
