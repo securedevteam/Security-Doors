@@ -67,7 +67,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <inheritdoc/>
         public void Save(Card item)
         {
-            if (item.Id == 0)
+            if (item.Id <= 0)
             {
                 db.Cards.Add(item);
             }

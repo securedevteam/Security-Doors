@@ -12,7 +12,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
     /// </summary>
     public class DoorRepository : IDoorRepository
     {
-
         private ApplicationContext db;
 
         /// <summary>
@@ -41,13 +40,14 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             return db.Doors.FirstOrDefault(d => d.Name == item);
         }
 
+        /// <inheritdoc/>
         [Obsolete]
         public void Create(Door item)
         {
             db.Doors.Add(item);
         }
 
-        
+        /// <inheritdoc/>
         public void Update(Door item)
         {
             db.Entry(item).State = EntityState.Modified;
@@ -68,7 +68,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <inheritdoc/>
         public void Save(Door item)
         {
-            if (item.Id == 0)
+            if (item.Id <= 0)
             {
                 db.Doors.Add(item);
             }
