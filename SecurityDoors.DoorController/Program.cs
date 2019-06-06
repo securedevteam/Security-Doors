@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityDoors.BusinessLogicLayer;
@@ -9,11 +10,11 @@ namespace SecurityDoors.DoorController
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
-            var serviceProvider = new ServiceCollection()    
+            Console.Title = "DoorController Application v1.0";
+
+            var serviceProvider = new ServiceCollection()
                 .AddTransient<ICardRepository, CardRepository>()
                 .AddTransient<IDoorRepository, DoorRepository>()
                 .AddTransient<IDoorPassingRepository, DoorPassingRepository>()
@@ -25,20 +26,23 @@ namespace SecurityDoors.DoorController
 
             var mainController = new MainController(dataManagerService);
 
+            Console.WriteLine("Welcom to the door controller application!");
+
+            Console.Write("Please enter card unique number: ");
             var card = Console.ReadLine();
+
+            Console.Write("Please enter door name: ");
             var door = Console.ReadLine();
 
-            Console.WriteLine("===");
+            Console.Write("Please enter time to sleep (ms): ");
+            var sleep = Console.ReadLine();
+
+            Console.WriteLine("=====");
 
             while (true)
             {
-                //var card = Console.ReadLine();
-                //var door = Console.ReadLine();
 
-
-
-
-                Console.Write(string.Format("| {0,15} |", card) + 
+                Console.Write(string.Format("| {0,15} |", card) +
                               string.Format(" {0,10} |", door));
 
                 var result = mainController.ControllerАctuation(card, door);
@@ -58,12 +62,10 @@ namespace SecurityDoors.DoorController
 
                 Console.WriteLine();
 
-                Thread.Sleep(1000);
+                // TODO: Удалить, когда будет возможность использовать моделирование и реализовать прием по TCP.
+                Thread.Sleep(Convert.ToInt32(sleep));
             }
 
-            
-
-            Console.ReadLine();
         }
     }
 }

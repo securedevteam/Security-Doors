@@ -1,17 +1,21 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SecurityDoors.DoorController
 {
+    /// <summary>
+    /// Класс управления контроллером.
+    /// </summary>
     public class MainController
     {
         private DataManager _dataManager;
-        
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
         public MainController(DataManager dataManager)
         {
             _dataManager = dataManager;
@@ -27,12 +31,18 @@ namespace SecurityDoors.DoorController
             doorpassing.DoorId = door.Id;
             doorpassing.CardId = card.Id;
             doorpassing.Status = 1;
-            doorpassing.Location = location; // CardConstants.IsExit;
+            doorpassing.Location = location;
 
             _dataManager.DoorsPassing.Create(doorpassing);
             _dataManager.DoorsPassing.Save(doorpassing);
         }
 
+        /// <summary>
+        /// Управление контроллером.
+        /// </summary>
+        /// <param name="cardNumber">уникальный номер карты.</param>
+        /// <param name="doorName">название двери.</param>
+        /// <returns>Строку с пояснением. Результат действия.</returns>
         public (string, bool) ControllerАctuation(string cardNumber, string doorName)
         {
             var card = _dataManager.Cards.GetCardByUniqueNumber(cardNumber);
@@ -47,6 +57,16 @@ namespace SecurityDoors.DoorController
             {
                 return ($" THE DOOR NOT FOUND ", false);
             }
+
+            if (card.Level != (int)CardStatus.IsActive)
+            {
+                return ($" PROBLEMS WITH CARD ", false);
+            }
+
+            if (card.Level < door.Level)
+            {
+                return ($" NOT ENOUGHT RIGHTS ", false);
+            }   
 
             if (card.Location)
             {
