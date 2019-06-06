@@ -1,14 +1,9 @@
 language: csharp
 solution: Secure.SecurityDoors.sln
-mono: 5.2.0
+mono: none
 sudo: required
 dist: xenial
 dotnet: 2.2
-
 script:
     - dotnet restore
     - dotnet build
-
-install:
-    # workaround for missing .net 4.5 targing pack
-    - export FrameworkPathOverride=$(dirname $(which mono))/../lib/mono/4.5/
