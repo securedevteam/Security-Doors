@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\SecurityDoors.Core\SecurityDoors.Core.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\SecurityDoors.Modeling\SecurityDoors.Modeling.csproj" />
   </ItemGroup>
 
 </Project>

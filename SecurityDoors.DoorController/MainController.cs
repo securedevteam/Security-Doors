@@ -17,44 +17,50 @@ namespace SecurityDoors.DoorController
             _dataManager = dataManager;
         }
 
-        public void ControllerАctuation(string cardNumber, string doorName)
+        private void ChangeAndSaveData(Card card, Door door, bool location)
+        {
+            _dataManager.Cards.Update(card);
+            _dataManager.Cards.Save(card);
+
+
+            var doorpassing = new DoorPassing();
+            doorpassing.DoorId = door.Id;
+            doorpassing.CardId = card.Id;
+            doorpassing.Status = 1;
+            doorpassing.Location = location; // CardConstants.IsExit;
+
+            _dataManager.DoorsPassing.Create(doorpassing);
+            _dataManager.DoorsPassing.Save(doorpassing);
+        }
+
+        public (string, bool) ControllerАctuation(string cardNumber, string doorName)
         {
             var card = _dataManager.Cards.GetCardByUniqueNumber(cardNumber);
             var door = _dataManager.Doors.GetDoorByName(doorName);
 
-            if (card != null && door != null)
+            if(card == null)
             {
-                if(card.Location)
-                {
-                    card.Location = false;
-                    _dataManager.Cards.Update(card);
-                    _dataManager.Cards.Save(card);
+                return ($" THE CARD NOT FOUND ", false);
+            }
 
+            if (door == null)
+            {
+                return ($" THE DOOR NOT FOUND ", false);
+            }
 
-                    var doorpassing = new DoorPassing();
-                    doorpassing.DoorId = door.Id;
-                    doorpassing.CardId = card.Id;
-                    doorpassing.Status = 1;
-                    doorpassing.Location = CardConstants.IsExit;
+            if (card.Location)
+            {
+                card.Location = false;
+                ChangeAndSaveData(card, door, CardConstants.IsExit);
 
-                    _dataManager.DoorsPassing.Create(doorpassing);
-                    _dataManager.DoorsPassing.Save(doorpassing);
-                }
-                else
-                {
-                    card.Location = true;
-                    _dataManager.Cards.Update(card);
-                    _dataManager.Cards.Save(card);
+                return ($" SUCCESSFULLY EXIT ", true);
+            }
+            else
+            {
+                card.Location = true;
+                ChangeAndSaveData(card, door, CardConstants.IsEntrance);
 
-                    var doorpassing = new DoorPassing();
-                    doorpassing.DoorId = door.Id;
-                    doorpassing.CardId = card.Id;
-                    doorpassing.Status = 1;
-                    doorpassing.Location = CardConstants.IsEntrance;
-
-                    _dataManager.DoorsPassing.Create(doorpassing);
-                    _dataManager.DoorsPassing.Save(doorpassing);
-                }
+                return ($" SUCCESSFULLY ENTRANCE ", true);
             }
         }
     }
