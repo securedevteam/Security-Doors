@@ -43,7 +43,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
 		/// Комментарий.
 		/// </summary>
-        [Required(ErrorMessage = "Неверный комментарий")]
+        //[Required(ErrorMessage = "Неверный комментарий")]
         [Display(Name = "Комментарий")]
         public string Comment { get; set; }
     }
@@ -82,7 +82,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
 		/// Комментарий.
 		/// </summary>
-        [Required(ErrorMessage = "Неверный комментарий")]
+        //[Required(ErrorMessage = "Неверный комментарий")]
         [Display(Name = "Комментарий")]
         public string Comment { get; set; }
     }
