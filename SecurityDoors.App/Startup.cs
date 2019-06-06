@@ -56,7 +56,7 @@ namespace SecurityDoors.App
 
             // Add our repository type
             services.AddSingleton<ILoggerRepository, LoggerRepository>();
-            _logger.LogInformation("Added LoggerRepository to services");
+            _logger.LogError("Error");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +64,7 @@ namespace SecurityDoors.App
         {                       
             if (env.IsDevelopment())
             {
-                _logger.LogInformation("In Development environment");
+                _logger.LogWarning("Warning");
                 app.UseDeveloperExceptionPage();
             }
             else

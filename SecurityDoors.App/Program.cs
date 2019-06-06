@@ -19,7 +19,8 @@ namespace SecurityDoors.App
         {
             string logName = "SDoorsApplication";
             string sourceName = "SecurityDoors.App";
-            if (EventLog.SourceExists(sourceName)==false)
+
+            if (EventLog.SourceExists(sourceName) == false)
             {
                 var eventSourceData = new EventSourceCreationData(sourceName, logName);
                 EventLog.CreateEventSource(eventSourceData);
