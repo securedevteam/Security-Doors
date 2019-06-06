@@ -17,19 +17,18 @@ namespace SecurityDoors.App
     {     
         public static void Main(string[] args)
         {
-            string logName = "Secure.App";
-            string sourceName = "SecurityDoors";
-            if (!EventLog.SourceExists(sourceName))
+            string logName = "SDoorsApplication";
+            string sourceName = "SecurityDoors.App";
+            if (EventLog.SourceExists(sourceName)==false)
             {
                 var eventSourceData = new EventSourceCreationData(sourceName, logName);
-				
-				EventLog.CreateEventSource(sourceName, logName);
+                EventLog.CreateEventSource(eventSourceData);
             }
-			
+
             var settings = new EventLogSettings
             {
-                LogName = logName,
-                SourceName = sourceName,
+                LogName = "SDoorsApplication",
+                SourceName = "SDoorsApplication",
                 Filter = (source, level) => level >= LogLevel.Debug
             };
             var webHost = new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory())
