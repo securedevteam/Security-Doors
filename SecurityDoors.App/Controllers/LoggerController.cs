@@ -19,14 +19,14 @@ namespace SecurityDoors.App.Controllers
            ILoggerFactory logger)
         {
             _loggerRepository = loggerRepository;
-            _logger = logger.CreateLogger("LoggerApiSample.Controllers.LoggerController");
+            _logger = logger.CreateLogger("SecurityDoors.App.Controllers.LoggerController");
         }
 
         public IEnumerable<LoggerItem> GetAll()
         {
             using (_logger.BeginScope("Message {HoleValue}", DateTime.Now))
             {
-                _logger.LogInformation(LoggingEvents.ListItems, "Listing all items");
+                _logger.LogWarning(LoggingEvents.ListItems, "Listing all items");
                 EnsureItems();
             }
             return _loggerRepository.GetAll();
@@ -34,7 +34,7 @@ namespace SecurityDoors.App.Controllers
         
         public IActionResult GetById(string id)
         {
-            _logger.LogInformation(LoggingEvents.GetItem, "Getting item {ID}", id);
+            _logger.LogError(LoggingEvents.GetItem, "Getting item {ID}", id);
             var item = _loggerRepository.Find(id);
             if (item == null)
             {
@@ -51,7 +51,8 @@ namespace SecurityDoors.App.Controllers
                 return BadRequest();
             }
             _loggerRepository.Add(item);
-            _logger.LogInformation(LoggingEvents.InsertItem, "Item {ID} Created", item.Key);
+            _logger.LogError(LoggingEvents.InsertItem, "Item {ID} Created", item.Key);
+            _logger.LogWarning(LoggingEvents.InsertItem, "Item {ID} Created", item.Key);
             return CreatedAtRoute("GetLogger", new { controller = "Logger", id = item.Key }, item);
         }
 
@@ -70,21 +71,22 @@ namespace SecurityDoors.App.Controllers
             }
 
             _loggerRepository.Update(item);
-            _logger.LogInformation(LoggingEvents.UpdateItem, "Item {ID} Updated", item.Key);
+            _logger.LogError(LoggingEvents.UpdateItem, "Item {ID} Updated", item.Key);
             return new NoContentResult();
         }
 
         public void Delete(string id)
         {
             _loggerRepository.Remove(id);
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Item {ID} Deleted", id);
+            _logger.LogError(LoggingEvents.DeleteItem, "Item {ID} Deleted", id);
+            _logger.LogWarning(LoggingEvents.DeleteItem, "Item {ID} Deleted", id);
         }
 
         private void EnsureItems()
         {
             if (!_loggerRepository.GetAll().Any())
             {
-                _logger.LogInformation(LoggingEvents.GenerateItems, "Generating sample items.");
+                _logger.LogWarning(LoggingEvents.GenerateItems, "Generating sample items.");
                 for (int i = 1; i < 11; i++)
                 {
                     _loggerRepository.Add(new LoggerItem() { Name = "Item " + i });
