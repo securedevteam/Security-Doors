@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 
@@ -11,14 +13,16 @@ namespace SecurityDoors.App.Controllers
     public class CardController : Controller
     {
         private ServicesManager _serviceManager;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
-        public CardController(DataManager dataManager)
+        public CardController(DataManager dataManager, ILogger<CardController> logger)
         {
             _serviceManager = new ServicesManager(dataManager);
+            _logger = logger;
         }
 
         /// <summary>
@@ -66,6 +70,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns></returns>
         public IActionResult Details(int id)
         {
+            _logger.LogInformation(LoggingEvents.GetItem, "Getting item {ID}", id);
             var model = _serviceManager.Cards.GetCardById(id);
             return View(model);
         }
