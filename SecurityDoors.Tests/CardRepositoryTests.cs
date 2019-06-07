@@ -27,25 +27,7 @@ namespace SecurityDoors.Tests
         }
 
         /// <summary>
-        /// Примитивный тест.
-        /// </summary>
-        [Fact]
-        public void TestMethod1()
-        {
-            // Arrange
-            var a = 1;
-            var b = 2;
-            var expected = 3;
-
-            // Act
-            var actual = 3;
-
-            // Assert
-            Assert.Equal(expected, actual);
-        }
-
-        /// <summary>
-        /// 
+        /// Тест на проверку получения списка карт.
         /// </summary>
         [Fact]
         public void GetCardsListTest_Return_10()
