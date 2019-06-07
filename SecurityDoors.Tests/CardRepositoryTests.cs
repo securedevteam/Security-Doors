@@ -16,13 +16,13 @@ namespace SecurityDoors.Tests
     {
         private readonly ServiceProvider _serviceProvider;
         private readonly DataManager _dataManagerService;
-        private readonly TestContext _context;
+        private readonly ApplicationContext _context;
 
         public CardRepositoryTests(ServiceFixture fixture)
         {
             _serviceProvider = fixture.ServiceProvider;
 
-            _context = _serviceProvider.GetRequiredService<TestContext>();
+            _context = _serviceProvider.GetRequiredService<ApplicationContext>();
             _dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
         }
 
@@ -44,51 +44,37 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected, actual);
         }
 
-        //private DbContextOptions<ApplicationContext> GetContextOptions()
-        //{
-        //    return new DbContextOptionsBuilder<ApplicationContext>()
-        //        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        //        .Options;
-        //}
-
         /// <summary>
         /// 
         /// </summary>
         [Fact]
-        public void GetCardsListTests_Return_10()
+        public void GetCardsListTest_Return_10()
         {
-            //using (var context = new ApplicationContext(GetContextOptions()))
-            //{
-                // Arrange
-                var listCards = new List<Card>();
-                var expected = 10;
+            // Arrange
+            var listCards = new List<Card>();
+            var expected = 10;
 
-                for (int i = 0; i < expected; i++)
+            for (int i = 0; i < expected; i++)
+            {
+                listCards.Add(new Card()
                 {
-                    listCards.Add(new Card()
-                    {
-                        UniqueNumber = "1",
-                        Status = 1,
-                        Level = 1,
-                        Location = false,
-                        Comment = string.Empty
-                    });
-                }
+                    UniqueNumber = "1",
+                    Status = 1,
+                    Level = 1,
+                    Location = false,
+                    Comment = string.Empty
+                });
+            }
 
-                // Act
-                _context.Cards.AddRange(listCards);
-                _context.SaveChanges();
+            // Act
+            _context.Cards.AddRange(listCards);
+            _context.SaveChanges();
 
-                //var cardList = _dataManagerService.Cards.GetCardsList().ToList();
-                //var actual = cardList.Count();
+            var cardList = _dataManagerService.Cards.GetCardsList().ToList();
+            var actual = cardList.Count();
 
-                //// Assert
-                //Assert.Equal(expected, actual);
-            //}
-
-
-            
-
+            // Assert
+            Assert.Equal(expected, actual);
         }
     }
 }

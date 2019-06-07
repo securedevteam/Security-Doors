@@ -26,7 +26,7 @@ namespace SecurityDoors.Tests
         {
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddDbContext<TestContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()), ServiceLifetime.Transient);
+            serviceCollection.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()), ServiceLifetime.Transient);
 
             serviceCollection.AddTransient<ICardRepository, CardRepository>();
             serviceCollection.AddTransient<IDoorRepository, DoorRepository>();
