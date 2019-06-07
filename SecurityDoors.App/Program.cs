@@ -44,7 +44,7 @@ namespace SecurityDoors.App
             .ConfigureLogging((hostingContext, logging) =>
             {
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddConsole(options => options.IncludeScopes = true);
+                logging.AddConsole();
                 logging.AddEventLog(settings);             
             })
             .UseStartup<Startup>()

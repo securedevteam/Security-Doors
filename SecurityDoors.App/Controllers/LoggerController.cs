@@ -34,7 +34,7 @@ namespace SecurityDoors.App.Controllers
         
         public IActionResult GetById(string id)
         {
-            _logger.LogError(LoggingEvents.GetItem, "Getting item {ID}", id);
+            _logger.LogError(LoggingEvents.GetItem, "Getting item {ID} Error", id);
             var item = _loggerRepository.Find(id);
             if (item == null)
             {
@@ -51,8 +51,8 @@ namespace SecurityDoors.App.Controllers
                 return BadRequest();
             }
             _loggerRepository.Add(item);
-            _logger.LogError(LoggingEvents.InsertItem, "Item {ID} Created", item.Key);
-            _logger.LogWarning(LoggingEvents.InsertItem, "Item {ID} Created", item.Key);
+            _logger.LogError(LoggingEvents.InsertItem, "Item {ID} Created Error", item.Key);
+            _logger.LogWarning(LoggingEvents.InsertItem, "Item {ID} Created Warning", item.Key);
             return CreatedAtRoute("GetLogger", new { controller = "Logger", id = item.Key }, item);
         }
 
@@ -71,7 +71,7 @@ namespace SecurityDoors.App.Controllers
             }
 
             _loggerRepository.Update(item);
-            _logger.LogError(LoggingEvents.UpdateItem, "Item {ID} Updated", item.Key);
+            _logger.LogError(LoggingEvents.UpdateItem, "Item {ID} Updated Error", item.Key);
             return new NoContentResult();
         }
 
