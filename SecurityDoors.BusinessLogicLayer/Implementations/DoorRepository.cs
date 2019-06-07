@@ -17,9 +17,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public DoorRepository()
+        public DoorRepository(ApplicationContext context)
         {
-            db = new ApplicationContext();
+            db = context;
         }
 
         /// <inheritdoc/>
