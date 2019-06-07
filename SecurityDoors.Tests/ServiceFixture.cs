@@ -28,10 +28,10 @@ namespace SecurityDoors.Tests
 
             serviceCollection.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()), ServiceLifetime.Transient);
 
-            serviceCollection.AddTransient<ICardRepository, CardRepository>();
-            serviceCollection.AddTransient<IDoorRepository, DoorRepository>();
-            serviceCollection.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
-            serviceCollection.AddTransient<IPersonRepository, PersonRepository>();
+            serviceCollection.AddScoped<ICardRepository, CardRepository>();
+            serviceCollection.AddScoped<IDoorRepository, DoorRepository>();
+            serviceCollection.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
+            serviceCollection.AddScoped<IPersonRepository, PersonRepository>();
 
             serviceCollection.AddScoped<DataManager>();
 
