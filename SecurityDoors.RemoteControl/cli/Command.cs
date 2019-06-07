@@ -130,7 +130,7 @@ namespace SecurityDoors.RemoteControl
                 person = db.GetPersonById(id);
             }
 			///TODO: Реализовать выбор типа статуса
-            cardBuilder.setStatus((int)CardStatus.IsActive);
+            cardBuilder.setStatus(CardStatus.IsActive); // TODO: Было так: cardBuilder.setStatus((int)CardStatus.IsActive);
             if (person != null)
             {
                 cardBuilder.setPerson(person);
