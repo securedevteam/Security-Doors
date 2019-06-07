@@ -1,4 +1,5 @@
-﻿using SecurityDoors.DataAccessLayer.Models;
+﻿using SecurityDoors.Core.Enums;
+using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.RemoteControl.Builders
 {
@@ -21,9 +22,9 @@ namespace SecurityDoors.RemoteControl.Builders
             return this;
         }
 
-        public CardBuilder setStatus(int status)
+        public CardBuilder setStatus(CardStatus status)
         {
-            card.Status = status;
+            card.Status = (int)status;
             return this;
         }
         
