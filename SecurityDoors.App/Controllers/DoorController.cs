@@ -36,6 +36,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Door list unavailable");
             }
+            _logger.LogInformation(LoggingEvents.ListItems, "Door list");
             return View(models);
         }
 
@@ -49,7 +50,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created");
             }
-
+            _logger.LogInformation(LoggingEvents.CreateItem, "Door created");
             return View();
         }
 
@@ -72,7 +73,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created (POST)");
                 }
-
+                _logger.LogInformation(LoggingEvents.CreateItem, "Door created (POST)");
                 return View(door);
             }
         }
@@ -89,6 +90,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Door information is not available");
             }
+            _logger.LogInformation(LoggingEvents.InformationItem, "Door information received");
             return View(model);
         }
 
@@ -104,7 +106,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed");
             }
-
+            _logger.LogWarning(LoggingEvents.EditItem, "Edit door");
             return View(model);
         }
 
@@ -127,6 +129,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed (POST)");
                 }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit door (POST)");
                 return View(door);
             }
         }
@@ -143,6 +146,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Door not deleted");
             }
+            _logger.LogInformation(LoggingEvents.DeleteItem, "Door deleted");
             return RedirectToAction(nameof(Index));
         }
     }

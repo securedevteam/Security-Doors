@@ -30,16 +30,13 @@ namespace SecurityDoors.App
             {
                 LogName = "SDoorsApplication",
                 SourceName = "SDoorsApplication",
-                Filter = (source, level) => level >= LogLevel.Warning
+                Filter = (source, level) => level >= LogLevel.Information
             };
             var webHost = new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 var env = hostingContext.HostingEnvironment;
-                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", 
-                          optional: true, reloadOnChange: true);
-                config.AddEnvironmentVariables();
+                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);                
             })
             .ConfigureLogging((hostingContext, logging) =>
             {

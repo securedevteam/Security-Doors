@@ -36,6 +36,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, "DoorPassing list unavailable");
             }
+            _logger.LogInformation(LoggingEvents.ListItems, "DoorPassing list");
             return View(models);
         }
 
@@ -51,6 +52,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassings change failed");
             }
+            _logger.LogWarning(LoggingEvents.EditItem, "Edit doorPassings");
             return View(model);
         }
 
@@ -73,6 +75,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassing change failed (POST)");
                 }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit doorPassing (POST)");
                 return View(doorPassing);
             }
         }

@@ -36,6 +36,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Person list unavailable");
             }
+            _logger.LogInformation(LoggingEvents.ListItems, "Person list");
             return View(models);
 		}
 
@@ -49,6 +50,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created");
             }
+            _logger.LogInformation(LoggingEvents.CreateItem, "Person created");
             return View();
 		}
 
@@ -71,6 +73,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
                 }
+                _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
                 return View();
 			}
 		}
@@ -87,6 +90,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Person information is not available");
             }
+            _logger.LogInformation(LoggingEvents.InformationItem, "Person information");
             return View(model);
         }
 
@@ -102,6 +106,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed");
             }
+            _logger.LogInformation(LoggingEvents.EditItem, "Edit person");
             return View(editModel);
 		}
 
@@ -124,6 +129,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed (POST)");
                 }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit person (POST)");
                 return View();
 			}
 		}
@@ -140,6 +146,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Person not deleted");
             }
+            _logger.LogInformation(LoggingEvents.DeleteItem, "Person deleted");
             return RedirectToAction(nameof(Index));
 		}
 	}

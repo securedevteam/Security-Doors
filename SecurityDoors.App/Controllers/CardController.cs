@@ -38,7 +38,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Card list unavailable");
             }
-
+            _logger.LogInformation(LoggingEvents.ListItems, "Card list");
             return View(models);
         }
 
@@ -52,7 +52,7 @@ namespace SecurityDoors.App.Controllers
             {                
                 _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created");
             }
-
+            _logger.LogInformation(LoggingEvents.CreateItem, "Card created");
             return View();
 
         }
@@ -76,7 +76,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created (POST)");
                 }
-
+                _logger.LogInformation(LoggingEvents.CreateItem, "Card created");
                 return View(card);
             }
         }
@@ -93,7 +93,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Сard information is not available");
             }
-
+            _logger.LogInformation(LoggingEvents.InformationItem, "Card information received");
             return View(model);
         }
 
@@ -109,7 +109,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed");
             }
-
+            _logger.LogInformation(LoggingEvents.EditItem, "Edit card");
             return View(model);
         }
 
@@ -132,6 +132,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed (POST)");
                 }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit card (POST)");
                 return View(card);
             }
         }
@@ -148,6 +149,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Сard not deleted");
             }
+            _logger.LogInformation(LoggingEvents.DeleteItem, "Сard deleted");
             return RedirectToAction("Index");
         }
     }
