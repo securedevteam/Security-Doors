@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 
@@ -11,15 +13,17 @@ namespace SecurityDoors.App.Controllers
     public class DoorPassingController : Controller
     {
 		private ServicesManager _serviceManager;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
-		public DoorPassingController(DataManager dataManager)
+		public DoorPassingController(DataManager dataManager, ILogger<DoorPassingController> logger)
 		{
 			_serviceManager = new ServicesManager(dataManager);
-		}
+            _logger = logger;
+        }
 
         /// <summary>
         /// Главная страница со списком дверных проходов.
@@ -28,17 +32,25 @@ namespace SecurityDoors.App.Controllers
 		public ActionResult Index()
         {
             var models = _serviceManager.DoorPassings.GetDoorPassings();
+            if (models == null)
+            {
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "DoorPassing list unavailable");
+            }
             return View(models);
         }
 
         /// <summary>
-        /// Изменение существующей карточки.
+        /// Изменение существующего прохода.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
         public IActionResult Edit(int id)
         {
             var model = _serviceManager.DoorPassings.EditDoorPassingById(id);
+            if (model == null)
+            {
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassings change failed");
+            }
             return View(model);
         }
 
@@ -57,6 +69,10 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
+                if (View(doorPassing) == null)
+                {
+                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassing change failed (POST)");
+                }
                 return View(doorPassing);
             }
         }

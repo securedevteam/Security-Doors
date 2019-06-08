@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Logger.Interfaces;
+using SecurityDoors.Core.Logger.Model;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 
@@ -13,7 +15,7 @@ namespace SecurityDoors.App.Controllers
     public class CardController : Controller
     {
         private ServicesManager _serviceManager;
-        private readonly ILogger _logger;
+        private readonly ILogger _logger;        
 
         /// <summary>
         /// Конструктор.
@@ -32,6 +34,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Index()
         {
             var models = _serviceManager.Cards.GetCards();
+            if (models == null)
+            {
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Card list unavailable");
+            }
+
             return View(models);
         }
 
@@ -40,8 +47,14 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <returns>Представление.</returns>
         public IActionResult Create()
-        {
+        {  
+            if(View() == null)
+            {                
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created");
+            }
+
             return View();
+
         }
 
         /// <summary>
@@ -51,7 +64,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         [HttpPost]
         public IActionResult Create(CardViewModel card)
-        {
+        {           
             if (ModelState.IsValid)
             {
                 _serviceManager.Cards.SaveCard(card);
@@ -59,6 +72,11 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
+                if (View(card) == null)
+                {
+                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created (POST)");
+                }
+
                 return View(card);
             }
         }
@@ -69,9 +87,13 @@ namespace SecurityDoors.App.Controllers
         /// <param name="id">идентификатор.</param>
         /// <returns></returns>
         public IActionResult Details(int id)
-        {
-            _logger.LogInformation(LoggingEvents.GetItem, "Getting item {ID}", id);
+        {            
             var model = _serviceManager.Cards.GetCardById(id);
+            if (model == null)
+            {
+                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Сard information is not available");
+            }
+
             return View(model);
         }
 
@@ -83,6 +105,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Edit(int id)
         {
             var model = _serviceManager.Cards.EditCardById(id);
+            if(model == null)
+            {
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed");
+            }
+
             return View(model);
         }
 
@@ -101,6 +128,10 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
+                if (View(card) == null)
+                {
+                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed (POST)");
+                }
                 return View(card);
             }
         }
@@ -111,8 +142,12 @@ namespace SecurityDoors.App.Controllers
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
         public IActionResult Delete(int id)
-        {
+        {            
             _serviceManager.Cards.DeleteCardById(id);
+            if (RedirectToAction("Index") == null)
+            {
+                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Сard not deleted");
+            }
             return RedirectToAction("Index");
         }
     }

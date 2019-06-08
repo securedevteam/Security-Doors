@@ -16,5 +16,10 @@ namespace SecurityDoors.Core.Logger
 
         public const int GetItemNotFound = 4000;
         public const int UpdateItemNotFound = 4001;
+        public const int ListItemsNotFound = 4002;
+        public const int CreateItemNotFound = 4003;
+        public const int InformationItemNotFound = 4004;
+        public const int EditItemNotFound = 4005;
+        public const int DeleteItemNotFound = 4005;
     }
 }

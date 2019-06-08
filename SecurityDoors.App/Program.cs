@@ -30,7 +30,7 @@ namespace SecurityDoors.App
             {
                 LogName = "SDoorsApplication",
                 SourceName = "SDoorsApplication",
-                Filter = (source, level) => level >= LogLevel.Debug
+                Filter = (source, level) => level >= LogLevel.Warning
             };
             var webHost = new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory())
             .ConfigureAppConfiguration((hostingContext, config) =>
