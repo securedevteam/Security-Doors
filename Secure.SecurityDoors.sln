@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.Core", "Secur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.DoorController", "SecurityDoors.DoorController\SecurityDoors.DoorController.csproj", "{9D761AF3-6C5F-4801-A19C-251A9FF6BDE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDoors.Tests", "SecurityDoors.Tests\SecurityDoors.Tests.csproj", "{26C3FC08-4F7E-4631-A144-A99DFDD3882E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.Tests", "SecurityDoors.Tests\SecurityDoors.Tests.csproj", "{26C3FC08-4F7E-4631-A144-A99DFDD3882E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
