@@ -78,7 +78,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения определенной карты.
         /// </summary>
         [Fact]
-        public void GetCardsById_Return_1()
+        public void GetCardsByIdTest_Return_1()
         {
             // Arrange
             var expected = new Card()
@@ -94,7 +94,7 @@ namespace SecurityDoors.Tests
             _context.Cards.Add(expected);
             _context.SaveChanges();
 
-            var actual = _dataManagerService.Cards.GetCardById(1);
+            var actual = _dataManagerService.Cards.GetCardById(expected.Id);
 
             // Assert
             Assert.Equal(expected.Id, actual.Id);
@@ -105,6 +105,104 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Comment, actual.Comment);
         }
 
-        
+        /// <summary>
+        /// Тест на получение карты по уникальному номеру
+        /// </summary>
+        [Fact]
+        public void GetCardByUniqueNumberTest_GetUniqueNumberCard_True()
+        {
+            // Arrange
+            var card = new Card()
+            {
+                UniqueNumber = Guid.NewGuid().ToString(),
+                Status = rnd.Next(),
+                Level = rnd.Next(),
+                Location = false,
+                Comment = string.Empty
+            };
+
+            //Act
+            _context.Cards.Add(card);
+            _context.SaveChanges();
+            var uniqueNumberCard = _dataManagerService.Cards.GetCardByUniqueNumber(card.UniqueNumber);
+
+            //Assert
+            Assert.Equal(card.UniqueNumber, uniqueNumberCard.UniqueNumber);
+        }
+
+        /// <summary>
+        ///  Тест на проверку создания новой карты.
+        /// </summary>
+        [Fact]
+        public void CreateTest_CraeteCard_True()
+        {
+            // Arrange
+            var card = new Card()
+            {
+                UniqueNumber = Guid.NewGuid().ToString(),
+                Status = rnd.Next(),
+                Level = rnd.Next(),
+                Location = false,
+                Comment = string.Empty
+            };
+
+            //Act
+            _context.Cards.Add(card);
+            _context.SaveChanges();
+            var createCard = _dataManagerService.Cards.GetCardById(card.Id);
+
+            //Assert
+            Assert.NotNull(createCard);
+        }
+
+        /// <summary>
+        /// Тест на проверку удаления карты.
+        /// </summary>
+        [Fact]
+        public void DeletTest_DeletCard_True()
+        {
+            //Arrange
+            var card = new Card()
+            {
+                UniqueNumber = Guid.NewGuid().ToString(),
+                Status = rnd.Next(),
+                Level = rnd.Next(),
+                Location = false,
+                Comment = string.Empty
+            };
+            _context.Cards.Add(card);
+            _context.SaveChanges();
+
+            //Act
+            _dataManagerService.Cards.Delete(card.Id);
+            var cardDelete = _dataManagerService.Cards.GetCardById(card.Id);
+
+            //Assert
+            Assert.Null(cardDelete);
+        }
+
+        /// <summary>
+        /// Тест на проверку сохранения карты.
+        /// </summary>
+        [Fact]
+        public void SaveTest_SaveCard_True()
+        {
+            // Arrange
+            var card = new Card()
+            {
+                UniqueNumber = Guid.NewGuid().ToString(),
+                Status = rnd.Next(),
+                Level = rnd.Next(),
+                Location = false,
+                Comment = string.Empty
+            };
+
+            //Act
+            _dataManagerService.Cards.Save(card);
+            var cardSave = _dataManagerService.Cards.GetCardById(card.Id);
+
+            //Assert
+            Assert.Equal(card, cardSave);
+        }       
     }
 }
