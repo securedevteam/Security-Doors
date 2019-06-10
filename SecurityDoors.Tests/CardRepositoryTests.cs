@@ -106,10 +106,10 @@ namespace SecurityDoors.Tests
         }
 
         /// <summary>
-        /// Тест на получение карты по уникальному номеру
+        /// Тест на получение карты по уникальному номеру.
         /// </summary>
         [Fact]
-        public void GetCardByUniqueNumberTest_GetUniqueNumberCard_True()
+        public void GetCardByUniqueNumberTest_Return_True()
         {
             // Arrange
             var card = new Card()
@@ -134,7 +134,7 @@ namespace SecurityDoors.Tests
         ///  Тест на проверку создания новой карты.
         /// </summary>
         [Fact]
-        public void CreateTest_CraeteCard_True()
+        public void CreateCardTest_Return_True()
         {
             // Arrange
             var card = new Card()
@@ -159,7 +159,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку удаления карты.
         /// </summary>
         [Fact]
-        public void DeletTest_DeletCard_True()
+        public void DeletCardTest_Return_True()
         {
             //Arrange
             var card = new Card()
@@ -185,7 +185,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку сохранения карты.
         /// </summary>
         [Fact]
-        public void SaveTest_SaveCard_True()
+        public void SaveCardTest_Return_True()
         {
             // Arrange
             var card = new Card()
@@ -209,7 +209,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку обновления карты
         /// </summary>
         [Fact]        
-        public void UpdateTest_CardUpdate_True()
+        public void UpdateCardTest_Return_True()
         {
             //Arrange
             var card = new Card()
