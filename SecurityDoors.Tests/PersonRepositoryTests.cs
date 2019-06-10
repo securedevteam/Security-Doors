@@ -71,15 +71,126 @@ namespace SecurityDoors.Tests
 			Assert.Equal(expected, actual);
 			Assert.True(Equal(people, peopleInDB));
 		}
-
+		/// <summary>
+		/// Тест получения человека по Id
+		/// </summary>
 		[Fact]
 		public void GetPersonByIdTest ()
 		{
+			//Arrange
 			var person = new Person()
 			{
-
+				FirstName = Guid.NewGuid().ToString(),
+				SecondName = Guid.NewGuid().ToString(),
+				LastName = Guid.NewGuid().ToString(),
+				Comment = Guid.NewGuid().ToString(),
+				Passport = Guid.NewGuid().ToString(),
+				Gender = rnd.Next(0, 1)
 			};
+
+			_context.Add(person);
+			_context.SaveChanges();
+			//Act
+			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
+			//Assert
+			Assert.NotNull(personInDB);
+			Assert.True(Equal(person, personInDB));
 		}
+
+		/// <summary>
+		/// Тест обновления человека
+		/// </summary>
+		[Fact]
+		public void UpdateTest ()
+		{
+			//Arrange
+			var person = new Person()
+			{
+				FirstName = Guid.NewGuid().ToString(),
+				SecondName = Guid.NewGuid().ToString(),
+				LastName = Guid.NewGuid().ToString(),
+				Comment = Guid.NewGuid().ToString(),
+				Passport = Guid.NewGuid().ToString(),
+				Gender = rnd.Next(0, 1)
+			};
+
+			_context.Add(person);
+			_context.SaveChanges();
+			//Act
+			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
+			personInDB.FirstName = Guid.NewGuid().ToString();
+			personInDB.SecondName = Guid.NewGuid().ToString();
+			personInDB.LastName = Guid.NewGuid().ToString();
+			personInDB.Comment = Guid.NewGuid().ToString();
+			personInDB.Passport = Guid.NewGuid().ToString();
+			personInDB.Gender = rnd.Next(0, 1);
+
+			_dataManagerService.People.Update(personInDB);
+
+			var newPersonInDB = _dataManagerService.People.GetPersonById(personInDB.Id);
+			//Assert
+			Assert.NotNull(newPersonInDB);
+			Assert.True(Equal(newPersonInDB, personInDB));
+		}
+
+		/// <summary>
+		/// Тест удаления человека
+		/// </summary>
+		[Fact]
+		public void DeleteTest ()
+		{
+			//Arrange
+			int countOfPeople = _context.People.Count();
+			var person = new Person()
+			{
+				FirstName = Guid.NewGuid().ToString(),
+				SecondName = Guid.NewGuid().ToString(),
+				LastName = Guid.NewGuid().ToString(),
+				Comment = Guid.NewGuid().ToString(),
+				Passport = Guid.NewGuid().ToString(),
+				Gender = rnd.Next(0, 1)
+			};
+
+			_context.Add(person);
+			_context.SaveChanges();
+			//Act
+			_dataManagerService.People.Delete(person.Id);
+
+			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
+
+			//Assert
+			Assert.Null(personInDB);
+			Assert.True(countOfPeople == _context.People.Count());
+		}
+
+		/// <summary>
+		/// Тест сохранения человека
+		/// </summary>
+		[Fact]
+		public void SaveTest ()
+		{
+			//Arrange
+			int countOfPeople = _context.People.Count();
+			var person = new Person()
+			{
+				FirstName = Guid.NewGuid().ToString(),
+				SecondName = Guid.NewGuid().ToString(),
+				LastName = Guid.NewGuid().ToString(),
+				Comment = Guid.NewGuid().ToString(),
+				Passport = Guid.NewGuid().ToString(),
+				Gender = rnd.Next(0, 1)
+			};
+
+			//Act
+			_dataManagerService.People.Save(person);
+
+			var personInDB = _context.People.Find(person.Id);
+
+			//Assert
+			Assert.NotNull(personInDB);
+			Assert.True(Equal(person, personInDB));
+		}
+
 		/// <summary>
 		/// Сравнивает два объекта Person по каждому полю
 		/// </summary>
