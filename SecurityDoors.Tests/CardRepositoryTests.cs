@@ -203,6 +203,40 @@ namespace SecurityDoors.Tests
 
             //Assert
             Assert.Equal(card, cardSave);
-        }       
+        } 
+        
+        /// <summary>
+        /// Тест на проверку обновления карты
+        /// </summary>
+        [Fact]        
+        public void UpdateTest_CardUpdate_True()
+        {
+            //Arrange
+            var card = new Card()
+            {
+                UniqueNumber = Guid.NewGuid().ToString(),
+                Status = rnd.Next(),
+                Level = rnd.Next(),
+                Location = false,
+                Comment = string.Empty
+            };
+            _context.Cards.Add(card);
+            _context.SaveChanges();
+            
+            //Act
+            var cardUpdate = _dataManagerService.Cards.GetCardById(card.Id);
+            cardUpdate.UniqueNumber = Guid.NewGuid().ToString();
+            cardUpdate.Status = rnd.Next();
+            cardUpdate.Level = rnd.Next(1, 10);
+            cardUpdate.Location = true;
+            cardUpdate.Comment = Guid.NewGuid().ToString();
+
+            _dataManagerService.Cards.Update(cardUpdate);
+
+            var cardUpdateInDataBase = _dataManagerService.Cards.GetCardById(card.Id);
+            
+            //Assert            
+            Assert.NotEqual(card, cardUpdateInDataBase);
+        }
     }
 }
