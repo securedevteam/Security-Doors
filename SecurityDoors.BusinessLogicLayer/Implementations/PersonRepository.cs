@@ -16,9 +16,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public PersonRepository()
+        public PersonRepository(ApplicationContext context)
         {
-            db = new ApplicationContext();
+            db = context;
         }
 
         /// <inheritdoc/>
@@ -31,7 +31,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         public Person GetPersonById(int id)
         {
             return db.People.Find(id);
-
         }
 
 		/// <inheritdoc/>
@@ -62,7 +61,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <inheritdoc/>
         public void Save(Person item)
         {
-            if (item.Id == 0)
+            if (item.Id <= 0)
             {
                 db.People.Add(item);
             }

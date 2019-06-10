@@ -7,29 +7,31 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.Core.Infrastructure;
 using SecurityDoors.Core.Logger.Interfaces;
+using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App
 {
     public class Startup
     {
         private readonly ILogger _logger;
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
             _logger = logger;
         }
-        public IConfiguration Configuration { get; }
-
-
+       
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -41,6 +43,9 @@ namespace SecurityDoors.App
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Добавлен DI
             services.AddTransient<ICardRepository, CardRepository>();
@@ -54,16 +59,14 @@ namespace SecurityDoors.App
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Add our repository type
-            services.AddSingleton<ILoggerRepository, LoggerRepository>();
-            _logger.LogInformation("Added TodoRepository to services");
+            services.AddSingleton<ILoggerRepository, LoggerRepository>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {                     
+        {                       
             if (env.IsDevelopment())
-            {
-                _logger.LogInformation("In Development environment");
+            {                
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -75,7 +78,7 @@ namespace SecurityDoors.App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            
             app.UseMvc(routes =>
             {
                 // TODO: Поменять с добавлением контроллера Home
@@ -83,7 +86,7 @@ namespace SecurityDoors.App
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+           
             // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
             //app.Run(async (context) =>
             //{

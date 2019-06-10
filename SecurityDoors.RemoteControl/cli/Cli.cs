@@ -6,10 +6,18 @@ namespace SecurityDoors.RemoteControl.cli
     class Cli
     {
         private Command command = new Command();
+        /// <summary>
+        /// метод запускающий консольную программу
+        /// выводит приветственные сообщения и
+        /// запускает бесконечный цикл обработки входных команд
+        /// </summary>
         public void run()
         {
             Color.writeInfo("Wellcome to remote Controll system");
             Color.writeInfo("type quit to exit program");
+            Console.WriteLine("count of record in database:");
+            Command command = new Command();
+            command.printCountOfRecord();
             command.printHelp();
             #region основной цикл разбора ввода на команды
             while (true)

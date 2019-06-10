@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 
@@ -11,15 +13,17 @@ namespace SecurityDoors.App.Controllers
 	public class PersonController : Controller
 	{
 		private ServicesManager _serviceManager;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
-		public PersonController(DataManager dataManager)
+		public PersonController(DataManager dataManager, ILogger<PersonController> logger)
 		{
 			_serviceManager = new ServicesManager(dataManager);
-		}
+            _logger = logger;
+        }
 
         /// <summary>
         /// Главная страница со списком сотрудников.
@@ -28,6 +32,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Index()
 		{
             var models = _serviceManager.People.GetPeople();
+            if (models == null)
+            {
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Person list unavailable");
+            }
+            _logger.LogInformation(LoggingEvents.ListItems, "Person list");
             return View(models);
 		}
 
@@ -37,7 +46,12 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
 		public IActionResult Create()
 		{
-			return View();
+            if (View() == null)
+            {
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created");
+            }
+            _logger.LogInformation(LoggingEvents.CreateItem, "Person created");
+            return View();
 		}
 
         /// <summary>
@@ -55,7 +69,12 @@ namespace SecurityDoors.App.Controllers
 			}
 			else
 			{
-				return View();
+                if (View() == null)
+                {
+                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
+                }
+                _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
+                return View();
 			}
 		}
 
@@ -67,6 +86,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Details(int id)
         {
             var model = _serviceManager.People.GetPersonById(id);
+            if (model == null)
+            {
+                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Person information is not available");
+            }
+            _logger.LogInformation(LoggingEvents.InformationItem, "Person information");
             return View(model);
         }
 
@@ -78,7 +102,12 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Edit (int id)
 		{
 			var editModel = _serviceManager.People.EditPersonById(id);
-			return View(editModel);
+            if (editModel == null)
+            {
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed");
+            }
+            _logger.LogInformation(LoggingEvents.EditItem, "Edit person");
+            return View(editModel);
 		}
 
         /// <summary>
@@ -96,7 +125,12 @@ namespace SecurityDoors.App.Controllers
 			}
 			else
 			{
-				return View();
+                if (person == null)
+                {
+                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed (POST)");
+                }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit person (POST)");
+                return View();
 			}
 		}
 
@@ -108,7 +142,12 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Delete (int id)
 		{
 			_serviceManager.People.DeletePersonById(id);
-			return RedirectToAction(nameof(Index));
+            if (RedirectToAction(nameof(Index)) == null)
+            {
+                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Person not deleted");
+            }
+            _logger.LogInformation(LoggingEvents.DeleteItem, "Person deleted");
+            return RedirectToAction(nameof(Index));
 		}
 	}
 }

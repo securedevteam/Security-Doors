@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 
@@ -11,14 +13,16 @@ namespace SecurityDoors.App.Controllers
     public class DoorController : Controller
     {
         private ServicesManager _serviceManager;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
-        public DoorController(DataManager dataManager)
+        public DoorController(DataManager dataManager, ILogger<DoorController> logger)
         {
             _serviceManager = new ServicesManager(dataManager);
+            _logger = logger;
         }
 
         /// <summary>
@@ -28,6 +32,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Index()
         {
             var models = _serviceManager.Doors.GetDoors();
+            if (models == null)
+            {
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Door list unavailable");
+            }
+            _logger.LogInformation(LoggingEvents.ListItems, "Door list");
             return View(models);
         }
 
@@ -37,6 +46,11 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         public IActionResult Create()
         {
+            if (View() == null)
+            {
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created");
+            }
+            _logger.LogInformation(LoggingEvents.CreateItem, "Door created");
             return View();
         }
 
@@ -55,6 +69,11 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
+                if (View(door) == null)
+                {
+                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created (POST)");
+                }
+                _logger.LogInformation(LoggingEvents.CreateItem, "Door created (POST)");
                 return View(door);
             }
         }
@@ -67,6 +86,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Details(int id)
         {
             var model = _serviceManager.Doors.GetDoorById(id);
+            if (model == null)
+            {
+                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Door information is not available");
+            }
+            _logger.LogInformation(LoggingEvents.InformationItem, "Door information received");
             return View(model);
         }
 
@@ -78,6 +102,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Edit(int id)
         {
             var model = _serviceManager.Doors.EditDoorDyId(id);
+            if (model == null)
+            {
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed");
+            }
+            _logger.LogWarning(LoggingEvents.EditItem, "Edit door");
             return View(model);
         }
 
@@ -96,6 +125,11 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
+                if (View(door) == null)
+                {
+                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed (POST)");
+                }
+                _logger.LogInformation(LoggingEvents.EditItem, "Edit door (POST)");
                 return View(door);
             }
         }
@@ -108,6 +142,11 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Delete(int id)
         {
             _serviceManager.Doors.DeleteDoorById(id);
+            if (RedirectToAction(nameof(Index)) == null)
+            {
+                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Door not deleted");
+            }
+            _logger.LogInformation(LoggingEvents.DeleteItem, "Door deleted");
             return RedirectToAction(nameof(Index));
         }
     }

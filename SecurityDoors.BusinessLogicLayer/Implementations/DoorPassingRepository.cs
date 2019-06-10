@@ -11,15 +11,14 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
     /// </summary>
     public class DoorPassingRepository : IDoorPassingRepository
     {
-
         private ApplicationContext db;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public DoorPassingRepository()
+        public DoorPassingRepository(ApplicationContext context)
         {
-            db = new ApplicationContext();
+            db = context;
         }
 
         /// <inheritdoc/>
@@ -47,8 +46,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db.Entry(item).State = EntityState.Modified;
         }
 
-
-
         /// <inheritdoc/>
         public void Delete(int id)
         {
@@ -56,13 +53,14 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             if (doorPassing != null)
             {
                 db.DoorPassings.Remove(doorPassing);
+                db.SaveChanges();
             }
         }
 
         /// <inheritdoc/>
         public void Save(DoorPassing item)
         {
-            if (item.Id == 0)
+            if (item.Id <= 0)
             {
                 db.DoorPassings.Add(item);
             }

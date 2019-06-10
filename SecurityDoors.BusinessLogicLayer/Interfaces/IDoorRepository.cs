@@ -23,6 +23,13 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         Door GetDoorById(int id);
 
         /// <summary>
+        /// Получить дверь по названию.
+        /// </summary>
+        /// <param name="item">название.</param>
+        /// <returns>Дверь.</returns>
+        Door GetDoorByName(string item);
+
+        /// <summary>
         /// Создать дверь.
         /// </summary>
         /// <param name="item">элемент.</param>

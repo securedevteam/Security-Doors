@@ -13,6 +13,11 @@ namespace SecurityDoors.RemoteControl
         private Database db = new Database();
 
         #region методы для добавления обьектов в БД
+        /// <summary>
+        /// логика для добавления Person в БД.
+        /// метод запрашивает все необходимые данные после чего 
+        /// добавляет в БД обьект
+        /// </summary>
         public void addPerson()
         {
             PersonBuilder personBuilder = new PersonBuilder();
@@ -73,6 +78,11 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("person added succesfull");
         }
 
+        /// <summary>
+        /// логика для добавления Door в БД.
+        /// метод запрашивает все необходимые данные после чего 
+        /// добавляет в БД обьект
+        /// </summary>
         public void addDoor()
         {
             DoorBuilder doorBuilder = new DoorBuilder();
@@ -84,6 +94,11 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("door added succesfull");
         }
 
+        /// <summary>
+        /// логика для добавления Card в БД.
+        /// метод запрашивает все необходимые данные после чего 
+        /// добавляет в БД обьект
+        /// </summary>
         public void addCard()
         {
             CardBuilder cardBuilder = new CardBuilder();
@@ -115,7 +130,7 @@ namespace SecurityDoors.RemoteControl
                 person = db.GetPersonById(id);
             }
 			///TODO: Реализовать выбор типа статуса
-            cardBuilder.setStatus((int)CardStatus.IsActive);
+            cardBuilder.setStatus(CardStatus.IsActive); // TODO: Было так: cardBuilder.setStatus((int)CardStatus.IsActive);
             if (person != null)
             {
                 cardBuilder.setPerson(person);
@@ -126,11 +141,17 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region служебные методы для помощи пользователю программы
+        /// <summary>
+        /// метод который очищает экран консоли
+        /// </summary>
         internal void clearScreen()
         {
             Console.Clear();
         }
 
+        /// <summary>
+        /// печать всех доступных для ввода команд 
+        /// </summary>
         internal void printHelp()
         {
             Console.WriteLine("aviable command:   \n" +
@@ -164,6 +185,9 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region методы для печати обьектов из БД
+        /// <summary>
+        /// метод печатающий Door по id
+        /// </summary>
         internal void printDoor()
         {
             int id = -1;
@@ -188,7 +212,10 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        internal void printCard()
+        /// <summary>
+        /// метод печатающий Card по id
+        /// </summary>
+        public void printCard()
         {
             int id = -1;
             Console.WriteLine("enter card id");
@@ -212,7 +239,10 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        internal void printPerson()
+        /// <summary>
+        /// метод печатающий Person по id
+        /// </summary>
+        public void printPerson()
         {
             int id = -1;
             Console.WriteLine("enter person id");
@@ -248,7 +278,12 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region методы для печати списка обьектов из БД
-        internal void printListOfDoorPassing()
+        /// <summary>
+        /// печать основных полей всех обьектов DoorPassing в БД:
+        /// id
+        /// time
+        /// </summary>
+        public void printListOfDoorPassing()
         {
             Console.Write("id");
             Console.Write("\t");
@@ -261,7 +296,12 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        internal void printListOfCard()
+        /// <summary>
+        /// печать основных полей всех обьектов Card в БД:
+        /// id
+        /// GUID
+        /// </summary>
+        public void printListOfCard()
         {
             Console.Write("id");
             Console.Write("\t");
@@ -274,7 +314,14 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        internal void printListOfPerson()
+        /// <summary>
+        /// печать основных полей всех обьектов Person в БД:
+        /// id
+        /// name
+        /// second name
+        /// last name
+        /// </summary>
+        public void printListOfPerson()
         {
             Console.Write("id");
             Console.Write("\t");
@@ -287,7 +334,12 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        internal void printListOfDoor()
+        /// <summary>
+        /// печать основных полей всех обьектов Door в БД:
+        /// id
+        /// description
+        /// </summary>
+        public void printListOfDoor()
         {
             Console.Write("id");
             Console.Write("\t");
@@ -302,6 +354,9 @@ namespace SecurityDoors.RemoteControl
         #endregion
 
         #region методы для удаления обьектов из БД
+        /// <summary>
+        /// удаление обьекта Person из БД по его id
+        /// </summary>
         public void DeletePerson()
         {
             Console.WriteLine("enter person id");
@@ -316,6 +371,9 @@ namespace SecurityDoors.RemoteControl
             db.deletePerson(id);
         }
 
+        /// <summary>
+        /// удаление обьекта Card из БД по его id
+        /// </summary>
         public void DeleteCard()
         {
             Console.WriteLine("enter card id");
@@ -331,6 +389,9 @@ namespace SecurityDoors.RemoteControl
             db.deleteCard(id);
         }
 
+        /// <summary>
+        /// удаление обьекта Door из БД по его id
+        /// </summary>
         public void DeleteDoor()
         {
             Console.WriteLine("enter door id");
@@ -346,6 +407,9 @@ namespace SecurityDoors.RemoteControl
             db.deleteDoor(id);
         }
 
+        /// <summary>
+        /// удаление обьекта DoorPassing из БД по его id
+        /// </summary>
         public void DeleteDoorPassing()
         {
             Console.WriteLine("enter doorPassing id");
