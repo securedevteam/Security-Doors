@@ -8,6 +8,9 @@ using Xunit;
 
 namespace SecurityDoors.Tests
 {
+    /// <summary>
+    /// Класс для тестов класса DoorPassingRepository.
+    /// </summary>
     public class DoorPassingRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
     {
         private readonly ServiceProvider _serviceProvider;
@@ -57,6 +60,7 @@ namespace SecurityDoors.Tests
                     Location = false,
                     Comment = string.Empty,
                     DoorId = rnd.Next(),
+                    CardId = rnd.Next(),
                 });
             }
 
@@ -85,6 +89,7 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty,
                 DoorId = rnd.Next(),
+                CardId = rnd.Next(),
             };
 
             // Act
@@ -100,6 +105,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Location, actual.Location);
             Assert.Equal(expected.Comment, actual.Comment);
             Assert.Equal(expected.DoorId, actual.DoorId);
+            Assert.Equal(expected.CardId, actual.CardId);
         }
        
         /// <summary>
@@ -116,6 +122,7 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty,
                 DoorId = rnd.Next(),
+                CardId = rnd.Next(),
             };
 
             //Act
@@ -141,6 +148,7 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty,
                 DoorId = rnd.Next(),
+                CardId = rnd.Next(),
             };
             _context.DoorPassings.Add(doorPassing);
             _context.SaveChanges();
@@ -152,6 +160,7 @@ namespace SecurityDoors.Tests
             doorPassingUpdate.Location = false;
             doorPassingUpdate.Comment = string.Empty;
             doorPassingUpdate.DoorId = rnd.Next();
+            doorPassingUpdate.CardId = rnd.Next();
 
             _dataManagerService.DoorsPassing.Update(doorPassingUpdate);
 
@@ -175,6 +184,7 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty,
                 DoorId = rnd.Next(),
+                CardId = rnd.Next(),
             };
             _context.DoorPassings.Add(doorPassing);
             _context.SaveChanges();
@@ -201,6 +211,7 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty,
                 DoorId = rnd.Next(),
+                CardId = rnd.Next(),
             };
 
             //Act
@@ -209,7 +220,6 @@ namespace SecurityDoors.Tests
 
             //Assert
             Assert.Equal(doorPassing, doorPassingSave);
-        }        
-
+        }       
     }
 }
