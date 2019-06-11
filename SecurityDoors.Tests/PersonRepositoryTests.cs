@@ -27,14 +27,15 @@ namespace SecurityDoors.Tests
 			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
 		}
 
-		public void Dispose()
+		
+		void IDisposable.Dispose()
 		{
-			foreach (var entity in _context.Doors)
+			foreach (var entity in _context.People)
 			{
-				_context.Doors.Remove(entity);
+				//_context.People.Remove(entity);
 			}
 
-			_context.SaveChanges();
+			//_context.SaveChanges();
 		}
 
 		/// <summary>
@@ -170,7 +171,6 @@ namespace SecurityDoors.Tests
 		public void SaveTest ()
 		{
 			//Arrange
-			int countOfPeople = _context.People.Count();
 			var person = new Person()
 			{
 				FirstName = Guid.NewGuid().ToString(),

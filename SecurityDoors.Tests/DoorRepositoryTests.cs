@@ -27,16 +27,6 @@ namespace SecurityDoors.Tests
 			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
 		}
 
-		public void Dispose()
-		{
-			foreach (var entity in _context.Doors)
-			{
-				_context.Doors.Remove(entity);
-			}
-
-			_context.SaveChanges();
-		}
-
 		/// <summary>
 		/// Тест на проверку получения списка дверей
 		/// </summary>
@@ -247,6 +237,15 @@ namespace SecurityDoors.Tests
 				}
 			}
 			return true;
+		}
+
+		public void Dispose()
+		{
+			foreach (var entity in _context.Doors)
+			{
+				_context.Doors.Remove(entity);
+			}
+			_context.SaveChanges();
 		}
 	}
 }

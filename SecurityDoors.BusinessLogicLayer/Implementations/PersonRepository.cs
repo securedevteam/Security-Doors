@@ -77,7 +77,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         private bool disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if (!this.disposed)
             {

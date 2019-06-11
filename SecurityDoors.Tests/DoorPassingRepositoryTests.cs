@@ -8,218 +8,215 @@ using Xunit;
 
 namespace SecurityDoors.Tests
 {
-    /// <summary>
-    /// Класс для тестов класса DoorPassingRepository.
-    /// </summary>
-    public class DoorPassingRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
-    {
-        private readonly ServiceProvider _serviceProvider;
-        private readonly DataManager _dataManagerService;
-        private readonly ApplicationContext _context;
+	/// <summary>
+	/// Класс для тестов класса DoorPassingRepository.
+	/// </summary>
+	public class DoorPassingRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
+	{
+		private readonly ServiceProvider _serviceProvider;
+		private readonly DataManager _dataManagerService;
+		private readonly ApplicationContext _context;
 
-        private readonly Random rnd = new Random();
+		private readonly Random rnd = new Random();
 
-        /// <summary>
-        /// Конструктор.
-        /// </summary>
-        /// <param name="fixture">приспособление для внедрения DI и InMemoryDatabase.</param>
-        public DoorPassingRepositoryTests (ServiceFixture fixture)
-        {
-            _serviceProvider = fixture.ServiceProvider;
+		/// <summary>
+		/// Конструктор.
+		/// </summary>
+		/// <param name="fixture">приспособление для внедрения DI и InMemoryDatabase.</param>
+		public DoorPassingRepositoryTests(ServiceFixture fixture)
+		{
+			_serviceProvider = fixture.ServiceProvider;
+			_context = _serviceProvider.GetRequiredService<ApplicationContext>();
+			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
+		}
 
-            _context = _serviceProvider.GetRequiredService<ApplicationContext>();
-            _dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
-        }
+		public void Dispose()
+		{
+			foreach (var entity in _context.DoorPassings)
+			{
+				_context.DoorPassings.Remove(entity);
+			}
+			_context.SaveChanges();
+		}
 
-        public void Dispose()
-        {
-            foreach (var entity in _context.DoorPassings)
-            {
-                _context.DoorPassings.Remove(entity);
-            }
+		/// <summary>
+		/// Тест на проверку получения списка проходов через дверь.
+		/// </summary>
+		[Fact]
+		public void GetDoorsPassingListTest_Return_10()
+		{
+			// Arrange
+			var listDoorsPassing = new List<DoorPassing>();
+			var numberDoorPassing = 10;
 
-            _context.SaveChanges();
-        }
+			for (int i = 0; i < numberDoorPassing; i++)
+			{
+				listDoorsPassing.Add(new DoorPassing()
+				{
+					PassingTime = DateTime.Now,
+					Status = rnd.Next(),
+					Location = false,
+					Comment = string.Empty,
+					DoorId = rnd.Next(),
+					CardId = rnd.Next(),
+				});
+			}
 
-        /// <summary>
-        /// Тест на проверку получения списка проходов через дверь.
-        /// </summary>
-        [Fact]
-        public void GetDoorsPassingListTest_Return_10()
-        {
-            // Arrange
-            var listDoorsPassing = new List<DoorPassing>();
-            var numberDoorPassing = 10;
+			// Act
+			_context.DoorPassings.AddRange(listDoorsPassing);
+			_context.SaveChanges();
 
-            for (int i = 0; i < numberDoorPassing; i++)
-            {
-                listDoorsPassing.Add(new DoorPassing()
-                {
-                    PassingTime = DateTime.Now,
-                    Status = rnd.Next(),
-                    Location = false,
-                    Comment = string.Empty,
-                    DoorId = rnd.Next(),
-                    CardId = rnd.Next(),
-                });
-            }
+			var actual = listDoorsPassing.Count();
 
-            // Act
-            _context.DoorPassings.AddRange(listDoorsPassing);
-            _context.SaveChanges();
+			// Assert
+			Assert.Equal(numberDoorPassing, actual);
+		}
 
-            var doorPassingList = _dataManagerService.Cards.GetCardsList().ToList();
-            var actual = listDoorsPassing.Count();
+		/// <summary>
+		/// Тест на проверку получения определенного прохода через дверь.
+		/// </summary>
+		[Fact]
+		public void GetDoorPassingByIdTest_Return_1()
+		{
+			// Arrange
+			var expected = new DoorPassing()
+			{
+				PassingTime = DateTime.Now,
+				Status = rnd.Next(),
+				Location = false,
+				Comment = string.Empty,
+				DoorId = rnd.Next(),
+				CardId = rnd.Next(),
+			};
 
-            // Assert
-            Assert.Equal(numberDoorPassing, actual);
-        }
+			// Act
+			_context.DoorPassings.Add(expected);
+			_context.SaveChanges();
 
-        /// <summary>
-        /// Тест на проверку получения определенного прохода через дверь.
-        /// </summary>
-        [Fact]
-        public void GetDoorPassingByIdTest_Return_1()
-        {
-            // Arrange
-            var expected = new DoorPassing()
-            {
-                PassingTime = DateTime.Now,
-                Status = rnd.Next(),
-                Location = false,
-                Comment = string.Empty,
-                DoorId = rnd.Next(),
-                CardId = rnd.Next(),
-            };
+			var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
 
-            // Act
-            _context.DoorPassings.Add(expected);
-            _context.SaveChanges();
+			// Assert
+			Assert.Equal(expected.Id, actual.Id);
+			Assert.Equal(expected.PassingTime, actual.PassingTime);
+			Assert.Equal(expected.Status, actual.Status);
+			Assert.Equal(expected.Location, actual.Location);
+			Assert.Equal(expected.Comment, actual.Comment);
+			Assert.Equal(expected.DoorId, actual.DoorId);
+			Assert.Equal(expected.CardId, actual.CardId);
+		}
 
-            var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+		/// <summary>
+		///  Тест на проверку создания нового прохода через двер.
+		/// </summary>
+		[Fact]
+		public void CreateDoorPassingTest_Return_True()
+		{
+			// Arrange
+			var doorPassing = new DoorPassing()
+			{
+				PassingTime = DateTime.Now,
+				Status = rnd.Next(),
+				Location = false,
+				Comment = string.Empty,
+				DoorId = rnd.Next(),
+				CardId = rnd.Next(),
+			};
 
-            // Assert
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.Equal(expected.PassingTime, actual.PassingTime);
-            Assert.Equal(expected.Status, actual.Status);            
-            Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
-            Assert.Equal(expected.DoorId, actual.DoorId);
-            Assert.Equal(expected.CardId, actual.CardId);
-        }
-       
-        /// <summary>
-        ///  Тест на проверку создания нового прохода через двер.
-        /// </summary>
-        [Fact]
-        public void CreateDoorPassingTest_Return_True()
-        {
-            // Arrange
-            var doorPassing = new DoorPassing()
-            {
-                PassingTime = DateTime.Now,
-                Status = rnd.Next(),
-                Location = false,
-                Comment = string.Empty,
-                DoorId = rnd.Next(),
-                CardId = rnd.Next(),
-            };
+			//Act
+			_dataManagerService.DoorsPassing.Save(doorPassing);
+			var createDoorPassing = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
 
-            //Act
-            _context.DoorPassings.Add(doorPassing);
-            _context.SaveChanges();
-            var createDoorPassing = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
+			//Assert
+			Assert.NotNull(createDoorPassing);
+		}
 
-            //Assert
-            Assert.NotNull(createDoorPassing);
-        }
+		/// <summary>
+		/// Тест на проверку обновления прохода через дверь.
+		/// </summary>
+		[Fact]
+		public void UpdateDoorPassingTest_Return_True()
+		{
+			//Arrange
+			var doorPassing = new DoorPassing()
+			{
+				PassingTime = DateTime.Now,
+				Status = rnd.Next(),
+				Location = false,
+				Comment = string.Empty,
+				DoorId = rnd.Next(),
+				CardId = rnd.Next(),
+			};
+			_context.DoorPassings.Add(doorPassing);
+			_context.SaveChanges();
 
-        /// <summary>
-        /// Тест на проверку обновления прохода через дверь.
-        /// </summary>
-        [Fact]
-        public void UpdateDoorPassingTest_Return_True()
-        {
-            //Arrange
-            var doorPassing = new DoorPassing()
-            {
-                PassingTime = DateTime.Now,
-                Status = rnd.Next(),
-                Location = false,
-                Comment = string.Empty,
-                DoorId = rnd.Next(),
-                CardId = rnd.Next(),
-            };
-            _context.DoorPassings.Add(doorPassing);
-            _context.SaveChanges();
+			//Act
+			var doorPassingUpdate = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
+			doorPassingUpdate.PassingTime = DateTime.Now;
+			doorPassingUpdate.Status = rnd.Next();
+			doorPassingUpdate.Location = false;
+			doorPassingUpdate.Comment = string.Empty;
+			doorPassingUpdate.DoorId = rnd.Next();
+			doorPassingUpdate.CardId = rnd.Next();
 
-            //Act
-            var doorPassingUpdate = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
-            doorPassingUpdate.PassingTime = DateTime.Now;
-            doorPassingUpdate.Status = rnd.Next();
-            doorPassingUpdate.Location = false;
-            doorPassingUpdate.Comment = string.Empty;
-            doorPassingUpdate.DoorId = rnd.Next();
-            doorPassingUpdate.CardId = rnd.Next();
+			_dataManagerService.DoorsPassing.Update(doorPassingUpdate);
 
-            _dataManagerService.DoorsPassing.Update(doorPassingUpdate);
+			var doorPassingUpdateInDataBase = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
 
-            var doorPassingUpdateInDataBase = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
+			//Assert            
+			Assert.NotEqual(doorPassing, doorPassingUpdateInDataBase);
+		}
 
-            //Assert            
-            Assert.NotEqual(doorPassing, doorPassingUpdateInDataBase);
-        }
 
-        /// <summary>
-        /// Тест на проверку удаления прохода через дверь.
-        /// </summary>
-        [Fact]
-        public void DeletDoorPassingTest_Return_True()
-        {
-            //Arrange
-            var doorPassing = new DoorPassing()
-            {
-                PassingTime = DateTime.Now,
-                Status = rnd.Next(),
-                Location = false,
-                Comment = string.Empty,
-                DoorId = rnd.Next(),
-                CardId = rnd.Next(),
-            };
-            _context.DoorPassings.Add(doorPassing);
-            _context.SaveChanges();
+		/// <summary>
+		/// Тест на проверку сохранения прохода через дверь.
+		/// </summary>
+		[Fact]
+		public void SaveDPTest_Return_True()
+		{
+			// Arrange
+			var doorPassing = new DoorPassing()
+			{
+				PassingTime = DateTime.Now,
+				Status = rnd.Next(),
+				Location = false,
+				Comment = string.Empty,
+				DoorId = rnd.Next(),
+				CardId = rnd.Next(),
+			};
 
-            //Act
-            _dataManagerService.DoorsPassing.Delete(doorPassing.Id);
-            var doorPassingDelete = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
+			//Act
+			_dataManagerService.DoorsPassing.Save(doorPassing);
+			var doorPassingSave = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
 
-            //Assert
-            Assert.Null(doorPassingDelete);
-        }
+			//Assert
+			Assert.Equal(doorPassing, doorPassingSave);
+		}
 
-        /// <summary>
-        /// Тест на проверку сохранения прохода через дверь.
-        /// </summary>
-        [Fact]
-        public void SaveDoorPassingTest_Return_True()
-        {
-            // Arrange
-            var doorPassing = new DoorPassing()
-            {
-                PassingTime = DateTime.Now,
-                Status = rnd.Next(),
-                Location = false,
-                Comment = string.Empty,
-                DoorId = rnd.Next(),
-                CardId = rnd.Next(),
-            };
+		/// <summary>
+		/// Тест на проверку удаления прохода через дверь.
+		/// </summary>
+		[Fact]
+		public void DeleteDoorPassingTest_Return_True()
+		{
+			//Arrange
+			var doorPassing = new DoorPassing()
+			{
+				PassingTime = DateTime.Now,
+				Status = rnd.Next(),
+				Location = false,
+				Comment = string.Empty,
+				DoorId = rnd.Next(),
+				CardId = rnd.Next(),
+			};
+			_context.DoorPassings.Add(doorPassing);
+			_context.SaveChanges();
 
-            //Act
-            _dataManagerService.DoorsPassing.Save(doorPassing);
-            var doorPassingSave = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
+			//Act
+			_dataManagerService.DoorsPassing.Delete(doorPassing.Id);
+			var doorPassingDelete = _dataManagerService.DoorsPassing.GetDoorPassingById(doorPassing.Id);
 
-            //Assert
-            Assert.Equal(doorPassing, doorPassingSave);
-        }       
-    }
+			//Assert
+			Assert.Null(doorPassingDelete);
+		}
+	}
 }
