@@ -16,6 +16,7 @@ namespace SecurityDoors.Tests
         private readonly ServiceProvider _serviceProvider;
         private readonly DataManager _dataManagerService;
         private readonly ApplicationContext _context;
+        private readonly ClearingDataContext _clearingDataContext;
 
         private readonly Random rnd = new Random();
 
@@ -29,16 +30,13 @@ namespace SecurityDoors.Tests
 
             _context = _serviceProvider.GetRequiredService<ApplicationContext>();
             _dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
+
+            _clearingDataContext = new ClearingDataContext(_context);
         }
 
         public void Dispose()
         {
-            foreach (var entity in _context.Cards)
-            {
-                _context.Cards.Remove(entity);
-            }
-
-            _context.SaveChanges();
+            _clearingDataContext.Clear();
         }
 
         /// <summary>
