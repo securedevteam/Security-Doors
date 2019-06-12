@@ -14,8 +14,10 @@ namespace SecurityDoors.Tests
 		private readonly ServiceProvider _serviceProvider;
 		private readonly DataManager _dataManagerService;
 		private readonly ApplicationContext _context;
+        private readonly ClearingDataContext _clearingDataContext;
 
-		private readonly Random rnd = new Random();
+        private readonly Random rnd = new Random();
+
 		/// <summary>
 		/// Конструктор.
 		/// </summary>
@@ -25,12 +27,19 @@ namespace SecurityDoors.Tests
 			_serviceProvider = fixture.ServiceProvider;
 			_context = _serviceProvider.GetRequiredService<ApplicationContext>();
 			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
-		}
 
-		/// <summary>
-		/// Тест на проверку получения списка дверей
-		/// </summary>
-		[Fact]
+            _clearingDataContext = new ClearingDataContext(_context);
+        }
+
+        public void Dispose()
+        {
+            _clearingDataContext.Clear();
+        }
+
+        /// <summary>
+        /// Тест на проверку получения списка дверей
+        /// </summary>
+        [Fact]
 		public void GetDoorsListTest_Return10()
 		{
 			// Arrange
@@ -237,15 +246,6 @@ namespace SecurityDoors.Tests
 				}
 			}
 			return true;
-		}
-
-		public void Dispose()
-		{
-			foreach (var entity in _context.Doors)
-			{
-				_context.Doors.Remove(entity);
-			}
-			_context.SaveChanges();
 		}
 	}
 }
