@@ -41,7 +41,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        [Obsolete]
         public void Create(Door item)
         {
             db.Doors.Add(item);

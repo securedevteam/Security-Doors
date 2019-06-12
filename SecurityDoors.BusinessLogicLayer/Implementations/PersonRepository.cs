@@ -34,7 +34,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
 		/// <inheritdoc/>
-		[Obsolete]
 		public void Create(Person item)
         {
             db.People.Add(item);

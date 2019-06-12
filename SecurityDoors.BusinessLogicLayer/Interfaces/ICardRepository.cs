@@ -33,7 +33,6 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Создать карту.
         /// </summary>
         /// <param name="item">элемент.</param>
-        [Obsolete]
 		void Create(Card item);
 
         /// <summary>
