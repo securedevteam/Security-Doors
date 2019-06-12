@@ -61,10 +61,10 @@ namespace SecurityDoors.Tests
                 });
             }
 
-            // Act
             _context.Cards.AddRange(listCards);
             _context.SaveChanges();
 
+            // Act
             var cardList = _dataManagerService.Cards.GetCardsList().ToList();
             var actual = cardList.Count();
 
@@ -88,10 +88,10 @@ namespace SecurityDoors.Tests
                 Comment = string.Empty
             };
 
-            // Act
             _context.Cards.Add(expected);
             _context.SaveChanges();
 
+            // Act
             var actual = _dataManagerService.Cards.GetCardById(expected.Id);
 
             // Assert
@@ -110,7 +110,7 @@ namespace SecurityDoors.Tests
         public void GetCardByUniqueNumberTest_Return_True()
         {
             // Arrange
-            var card = new Card()
+            var expected = new Card()
             {
                 UniqueNumber = Guid.NewGuid().ToString(),
                 Status = rnd.Next(),
@@ -119,23 +119,29 @@ namespace SecurityDoors.Tests
                 Comment = string.Empty
             };
 
-            //Act
-            _context.Cards.Add(card);
+            _context.Cards.Add(expected);
             _context.SaveChanges();
-            var uniqueNumberCard = _dataManagerService.Cards.GetCardByUniqueNumber(card.UniqueNumber);
 
-            //Assert
-            Assert.Equal(card.UniqueNumber, uniqueNumberCard.UniqueNumber);
+            // Act
+            var actual = _dataManagerService.Cards.GetCardByUniqueNumber(expected.UniqueNumber);
+
+            // Assert
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
 
         /// <summary>
-        ///  Тест на проверку создания новой карты.
+        /// Тест на проверку создания новой карты.
         /// </summary>
         [Fact]
         public void CreateCardTest_Return_True()
         {
             // Arrange
-            var card = new Card()
+            var expected = new Card()
             {
                 UniqueNumber = Guid.NewGuid().ToString(),
                 Status = rnd.Next(),
@@ -144,13 +150,21 @@ namespace SecurityDoors.Tests
                 Comment = string.Empty
             };
 
-            //Act
-            _context.Cards.Add(card);
+            // Act
+            _dataManagerService.Cards.Create(expected);
             _context.SaveChanges();
-            var createCard = _dataManagerService.Cards.GetCardById(card.Id);
 
-            //Assert
-            Assert.NotNull(createCard);
+            var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+
+            // Assert
+            Assert.Equal(expected, actual);
+
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
 
         /// <summary>
@@ -159,8 +173,8 @@ namespace SecurityDoors.Tests
         [Fact]
         public void DeletCardTest_Return_True()
         {
-            //Arrange
-            var card = new Card()
+            // Arrange
+            var expected = new Card()
             {
                 UniqueNumber = Guid.NewGuid().ToString(),
                 Status = rnd.Next(),
@@ -168,15 +182,16 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty
             };
-            _context.Cards.Add(card);
+
+            _context.Cards.Add(expected);
             _context.SaveChanges();
 
-            //Act
-            _dataManagerService.Cards.Delete(card.Id);
-            var cardDelete = _dataManagerService.Cards.GetCardById(card.Id);
+            // Act
+            _dataManagerService.Cards.Delete(expected.Id);
+            var result = _dataManagerService.Cards.GetCardById(expected.Id);
 
-            //Assert
-            Assert.Null(cardDelete);
+            // Assert
+            Assert.Null(result);
         }
 
         /// <summary>
@@ -186,7 +201,7 @@ namespace SecurityDoors.Tests
         public void SaveCardTest_Return_True()
         {
             // Arrange
-            var card = new Card()
+            var expected = new Card()
             {
                 UniqueNumber = Guid.NewGuid().ToString(),
                 Status = rnd.Next(),
@@ -195,22 +210,30 @@ namespace SecurityDoors.Tests
                 Comment = string.Empty
             };
 
-            //Act
-            _dataManagerService.Cards.Save(card);
-            var cardSave = _dataManagerService.Cards.GetCardById(card.Id);
+            // Act
+            _dataManagerService.Cards.Save(expected);
 
-            //Assert
-            Assert.Equal(card, cardSave);
+            var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+
+            // Assert
+            Assert.Equal(expected, actual);
+
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         } 
         
         /// <summary>
-        /// Тест на проверку обновления карты
+        /// Тест на проверку обновления карты.
         /// </summary>
         [Fact]        
         public void UpdateCardTest_Return_True()
         {
-            //Arrange
-            var card = new Card()
+            // Arrange
+            var expected = new Card()
             {
                 UniqueNumber = Guid.NewGuid().ToString(),
                 Status = rnd.Next(),
@@ -218,23 +241,32 @@ namespace SecurityDoors.Tests
                 Location = false,
                 Comment = string.Empty
             };
-            _context.Cards.Add(card);
+
+            _context.Cards.Add(expected);
             _context.SaveChanges();
-            
+
             //Act
-            var cardUpdate = _dataManagerService.Cards.GetCardById(card.Id);
-            cardUpdate.UniqueNumber = Guid.NewGuid().ToString();
-            cardUpdate.Status = rnd.Next();
-            cardUpdate.Level = rnd.Next(1, 10);
-            cardUpdate.Location = true;
-            cardUpdate.Comment = Guid.NewGuid().ToString();
+            var actual = _dataManagerService.Cards.GetCardById(expected.Id);
 
-            _dataManagerService.Cards.Update(cardUpdate);
+            actual.UniqueNumber = Guid.NewGuid().ToString();
+            actual.Status = rnd.Next();
+            actual.Level = rnd.Next();
+            actual.Location = true;
+            actual.Comment = Guid.NewGuid().ToString();
 
-            var cardUpdateInDataBase = _dataManagerService.Cards.GetCardById(card.Id);
-            
+            _dataManagerService.Cards.Update(actual);
+            _context.SaveChanges();
+
+            var result = _dataManagerService.Cards.GetCardById(actual.Id);
+
             //Assert            
-            Assert.NotEqual(card, cardUpdateInDataBase);
+            Assert.NotEqual(expected, result);
+
+            Assert.NotEqual(expected.UniqueNumber, result.UniqueNumber);
+            Assert.NotEqual(expected.Status, result.Status);
+            Assert.NotEqual(expected.Level, result.Level);
+            Assert.NotEqual(expected.Location, result.Location);
+            Assert.NotEqual(expected.Comment, result.Comment);
         }
     }
 }
