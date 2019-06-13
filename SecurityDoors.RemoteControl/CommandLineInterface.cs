@@ -29,7 +29,7 @@ namespace SecurityDoors.RemoteControl.cli
         /// </summary>
         public void Run()
         {
-            CLIColor.WriteInfo("Wellcome to remote Controll system");
+            CLIColor.WriteInfo("Wellcome to remote Controll system!\n");
        
             ExecuteCommand ec = new ExecuteCommand(_dataManager, _applicationContext);
 
@@ -40,7 +40,11 @@ namespace SecurityDoors.RemoteControl.cli
 
             while (true)
             {
-                switch (Console.ReadLine())
+                Console.Write("Please select the command: ");
+                var choice = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (choice)
                 {
                     case "quit":
                     case "q":
@@ -59,7 +63,13 @@ namespace SecurityDoors.RemoteControl.cli
                     case "c":
                         {
                             ec.ClearScreen();
-                            Console.WriteLine("Enter 'h' and press 'Enter' to get help information..\n");
+                        }
+                        break;
+
+                    case "count-record":
+                    case "c-r":
+                        {
+                            ec.PrintCountOfRecord();
                         }
                         break;
 
@@ -81,13 +91,6 @@ namespace SecurityDoors.RemoteControl.cli
                     case "a-c":
                         {
                             //command.addCard();
-                        }
-                        break;
-
-                    case "count-record":
-                    case "c-r":
-                        {
-                            ec.PrintCountOfRecord();
                         }
                         break;
 
@@ -136,7 +139,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-door":
                     case "s-d":
                         {
-                            //command.printDoor();
+                            ec.PrintDoorById();
                         }
                         break;
 
@@ -170,7 +173,7 @@ namespace SecurityDoors.RemoteControl.cli
 
                     default:
                         {
-                            Console.WriteLine("command unrecognized");
+                            CLIColor.WriteError("Command unrecognized! Please re-enter..\n");
                         }
                         break;
                 }

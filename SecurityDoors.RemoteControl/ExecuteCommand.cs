@@ -1,7 +1,6 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
-using SecurityDoors.RemoteControl.cli;
 using System;
 using System.Linq;
 
@@ -34,6 +33,8 @@ namespace SecurityDoors.RemoteControl
         public void ClearScreen()
         {
             Console.Clear();
+            CLIColor.WriteInfo("Enter 'h' and press 'Enter' to get help information..");
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -43,27 +44,26 @@ namespace SecurityDoors.RemoteControl
         {
             // TODO: Рефакторинг, как необходимо..
 
-            Console.WriteLine();
-            Console.WriteLine("aviable command:   \n" +
-                           "quit              || q  \n" +
-                           "help              || h  \n" +
-                           "clear             || c  \n" +
-                           "add-person        || a-p\n" +
-                           "add-door          || a-d\n" +
-                           "add-card          || a-c\n" +
-                           "count-record      || c-r\n" +
-                           "list-person       || l-p\n" +
-                           "list-card         || l-c\n" +
-                           "list-door         || l-d\n" +
-                           "list-doorPassing  || l-dp\n" +
-                           "show-person       || s-p\n" +
-                           "show-card         || s-c\n" +
-                           "show-door         || s-d\n" +
-                           "delete-person     || d-p\n" +
-                           "delete-card       || d-c\n" +
-                           "delete-door       || d-d\n" +
-                           "delete-doorPassing|| d-dp");
-
+            CLIColor.WriteInfo("Available commands:");
+            Console.WriteLine("quit              || q  \n" +
+                              "help              || h  \n" +
+                              "clear             || c  \n" +
+                              "count-record      || c-r\n" +
+                              "add-person        || a-p\n" +
+                              "add-door          || a-d\n" +
+                              "add-card          || a-c\n" +
+                              "list-person       || l-p\n" +
+                              "list-card         || l-c\n" +
+                              "list-door         || l-d\n" +
+                              "list-doorPassing  || l-dp\n" +
+                              "show-person       || s-p\n" +
+                              "show-card         || s-c\n" +
+                              "show-door         || s-d\n" +
+                              "delete-person     || d-p\n" +
+                              "delete-card       || d-c\n" +
+                              "delete-door       || d-d\n" +
+                              "delete-doorPassing|| d-dp"
+                              );
             Console.WriteLine();
         }
         
@@ -73,12 +73,13 @@ namespace SecurityDoors.RemoteControl
         /// </summary>
         public void PrintCountOfRecord()
         {
-            Console.WriteLine();
             CLIColor.WriteInfo("Сount of records in database:");
+            Console.WriteLine("===========================");
             Console.WriteLine($"DoorPassing:\t{_applicationContext.DoorPassings.Count()}");
             Console.WriteLine($"Person:     \t{_applicationContext.People.Count()}");
             Console.WriteLine($"Cards:      \t{_applicationContext.Cards.Count()}");
             Console.WriteLine($"Doors:      \t{_applicationContext.Doors.Count()}");
+            Console.WriteLine("===========================");
             Console.WriteLine();
         }
 
@@ -95,16 +96,16 @@ namespace SecurityDoors.RemoteControl
             Console.Write("Enter name: ");
             var name = Console.ReadLine();
 
-            Console.Write("Enter description:");
+            Console.Write("Enter description: ");
             var description = Console.ReadLine();
 
-            Console.Write("Enter level:");
+            Console.Write("Enter level: ");
             var level = Console.ReadLine(); // TODO: Проверка на TryParse
 
-            Console.Write("Enter status:");
+            Console.Write("Enter status: ");
             var status = Console.ReadLine(); // TODO: Проверка на TryParse
 
-            Console.Write("Enter comment:");
+            Console.Write("Enter comment: ");
             var comment = Console.ReadLine();
 
             var door = new Door()
@@ -119,12 +120,69 @@ namespace SecurityDoors.RemoteControl
             _dataManager.Doors.Create(door);
             _applicationContext.SaveChanges();
 
-            Console.WriteLine("door added succesfull"); // TODO: Проверка на ошибку
+            Console.WriteLine();
+            CLIColor.WriteInfo("door added succesfull"); // TODO: Проверка на ошибку
+            Console.WriteLine();
         }
 
+        /// <summary>
+        /// метод печатающий Door по id
+        /// </summary>
+        internal void PrintDoorById()
+        {
+            int id = -1;
 
+            Console.Write("Enter door id: ");
+            
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+            }
+            catch (FormatException)
+            {
+                //TODO error message
+            }
 
+            var door = _dataManager.Doors.GetDoorById(id);
 
+            if (door != null)
+            {
+                CLIColor.WriteInfo("Information about door:");
+                Console.WriteLine("===========================");
+                Console.WriteLine($"Id: {door.Id}");
+                Console.WriteLine($"Name: {door.Name}");
+                Console.WriteLine($"Description: {door.Description}");
+                Console.WriteLine($"Level: {door.Level}");
+                Console.WriteLine($"Status: {door.Status}");
+                Console.WriteLine($"Comment: {door.Comment}");
+                Console.WriteLine("===========================");
+                Console.WriteLine();
+            }
+            else
+            {
+                CLIColor.WriteError("Сard with this id does not exitst!");
+                Console.WriteLine();
+            }
+        }
+
+        ///// <summary>
+        ///// удаление обьекта Door из БД по его id
+        ///// </summary>
+        //public void DeleteDoor()
+        //{
+        //    Console.WriteLine("enter door id");
+        //    int id = -1;
+        //    try
+        //    {
+        //        id = int.Parse(Console.ReadLine());
+        //    }
+        //    catch (FormatException)
+        //    {
+        //        Color.writeError("input does not number");
+        //    }
+        //    db.deleteDoor(id);
+        //}
 
 
 
@@ -223,25 +281,7 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("person added succesfull");
         }
 
-        /// <summary>
-        /// логика для добавления Door в БД.
-        /// метод запрашивает все необходимые данные после чего 
-        /// добавляет в БД обьект
-        /// </summary>
-        public void AddDoor()
-        {
-            
-
-
-
-            DoorBuilder doorBuilder = new DoorBuilder();
-            Console.WriteLine("Enter name");
-            doorBuilder.setName(Console.ReadLine());
-            Console.WriteLine("Enter description");
-            doorBuilder.setDescription(Console.ReadLine());
-            db.AddDoor(doorBuilder.build());
-            Console.WriteLine("door added succesfull");
-        }
+        
 
         /// <summary>
         /// логика для добавления Card в БД.
@@ -291,33 +331,6 @@ namespace SecurityDoors.RemoteControl
 
         
 
-        #region методы для печати обьектов из БД
-        /// <summary>
-        /// метод печатающий Door по id
-        /// </summary>
-        internal void printDoor()
-        {
-            int id = -1;
-            Console.WriteLine("enter door id");
-            try
-            {
-                id = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                //TODO error message
-            }
-            Door door = db.GetDoorById(id);
-            if (door != null)
-            {
-                Console.WriteLine("id\t{0}", door.Id);
-                Console.WriteLine("description\t{0}", door.Description);
-            }
-            else
-            {
-                Console.WriteLine("card with given id does not exitst");
-            }
-        }
 
         /// <summary>
         /// метод печатающий Card по id
@@ -496,23 +509,7 @@ namespace SecurityDoors.RemoteControl
             db.deleteCard(id);
         }
 
-        /// <summary>
-        /// удаление обьекта Door из БД по его id
-        /// </summary>
-        public void DeleteDoor()
-        {
-            Console.WriteLine("enter door id");
-            int id = -1;
-            try
-            {
-                id = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Color.writeError("input does not number");
-            }
-            db.deleteDoor(id);
-        }
+        
 
         /// <summary>
         /// удаление обьекта DoorPassing из БД по его id
