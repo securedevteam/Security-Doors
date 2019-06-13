@@ -1,4 +1,5 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 
@@ -28,10 +29,8 @@ namespace SecurityDoors.RemoteControl.cli
         /// </summary>
         public void Run()
         {
-            Color.WriteInfo("Wellcome to remote Controll system");
-            Color.WriteInfo("type quit to exit program");
-            
-
+            CLIColor.WriteInfo("Wellcome to remote Controll system");
+       
             ExecuteCommand ec = new ExecuteCommand(_dataManager, _applicationContext);
 
             ec.PrintCountOfRecord();

@@ -1,4 +1,5 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.cli;
 using System;
@@ -73,7 +74,7 @@ namespace SecurityDoors.RemoteControl
         public void PrintCountOfRecord()
         {
             Console.WriteLine();
-            Color.WriteInfo("Сount of records in database:");
+            CLIColor.WriteInfo("Сount of records in database:");
             Console.WriteLine($"DoorPassing:\t{_applicationContext.DoorPassings.Count()}");
             Console.WriteLine($"Person:     \t{_applicationContext.People.Count()}");
             Console.WriteLine($"Cards:      \t{_applicationContext.Cards.Count()}");
