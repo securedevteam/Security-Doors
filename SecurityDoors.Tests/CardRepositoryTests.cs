@@ -212,7 +212,6 @@ namespace SecurityDoors.Tests
 
             // Act
             _dataManagerService.Cards.Save(expected);
-
             var actual = _dataManagerService.Cards.GetCardById(expected.Id);
 
             // Assert

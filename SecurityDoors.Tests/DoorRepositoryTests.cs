@@ -4,19 +4,21 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace SecurityDoors.Tests
 {
+	/// <summary>
+	/// Класс для тестов класса DoorRepository.
+	/// </summary>
 	public class DoorRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
 	{
 		private readonly ServiceProvider _serviceProvider;
 		private readonly DataManager _dataManagerService;
 		private readonly ApplicationContext _context;
-        private readonly ClearingDataContext _clearingDataContext;
+		private readonly ClearingDataContext _clearingDataContext;
 
-        private readonly Random rnd = new Random();
+		private readonly Random rnd = new Random();
 
 		/// <summary>
 		/// Конструктор.
@@ -25,30 +27,31 @@ namespace SecurityDoors.Tests
 		public DoorRepositoryTests(ServiceFixture fixture)
 		{
 			_serviceProvider = fixture.ServiceProvider;
+
 			_context = _serviceProvider.GetRequiredService<ApplicationContext>();
 			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
 
-            _clearingDataContext = new ClearingDataContext(_context);
-        }
+			_clearingDataContext = new ClearingDataContext(_context);
+		}
 
-        public void Dispose()
-        {
-            _clearingDataContext.Clear();
-        }
+		public void Dispose()
+		{
+			_clearingDataContext.Clear();
+		}
 
-        /// <summary>
-        /// Тест на проверку получения списка дверей
-        /// </summary>
-        [Fact]
-		public void GetDoorsListTest_Return10()
+		/// <summary>
+		/// Тест на проверку получения списка дверей.
+		/// </summary>
+		[Fact]
+		public void GetDoorsListTest_Return_10()
 		{
 			// Arrange
-			var doors = new List<Door>();
+			var listDoors = new List<Door>();
 			var expected = 10;
 
 			for (int i = 0; i < expected; i++)
 			{
-				doors.Add(new Door()
+				listDoors.Add(new Door()
 				{
 					Name = Guid.NewGuid().ToString(),
 					Comment = Guid.NewGuid().ToString(),
@@ -58,194 +61,209 @@ namespace SecurityDoors.Tests
 				});
 			}
 
-			// Act
-			_context.Doors.AddRange(doors);
+			_context.Doors.AddRange(listDoors);
 			_context.SaveChanges();
 
+			// Act			
 			var doorsList = _dataManagerService.Doors.GetDoorsList().ToList();
-			var actual = doorsList.Count;
+			var actual = doorsList.Count();
+
+			// Assert
+			Assert.Equal(expected, actual);			
+		}
+		
+		/// <summary>
+		/// Тест на проверку получение определенной двери.
+		/// </summary>
+		[Fact]
+		public void GetDoorByIdTest_Return_1()
+		{
+			// Arrange
+			var expected = new Door()
+			{
+				Name = Guid.NewGuid().ToString(),
+				Description = Guid.NewGuid().ToString(),                			
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,	
+			};
+
+			_context.Doors.Add(expected);
+			_context.SaveChanges();
+
+			// Act			
+			var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+
+			// Assert		
+			Assert.Equal(expected.Id, actual.Id);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.Description, actual.Description);
+			Assert.Equal(expected.Level, actual.Level);
+			Assert.Equal(expected.Status, actual.Status);
+			Assert.Equal(expected.Comment, actual.Comment);
+		}
+
+		/// <summary>
+		/// Тест на проверку получение двери по имени.
+		/// </summary>
+		[Fact]
+		public void GetDoorByNameTest_Return_True()
+		{
+			// Arrange
+			var expected = new Door()
+			{
+				Name = Guid.NewGuid().ToString(),
+				Description = Guid.NewGuid().ToString(),
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,
+			};
+
+			_context.Doors.Add(expected);
+			_context.SaveChanges();
+
+			// Act			
+			var actual = _dataManagerService.Doors.GetDoorByName(expected.Name);
+
+			// Assert		
+			Assert.Equal(expected.Id, actual.Id);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.Description, actual.Description);
+			Assert.Equal(expected.Level, actual.Level);
+			Assert.Equal(expected.Status, actual.Status);
+			Assert.Equal(expected.Comment, actual.Comment);
+		}
+
+		/// <summary>
+		/// Тест на проверку создания двери.
+		/// </summary>
+		[Fact]
+		public void CreateDoorTest_Return_True()
+		{
+			// Arrange
+			var expected = new Door()
+			{
+				Name = Guid.NewGuid().ToString(),
+				Description = Guid.NewGuid().ToString(),
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,
+			};
+
+			// Act
+			_dataManagerService.Doors.Create(expected);
+			_context.SaveChanges();
+
+			var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
 
 			// Assert
 			Assert.Equal(expected, actual);
-			Assert.True(Equal(doors, doorsList));
-		}
-		
-		/// <summary>
-		/// Тест на получение двери по Id
-		/// </summary>
-		[Fact]
-		public void GetDoorByIdTest()
-		{
-			//Arrange
-			var door = new Door()
-			{
-				Name = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Description = Guid.NewGuid().ToString(),
-				Level = rnd.Next(1, 10),
-				Status = rnd.Next(1, 10)
-			};
-			//Act
-			_context.Doors.Add(door);
-			_context.SaveChanges();
-			var doorInDB = _dataManagerService.Doors.GetDoorById(door.Id);
-			//Assert
-			Assert.True(Equal(door, doorInDB));
-		}
-		
-		/// <summary>
-		/// Тест на получение двери по имени
-		/// </summary>
-		[Fact]
-		public void GetDoorByNameTest ()
-		{
-			//Arrange
-			var door = new Door()
-			{
-				Name = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Description = Guid.NewGuid().ToString(),
-				Level = rnd.Next(1, 10),
-				Status = rnd.Next(1, 10)
-			};
-			//Act
-			_context.Doors.Add(door);
-			_context.SaveChanges();
-			var doorInDB = _dataManagerService.Doors.GetDoorByName(door.Name);
-			//Assert
-			Assert.True(Equal(door, doorInDB));
+
+			Assert.Equal(expected.Id, actual.Id);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.Description, actual.Description);
+			Assert.Equal(expected.Level, actual.Level);
+			Assert.Equal(expected.Status, actual.Status);
+			Assert.Equal(expected.Comment, actual.Comment);
 		}
 
 		/// <summary>
-		/// Тест на обновление двери
+		/// Тест на проверку обновления двери.
 		/// </summary>
 		[Fact]
-		public void UpdateTest()
+		public void UpdateDoorTest_Return_True()
 		{
-			//Arrange
-			var door = new Door()
+			// Arrange
+			var expected = new Door()
 			{
 				Name = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
 				Description = Guid.NewGuid().ToString(),
-				Level = rnd.Next(1, 10),
-				Status = rnd.Next(1, 10)
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,
 			};
-			_context.Doors.Add(door);
+
+			_context.Doors.Add(expected);
 			_context.SaveChanges();
 
-			/// Сперва добавляется дверь в репозиторий, после изменяется и сравнивается
-			//Act
+			// Act
+			var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+			actual.Name = Guid.NewGuid().ToString();
+			actual.Description = Guid.NewGuid().ToString();
+			actual.Level = rnd.Next();
+			actual.Status = rnd.Next();
+			actual.Comment = Guid.NewGuid().ToString();
 
-			var doorInDB = _dataManagerService.Doors.GetDoorById(door.Id);
-			doorInDB.Name = Guid.NewGuid().ToString();
-			doorInDB.Comment = Guid.NewGuid().ToString();
-			doorInDB.Description = Guid.NewGuid().ToString();
-			doorInDB.Level = rnd.Next(1, 10);
-			doorInDB.Status = rnd.Next(1, 10);
-			_dataManagerService.Doors.Update(doorInDB);
-
-			var updatedDoorInDB = _dataManagerService.Doors.GetDoorById(door.Id);
-			//Assert
-			Assert.False(Equal(door, doorInDB));
-			Assert.True(Equal(updatedDoorInDB, doorInDB));
-		}
-		/// <summary>
-		/// Тест на удаление двери
-		/// </summary>
-		[Fact]
-		public void DeleteTest()
-		{
-			//Arrange
-			var door = new Door()
-			{
-				Name = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Description = Guid.NewGuid().ToString(),
-				Level = rnd.Next(1, 10),
-				Status = rnd.Next(1, 10)
-			};
-			_context.Doors.Add(door);
+			_dataManagerService.Doors.Update(actual);
 			_context.SaveChanges();
 
-			/// Сперва добавляется дверь в репозиторий, после удаляется
-			//Act
+			var result = _dataManagerService.Doors.GetDoorById(actual.Id);
 
+			// Assert
+			Assert.NotEqual(expected.Name, result.Name);
+			Assert.NotEqual(expected.Description, result.Description);
+			Assert.NotEqual(expected.Level, result.Level);
+			Assert.NotEqual(expected.Status, result.Status);
+			Assert.NotEqual(expected.Comment, result.Comment);
 
-			_dataManagerService.Doors.Delete(door.Id);
-
-			var doorInDB = _dataManagerService.Doors.GetDoorById(door.Id);
-			//Assert
-			Assert.Null(doorInDB);
 		}
-
 		/// <summary>
-		/// Тест на добавление двери
+		/// Тест на проверку удаление двери.
 		/// </summary>
 		[Fact]
-		public void SaveTest()
+		public void DeleteDoorTest_Return_True()
 		{
-			//Arrange
-			var door = new Door()
+			// Arrange
+			var expected = new Door()
 			{
 				Name = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
 				Description = Guid.NewGuid().ToString(),
-				Level = rnd.Next(1, 10),
-				Status = rnd.Next(1, 10)
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,
 			};
-			//Act
 
-			_dataManagerService.Doors.Save(door);
+			_context.Doors.Add(expected);
+			_context.SaveChanges();
+			
+			// Act
+			_dataManagerService.Doors.Delete(expected.Id);
+			var result = _dataManagerService.Doors.GetDoorById(expected.Id);
 
-			var doorInDB = _dataManagerService.Doors.GetDoorById(door.Id);
-			//Assert
-			Assert.True(Equal(door, doorInDB));
-		}
-
-
-
-		/// <summary>
-		/// Сравнивает обе двери по их свойствам
-		/// </summary>
-		/// <param name="doorA">Первая дверь</param>
-		/// <param name="doorB">Вторая дверь</param>
-		/// <returns>Если свойства совпадают - true</returns>
-		private static bool Equal (Door doorA, Door doorB)
-		{
-			return	doorA.Id == doorB.Id &&
-					doorA.Name == doorB.Name &&
-					doorA.Status == doorB.Status &&
-					doorA.Level == doorB.Level &&
-					doorA.Comment == doorB.Comment &&
-					doorA.Description == doorB.Description &&
-					doorA.DoorPassings == doorB.DoorPassings;
+			// Assert
+			Assert.Null(result);
 		}
 
 		/// <summary>
-		/// Сравнивает два списка дверей по свойствам их содержимого
+		/// Тест на проверку сохраниения двери.
 		/// </summary>
-		/// <param name="doorsA">Первый список</param>
-		/// <param name="doorsB">Второй список</param>
-		/// <returns>Если свойства совпадают - true</returns>
-		private static bool Equal (List<Door> doorsA, List<Door> doorsB)
+		[Fact]
+		public void SaveDoorTest_Return_True()
 		{
-			if (doorsA.Count != doorsB.Count)
+			// Arrange
+			var expected = new Door()
 			{
-				return false;
-			}
-			for (int i = 0; i < doorsA.Count; i++)
-			{
-				if (Equal(doorsA[i], doorsB[i]))
-				{
-					continue;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			return true;
-		}
+				Name = Guid.NewGuid().ToString(),
+				Description = Guid.NewGuid().ToString(),
+				Level = rnd.Next(),
+				Status = rnd.Next(),
+				Comment = string.Empty,
+			};
+			
+			// Act
+			_dataManagerService.Doors.Save(expected);
+
+			var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+
+			// Assert
+			Assert.Equal(expected, actual);
+
+			Assert.Equal(expected.Id, actual.Id);
+			Assert.Equal(expected.Name, actual.Name);
+			Assert.Equal(expected.Description, actual.Description);
+			Assert.Equal(expected.Level, actual.Level);
+			Assert.Equal(expected.Status, actual.Status);
+			Assert.Equal(expected.Comment, actual.Comment);
+		}		
 	}
 }
