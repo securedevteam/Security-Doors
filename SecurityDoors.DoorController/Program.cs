@@ -8,6 +8,7 @@ using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.Core.StaticClasses;
 
 namespace SecurityDoors.DoorController
 {
@@ -35,7 +36,7 @@ namespace SecurityDoors.DoorController
 
             var mainController = new MainController(dataManagerService);
 
-            Console.WriteLine("Welcom to the door controller application!\n");
+            CLIColor.WriteInfo("Welcom to the door controller application!\n");
 
             Console.Write("Please enter IP Address: ");
             var ipAddress = Console.ReadLine();
