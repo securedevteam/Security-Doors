@@ -93,36 +93,42 @@ namespace SecurityDoors.RemoteControl
         /// </summary>
         public void AddDoor()
         {
-            Console.Write("Enter name: ");
-            var name = Console.ReadLine();
-
-            Console.Write("Enter description: ");
-            var description = Console.ReadLine();
-
-            Console.Write("Enter level: ");
-            var level = Console.ReadLine(); // TODO: Проверка на TryParse
-
-            Console.Write("Enter status: ");
-            var status = Console.ReadLine(); // TODO: Проверка на TryParse
-
-            Console.Write("Enter comment: ");
-            var comment = Console.ReadLine();
-
-            var door = new Door()
+            try
             {
-                Name = name,
-                Description = description,
-                Level = Convert.ToInt32(level),
-                Status = Convert.ToInt32(status),
-                Comment = comment
-            };
+                Console.Write("Enter name: ");
+                var name = Console.ReadLine();
 
-            _dataManager.Doors.Create(door);
-            _applicationContext.SaveChanges();
+                Console.Write("Enter description: ");
+                var description = Console.ReadLine();
 
-            Console.WriteLine();
-            CLIColor.WriteInfo("door added succesfull"); // TODO: Проверка на ошибку
-            Console.WriteLine();
+                Console.Write("Enter level: ");
+                var level = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
+
+                Console.Write("Enter status: ");
+                var status = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
+
+                Console.Write("Enter comment: ");
+                var comment = Console.ReadLine();
+
+                var door = new Door()
+                {
+                    Name = name,
+                    Description = description,
+                    Level = Convert.ToInt32(level),
+                    Status = Convert.ToInt32(status),
+                    Comment = comment
+                };
+
+                _dataManager.Doors.Create(door);
+                _applicationContext.SaveChanges();
+
+                Console.WriteLine();
+                CLIColor.WriteInfo("Door successfully added!\n"); 
+            }
+            catch (FormatException)
+            {
+                CLIColor.WriteError("Input value is not a number!\n");
+            }
         }
 
         /// <summary>
@@ -185,7 +191,7 @@ namespace SecurityDoors.RemoteControl
                 if (door != null)
                 {
                     _dataManager.Doors.Delete(id);
-                    CLIColor.WriteInfo("Door deleted succesfull!\n");
+                    CLIColor.WriteInfo("Door successfully deleted!\n");
                 }
                 else
                 {
