@@ -28,9 +28,9 @@ namespace SecurityDoors.RemoteControl.cli
         /// </summary>
         public void Run()
         {
-            Color.writeInfo("Wellcome to remote Controll system");
-            Color.writeInfo("type quit to exit program");
-            Console.WriteLine("count of record in database:");
+            Color.WriteInfo("Wellcome to remote Controll system");
+            Color.WriteInfo("type quit to exit program");
+            
 
             ExecuteCommand ec = new ExecuteCommand(_dataManager, _applicationContext);
 
@@ -60,6 +60,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "c":
                         {
                             ec.ClearScreen();
+                            Console.WriteLine("Enter 'h' and press 'Enter' to get help information..\n");
                         }
                         break;
 
@@ -87,7 +88,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "count-record":
                     case "c-r":
                         {
-                            //command.printCountOfRecord();
+                            ec.PrintCountOfRecord();
                         }
                         break;
 
@@ -174,6 +175,7 @@ namespace SecurityDoors.RemoteControl.cli
                         }
                         break;
                 }
+
                 #endregion
             }
         }

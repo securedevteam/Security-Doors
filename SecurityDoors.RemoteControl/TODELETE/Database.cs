@@ -8,6 +8,8 @@ using SecurityDoors.BusinessLogicLayer.Interfaces;
 
 namespace SecurityDoors.RemoteControl
 {
+    // TODO: ЗАЧЕМ ВООБЩЕ ЭТО? Кандидат на удаление.
+
     /// <summary>
     /// класс для работы с БД, использую DI
     /// </summary>

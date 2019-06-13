@@ -1,19 +1,24 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
-using SecurityDoors.RemoteControl.Builders;
 using SecurityDoors.RemoteControl.cli;
 using System;
 using System.Linq;
 
 namespace SecurityDoors.RemoteControl
 {
-
-    class ExecuteCommand
+    /// <summary>
+    /// Класс для управления командами консоли.
+    /// </summary>
+    public class ExecuteCommand
     {
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
+        /// <param name="applicationContext">контекст основной базы данных.</param>
         public ExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
         {
             _dataManager = dataManager;
@@ -25,16 +30,19 @@ namespace SecurityDoors.RemoteControl
         /// <summary>
         /// Очистка экрана консоли.
         /// </summary>
-        internal void ClearScreen()
+        public void ClearScreen()
         {
             Console.Clear();
         }
 
         /// <summary>
-        /// печать всех доступных для ввода команд 
+        /// Печать доступных команд для ввода.
         /// </summary>
-        internal void PrintHelpInformation()
+        public void PrintHelpInformation()
         {
+            // TODO: Рефакторинг, как необходимо..
+
+            Console.WriteLine();
             Console.WriteLine("aviable command:   \n" +
                            "quit              || q  \n" +
                            "help              || h  \n" +
@@ -54,14 +62,23 @@ namespace SecurityDoors.RemoteControl
                            "delete-card       || d-c\n" +
                            "delete-door       || d-d\n" +
                            "delete-doorPassing|| d-dp");
-        }
 
-        internal void PrintCountOfRecord()
+            Console.WriteLine();
+        }
+        
+
+        /// <summary>
+        /// Вывод информации о количества записей в базе данных.
+        /// </summary>
+        public void PrintCountOfRecord()
         {
-            Console.WriteLine("DoorPassing:\t{0}", _applicationContext.DoorPassings.Count());
-            Console.WriteLine("person:     \t{0}", _applicationContext.People.Count());
-            Console.WriteLine("card:       \t{0}", _applicationContext.Cards.Count());
-            Console.WriteLine("Door:       \t{0}", _applicationContext.Doors.Count());
+            Console.WriteLine();
+            Color.WriteInfo("Сount of records in database:");
+            Console.WriteLine($"DoorPassing:\t{_applicationContext.DoorPassings.Count()}");
+            Console.WriteLine($"Person:     \t{_applicationContext.People.Count()}");
+            Console.WriteLine($"Cards:      \t{_applicationContext.Cards.Count()}");
+            Console.WriteLine($"Doors:      \t{_applicationContext.Doors.Count()}");
+            Console.WriteLine();
         }
 
         #endregion
