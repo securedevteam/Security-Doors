@@ -5,7 +5,7 @@ namespace SecurityDoors.Core.StaticClasses
     /// <summary>
     /// Вспомогательный класс подсвечивания текста определенным цветом.
     /// </summary>
-    public static class CommandLineInterfaceColor
+    public static class CLIColor
     {
         /// <summary>
         /// Отображение ошибки особым цветом.
