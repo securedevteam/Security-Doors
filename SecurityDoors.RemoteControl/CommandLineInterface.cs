@@ -160,7 +160,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-door":
                     case "d-d":
                         {
-                            //command.DeleteDoor();
+                            ec.DeleteDoorById();
                         }
                         break;
 

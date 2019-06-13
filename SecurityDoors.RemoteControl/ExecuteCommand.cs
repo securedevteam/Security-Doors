@@ -130,7 +130,7 @@ namespace SecurityDoors.RemoteControl
         /// </summary>
         internal void PrintDoorById()
         {
-            int id = -1;
+            var id = -1;
 
             Console.Write("Enter door id: ");
             
@@ -138,51 +138,66 @@ namespace SecurityDoors.RemoteControl
             {
                 id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
+
+                var door = _dataManager.Doors.GetDoorById(id);
+
+                if (door != null)
+                {
+                    CLIColor.WriteInfo("Information about door:");
+                    Console.WriteLine("===========================");
+                    Console.WriteLine($"Id: {door.Id}");
+                    Console.WriteLine($"Name: {door.Name}");
+                    Console.WriteLine($"Description: {door.Description}");
+                    Console.WriteLine($"Level: {door.Level}");
+                    Console.WriteLine($"Status: {door.Status}");
+                    Console.WriteLine($"Comment: {door.Comment}");
+                    Console.WriteLine("===========================");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    CLIColor.WriteError("Door with this id does not exitst!");
+                    Console.WriteLine();
+                }
             }
             catch (FormatException)
             {
-                //TODO error message
-            }
-
-            var door = _dataManager.Doors.GetDoorById(id);
-
-            if (door != null)
-            {
-                CLIColor.WriteInfo("Information about door:");
-                Console.WriteLine("===========================");
-                Console.WriteLine($"Id: {door.Id}");
-                Console.WriteLine($"Name: {door.Name}");
-                Console.WriteLine($"Description: {door.Description}");
-                Console.WriteLine($"Level: {door.Level}");
-                Console.WriteLine($"Status: {door.Status}");
-                Console.WriteLine($"Comment: {door.Comment}");
-                Console.WriteLine("===========================");
-                Console.WriteLine();
-            }
-            else
-            {
-                CLIColor.WriteError("Сard with this id does not exitst!");
-                Console.WriteLine();
+                CLIColor.WriteError("Input value is not a number!\n");
             }
         }
 
-        ///// <summary>
-        ///// удаление обьекта Door из БД по его id
-        ///// </summary>
-        //public void DeleteDoor()
-        //{
-        //    Console.WriteLine("enter door id");
-        //    int id = -1;
-        //    try
-        //    {
-        //        id = int.Parse(Console.ReadLine());
-        //    }
-        //    catch (FormatException)
-        //    {
-        //        Color.writeError("input does not number");
-        //    }
-        //    db.deleteDoor(id);
-        //}
+        /// <summary>
+        /// удаление обьекта Door из БД по его id
+        /// </summary>
+        public void DeleteDoorById()
+        {
+            var id = -1;
+
+            Console.Write("Enter door id: ");
+
+            try
+            {
+                id = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+
+                var door = _dataManager.Doors.GetDoorById(id);
+
+                if (door != null)
+                {
+                    _dataManager.Doors.Delete(id);
+                    CLIColor.WriteInfo("Door deleted succesfull!\n");
+                }
+                else
+                {
+                    CLIColor.WriteError("Door with this id does not exitst!");
+                    Console.WriteLine();
+                }
+            }
+            catch (FormatException)
+            {
+                CLIColor.WriteError("Input value is not a number!\n");
+            }
+        }
 
 
 
