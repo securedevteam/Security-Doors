@@ -1,102 +1,177 @@
 ﻿
+using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.DataAccessLayer.Models;
 using System;
 
 namespace SecurityDoors.RemoteControl.cli
 {
-    class Cli
+    public class CommandLineInterface
     {
-        private Command command = new Command();
+        //private Command command = new Command();
+        private DataManager _dataManager;
+        private ApplicationContext _applicationContext;
+
+        public CommandLineInterface(DataManager dataManager, ApplicationContext applicationContext)
+        {
+            _dataManager = dataManager;
+            _applicationContext = applicationContext;
+        }
+
+
         /// <summary>
         /// метод запускающий консольную программу
         /// выводит приветственные сообщения и
         /// запускает бесконечный цикл обработки входных команд
         /// </summary>
-        public void run()
+        /// 
+
+
+        public void Run()
         {
             Color.writeInfo("Wellcome to remote Controll system");
             Color.writeInfo("type quit to exit program");
             Console.WriteLine("count of record in database:");
-            Command command = new Command();
-            command.printCountOfRecord();
-            command.printHelp();
-            #region основной цикл разбора ввода на команды
+
+            ExecuteCommand ec = new ExecuteCommand(_dataManager, _applicationContext);
+
+            ec.PrintCountOfRecord();
+            ec.PrintHelpInformation();
+            
+            #region Основной цикл разбора ввода на команды
+
             while (true)
             {
                 switch (Console.ReadLine())
                 {
                     case "quit":
                     case "q":
-                        return;
+                        {
+                            return;
+                        }
+
                     case "help":
                     case "h":
-                        command.printHelp();
+                        {
+                            ec.PrintHelpInformation();
+                        }
                         break;
+
                     case "clear":
                     case "c":
-                        command.clearScreen();
+                        {
+                            ec.ClearScreen();
+                        }
                         break;
+
                     case "add person":
                     case "a-p":
-                        command.addPerson();
+                        {
+                            //command.addPerson();
+                        }
                         break;
+
                     case "add-door":
                     case "a-d":
-                        command.addDoor();
+                        {
+                            ec.AddDoor();
+                        }
                         break;
+
                     case "add-card":
                     case "a-c":
-                        command.addCard();
+                        {
+                            //command.addCard();
+                        }
                         break;
+
                     case "count-record":
                     case "c-r":
-                        command.printCountOfRecord();
+                        {
+                            //command.printCountOfRecord();
+                        }
                         break;
+
                     case "list-person":
                     case "l-p":
-                        command.printListOfPerson();
+                        {
+                            //command.printListOfPerson();
+                        }
                         break;
+
                     case "list-card":
                     case "l-c":
-                        command.printListOfCard();
+                        {
+                            //command.printListOfCard();
+                        }
                         break;
+
                     case "list-door":
                     case "l-d":
-                        command.printListOfDoor();
+                        {
+                            //command.printListOfDoor();
+                        }
                         break;
+
                     case "list-doorPassing":
                     case "l-dp":
-                        command.printListOfDoorPassing();
+                        {
+                            //command.printListOfDoorPassing();
+                        }
                         break;
+
                     case "show-person":
                     case "s-p":
-                        command.printPerson();
+                        {
+                            //command.printPerson();
+                        }
                         break;
+
                     case "show-card":
                     case "s-c":
-                        command.printCard();
+                        {
+                            //command.printCard();
+                        }
                         break;
+
                     case "show-door":
                     case "s-d":
-                        command.printDoor();
+                        {
+                            //command.printDoor();
+                        }
                         break;
+
                     case "delete-person":
                     case "d-p":
-                        command.DeletePerson();
+                        {
+                            //command.DeletePerson();
+                        }
                         break;
+
                     case "delete-card":
                     case "d-c":
-                        command.DeleteCard();
+                        {
+                            //command.DeleteCard();
+                        }
                         break;
+
                     case "delete-door":
                     case "d-d":
-                        command.DeleteDoor();
+                        {
+                            //command.DeleteDoor();
+                        }
                         break;
+
                     case "delete-doorPassing":
                     case "d-dp":
-                        command.DeleteDoorPassing();
+                        {
+                            //command.DeleteDoorPassing();  
+                        }
                         break;
+
                     default:
-                        Console.WriteLine("command unrecognized");
+                        {
+                            Console.WriteLine("command unrecognized");
+                        }
                         break;
                 }
                 #endregion

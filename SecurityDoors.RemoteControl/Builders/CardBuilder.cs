@@ -6,6 +6,7 @@ namespace SecurityDoors.RemoteControl.Builders
     class CardBuilder
     {
         private Card card;
+
         public CardBuilder()
         {
             card = new Card();

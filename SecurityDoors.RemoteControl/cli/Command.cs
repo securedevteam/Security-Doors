@@ -1,16 +1,143 @@
-﻿using SecurityDoors.Core.Enums;
+﻿using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.Builders;
 using SecurityDoors.RemoteControl.cli;
 using System;
-
+using System.Linq;
 
 namespace SecurityDoors.RemoteControl
 {
 
-    class Command
+    class ExecuteCommand
     {
-        private Database db = new Database();
+        private DataManager _dataManager;
+        private ApplicationContext _applicationContext;
+
+        public ExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
+        {
+            _dataManager = dataManager;
+            _applicationContext = applicationContext;
+        }
+
+        #region Служебные методы для помощи пользователю программы
+
+        /// <summary>
+        /// Очистка экрана консоли.
+        /// </summary>
+        internal void ClearScreen()
+        {
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// печать всех доступных для ввода команд 
+        /// </summary>
+        internal void PrintHelpInformation()
+        {
+            Console.WriteLine("aviable command:   \n" +
+                           "quit              || q  \n" +
+                           "help              || h  \n" +
+                           "clear             || c  \n" +
+                           "add-person        || a-p\n" +
+                           "add-door          || a-d\n" +
+                           "add-card          || a-c\n" +
+                           "count-record      || c-r\n" +
+                           "list-person       || l-p\n" +
+                           "list-card         || l-c\n" +
+                           "list-door         || l-d\n" +
+                           "list-doorPassing  || l-dp\n" +
+                           "show-person       || s-p\n" +
+                           "show-card         || s-c\n" +
+                           "show-door         || s-d\n" +
+                           "delete-person     || d-p\n" +
+                           "delete-card       || d-c\n" +
+                           "delete-door       || d-d\n" +
+                           "delete-doorPassing|| d-dp");
+        }
+
+        internal void PrintCountOfRecord()
+        {
+            Console.WriteLine("DoorPassing:\t{0}", _applicationContext.DoorPassings.Count());
+            Console.WriteLine("person:     \t{0}", _applicationContext.People.Count());
+            Console.WriteLine("card:       \t{0}", _applicationContext.Cards.Count());
+            Console.WriteLine("Door:       \t{0}", _applicationContext.Doors.Count());
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// логика для добавления Door в БД.
+        /// метод запрашивает все необходимые данные после чего 
+        /// добавляет в БД обьект
+        /// </summary>
+        public void AddDoor()
+        {
+            Console.Write("Enter name: ");
+            var name = Console.ReadLine();
+
+            Console.Write("Enter description:");
+            var description = Console.ReadLine();
+
+            Console.Write("Enter level:");
+            var level = Console.ReadLine(); // TODO: Проверка на TryParse
+
+            Console.Write("Enter status:");
+            var status = Console.ReadLine(); // TODO: Проверка на TryParse
+
+            Console.Write("Enter comment:");
+            var comment = Console.ReadLine();
+
+            var door = new Door()
+            {
+                Name = name,
+                Description = description,
+                Level = Convert.ToInt32(level),
+                Status = Convert.ToInt32(status),
+                Comment = comment
+            };
+
+            _dataManager.Doors.Create(door);
+            _applicationContext.SaveChanges();
+
+            Console.WriteLine("door added succesfull"); // TODO: Проверка на ошибку
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
 
         #region методы для добавления обьектов в БД
         /// <summary>
@@ -83,8 +210,12 @@ namespace SecurityDoors.RemoteControl
         /// метод запрашивает все необходимые данные после чего 
         /// добавляет в БД обьект
         /// </summary>
-        public void addDoor()
+        public void AddDoor()
         {
+            
+
+
+
             DoorBuilder doorBuilder = new DoorBuilder();
             Console.WriteLine("Enter name");
             doorBuilder.setName(Console.ReadLine());
@@ -140,49 +271,7 @@ namespace SecurityDoors.RemoteControl
         }
         #endregion
 
-        #region служебные методы для помощи пользователю программы
-        /// <summary>
-        /// метод который очищает экран консоли
-        /// </summary>
-        internal void clearScreen()
-        {
-            Console.Clear();
-        }
-
-        /// <summary>
-        /// печать всех доступных для ввода команд 
-        /// </summary>
-        internal void printHelp()
-        {
-            Console.WriteLine("aviable command:   \n" +
-                           "quit              || q  \n" +
-                           "help              || h  \n" +
-                           "clear             || c  \n" +
-                           "add-person        || a-p\n" +
-                           "add-door          || a-d\n" +
-                           "add-card          || a-c\n" +
-                           "count-record      || c-r\n" +
-                           "list-person       || l-p\n" +
-                           "list-card         || l-c\n" +
-                           "list-door         || l-d\n" +
-                           "list-doorPassing  || l-dp\n" +
-                           "show-person       || s-p\n" +
-                           "show-card         || s-c\n" +
-                           "show-door         || s-d\n" +
-                           "delete-person     || d-p\n" +
-                           "delete-card       || d-c\n" +
-                           "delete-door       || d-d\n" +
-                           "delete-doorPassing|| d-dp");
-        }
-
-        internal void printCountOfRecord()
-        {
-            Console.WriteLine("DoorPassing:\t{0}", db.GetCountOfDoorPassing());
-            Console.WriteLine("person:     \t{0}", db.GetCountOfPerson());
-            Console.WriteLine("card:       \t{0}", db.GetCountOfCard());
-            Console.WriteLine("Door:       \t{0}", db.GetCountOfDoor());
-        }
-        #endregion
+        
 
         #region методы для печати обьектов из БД
         /// <summary>
@@ -425,5 +514,7 @@ namespace SecurityDoors.RemoteControl
             db.deleteDoorPassing(id);
         }
         #endregion
+
+            */
     }
 }
