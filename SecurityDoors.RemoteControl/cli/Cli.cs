@@ -1,31 +1,31 @@
-﻿
-using SecurityDoors.BusinessLogicLayer;
+﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 
 namespace SecurityDoors.RemoteControl.cli
 {
+    /// <summary>
+    /// Класс для работы с интерфейсом командной строки.
+    /// </summary>
     public class CommandLineInterface
     {
-        //private Command command = new Command();
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
+        /// <param name="applicationContext">контекст основной базы данных.</param>
         public CommandLineInterface(DataManager dataManager, ApplicationContext applicationContext)
         {
             _dataManager = dataManager;
             _applicationContext = applicationContext;
         }
 
-
         /// <summary>
-        /// метод запускающий консольную программу
-        /// выводит приветственные сообщения и
-        /// запускает бесконечный цикл обработки входных команд
+        /// Запуск консольной программы.
         /// </summary>
-        /// 
-
-
         public void Run()
         {
             Color.writeInfo("Wellcome to remote Controll system");

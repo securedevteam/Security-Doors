@@ -2,6 +2,8 @@
 
 namespace SecurityDoors.RemoteControl.Builders
 {
+    // TODO: ЗАЧЕМ ВООБЩЕ ЭТО? Кандидат на удаление.
+
     class DoorBuilder
     {
         private Door door;

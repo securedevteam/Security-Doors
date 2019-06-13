@@ -3,6 +3,8 @@ using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.RemoteControl.Builders
 {
+    // TODO: ЗАЧЕМ ВООБЩЕ ЭТО? Кандидат на удаление.
+
     class CardBuilder
     {
         private Card card;

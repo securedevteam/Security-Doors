@@ -2,6 +2,8 @@
 
 namespace SecurityDoors.RemoteControl
 {
+    // TODO: ЗАЧЕМ ВООБЩЕ ЭТО? Кандидат на удаление.
+
     class PersonBuilder
     {
         private Person person;
