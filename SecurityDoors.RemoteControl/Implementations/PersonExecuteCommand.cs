@@ -1,14 +1,15 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.RemoteControl.Interfaces;
 using System;
 
-namespace SecurityDoors.RemoteControl
+namespace SecurityDoors.RemoteControl.Implementations
 {
     /// <summary>
     /// Класс для управления сотрудниками через консольные команды.
     /// </summary>
-    public class PersonExecuteCommand
+    public class PersonExecuteCommand : IPersonExecuteCommand
     {
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
@@ -24,9 +25,7 @@ namespace SecurityDoors.RemoteControl
             _applicationContext = applicationContext;
         }
 
-        /// <summary>
-        /// Добавить нового сотрудника.
-        /// </summary>
+        /// <inheritdoc/>
         public void AddPerson()
         {
             try
@@ -75,9 +74,7 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Получить данные о сотруднике.
-        /// </summary>
+        /// <inheritdoc/>
         public void PrintPersonById()
         {
             Console.Write("Enter person id: ");
@@ -115,9 +112,7 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Удалить выбранного сотрудника.
-        /// </summary>
+        /// <inheritdoc/>
         public void DeletePersonById()
         {
             Console.Write("Enter person id: ");
@@ -146,9 +141,7 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Вывести список сотрудников.
-        /// </summary>
+        /// <inheritdoc/>
         public void PrintListOfPeople()
         {
             CLIColor.WriteInfo("Information about people:");

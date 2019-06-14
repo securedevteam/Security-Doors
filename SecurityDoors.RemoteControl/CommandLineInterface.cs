@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.RemoteControl.Implementations;
 using System;
 
 namespace SecurityDoors.RemoteControl.cli

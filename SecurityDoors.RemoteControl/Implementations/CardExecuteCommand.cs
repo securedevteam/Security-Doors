@@ -1,14 +1,15 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.RemoteControl.Interfaces;
 using System;
 
-namespace SecurityDoors.RemoteControl
+namespace SecurityDoors.RemoteControl.Implementations
 {
     /// <summary>
     /// Класс для управления дверями через консольные команды.
     /// </summary>
-    public class DoorExecuteCommand
+    public class CardExecuteCommand : ICardExecuteCommand
     {
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
@@ -18,24 +19,18 @@ namespace SecurityDoors.RemoteControl
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
         /// <param name="applicationContext">контекст основной базы данных.</param>
-        public DoorExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
+        public CardExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
         {
             _dataManager = dataManager;
             _applicationContext = applicationContext;
         }
 
-        /// <summary>
-        /// Добавить новую дверь.
-        /// </summary>
-        public void AddDoor()
+        /// <inheritdoc/>
+        public void AddCard()
         {
             try
             {
-                Console.Write("Enter name: ");
-                var name = Console.ReadLine();
-
-                Console.Write("Enter description: ");
-                var description = Console.ReadLine();
+                var uniqueNumber = Guid.NewGuid().ToString();
 
                 Console.Write("Enter level: ");
                 var level = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
@@ -43,23 +38,26 @@ namespace SecurityDoors.RemoteControl
                 Console.Write("Enter status: ");
                 var status = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
 
+                Console.Write("Enter location: ");
+                var location = bool.Parse(Console.ReadLine()); // TODO: добавить ограничения
+
                 Console.Write("Enter comment: ");
                 var comment = Console.ReadLine();
 
-                var door = new Door()
+                var card = new Card()
                 {
-                    Name = name,
-                    Description = description,
+                    UniqueNumber = uniqueNumber,
                     Level = level,
                     Status = status,
+                    Location = location,
                     Comment = comment
                 };
 
-                _dataManager.Doors.Create(door);
+                _dataManager.Cards.Create(card);
                 _applicationContext.SaveChanges();
 
                 Console.WriteLine();
-                CLIColor.WriteInfo("Door successfully added!\n");
+                CLIColor.WriteInfo("Card successfully added!\n");
             }
             catch (FormatException)
             {
@@ -67,36 +65,34 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Получить данные о двери.
-        /// </summary>
-        public void PrintDoorById()
+        /// <inheritdoc/>
+        public void PrintCardById()
         {
-            Console.Write("Enter door id: ");
+            Console.Write("Enter card id: ");
 
             try
             {
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var door = _dataManager.Doors.GetDoorById(id);
+                var card = _dataManager.Cards.GetCardById(id);
 
-                if (door != null)
+                if (card != null)
                 {
-                    CLIColor.WriteInfo("Information about door:");
+                    CLIColor.WriteInfo("Information about card:");
                     Console.WriteLine("===========================");
-                    Console.WriteLine($"Id: {door.Id}");
-                    Console.WriteLine($"Name: {door.Name}");
-                    Console.WriteLine($"Description: {door.Description}");
-                    Console.WriteLine($"Level: {door.Level}");
-                    Console.WriteLine($"Status: {door.Status}");
-                    Console.WriteLine($"Comment: {door.Comment}");
+                    Console.WriteLine($"Id: {card.Id}");
+                    Console.WriteLine($"UniqueNumber: {card.UniqueNumber}");
+                    Console.WriteLine($"Level: {card.Level}");
+                    Console.WriteLine($"Status: {card.Status}");
+                    Console.WriteLine($"Location: {card.Location}");
+                    Console.WriteLine($"Comment: {card.Comment}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
                 }
                 else
                 {
-                    CLIColor.WriteError("Door with this id does not exitst!");
+                    CLIColor.WriteError("Card with this id does not exitst!");
                     Console.WriteLine();
                 }
             }
@@ -106,28 +102,26 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Удалить выбранную дверь.
-        /// </summary>
-        public void DeleteDoorById()
+        /// <inheritdoc/>
+        public void DeleteCardById()
         {
-            Console.Write("Enter door id: ");
+            Console.Write("Enter card id: ");
 
             try
             {
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var door = _dataManager.Doors.GetDoorById(id);
+                var card = _dataManager.Cards.GetCardById(id);
 
-                if (door != null)
+                if (card != null)
                 {
-                    _dataManager.Doors.Delete(id);
-                    CLIColor.WriteInfo("Door successfully deleted!\n");
+                    _dataManager.Cards.Delete(id);
+                    CLIColor.WriteInfo("Card successfully deleted!\n");
                 }
                 else
                 {
-                    CLIColor.WriteError("Door with this id does not exitst!");
+                    CLIColor.WriteError("Card with this id does not exitst!");
                     Console.WriteLine();
                 }
             }
@@ -137,43 +131,41 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// Вывести список дверей.
-        /// </summary>
-        public void PrintListOfDoors()
+        /// <inheritdoc/>
+        public void PrintListOfCards()
         {
-            CLIColor.WriteInfo("Information about doors:");
+            CLIColor.WriteInfo("Information about cards:");
 
             Console.Write("========================================");
             Console.Write("========================================");
-            Console.Write("=========");
+            Console.Write("==============================");
             Console.WriteLine();
 
             Console.Write(string.Format("| {0,5} |", "Id"));
-            Console.Write(string.Format(" {0,15} |", "Name"));
-            Console.Write(string.Format(" {0,15} |", "Description"));
+            Console.Write(string.Format(" {0,36} |", "UniqueNumber"));
             Console.Write(string.Format(" {0,10} |", "Level"));
             Console.Write(string.Format(" {0,10} |", "Status"));
+            Console.Write(string.Format(" {0,15} |", "Location"));
             Console.Write(string.Format(" {0,15} |", "Comment"));
             Console.WriteLine();
 
             Console.Write("========================================");
             Console.Write("========================================");
-            Console.Write("=========");
+            Console.Write("==============================");
             Console.WriteLine();
 
-            var doors = _dataManager.Doors.GetDoorsList();
+            var cards = _dataManager.Cards.GetCardsList();
 
-            foreach (var d in doors)
+            foreach (var c in cards)
             {
-                // TODO: Доделать с выводом string значений level и status
+                // TODO: Доделать с выводом string значений location, level и status
 
-                Console.Write(string.Format("| {0,5} |", d.Id));
-                Console.Write(string.Format(" {0,15} |", d.Name));
-                Console.Write(string.Format(" {0,15} |", d.Description));
-                Console.Write(string.Format(" {0,10} |", d.Level));
-                Console.Write(string.Format(" {0,10} |", d.Status));
-                Console.Write(string.Format(" {0,15} |", d.Comment));
+                Console.Write(string.Format("| {0,5} |", c.Id));
+                Console.Write(string.Format(" {0,36} |", c.UniqueNumber));               
+                Console.Write(string.Format(" {0,10} |", c.Level));
+                Console.Write(string.Format(" {0,10} |", c.Status));
+                Console.Write(string.Format(" {0,15} |", c.Location));
+                Console.Write(string.Format(" {0,15} |", c.Comment));
                 Console.WriteLine();
             }
 

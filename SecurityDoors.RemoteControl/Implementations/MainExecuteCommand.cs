@@ -1,15 +1,15 @@
-﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.StaticClasses;
+﻿using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.RemoteControl.Interfaces;
 using System;
 using System.Linq;
 
-namespace SecurityDoors.RemoteControl
+namespace SecurityDoors.RemoteControl.Implementations
 {
     /// <summary>
-    /// Класс для управления командами консоли.
+    /// Класс для управления служебными командами консоли.
     /// </summary>
-    public class MainExecuteCommand
+    public class MainExecuteCommand : IMainExecuteCommand
     {
         private ApplicationContext _applicationContext;
 
@@ -23,9 +23,7 @@ namespace SecurityDoors.RemoteControl
             _applicationContext = applicationContext;
         }
 
-        /// <summary>
-        /// Очистка экрана консоли.
-        /// </summary>
+        /// <inheritdoc/>
         public void ClearScreen()
         {
             Console.Clear();
@@ -33,39 +31,34 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Печать доступных команд для ввода.
-        /// </summary>
+        /// <inheritdoc/>
         public void PrintHelpInformation()
         {
             // TODO: Рефакторинг, как необходимо..
 
             CLIColor.WriteInfo("Available commands:");
-            Console.WriteLine("quit               || q  \n" +
-                              "help               || h  \n" +
-                              "clear              || c  \n" +
-                              "count-record       || c-r\n" +
-                              "add-person         || a-p\n" +
-                              "add-door           || a-d\n" +
-                              "add-card           || a-c\n" +
-                              "list-person        || l-p\n" +
-                              "list-card          || l-c\n" +
-                              "list-door          || l-d\n" +
-                              "list-doorPassing   || l-dp\n" +
-                              "show-person        || s-p\n" +
-                              "show-card          || s-c\n" +
-                              "show-door          || s-d\n" +
-                              "delete-person      || d-p\n" +
-                              "delete-card        || d-c\n" +
-                              "delete-door        || d-d\n" +
-                              "delete-doorPassing || d-dp"
+            Console.WriteLine(
+                              "quit          || q  \n" +
+                              "help          || h  \n" +
+                              "clear         || c  \n" +
+                              "count-record  || c-r\n" +
+                              "add-person    || a-p\n" +
+                              "add-door      || a-d\n" +
+                              "add-card      || a-c\n" +
+                              "list-person   || l-p\n" +
+                              "list-card     || l-c\n" +
+                              "list-door     || l-d\n" +
+                              "show-person   || s-p\n" +
+                              "show-card     || s-c\n" +
+                              "show-door     || s-d\n" +
+                              "delete-person || d-p\n" +
+                              "delete-card   || d-c\n" +
+                              "delete-door   || d-d\n" 
                               );
             Console.WriteLine();
         }
-        
-        /// <summary>
-        /// Вывод информации о количества записей в базе данных.
-        /// </summary>
+
+        /// <inheritdoc/>
         public void PrintCountOfRecord()
         {
             CLIColor.WriteInfo("Сount of records in database:");
