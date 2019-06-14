@@ -25,7 +25,7 @@ namespace SecurityDoors.RemoteControl
             _applicationContext = applicationContext;
         }
 
-        #region Служебные методы для помощи пользователю программы
+        #region Служебные команды (методы) для помощи пользователю программы
 
         /// <summary>
         /// Очистка экрана консоли.
@@ -45,24 +45,24 @@ namespace SecurityDoors.RemoteControl
             // TODO: Рефакторинг, как необходимо..
 
             CLIColor.WriteInfo("Available commands:");
-            Console.WriteLine("quit              || q  \n" +
-                              "help              || h  \n" +
-                              "clear             || c  \n" +
-                              "count-record      || c-r\n" +
-                              "add-person        || a-p\n" +
-                              "add-door          || a-d\n" +
-                              "add-card          || a-c\n" +
-                              "list-person       || l-p\n" +
-                              "list-card         || l-c\n" +
-                              "list-door         || l-d\n" +
-                              "list-doorPassing  || l-dp\n" +
-                              "show-person       || s-p\n" +
-                              "show-card         || s-c\n" +
-                              "show-door         || s-d\n" +
-                              "delete-person     || d-p\n" +
-                              "delete-card       || d-c\n" +
-                              "delete-door       || d-d\n" +
-                              "delete-doorPassing|| d-dp"
+            Console.WriteLine("quit               || q  \n" +
+                              "help               || h  \n" +
+                              "clear              || c  \n" +
+                              "count-record       || c-r\n" +
+                              "add-person         || a-p\n" +
+                              "add-door           || a-d\n" +
+                              "add-card           || a-c\n" +
+                              "list-person        || l-p\n" +
+                              "list-card          || l-c\n" +
+                              "list-door          || l-d\n" +
+                              "list-doorPassing   || l-dp\n" +
+                              "show-person        || s-p\n" +
+                              "show-card          || s-c\n" +
+                              "show-door          || s-d\n" +
+                              "delete-person      || d-p\n" +
+                              "delete-card        || d-c\n" +
+                              "delete-door        || d-d\n" +
+                              "delete-doorPassing || d-dp"
                               );
             Console.WriteLine();
         }
@@ -85,11 +85,10 @@ namespace SecurityDoors.RemoteControl
 
         #endregion
 
+        #region Команды (методы) для работы с дверями
 
         /// <summary>
-        /// логика для добавления Door в БД.
-        /// метод запрашивает все необходимые данные после чего 
-        /// добавляет в БД обьект
+        /// Добавить новую дверь.
         /// </summary>
         public void AddDoor()
         {
@@ -132,17 +131,15 @@ namespace SecurityDoors.RemoteControl
         }
 
         /// <summary>
-        /// метод печатающий Door по id
+        /// Получить данные о двери.
         /// </summary>
         internal void PrintDoorById()
         {
-            var id = -1;
-
             Console.Write("Enter door id: ");
             
             try
             {
-                id = int.Parse(Console.ReadLine());
+                var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
                 var door = _dataManager.Doors.GetDoorById(id);
@@ -173,17 +170,15 @@ namespace SecurityDoors.RemoteControl
         }
 
         /// <summary>
-        /// удаление обьекта Door из БД по его id
+        /// Удалить выбранную дверь.
         /// </summary>
         public void DeleteDoorById()
         {
-            var id = -1;
-
             Console.Write("Enter door id: ");
 
             try
             {
-                id = int.Parse(Console.ReadLine());
+                var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
                 var door = _dataManager.Doors.GetDoorById(id);
@@ -206,9 +201,7 @@ namespace SecurityDoors.RemoteControl
         }
 
         /// <summary>
-        /// печать основных полей всех обьектов Door в БД:
-        /// id
-        /// description
+        /// Вывести список дверей.
         /// </summary>
         public void PrintListOfDoors()
         {
@@ -250,7 +243,7 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine();
         }
 
-
+        #endregion
 
 
 
