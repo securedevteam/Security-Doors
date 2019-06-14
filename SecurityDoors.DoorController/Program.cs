@@ -74,36 +74,47 @@ namespace SecurityDoors.DoorController
                         data = Encoding.ASCII.GetString(bytes, 0, i);
 
                         var words = data.Split('$'); // Разделительный символ
-                        var card = words[0];
-                        var door = words[1];
+                        var recive_guid = words[0];
+                        var card = words[1];
+                        var door = words[2];
 
-                        #region Эмуляция дверного контроллера
-
-                        // TODO: Рефакторинг и в отдельный метод / класс.
-
-                        Console.Write(string.Format("| {0,15} |", card) +
-                              string.Format(" {0,10} |", door));
-
-                        var result = mainController.ControllerАctuation(card, door);
-
-                        if (result.Item2)
+                        if (recive_guid != GUID)
                         {
-                            var resultString = "OPERATION SUCCEEDED";
-                            Console.Write(string.Format("{0,25}", result.Item1) +
-                                          string.Format("| {0,20} |", resultString));
+
+                            #region Эмуляция дверного контроллера
+
+                            // TODO: Рефакторинг и в отдельный метод / класс.
+
+                            Console.Write(string.Format("| {0,15} |", card) +
+                                  string.Format(" {0,10} |", door));
+
+                            var result = mainController.ControllerАctuation(card, door);
+
+                            if (result.Item2)
+                            {
+                                var resultString = "OPERATION SUCCEEDED";
+                                Console.Write(string.Format("{0,25}", result.Item1) +
+                                              string.Format("| {0,20} |", resultString));
+
+                                data = "200 OK";
+                            }
+                            else
+                            {
+                                var resultString = "OPERATION ERROR";
+                                Console.Write(string.Format("{0,25}", result.Item1) +
+                                              string.Format("| {0,20} |", resultString));
+
+                                data = "404 Not Found";
+                            }
+
+                            Console.WriteLine();
+
+                            #endregion
                         }
                         else
                         {
-                            var resultString = "OPERATION ERROR";
-                            Console.Write(string.Format("{0,25}", result.Item1) +
-                                          string.Format("| {0,20} |", resultString));
+                            data = "406 Not Acceptable";
                         }
-
-                        Console.WriteLine();
-
-                        #endregion
-
-                        data = "200 OK";
 
                         var msg = Encoding.ASCII.GetBytes(data);
                         stream.Write(msg, 0, msg.Length);
