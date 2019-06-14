@@ -5,17 +5,28 @@ using System;
 
 namespace SecurityDoors.RemoteControl
 {
+    /// <summary>
+    /// Класс для управления сотрудниками через консольные команды.
+    /// </summary>
     public class PersonExecuteCommand
     {
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
+        /// <param name="applicationContext">контекст основной базы данных.</param>
         public PersonExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
         {
             _dataManager = dataManager;
             _applicationContext = applicationContext;
         }
 
+        /// <summary>
+        /// Добавить нового сотрудника.
+        /// </summary>
         public void AddPerson()
         {
             try
@@ -64,6 +75,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Получить данные о сотруднике.
+        /// </summary>
         public void PrintPersonById()
         {
             Console.Write("Enter person id: ");
@@ -101,6 +115,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Удалить выбранного сотрудника.
+        /// </summary>
         public void DeletePersonById()
         {
             Console.Write("Enter person id: ");
@@ -129,6 +146,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Вывести список сотрудников.
+        /// </summary>
         public void PrintListOfPeople()
         {
             CLIColor.WriteInfo("Information about people:");
