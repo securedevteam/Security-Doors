@@ -31,11 +31,11 @@ namespace SecurityDoors.RemoteControl.cli
         {
             CLIColor.WriteInfo("Wellcome to remote Controll system!\n");
        
-            var ec = new ExecuteCommand(_dataManager, _applicationContext);
+            var mec = new MainExecuteCommand(_applicationContext);
             var dec = new DoorExecuteCommand(_dataManager, _applicationContext);
 
-            ec.PrintCountOfRecord();
-            ec.PrintHelpInformation();
+            mec.PrintCountOfRecord();
+            mec.PrintHelpInformation();
             
             #region Основной цикл разбора ввода на команды
 
@@ -56,21 +56,21 @@ namespace SecurityDoors.RemoteControl.cli
                     case "help":
                     case "h":
                         {
-                            ec.PrintHelpInformation();
+                            mec.PrintHelpInformation();
                         }
                         break;
 
                     case "clear":
                     case "c":
                         {
-                            ec.ClearScreen();
+                            mec.ClearScreen();
                         }
                         break;
 
                     case "count-record":
                     case "c-r":
                         {
-                            ec.PrintCountOfRecord();
+                            mec.PrintCountOfRecord();
                         }
                         break;
 

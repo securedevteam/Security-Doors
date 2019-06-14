@@ -9,11 +9,8 @@ namespace SecurityDoors.RemoteControl
     /// <summary>
     /// Класс для управления командами консоли.
     /// </summary>
-    public class ExecuteCommand
+    public class MainExecuteCommand
     {
-
-
-        private DataManager _dataManager;
         private ApplicationContext _applicationContext;
 
         /// <summary>
@@ -21,13 +18,10 @@ namespace SecurityDoors.RemoteControl
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
         /// <param name="applicationContext">контекст основной базы данных.</param>
-        public ExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
+        public MainExecuteCommand(ApplicationContext applicationContext)
         {
-            _dataManager = dataManager;
             _applicationContext = applicationContext;
         }
-
-        #region Служебные команды (методы) для помощи пользователю программы
 
         /// <summary>
         /// Очистка экрана консоли.
@@ -69,7 +63,6 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine();
         }
         
-
         /// <summary>
         /// Вывод информации о количества записей в базе данных.
         /// </summary>
@@ -84,8 +77,6 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("===========================");
             Console.WriteLine();
         }
-
-        #endregion
 
 
 
