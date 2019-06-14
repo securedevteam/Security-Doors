@@ -5,17 +5,28 @@ using System;
 
 namespace SecurityDoors.RemoteControl
 {
+    /// <summary>
+    /// Класс для управления дверями через консольные команды.
+    /// </summary>
     public class CardExecuteCommand
     {
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
+        /// <param name="applicationContext">контекст основной базы данных.</param>
         public CardExecuteCommand(DataManager dataManager, ApplicationContext applicationContext)
         {
             _dataManager = dataManager;
             _applicationContext = applicationContext;
         }
 
+        /// <summary>
+        /// Добавить новую карту.
+        /// </summary>
         public void AddCard()
         {
             try
@@ -55,6 +66,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Получить данные о карте.
+        /// </summary>
         public void PrintCardById()
         {
             Console.Write("Enter card id: ");
@@ -91,6 +105,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Удалить выбранную карту.
+        /// </summary>
         public void DeleteCardById()
         {
             Console.Write("Enter card id: ");
@@ -119,6 +136,9 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// Вывести список карт.
+        /// </summary>
         public void PrintListOfCards()
         {
             CLIColor.WriteInfo("Information about cards:");
