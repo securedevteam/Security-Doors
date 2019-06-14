@@ -96,6 +96,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     Console.WriteLine($"Last name: {person.LastName}");
                     Console.WriteLine($"Gender: {person.Gender}");
                     Console.WriteLine($"Passport: {person.Passport}");
+                    Console.WriteLine($"Passport: {person.CardId}");
                     Console.WriteLine($"Comment: {person.Comment}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
@@ -152,11 +153,12 @@ namespace SecurityDoors.RemoteControl.Implementations
             Console.WriteLine();
 
             Console.Write(string.Format("| {0,5} |", "Id"));
-            Console.Write(string.Format(" {0,15} |", "First name"));
-            Console.Write(string.Format(" {0,15} |", "Second name"));
-            Console.Write(string.Format(" {0,15} |", "Last name"));
+            Console.Write(string.Format(" {0,14} |", "First name"));
+            Console.Write(string.Format(" {0,14} |", "Second name"));
+            Console.Write(string.Format(" {0,14} |", "Last name"));
             Console.Write(string.Format(" {0,10} |", "Gender"));
-            Console.Write(string.Format(" {0,20} |", "Passport"));
+            Console.Write(string.Format(" {0,14} |", "Passport"));
+            Console.Write(string.Format(" {0,6} |", "CardId"));
             Console.Write(string.Format(" {0,15} |", "Comment"));
             Console.WriteLine();
 
@@ -172,11 +174,12 @@ namespace SecurityDoors.RemoteControl.Implementations
                 // TODO: Доделать с выводом string значений level и status
 
                 Console.Write(string.Format("| {0,5} |", p.Id));
-                Console.Write(string.Format(" {0,15} |", p.FirstName));
-                Console.Write(string.Format(" {0,15} |", p.SecondName));
-                Console.Write(string.Format(" {0,15} |", p.LastName));
+                Console.Write(string.Format(" {0,14} |", p.FirstName));
+                Console.Write(string.Format(" {0,14} |", p.SecondName));
+                Console.Write(string.Format(" {0,14} |", p.LastName));
                 Console.Write(string.Format(" {0,10} |", p.Gender));
-                Console.Write(string.Format(" {0,20} |", p.Passport));
+                Console.Write(string.Format(" {0,14} |", p.Passport));
+                Console.Write(string.Format(" {0,6} |", p.CardId));
                 Console.Write(string.Format(" {0,15} |", p.Comment));
                 Console.WriteLine();
             }
