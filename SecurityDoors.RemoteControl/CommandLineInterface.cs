@@ -33,6 +33,7 @@ namespace SecurityDoors.RemoteControl.cli
        
             var mec = new MainExecuteCommand(_applicationContext);
             var dec = new DoorExecuteCommand(_dataManager, _applicationContext);
+            var cec = new CardExecuteCommand(_dataManager, _applicationContext);
 
             mec.PrintCountOfRecord();
             mec.PrintHelpInformation();
@@ -91,7 +92,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add-card":
                     case "a-c":
                         {
-                            //command.addCard();
+                            cec.AddCard();
                         }
                         break;
 
@@ -105,7 +106,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-card":
                     case "l-c":
                         {
-                            //command.printListOfCard();
+                            cec.PrintListOfCards();
                         }
                         break;
 
@@ -133,7 +134,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-card":
                     case "s-c":
                         {
-                            //command.printCard();
+                            cec.PrintCardById();
                         }
                         break;
 
@@ -154,7 +155,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-card":
                     case "d-c":
                         {
-                            //command.DeleteCard();
+                            cec.DeleteCardById();
                         }
                         break;
 

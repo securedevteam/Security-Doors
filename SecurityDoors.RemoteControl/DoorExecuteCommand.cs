@@ -50,8 +50,8 @@ namespace SecurityDoors.RemoteControl
                 {
                     Name = name,
                     Description = description,
-                    Level = Convert.ToInt32(level),
-                    Status = Convert.ToInt32(status),
+                    Level = level,
+                    Status = status,
                     Comment = comment
                 };
 
@@ -70,7 +70,7 @@ namespace SecurityDoors.RemoteControl
         /// <summary>
         /// Получить данные о двери.
         /// </summary>
-        internal void PrintDoorById()
+        public void PrintDoorById()
         {
             Console.Write("Enter door id: ");
 
