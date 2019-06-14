@@ -36,7 +36,7 @@ namespace SecurityDoors.DoorController
 
             var mainController = new MainController(dataManagerService);
 
-            CLIColor.WriteInfo("Welcom to the door controller application!\n");
+            CLIColor.WriteInfo("Welcome to the door controller application!\n");
 
             Console.Write("Please enter IP Address: ");
             var ipAddress = Console.ReadLine();

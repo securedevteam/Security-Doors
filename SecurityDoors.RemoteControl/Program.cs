@@ -5,6 +5,7 @@ using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.cli;
+using System;
 
 namespace SecurityDoors.RemoteControl
 {
@@ -12,6 +13,8 @@ namespace SecurityDoors.RemoteControl
     {
         static void Main(string[] args)
         {
+            Console.Title = "RemoteControll Application v1.0";
+
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddDbContext<ApplicationContext>(options =>
