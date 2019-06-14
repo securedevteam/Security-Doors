@@ -12,7 +12,6 @@ namespace SecurityDoors.RemoteControl
     public class ExecuteCommand
     {
 
-        // TODO: Разделить это на классы
 
         private DataManager _dataManager;
         private ApplicationContext _applicationContext;
@@ -85,14 +84,6 @@ namespace SecurityDoors.RemoteControl
             Console.WriteLine("===========================");
             Console.WriteLine();
         }
-
-        #endregion
-
-        
-
-        #region Команды (методы) для работы с картами
-
-
 
         #endregion
 
