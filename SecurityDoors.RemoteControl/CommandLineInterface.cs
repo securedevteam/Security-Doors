@@ -31,7 +31,8 @@ namespace SecurityDoors.RemoteControl.cli
         {
             CLIColor.WriteInfo("Wellcome to remote Controll system!\n");
        
-            ExecuteCommand ec = new ExecuteCommand(_dataManager, _applicationContext);
+            var ec = new ExecuteCommand(_dataManager, _applicationContext);
+            var dec = new DoorExecuteCommand(_dataManager, _applicationContext);
 
             ec.PrintCountOfRecord();
             ec.PrintHelpInformation();
@@ -83,7 +84,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add-door":
                     case "a-d":
                         {
-                            ec.AddDoor();
+                            dec.AddDoor();
                         }
                         break;
 
@@ -111,7 +112,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-doors":
                     case "l-d":
                         {
-                            ec.PrintListOfDoors();
+                            dec.PrintListOfDoors();
                         }
                         break;
 
@@ -139,7 +140,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-door":
                     case "s-d":
                         {
-                            ec.PrintDoorById();
+                            dec.PrintDoorById();
                         }
                         break;
 
@@ -160,7 +161,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-door":
                     case "d-d":
                         {
-                            ec.DeleteDoorById();
+                            dec.DeleteDoorById();
                         }
                         break;
 
