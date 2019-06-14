@@ -108,10 +108,10 @@ namespace SecurityDoors.RemoteControl.cli
                         }
                         break;
 
-                    case "list-door":
+                    case "list-doors":
                     case "l-d":
                         {
-                            //command.printListOfDoor();
+                            ec.PrintListOfDoors();
                         }
                         break;
 

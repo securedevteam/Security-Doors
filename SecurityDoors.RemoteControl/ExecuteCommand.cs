@@ -205,7 +205,50 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
+        /// <summary>
+        /// печать основных полей всех обьектов Door в БД:
+        /// id
+        /// description
+        /// </summary>
+        public void PrintListOfDoors()
+        {
+            CLIColor.WriteInfo("Information about doors:");
 
+            Console.Write("========================================");
+            Console.Write("========================================");
+            Console.Write("=========");
+            Console.WriteLine();
+
+            Console.Write(string.Format("| {0,5} |", "Id"));
+            Console.Write(string.Format(" {0,15} |", "Name"));
+            Console.Write(string.Format(" {0,15} |", "Description"));
+            Console.Write(string.Format(" {0,10} |", "Level"));
+            Console.Write(string.Format(" {0,10} |", "Status"));
+            Console.Write(string.Format(" {0,15} |", "Comment"));
+            Console.WriteLine();
+
+            Console.Write("========================================");
+            Console.Write("========================================");
+            Console.Write("=========");
+            Console.WriteLine();
+
+            var doors = _dataManager.Doors.GetDoorsList();
+
+            foreach (var d in doors)
+            {
+                // TODO: Доделать с выводом string значений level и status
+
+                Console.Write(string.Format("| {0,5} |", d.Id));
+                Console.Write(string.Format(" {0,15} |", d.Name));
+                Console.Write(string.Format(" {0,15} |", d.Description));
+                Console.Write(string.Format(" {0,10} |", d.Level));
+                Console.Write(string.Format(" {0,10} |", d.Status));
+                Console.Write(string.Format(" {0,15} |", d.Comment));
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
 
 
 
@@ -475,23 +518,7 @@ namespace SecurityDoors.RemoteControl
             }
         }
 
-        /// <summary>
-        /// печать основных полей всех обьектов Door в БД:
-        /// id
-        /// description
-        /// </summary>
-        public void printListOfDoor()
-        {
-            Console.Write("id");
-            Console.Write("\t");
-            Console.WriteLine("description");
-            foreach (Door door in db.GetDoors())
-            {
-                Console.Write(door.Id);
-                Console.Write("\t");
-                Console.WriteLine(door.Description);
-            }
-        }
+        
         #endregion
 
         #region методы для удаления обьектов из БД
