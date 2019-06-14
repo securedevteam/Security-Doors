@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
 
@@ -80,13 +81,15 @@ namespace SecurityDoors.RemoteControl.Implementations
 
                 if (door != null)
                 {
+                    var result = door.ConvertStatus();
+
                     CLIColor.WriteInfo("Information about door:");
                     Console.WriteLine("===========================");
                     Console.WriteLine($"Id: {door.Id}");
                     Console.WriteLine($"Name: {door.Name}");
                     Console.WriteLine($"Description: {door.Description}");
-                    Console.WriteLine($"Level: {door.Level}");
-                    Console.WriteLine($"Status: {door.Status}");
+                    Console.WriteLine($"Level: {result.Item2}");
+                    Console.WriteLine($"Status: {result.Item1}");
                     Console.WriteLine($"Comment: {door.Comment}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
@@ -161,11 +164,13 @@ namespace SecurityDoors.RemoteControl.Implementations
             {
                 // TODO: Доделать с выводом string значений level и status
 
+                var result = d.ConvertStatus();
+
                 Console.Write(string.Format("| {0,5} |", d.Id));
                 Console.Write(string.Format(" {0,15} |", d.Name));
                 Console.Write(string.Format(" {0,15} |", d.Description));
-                Console.Write(string.Format(" {0,10} |", d.Level));
-                Console.Write(string.Format(" {0,10} |", d.Status));
+                Console.Write(string.Format(" {0,10} |", result.Item2));
+                Console.Write(string.Format(" {0,10} |", result.Item1));
                 Console.Write(string.Format(" {0,15} |", d.Comment));
                 Console.WriteLine();
             }

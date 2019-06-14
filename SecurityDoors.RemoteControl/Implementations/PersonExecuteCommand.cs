@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
 
@@ -88,13 +89,15 @@ namespace SecurityDoors.RemoteControl.Implementations
 
                 if (person != null)
                 {
+                    var result = person.ConvertGender();
+
                     CLIColor.WriteInfo("Information about person:");
                     Console.WriteLine("===========================");
                     Console.WriteLine($"Id: {person.Id}");
                     Console.WriteLine($"First name: {person.FirstName}");
                     Console.WriteLine($"Second name: {person.SecondName}");
                     Console.WriteLine($"Last name: {person.LastName}");
-                    Console.WriteLine($"Gender: {person.Gender}");
+                    Console.WriteLine($"Gender: {result}");
                     Console.WriteLine($"Passport: {person.Passport}");
                     Console.WriteLine($"Passport: {person.CardId}");
                     Console.WriteLine($"Comment: {person.Comment}");
@@ -173,11 +176,13 @@ namespace SecurityDoors.RemoteControl.Implementations
             {
                 // TODO: Доделать с выводом string значений level и status
 
+                var result = p.ConvertGender();
+
                 Console.Write(string.Format("| {0,5} |", p.Id));
                 Console.Write(string.Format(" {0,14} |", p.FirstName));
                 Console.Write(string.Format(" {0,14} |", p.SecondName));
                 Console.Write(string.Format(" {0,14} |", p.LastName));
-                Console.Write(string.Format(" {0,10} |", p.Gender));
+                Console.Write(string.Format(" {0,10} |", result));
                 Console.Write(string.Format(" {0,14} |", p.Passport));
                 Console.Write(string.Format(" {0,6} |", p.CardId));
                 Console.Write(string.Format(" {0,15} |", p.Comment));

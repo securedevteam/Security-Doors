@@ -17,15 +17,15 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// <returns>Статус.</returns>
         public static string ConvertGender(this Person model)
         {
-            var status = string.Empty;
+            var gender = string.Empty;
 
             switch (model.Gender)
             {
-                case (int)PersonGender.IsMale: { status = PersonConstants.IsMale; } break;
-                case (int)PersonGender.IsFemale: { status = PersonConstants.IsFemale; } break;
+                case (int)PersonGender.IsMale: { gender = PersonConstants.IsMale; } break;
+                case (int)PersonGender.IsFemale: { gender = PersonConstants.IsFemale; } break;
             }
 
-            return status;
+            return gender;
         }
 
         /// <summary>
@@ -35,15 +35,15 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// <returns>Статус.</returns>
         public static int ConvertGender(this PersonViewModel model)
         {
-            var status = 0;
+            var gender = 0;
 
             switch (model.Gender)
             {
-                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
+                case PersonConstants.IsMale: { gender = (int)PersonGender.IsMale; } break;
+                case PersonConstants.IsFemale: { gender = (int)PersonGender.IsFemale; } break;
             }
 
-            return status;
+            return gender;
         }
 
         /// <summary>
@@ -53,15 +53,15 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// <returns>Статус.</returns>
         public static int ConvertGender(this PersonEditModel model)
         {
-            var status = 0;
+            var gender = 0;
 
             switch (model.Gender)
             {
-                case PersonConstants.IsMale: { status = (int)PersonGender.IsMale; } break;
-                case PersonConstants.IsFemale: { status = (int)PersonGender.IsFemale; } break;
+                case PersonConstants.IsMale: { gender = (int)PersonGender.IsMale; } break;
+                case PersonConstants.IsFemale: { gender = (int)PersonGender.IsFemale; } break;
             }
 
-            return status;
+            return gender;
         }
     }
 }

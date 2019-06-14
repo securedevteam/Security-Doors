@@ -21,9 +21,9 @@
         public const string IsLost = "Утеряна";
 
         /// <summary>
-        /// Приостановлена.
+        /// Неактивна.
         /// </summary>
-        public const string IsSuspended = "Приостановлена";
+        public const string IsSuspended = "Неактивна";
 
         /// <summary>
         /// Уровень 0 - Гостевой.
@@ -58,7 +58,7 @@
         /// <summary>
         /// Выход.
         /// </summary>
-        public const string Exit = "За пределами здания";
+        public const string Exit = "Вне здания";
 
         /// <summary>
         /// Вход.

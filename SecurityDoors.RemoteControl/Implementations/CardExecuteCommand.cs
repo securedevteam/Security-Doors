@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
 
@@ -79,13 +80,15 @@ namespace SecurityDoors.RemoteControl.Implementations
 
                 if (card != null)
                 {
+                    var result = card.ConvertStatus();
+
                     CLIColor.WriteInfo("Information about card:");
                     Console.WriteLine("===========================");
                     Console.WriteLine($"Id: {card.Id}");
                     Console.WriteLine($"UniqueNumber: {card.UniqueNumber}");
-                    Console.WriteLine($"Level: {card.Level}");
-                    Console.WriteLine($"Status: {card.Status}");
-                    Console.WriteLine($"Location: {card.Location}");
+                    Console.WriteLine($"Level: {result.Item2}");
+                    Console.WriteLine($"Status: {result.Item1}");
+                    Console.WriteLine($"Location: {result.Item3}");
                     Console.WriteLine($"Comment: {card.Comment}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
@@ -138,20 +141,20 @@ namespace SecurityDoors.RemoteControl.Implementations
 
             Console.Write("========================================");
             Console.Write("========================================");
-            Console.Write("==============================");
+            Console.Write("=====================================");
             Console.WriteLine();
 
             Console.Write(string.Format("| {0,5} |", "Id"));
             Console.Write(string.Format(" {0,36} |", "UniqueNumber"));
-            Console.Write(string.Format(" {0,10} |", "Level"));
+            Console.Write(string.Format(" {0,13} |", "Level"));
             Console.Write(string.Format(" {0,10} |", "Status"));
-            Console.Write(string.Format(" {0,15} |", "Location"));
+            Console.Write(string.Format(" {0,19} |", "Location"));
             Console.Write(string.Format(" {0,15} |", "Comment"));
             Console.WriteLine();
 
             Console.Write("========================================");
             Console.Write("========================================");
-            Console.Write("==============================");
+            Console.Write("=====================================");
             Console.WriteLine();
 
             var cards = _dataManager.Cards.GetCardsList();
@@ -160,11 +163,13 @@ namespace SecurityDoors.RemoteControl.Implementations
             {
                 // TODO: Доделать с выводом string значений location, level и status
 
+                var result = c.ConvertStatus();
+
                 Console.Write(string.Format("| {0,5} |", c.Id));
                 Console.Write(string.Format(" {0,36} |", c.UniqueNumber));               
-                Console.Write(string.Format(" {0,10} |", c.Level));
-                Console.Write(string.Format(" {0,10} |", c.Status));
-                Console.Write(string.Format(" {0,15} |", c.Location));
+                Console.Write(string.Format(" {0,13} |", result.Item2));
+                Console.Write(string.Format(" {0,10} |", result.Item1));
+                Console.Write(string.Format(" {0,19} |", result.Item3));
                 Console.Write(string.Format(" {0,15} |", c.Comment));
                 Console.WriteLine();
             }
