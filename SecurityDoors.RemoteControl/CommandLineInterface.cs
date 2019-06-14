@@ -34,6 +34,7 @@ namespace SecurityDoors.RemoteControl.cli
             var mec = new MainExecuteCommand(_applicationContext);
             var dec = new DoorExecuteCommand(_dataManager, _applicationContext);
             var cec = new CardExecuteCommand(_dataManager, _applicationContext);
+            var pec = new PersonExecuteCommand(_dataManager, _applicationContext);
 
             mec.PrintCountOfRecord();
             mec.PrintHelpInformation();
@@ -78,7 +79,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add person":
                     case "a-p":
                         {
-                            //command.addPerson();
+                            pec.AddPerson();
                         }
                         break;
 
@@ -99,7 +100,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-person":
                     case "l-p":
                         {
-                            //command.printListOfPerson();
+                            pec.PrintListOfPeople();
                         }
                         break;
 
@@ -117,17 +118,10 @@ namespace SecurityDoors.RemoteControl.cli
                         }
                         break;
 
-                    case "list-doorPassing":
-                    case "l-dp":
-                        {
-                            //command.printListOfDoorPassing();
-                        }
-                        break;
-
                     case "show-person":
                     case "s-p":
                         {
-                            //command.printPerson();
+                            pec.PrintPersonById();
                         }
                         break;
 
@@ -148,7 +142,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-person":
                     case "d-p":
                         {
-                            //command.DeletePerson();
+                            pec.DeletePersonById();
                         }
                         break;
 
@@ -163,13 +157,6 @@ namespace SecurityDoors.RemoteControl.cli
                     case "d-d":
                         {
                             dec.DeleteDoorById();
-                        }
-                        break;
-
-                    case "delete-doorPassing":
-                    case "d-dp":
-                        {
-                            //command.DeleteDoorPassing();  
                         }
                         break;
 
