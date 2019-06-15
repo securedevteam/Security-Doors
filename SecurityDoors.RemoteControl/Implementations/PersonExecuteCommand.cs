@@ -5,6 +5,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace SecurityDoors.RemoteControl.Implementations
 {
@@ -57,6 +58,23 @@ namespace SecurityDoors.RemoteControl.Implementations
 
                 Console.Write("Enter CardId: ");
                 var cardId = int.Parse(Console.ReadLine());
+
+                var people = _dataManager.People.GetPeopleList();
+
+                var allCardIds = new List<int>();
+
+                foreach (var item in people)
+                {
+                    allCardIds.Add(item.CardId);
+                }
+
+                foreach (var item in allCardIds)
+                {
+                    if(cardId == item)
+                    {
+                        throw new FormatException();
+                    }
+                }
 
                 var person = new Person()
                 {
