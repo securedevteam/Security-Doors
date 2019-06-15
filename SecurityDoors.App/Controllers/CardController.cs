@@ -71,7 +71,7 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
                 _serviceManager.Cards.SaveCard(card);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -127,7 +127,7 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 _serviceManager.Cards.SaveCard(card);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
@@ -148,7 +148,7 @@ namespace SecurityDoors.App.Controllers
 
             _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.CARD_IS_DELETED);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

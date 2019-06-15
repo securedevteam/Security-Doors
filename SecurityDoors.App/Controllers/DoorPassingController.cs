@@ -67,7 +67,7 @@ namespace SecurityDoors.App.Controllers
             if (ModelState.IsValid)
             {
                 _serviceManager.DoorPassings.SaveCard(doorPassing);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
