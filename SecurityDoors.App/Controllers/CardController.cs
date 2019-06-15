@@ -6,6 +6,7 @@ using SecurityDoors.Core.Logger.Interfaces;
 using SecurityDoors.Core.Logger.Model;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -64,7 +65,9 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         [HttpPost]
         public IActionResult Create(CardViewModel card)
-        {           
+        {
+            card.UniqueNumber = Guid.NewGuid().ToString();
+
             if (ModelState.IsValid)
             {
                 _serviceManager.Cards.SaveCard(card);

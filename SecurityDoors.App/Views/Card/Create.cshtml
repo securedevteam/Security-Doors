@@ -7,11 +7,13 @@
 <form method="post" asp-controller="Card" asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <div>
+
+        @*TODO: Присваивается автоматически.*@
+        @*<div>
             <label asp-for="UniqueNumber">Уникальный номер: </label>
             <input type="text" asp-for="UniqueNumber" />
             <span asp-validation-for="UniqueNumber"></span>
-        </div>
+        </div>*@
 
         <div>
             <label asp-for="Level">Уровень: </label>
