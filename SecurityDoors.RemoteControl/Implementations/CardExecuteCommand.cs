@@ -34,13 +34,23 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var uniqueNumber = Guid.NewGuid().ToString();
 
                 Console.Write("Enter level: ");
-                var level = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
+                var level = int.Parse(Console.ReadLine());
+
+                if (level <= -1 || level >= 5)
+                {
+                    throw new FormatException();
+                }
 
                 Console.Write("Enter status: ");
-                var status = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
+                var status = int.Parse(Console.ReadLine());
+
+                if (status <= -1 || status >= 4)
+                {
+                    throw new FormatException();
+                }
 
                 Console.Write("Enter location: ");
-                var location = bool.Parse(Console.ReadLine()); // TODO: добавить ограничения
+                var location = bool.Parse(Console.ReadLine());
 
                 Console.Write("Enter comment: ");
                 var comment = Console.ReadLine();
@@ -62,7 +72,7 @@ namespace SecurityDoors.RemoteControl.Implementations
             }
             catch (FormatException)
             {
-                CLIColor.WriteError("Input value is not a number!\n");
+                CLIColor.WriteError("The entered value is not valid!\n");
             }
         }
 

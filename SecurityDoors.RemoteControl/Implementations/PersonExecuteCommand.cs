@@ -1,4 +1,5 @@
-﻿using SecurityDoors.BusinessLogicLayer;
+﻿using Microsoft.EntityFrameworkCore;
+using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
@@ -41,7 +42,12 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var ln = Console.ReadLine();
 
                 Console.Write("Enter gender: ");
-                var gender = int.Parse(Console.ReadLine()); // TODO: добавить ограничения
+                var gender = int.Parse(Console.ReadLine());
+
+                if (gender <= -1 || gender >= 2)
+                {
+                    throw new FormatException();
+                }
 
                 Console.Write("Enter passport: ");
                 var passport = Console.ReadLine();
@@ -50,7 +56,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var comment = Console.ReadLine();
 
                 Console.Write("Enter CardId: ");
-                var cardId = int.Parse(Console.ReadLine()); // TODO: добавить особую проверку и ограничения
+                var cardId = int.Parse(Console.ReadLine());
 
                 var person = new Person()
                 {
@@ -71,7 +77,11 @@ namespace SecurityDoors.RemoteControl.Implementations
             }
             catch (FormatException)
             {
-                CLIColor.WriteError("Input value is not a number!\n");
+                CLIColor.WriteError("The entered value is not valid!\n");
+            }
+            catch (DbUpdateException)
+            {
+                CLIColor.WriteError("It is impossible to use a card with such Id!\n");
             }
         }
 

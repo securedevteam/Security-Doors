@@ -58,6 +58,11 @@ namespace SecurityDoors.DoorController
                 return ($" THE DOOR NOT FOUND ", false);
             }
 
+            if (door.Status != (int)DoorStatus.IsActive)
+            {
+                return ($" THE DOOR CLOSED(*) ", false);
+            }
+
             if (card.Level != (int)CardStatus.IsActive)
             {
                 return ($" PROBLEMS WITH CARD ", false);
