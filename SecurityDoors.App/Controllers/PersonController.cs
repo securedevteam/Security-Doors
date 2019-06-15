@@ -42,7 +42,7 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + ".");
+                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
             return View(models);
@@ -77,7 +77,7 @@ namespace SecurityDoors.App.Controllers
 
             if(form == 0)
             {
-                listSendCardsToViewModel.Add("Не выбрано");
+                listSendCardsToViewModel.Add(AppConstants.NOT_SELECTED);
             }
 
             listSendCardsToViewModel.AddRange(availableCards);
@@ -86,14 +86,14 @@ namespace SecurityDoors.App.Controllers
             {
                 if (listSendCardsToViewModel.Count == 0)
                 {
-                    listSendCardsToViewModel.Add("Нет доступных карт");
+                    listSendCardsToViewModel.Add(AppConstants.NO_AVAILABLE_CARDS);
                 }
             }
             else
             {
                 if (listSendCardsToViewModel.Count == 1)
                 {
-                    listSendCardsToViewModel.Add("Нет доступных карт");
+                    listSendCardsToViewModel.Add(AppConstants.NO_AVAILABLE_CARDS);
                 }
             }
 
@@ -121,7 +121,7 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Create(PersonViewModel person)
 		{
             if (person.Card != null &&
-                person.Card != "Нет доступных карт")
+                person.Card != AppConstants.NO_AVAILABLE_CARDS)
             {
                 if (ModelState.IsValid)
                 {
@@ -188,8 +188,8 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Edit (PersonEditModel person)
 		{
             if (person.SelectedNewUniqueNumberCard != null && 
-                person.SelectedNewUniqueNumberCard != "Нет доступных карт" &&
-                person.SelectedNewUniqueNumberCard != "Не выбрано")
+                person.SelectedNewUniqueNumberCard != AppConstants.NO_AVAILABLE_CARDS &&
+                person.SelectedNewUniqueNumberCard != AppConstants.NOT_SELECTED)
             {
                 person.Card = person.SelectedNewUniqueNumberCard;
             }

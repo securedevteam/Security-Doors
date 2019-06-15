@@ -40,7 +40,7 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + ".");
+                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
             return View(models);
