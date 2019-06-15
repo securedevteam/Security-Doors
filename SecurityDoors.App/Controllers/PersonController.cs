@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
@@ -34,11 +35,16 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Index()
 		{
             var models = _serviceManager.People.GetPeople();
+
             if (models == null)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Person list unavailable");
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.PEOPLE_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "Person list");
+            else
+            {
+                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + ".");
+            }
+
             return View(models);
 		}
 
@@ -100,14 +106,9 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
 		public IActionResult Create()
 		{
-            if (View() == null)
-            {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created");
-            }
-            _logger.LogInformation(LoggingEvents.CreateItem, "Person created");
-
             var availableCards = GetListAvailableCards(1);
             var viewModel = new PersonViewModel { AvailableCards = availableCards };
+
             return View(viewModel);
 		}
 
@@ -124,16 +125,14 @@ namespace SecurityDoors.App.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
                     _serviceManager.People.SavePerson(person);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    if (View() == null)
-                    {
-                        _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
-                    }
-                    _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
+                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
 
                     return View();
                 }
@@ -154,11 +153,16 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Details(int id)
         {
             var model = _serviceManager.People.GetPersonById(id);
+
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Person information is not available");
+                _logger.LogWarning(LoggingEvents.InformationItemNotFound, LoggerConstants.PERSON_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.InformationItem, "Person information");
+            else
+            {
+                _logger.LogInformation(LoggingEvents.InformationItem, LoggerConstants.PERSON_IS_NOT_EMPTY);
+            }
+
             return View(model);
         }
 
@@ -170,11 +174,6 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Edit (int id)
 		{
 			var editModel = _serviceManager.People.EditPersonById(id);
-            if (editModel == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed");
-            }
-            _logger.LogInformation(LoggingEvents.EditItem, "Edit person");
 
             editModel.AvailableCards = GetListAvailableCards(0);
             return View(editModel);
@@ -197,16 +196,14 @@ namespace SecurityDoors.App.Controllers
 
             if (ModelState.IsValid)
             {
+                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
                 _serviceManager.People.SavePerson(person);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (person == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit person (POST)");
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
 
                 return View();
             }
@@ -221,11 +218,9 @@ namespace SecurityDoors.App.Controllers
 		public IActionResult Delete (int id)
 		{
 			_serviceManager.People.DeletePersonById(id);
-            if (RedirectToAction(nameof(Index)) == null)
-            {
-                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Person not deleted");
-            }
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Person deleted");
+
+            _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
+
             return RedirectToAction(nameof(Index));
 		}
 	}
