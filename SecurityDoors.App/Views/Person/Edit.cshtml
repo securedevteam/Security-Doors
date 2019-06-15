@@ -22,7 +22,7 @@
         <span asp-validation-for="SecondName"></span>
     </div>
     <div>
-        <label asp-for="Gender">Пол</label>
+        <label asp-for="Gender"></label>
         <select asp-for="Gender">
             <option>@PersonConstants.IsMale</option>
             <option>@PersonConstants.IsFemale</option>
@@ -46,7 +46,7 @@
     </div>
 
     <div>
-        <label asp-for="SelectedNewUniqueNumberCard">Заменить карточку</label>
+        <label asp-for="SelectedNewUniqueNumberCard"></label>
         <select asp-for="SelectedNewUniqueNumberCard" asp-items="@(new SelectList(Model.AvailableCards))"></select>
     </div>
 

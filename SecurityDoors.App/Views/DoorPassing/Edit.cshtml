@@ -10,7 +10,7 @@
     <div>
 
         <div>
-            <label asp-for="Location">Проход: </label>
+            <label asp-for="Location"></label>
             <select asp-for="Location">
                 <option>@DoorPassingConstants.Entrance</option>
                 <option>@DoorPassingConstants.Exit</option>
@@ -18,7 +18,7 @@
         </div>
 
         <div>
-            <label asp-for="Status">Статус: </label>
+            <label asp-for="Status"></label>
             <select asp-for="Status">
                 <option>@DoorPassingConstants.WithoutСontrol</option>
                 <option>@DoorPassingConstants.OnControl</option>
@@ -27,7 +27,7 @@
         </div>
 
         <div>
-            <label asp-for="Comment">Комментарий: </label>
+            <label asp-for="Comment"></label>
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
         </div>

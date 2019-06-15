@@ -64,6 +64,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Список доступных карт.
         /// </summary>
+        //[Display(Name = "Список доступных уникальных номеров карт")]
         public List<string> AvailableCards { get; set; }
     }
 
@@ -132,6 +133,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Список доступных карт.
         /// </summary>
+        //[Display(Name = "Заменить на новый уникальный номер карты")]
         public List<string> AvailableCards { get; set; }
     }
 }

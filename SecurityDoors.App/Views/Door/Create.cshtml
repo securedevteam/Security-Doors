@@ -8,19 +8,19 @@
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <div>
-            <label asp-for="Name">Название: </label>
+            <label asp-for="Name"></label>
             <input type="text" asp-for="Name" />
             <span asp-validation-for="Name"></span>
         </div>
 
         <div>
-            <label asp-for="Description">Описание: </label>
+            <label asp-for="Description"></label>
             <input type="text" asp-for="Description" />
             <span asp-validation-for="Description"></span>
         </div>
 
         <div>
-            <label asp-for="Level">Уровень: </label>
+            <label asp-for="Level"></label>
             <select asp-for="Level">
                 <option>@DoorConstants.IsCommon</option>
                 <option>@DoorConstants.IsSpecial</option>
@@ -29,7 +29,7 @@
         </div>
 
         <div>
-            <label asp-for="Status">Статус: </label>
+            <label asp-for="Status"></label>
             <select asp-for="Status">
                 <option>@DoorConstants.IsActive</option>
                 <option>@DoorConstants.IsClosed</option>
@@ -38,7 +38,7 @@
         </div>
 
         <div>
-            <label asp-for="Comment">Комментарий: </label>
+            <label asp-for="Comment"></label>
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
         </div>

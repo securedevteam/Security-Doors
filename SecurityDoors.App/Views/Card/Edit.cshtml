@@ -10,7 +10,7 @@
     <div>
 
         <div>
-            <label asp-for="Status">Статус: </label>
+            <label asp-for="Status"></label>
             <select asp-for="Status">
                 <option>@CardConstants.IsActive</option>
                 <option>@CardConstants.IsClosed</option>
@@ -20,7 +20,7 @@
         </div>
 
         <div>
-            <label asp-for="Comment">Комментарий: </label>
+            <label asp-for="Comment"></label>
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
         </div>
