@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
+using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
@@ -32,11 +33,16 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Index()
         {
             var models = _serviceManager.Doors.GetDoors();
+
             if (models == null)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Door list unavailable");
+                _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.DOORS_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "Door list");
+            else
+            {
+                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.DOORS_LIST_IS_NOT_EMPTY + models.Count + ".");
+            }
+
             return View(models);
         }
 
@@ -46,11 +52,6 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         public IActionResult Create()
         {
-            if (View() == null)
-            {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created");
-            }
-            _logger.LogInformation(LoggingEvents.CreateItem, "Door created");
             return View();
         }
 
@@ -64,16 +65,15 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
                 _serviceManager.Doors.SaveDoor(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(door) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.CreateItem, "Door created (POST)");
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
+
                 return View(door);
             }
         }
@@ -86,11 +86,16 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Details(int id)
         {
             var model = _serviceManager.Doors.GetDoorById(id);
+
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Door information is not available");
+                _logger.LogWarning(LoggingEvents.InformationItemNotFound, LoggerConstants.DOOR_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.InformationItem, "Door information received");
+            else
+            {
+                _logger.LogInformation(LoggingEvents.InformationItem, LoggerConstants.DOOR_IS_NOT_EMPTY);
+            }
+
             return View(model);
         }
 
@@ -102,11 +107,7 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Edit(int id)
         {
             var model = _serviceManager.Doors.EditDoorDyId(id);
-            if (model == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed");
-            }
-            _logger.LogWarning(LoggingEvents.EditItem, "Edit door");
+
             return View(model);
         }
 
@@ -120,16 +121,15 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
                 _serviceManager.Doors.SaveDoor(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(door) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit door (POST)");
+                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
+
                 return View(door);
             }
         }
@@ -142,11 +142,9 @@ namespace SecurityDoors.App.Controllers
         public IActionResult Delete(int id)
         {
             _serviceManager.Doors.DeleteDoorById(id);
-            if (RedirectToAction(nameof(Index)) == null)
-            {
-                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Door not deleted");
-            }
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Door deleted");
+
+            _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
+
             return RedirectToAction(nameof(Index));
         }
     }
