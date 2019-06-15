@@ -40,12 +40,21 @@
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
         </div>
-        <div>
+
+        @*TODO: Представления списка незанятых карточек*@
+        @*<div>
             <label asp-for="Card">Уникальный номер карты</label>
             <input type="text" asp-for="Card" />
             <span asp-validation-for="Card"></span>
+        </div>*@
+
+        <div>
+            <label asp-for="Card">Уникальный номер карты</label>
+            <select asp-for="Card" asp-items="@(new SelectList(Model.AvailableCards))"></select>
         </div>
+
     </div>
+
     <input type="submit" value="Подтвердить" />
     <input type="reset" value="Очистить" />
 </form>

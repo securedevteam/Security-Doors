@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
@@ -59,7 +60,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required(ErrorMessage = "Неверный уникальный номер карты")]
 		[Display(Name = "Уникальный номер карты")]
 		public string Card { get; set; }
-	}
+
+        /// <summary>
+        /// Список доступных карт.
+        /// </summary>
+        public List<string> AvailableCards { get; set; }
+    }
 
     public class PersonEditModel
 	{
@@ -115,5 +121,17 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		[Required(ErrorMessage = "Неверный уникальный номер карты")]
         [Display(Name = "Уникальный номер карты")]
         public string Card { get; set; }
+
+        /// <summary>
+        /// Новый уникальный номер карты.
+        /// </summary>
+		[Required(ErrorMessage = "Неверный новый уникальный номер карты")]
+        [Display(Name = "Новый уникальный номер карты")]
+        public string SelectedNewUniqueNumberCard { get; set; }
+
+        /// <summary>
+        /// Список доступных карт.
+        /// </summary>
+        public List<string> AvailableCards { get; set; }
     }
 }

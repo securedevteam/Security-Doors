@@ -4,6 +4,8 @@ using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -40,6 +42,58 @@ namespace SecurityDoors.App.Controllers
             return View(models);
 		}
 
+        private List<string> GetListAvailableCards(int form)
+        {
+            var cards = _serviceManager.Cards.GetCards();
+            var people = _serviceManager.People.GetPeople();
+
+            var allUniqueNumbersCards = new List<string>();
+            var getAvailableCards = new List<string>();
+
+            foreach (var item in cards)
+            {
+                allUniqueNumbersCards.Add(item.UniqueNumber);
+            }
+
+            foreach (var p in people)
+            {
+                foreach (var c in cards)
+                {
+                    if (p.Card == c.UniqueNumber)
+                    {
+                        getAvailableCards.Add(c.UniqueNumber);
+                    }
+                }
+            }
+
+            var availableCards = allUniqueNumbersCards.Except(getAvailableCards).ToList();
+            var listSendCardsToViewModel = new List<string>();
+
+            if(form == 0)
+            {
+                listSendCardsToViewModel.Add("Не выбрано");
+            }
+
+            listSendCardsToViewModel.AddRange(availableCards);
+
+            if(form == 1)
+            {
+                if (listSendCardsToViewModel.Count == 0)
+                {
+                    listSendCardsToViewModel.Add("Нет доступных карт");
+                }
+            }
+            else
+            {
+                if (listSendCardsToViewModel.Count == 1)
+                {
+                    listSendCardsToViewModel.Add("Нет доступных карт");
+                }
+            }
+
+            return listSendCardsToViewModel;
+        }
+
         /// <summary>
         /// Создание нового сотрудника.
         /// </summary>
@@ -51,7 +105,10 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created");
             }
             _logger.LogInformation(LoggingEvents.CreateItem, "Person created");
-            return View();
+
+            var availableCards = GetListAvailableCards(1);
+            var viewModel = new PersonViewModel { AvailableCards = availableCards };
+            return View(viewModel);
 		}
 
         /// <summary>
@@ -62,20 +119,31 @@ namespace SecurityDoors.App.Controllers
 		[HttpPost]
 		public IActionResult Create(PersonViewModel person)
 		{
-			if (ModelState.IsValid)
-			{
-				_serviceManager.People.SavePerson(person);
-				return RedirectToAction(nameof(Index));
-			}
-			else
-			{
-                if (View() == null)
+            if (person.Card != null &&
+                person.Card != "Нет доступных карт")
+            {
+                if (ModelState.IsValid)
                 {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
+                    _serviceManager.People.SavePerson(person);
+                    return RedirectToAction(nameof(Index));
                 }
-                _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
-                return View();
-			}
+                else
+                {
+                    if (View() == null)
+                    {
+                        _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
+                    }
+                    _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
+
+                    return View();
+                }
+            }
+            else
+            {
+                var availableCards = GetListAvailableCards(1);
+                var viewModel = new PersonViewModel { AvailableCards = availableCards };
+                return View(viewModel);
+            }
 		}
 
         /// <summary>
@@ -107,6 +175,8 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed");
             }
             _logger.LogInformation(LoggingEvents.EditItem, "Edit person");
+
+            editModel.AvailableCards = GetListAvailableCards(0);
             return View(editModel);
 		}
 
@@ -118,20 +188,29 @@ namespace SecurityDoors.App.Controllers
 		[HttpPost]
 		public IActionResult Edit (PersonEditModel person)
 		{
-			if (ModelState.IsValid)
-			{
-				_serviceManager.People.SavePerson(person);
-				return RedirectToAction(nameof(Index));
-			}
-			else
-			{
+            if (person.SelectedNewUniqueNumberCard != null && 
+                person.SelectedNewUniqueNumberCard != "Нет доступных карт" &&
+                person.SelectedNewUniqueNumberCard != "Не выбрано")
+            {
+                person.Card = person.SelectedNewUniqueNumberCard;
+            }
+
+            if (ModelState.IsValid)
+            {
+                _serviceManager.People.SavePerson(person);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
                 if (person == null)
                 {
                     _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed (POST)");
                 }
                 _logger.LogInformation(LoggingEvents.EditItem, "Edit person (POST)");
+
                 return View();
-			}
+            }
+            
 		}
 
         /// <summary>

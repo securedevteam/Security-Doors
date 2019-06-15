@@ -44,6 +44,12 @@
         <input asp-for="Card" />
         <span asp-validation-for="Card"></span>
     </div>
+
+    <div>
+        <label asp-for="SelectedNewUniqueNumberCard">Заменить карточку</label>
+        <select asp-for="SelectedNewUniqueNumberCard" asp-items="@(new SelectList(Model.AvailableCards))"></select>
+    </div>
+
     <div>
         <input type="submit" value="Подтвердить редактирование" />
     </div>
