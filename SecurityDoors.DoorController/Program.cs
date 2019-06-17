@@ -74,11 +74,11 @@ namespace SecurityDoors.DoorController
                         data = Encoding.ASCII.GetString(bytes, 0, i);
 
                         var words = data.Split('$'); // Разделительный символ
-                        var recive_guid = words[0];
+                        var guid_accept = words[0] == GUID;
                         var card = words[1];
                         var door = words[2];
 
-                        if (recive_guid == GUID)
+                        if (guid_accept)
                         {
 
                             #region Эмуляция дверного контроллера
