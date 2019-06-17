@@ -41,7 +41,7 @@ namespace SecurityDoors.DoorController
             Console.Write("Please enter IP Address: ");
             var ipAddress = Console.ReadLine();
 
-            Console.Write("Please port number: ");
+            Console.Write("Please enter port number: ");
             var valuePort = Console.ReadLine();
             Int32.TryParse(valuePort, out int port); // TODO: Реализовать проверку на диапазон и если значение не цифра
 
@@ -78,7 +78,7 @@ namespace SecurityDoors.DoorController
                         var card = words[1];
                         var door = words[2];
 
-                        if (recive_guid != GUID)
+                        if (recive_guid == GUID)
                         {
 
                             #region Эмуляция дверного контроллера
