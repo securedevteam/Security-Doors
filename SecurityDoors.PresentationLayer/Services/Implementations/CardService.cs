@@ -4,13 +4,14 @@ using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using SecurityDoors.PresentationLayer.Extensions;
+using SecurityDoors.PresentationLayer.Services.Interfaces;
 
-namespace SecurityDoors.PresentationLayer.Services
+namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
-    public class CardService
+    public class CardService : ICardService
     {
         private DataManager dataManager;
 
@@ -23,10 +24,7 @@ namespace SecurityDoors.PresentationLayer.Services
             this.dataManager = dataManager;
         }
 
-        /// <summary>
-        /// Получить карточки.
-        /// </summary>
-        /// <returns>Список карточек.</returns>
+        /// <inheritdoc/>
         public List<CardViewModel> GetCards()
         {
             var models = dataManager.Cards.GetCardsList();
@@ -51,11 +49,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return viewModels;
         }
 
-        /// <summary>
-        /// Получить карточку.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public CardViewModel GetCardById(int id)
         {
             var model = dataManager.Cards.GetCardById(id);
@@ -76,11 +70,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return viewModel;
         }
 
-        /// <summary>
-        /// Изменить карточку.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public CardEditModel EditCardById(int id)
         {
             var model = dataManager.Cards.GetCardById(id);
@@ -98,20 +88,13 @@ namespace SecurityDoors.PresentationLayer.Services
             return editModel;
         }
 
-        /// <summary>
-        /// Удалить карточку.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
+        /// <inheritdoc/>
         public void DeleteCardById(int id)
         {
             dataManager.Cards.Delete(id);
         }
 
-        /// <summary>
-        /// Сохранить карточку с сигнатурой CardViewModel.
-        /// </summary>
-        /// <param name="model">модель карточки для сохранения.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public CardViewModel SaveCard(CardViewModel model)
         {
             var card = new Card();
@@ -140,11 +123,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return GetCardById(card.Id);
         }
 
-        /// <summary>
-        /// Сохранить карточку с сигнатурой CardEditModel.
-        /// </summary>
-        /// <param name="model">Модель карточки для сохранения.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public CardViewModel SaveCard(CardEditModel model)
         {
             var card = new Card();
