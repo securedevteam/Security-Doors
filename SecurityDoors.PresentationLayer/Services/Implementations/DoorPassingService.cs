@@ -1,15 +1,16 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
+using SecurityDoors.PresentationLayer.Services.Interfaces;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
-namespace SecurityDoors.PresentationLayer.Services
+namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
-	public class DoorPassingService
+	public class DoorPassingService : IDoorPassingService
 	{
 		private DataManager dataManager;
 
@@ -22,10 +23,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
-        /// <summary>
-        /// Получить все проходы.
-        /// </summary>
-        /// <returns>Список проходов.</returns>
+        /// <inheritdoc/>
 		public List<DoorPassingViewModel> GetDoorPassings()
 		{
 			var models = dataManager.DoorsPassing.GetDoorsPassingList();
@@ -54,11 +52,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			return viewModels;
 		}
 
-        /// <summary>
-        /// Получить проход.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public DoorPassingViewModel GetDoorPassingById(int id)
         {
             var model = dataManager.DoorsPassing.GetDoorPassingById(id);
@@ -77,11 +71,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return viewModel;
         }
 
-        /// <summary>
-        /// Изменить проход.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Проход.</returns>
+        /// <inheritdoc/>
         public DoorPassingEditModel EditDoorPassingById(int id)
         {
             var model = dataManager.DoorsPassing.GetDoorPassingById(id);
@@ -100,11 +90,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return editModel;
         }
 
-        /// <summary>
-        /// Сохранить проход с сигнатурой DoorPassingEditModel.
-        /// </summary>
-        /// <param name="model">Модель карточки для сохранения.</param>
-        /// <returns>Карточка.</returns>
+        /// <inheritdoc/>
         public DoorPassingViewModel SaveCard(DoorPassingEditModel model)
         {
             var doorPassing = new DoorPassing();
