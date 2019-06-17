@@ -1,15 +1,16 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
+using SecurityDoors.PresentationLayer.Services.Interfaces;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
-namespace SecurityDoors.PresentationLayer.Services
+namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
-	public class DoorService
+	public class DoorService : IDoorService
 	{
         private DataManager dataManager;
 
@@ -22,10 +23,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
-        /// <summary>
-        /// Получить двери.
-        /// </summary>
-        /// <returns>Список дверей.</returns>
+        /// <inheritdoc/>
 		public List<DoorViewModel> GetDoors()
 		{
 			var models = dataManager.Doors.GetDoorsList();
@@ -50,11 +48,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			return viewModels;
 		}
 
-        /// <summary>
-        /// Получить дверь.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Дверь.</returns>
+        /// <inheritdoc/>
 		public DoorViewModel GetDoorById(int id)
 		{
 			var model = dataManager.Doors.GetDoorById(id);
@@ -75,11 +69,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return viewModel;
 		}
 
-        /// <summary>
-        /// Изменить дверь.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Дверь.</returns>
+        /// <inheritdoc/>
 		public DoorEditModel EditDoorDyId(int id)
 		{
 			var model = dataManager.Doors.GetDoorById(id);
@@ -99,20 +89,13 @@ namespace SecurityDoors.PresentationLayer.Services
             return editModel;
 		}
 
-        /// <summary>
-        /// Удалить дверь.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
+        /// <inheritdoc/>
 		public void DeleteDoorById(int id)
 		{
 			dataManager.Doors.Delete(id);
 		}
 
-        /// <summary>
-        /// Сохранить дверь с сигнатурой DoorViewModel.
-        /// </summary>
-        /// <param name="model">модель двери для сохранения.</param>
-        /// <returns>Дверь.</returns>
+        /// <inheritdoc/>
 		public DoorViewModel SaveDoor(DoorViewModel model)
 		{
             var door = new Door();
@@ -136,11 +119,7 @@ namespace SecurityDoors.PresentationLayer.Services
             return GetDoorById(door.Id);
         }
 
-        /// <summary>
-        /// Сохранить дверь с сигнатурой DoorEditModel.
-        /// </summary>
-        /// <param name="model">модель двери для сохранения.</param>
-        /// <returns>Дверь.</returns>
+        /// <inheritdoc/>
         public DoorViewModel SaveDoor(DoorEditModel model)
         {
             var door = new Door();
