@@ -1,17 +1,16 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
+using SecurityDoors.PresentationLayer.Services.Interfaces;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 
-namespace SecurityDoors.PresentationLayer.Services
+namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
-	public class PersonService
+	public class PersonService : IPersonService
 	{
 		DataManager dataManager;
 
@@ -24,10 +23,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			this.dataManager = dataManager;
 		}
 
-        /// <summary>
-        /// Получить сотрудником.
-        /// </summary>
-        /// <returns>Список сотрудников.</returns>
+        /// <inheritdoc/>
         public List<PersonViewModel> GetPeople()
 		{
 			var models = dataManager.People.GetPeopleList();
@@ -56,11 +52,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			return viewModels;
 		}
 
-        /// <summary>
-        /// Получить сотрудника.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Сотрудник.</returns>
+        /// <inheritdoc/>
 		public PersonViewModel GetPersonById(int id)
 		{
 			var model = dataManager.People.GetPersonById(id);
@@ -81,11 +73,7 @@ namespace SecurityDoors.PresentationLayer.Services
             };
 		}
 
-        /// <summary>
-        /// Изменить сотрудника.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
-        /// <returns>Сотрудник.</returns>
+        /// <inheritdoc/>
 		public PersonEditModel EditPersonById(int id)
 		{
 			var model = dataManager.People.GetPersonById(id);
@@ -106,20 +94,13 @@ namespace SecurityDoors.PresentationLayer.Services
             };
 		}
 
-        /// <summary>
-        /// Удалить сотрудника.
-        /// </summary>
-        /// <param name="id">идентификатор.</param>
+        /// <inheritdoc/>
 		public void DeletePersonById(int id)
 		{
 			dataManager.People.Delete(id);
 		}
 
-        /// <summary>
-        /// Сохранить сотрудника с сигнатурой PersonViewModel.
-        /// </summary>
-        /// <param name="model">модель сотрудника для сохранения.</param>
-        /// <returns>Сотрудник.</returns>
+        /// <inheritdoc/>
 		public PersonViewModel SavePerson(PersonEditModel model)
 		{
             var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
@@ -143,11 +124,7 @@ namespace SecurityDoors.PresentationLayer.Services
 			return GetPersonById(person.Id);
 		}
 
-        /// <summary>
-        /// Сохранить сотрудника с сигнатурой PersonEditModel.
-        /// </summary>
-        /// <param name="model">модель сотрудника для сохранения.</param>
-        /// <returns>Сотрудник.</returns>
+        /// <inheritdoc/>
 		public PersonViewModel SavePerson(PersonViewModel model)
 		{
             var cardModel = dataManager.Cards.GetCardByUniqueNumber(model.Card);
