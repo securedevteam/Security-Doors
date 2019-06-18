@@ -30,21 +30,21 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public Card GetCardById(int id)
+        public async Task<Card> GetCardByIdAsync(int id)
         {
-            return db.Cards.Find(id);
+            return await db.Cards.FindAsync(id);
         }
 
         /// <inheritdoc/>
-        public Card GetCardByUniqueNumber(string item)
+        public async Task<Card> GetCardByUniqueNumberAsync(string item)
         {
-            return db.Cards.FirstOrDefault(c => c.UniqueNumber == item);
+            return await db.Cards.FirstOrDefaultAsync(c => c.UniqueNumber == item);
         }
 
         /// <inheritdoc/>
-		public void Create(Card item)
+		public async Task CreateAsync(Card item)
         {
-            db.Cards.Add(item);
+            await db.Cards.AddAsync(item);
         }
 
         /// <inheritdoc/>
@@ -54,29 +54,30 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            Card card = db.Cards.Find(id);
+            Card card = await db.Cards.FindAsync(id);
+
             if (card != null)
             {
                 db.Cards.Remove(card);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
         /// <inheritdoc/>
-        public void Save(Card item)
+        public async Task SaveAsync(Card item)
         {
             if (item.Id <= 0)
             {
-                db.Cards.Add(item);
+                await db.Cards.AddAsync(item);
             }
             else
             {
                 db.Entry(item).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
 
