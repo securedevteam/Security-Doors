@@ -5,6 +5,7 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -30,9 +31,9 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверных проходов.
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>
-		public ActionResult Index()
+		public async Task<ActionResult> Index()
         {
-            var models = _serviceManager.DoorPassings.GetDoorPassings();
+            var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
             if (models == null)
             {

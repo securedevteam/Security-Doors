@@ -28,7 +28,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void AddCard()
+        public async Task AddCardAsync()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     Comment = comment
                 };
 
-                _dataManager.Cards.Create(card);
+                await _dataManager.Cards.CreateAsync(card);
                 _applicationContext.SaveChanges();
 
                 Console.WriteLine();
@@ -78,7 +78,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintCardById()
+        public async Task PrintCardByIdAsync()
         {
             Console.Write("Enter card id: ");
 
@@ -87,7 +87,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var card = _dataManager.Cards.GetCardById(id);
+                var card = await _dataManager.Cards.GetCardByIdAsync(id);
 
                 if (card != null)
                 {
@@ -117,7 +117,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void DeleteCardById()
+        public async Task DeleteCardByIdAsync()
         {
             Console.Write("Enter card id: ");
 
@@ -126,11 +126,11 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var card = _dataManager.Cards.GetCardById(id);
+                var card = await _dataManager.Cards.GetCardByIdAsync(id);
 
                 if (card != null)
                 {
-                    _dataManager.Cards.Delete(id);
+                    await _dataManager.Cards.DeleteAsync(id);
                     CLIColor.WriteInfo("Card successfully deleted!\n");
                 }
                 else
@@ -146,7 +146,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public async Task PrintListOfCards()
+        public async Task PrintListOfCardsAsync()
         {
             CLIColor.WriteInfo("Information about cards:");
 

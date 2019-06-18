@@ -20,33 +20,33 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Карточка.</returns>
-        CardViewModel GetCardById(int id);
+        Task<CardViewModel> GetCardByIdAsync(int id);
 
         /// <summary>
         /// Изменить карточку.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Карточка.</returns>
-        CardEditModel EditCardById(int id);
+        Task<CardEditModel> EditCardByIdAsync(int id);
 
         /// <summary>
         /// Удалить карточку.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-        void DeleteCardById(int id);
+        Task DeleteCardByIdAsync(int id);
 
         /// <summary>
         /// Сохранить карточку с сигнатурой CardViewModel.
         /// </summary>
         /// <param name="model">модель карточки для сохранения.</param>
         /// <returns>Карточка.</returns>
-        CardViewModel SaveCard(CardViewModel model);
+        Task<CardViewModel> SaveCardAsync(CardViewModel model);
 
         /// <summary>
         /// Сохранить карточку с сигнатурой CardEditModel.
         /// </summary>
         /// <param name="model">Модель карточки для сохранения.</param>
         /// <returns>Карточка.</returns>
-        CardViewModel SaveCard(CardEditModel model);
+        Task<CardViewModel> SaveCardAsync(CardEditModel model);
     }
 }

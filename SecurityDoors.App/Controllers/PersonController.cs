@@ -7,6 +7,7 @@ using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -32,9 +33,9 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком сотрудников.
         /// </summary>
         /// <returns>Представление</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
-            var models = _serviceManager.People.GetPeople();
+            var models = await _serviceManager.People.GetPeopleAsync();
 
             if (models == null)
             {
@@ -48,10 +49,10 @@ namespace SecurityDoors.App.Controllers
             return View(models);
 		}
 
-        private List<string> GetListAvailableCards(int form)
+        private async Task<List<string>> GetListAvailableCardsAsync(int form)
         {
-            var cards = _serviceManager.Cards.GetCardsAsync().Result;
-            var people = _serviceManager.People.GetPeople();
+            var cards = await _serviceManager.Cards.GetCardsAsync();
+            var people = await _serviceManager.People.GetPeopleAsync();
 
             var allUniqueNumbersCards = new List<string>();
             var getAvailableCards = new List<string>();
@@ -104,9 +105,9 @@ namespace SecurityDoors.App.Controllers
         /// Создание нового сотрудника.
         /// </summary>
         /// <returns>Представление.</returns>
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-            var availableCards = GetListAvailableCards(1);
+            var availableCards = await GetListAvailableCardsAsync(1);
             var viewModel = new PersonViewModel { AvailableCards = availableCards };
 
             return View(viewModel);
@@ -118,7 +119,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public IActionResult Create(PersonViewModel person)
+		public async Task<IActionResult> Create(PersonViewModel person)
 		{
             if (person.Card != null &&
                 person.Card != AppConstants.NO_AVAILABLE_CARDS)
@@ -127,7 +128,7 @@ namespace SecurityDoors.App.Controllers
                 {
                     _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
-                    _serviceManager.People.SavePerson(person);
+                    await _serviceManager.People.SavePersonAsync(person);
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -139,7 +140,7 @@ namespace SecurityDoors.App.Controllers
             }
             else
             {
-                var availableCards = GetListAvailableCards(1);
+                var availableCards = await GetListAvailableCardsAsync(1);
                 var viewModel = new PersonViewModel { AvailableCards = availableCards };
                 return View(viewModel);
             }
@@ -150,9 +151,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление</returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = _serviceManager.People.GetPersonById(id);
+            var model = await _serviceManager.People.GetPersonByIdAsync(id);
 
             if (model == null)
             {
@@ -171,11 +172,11 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-		public IActionResult Edit (int id)
+		public async Task<IActionResult> Edit (int id)
 		{
-			var editModel = _serviceManager.People.EditPersonById(id);
+			var editModel = await _serviceManager.People.EditPersonByIdAsync(id);
 
-            editModel.AvailableCards = GetListAvailableCards(0);
+            editModel.AvailableCards = await GetListAvailableCardsAsync(0);
             return View(editModel);
 		}
 
@@ -185,7 +186,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public IActionResult Edit (PersonEditModel person)
+		public async Task<IActionResult> Edit (PersonEditModel person)
 		{
             if (person.SelectedNewUniqueNumberCard != null && 
                 person.SelectedNewUniqueNumberCard != AppConstants.NO_AVAILABLE_CARDS &&
@@ -198,7 +199,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
-                _serviceManager.People.SavePerson(person);
+                await _serviceManager.People.SavePersonAsync(person);
                 return RedirectToAction(nameof(Index));
             }
             else

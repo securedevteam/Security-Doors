@@ -51,9 +51,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public CardViewModel GetCardById(int id)
+        public async Task<CardViewModel> GetCardByIdAsync(int id)
         {
-            var model = dataManager.Cards.GetCardById(id);
+            var model = await dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
             (string, string, string) result = model.ConvertStatus();
@@ -72,9 +72,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public CardEditModel EditCardById(int id)
+        public async Task<CardEditModel> EditCardByIdAsync(int id)
         {
-            var model = dataManager.Cards.GetCardById(id);
+            var model = await dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
             (string, string, string) result = model.ConvertStatus();
@@ -90,19 +90,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public void DeleteCardById(int id)
+        public async Task DeleteCardByIdAsync(int id)
         {
-            dataManager.Cards.Delete(id);
+            await dataManager.Cards.DeleteAsync(id);
         }
 
         /// <inheritdoc/>
-        public CardViewModel SaveCard(CardViewModel model)
+        public async Task<CardViewModel> SaveCardAsync(CardViewModel model)
         {
             var card = new Card();
 
             if (model.Id != 0)
             {
-                card = dataManager.Cards.GetCardById(model.Id);
+                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             if(model.UniqueNumber == null)
@@ -119,19 +119,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             card.Location = result.Item3;
             card.Comment = model.Comment;
 
-            dataManager.Cards.Save(card);
+            await dataManager.Cards.SaveAsync(card);
 
-            return GetCardById(card.Id);
+            return await GetCardByIdAsync(card.Id);
         }
 
         /// <inheritdoc/>
-        public CardViewModel SaveCard(CardEditModel model)
+        public async Task<CardViewModel> SaveCardAsync(CardEditModel model)
         {
             var card = new Card();
 
             if (model.Id != 0)
             {
-                card = dataManager.Cards.GetCardById(model.Id);
+                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             var status = model.ConvertStatus();
@@ -139,9 +139,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             card.Status = status;
             card.Comment = model.Comment;
 
-            dataManager.Cards.Save(card);
+            await dataManager.Cards.SaveAsync(card);
 
-            return GetCardById(card.Id);
+            return await GetCardByIdAsync(card.Id);
         }
     }
 }

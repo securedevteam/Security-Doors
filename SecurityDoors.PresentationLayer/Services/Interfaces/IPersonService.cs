@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Interfaces
 {
@@ -9,21 +10,21 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// Получить сотрудником.
         /// </summary>
         /// <returns>Список сотрудников.</returns>
-        List<PersonViewModel> GetPeople();
+        Task<List<PersonViewModel>> GetPeopleAsync();
 
         /// <summary>
         /// Получить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Сотрудник.</returns>
-		PersonViewModel GetPersonById(int id);
+		Task<PersonViewModel> GetPersonByIdAsync(int id);
 
         /// <summary>
         /// Изменить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Сотрудник.</returns>
-		PersonEditModel EditPersonById(int id);
+		Task<PersonEditModel> EditPersonByIdAsync(int id);
 
         /// <summary>
         /// Удалить сотрудника.
@@ -36,13 +37,13 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// </summary>
         /// <param name="model">модель сотрудника для сохранения.</param>
         /// <returns>Сотрудник.</returns>
-		PersonViewModel SavePerson(PersonEditModel model);
+		Task<PersonViewModel> SavePersonAsync(PersonEditModel model);
 
         /// <summary>
         /// Сохранить сотрудника с сигнатурой PersonEditModel.
         /// </summary>
         /// <param name="model">модель сотрудника для сохранения.</param>
         /// <returns>Сотрудник.</returns>
-		PersonViewModel SavePerson(PersonViewModel model);
+		Task<PersonViewModel> SavePersonAsync(PersonViewModel model);
     }
 }

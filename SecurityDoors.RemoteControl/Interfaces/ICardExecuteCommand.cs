@@ -10,21 +10,21 @@ namespace SecurityDoors.RemoteControl.Interfaces
         /// <summary>
         /// Добавить новую карту.
         /// </summary>
-        void AddCard();
+        Task AddCardAsync();
 
         /// <summary>
         /// Получить данные о карте.
         /// </summary>
-        void PrintCardById();
+        Task PrintCardByIdAsync();
 
         /// <summary>
         /// Удалить выбранную карту.
         /// </summary>
-        void DeleteCardById();
+        Task DeleteCardByIdAsync();
 
         /// <summary>
         /// Вывести список карт.
         /// </summary>
-        Task PrintListOfCards();
+        Task PrintListOfCardsAsync();
     }
 }

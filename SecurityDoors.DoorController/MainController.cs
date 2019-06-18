@@ -2,6 +2,7 @@
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.DoorController
 {
@@ -21,10 +22,10 @@ namespace SecurityDoors.DoorController
             _dataManager = dataManager;
         }
 
-        private void ChangeAndSaveData(Card card, Door door, bool location)
+        private async Task ChangeAndSaveDataAsync(Card card, Door door, bool location)
         {
             _dataManager.Cards.Update(card);
-            _dataManager.Cards.Save(card);
+            await _dataManager.Cards.SaveAsync(card);
 
 
             var doorpassing = new DoorPassing();
@@ -43,9 +44,9 @@ namespace SecurityDoors.DoorController
         /// <param name="cardNumber">уникальный номер карты.</param>
         /// <param name="doorName">название двери.</param>
         /// <returns>Строку с пояснением. Результат действия.</returns>
-        public (string, bool) ControllerАctuation(string cardNumber, string doorName)
+        public async Task<(string, bool)> ControllerАctuationAsync(string cardNumber, string doorName)
         {
-            var card = _dataManager.Cards.GetCardByUniqueNumber(cardNumber);
+            var card = await _dataManager.Cards.GetCardByUniqueNumberAsync(cardNumber);
             var door = _dataManager.Doors.GetDoorByName(doorName);
 
             if(card == null)
@@ -76,14 +77,14 @@ namespace SecurityDoors.DoorController
             if (card.Location)
             {
                 card.Location = false;
-                ChangeAndSaveData(card, door, CardConstants.IsExit);
+                await ChangeAndSaveDataAsync(card, door, CardConstants.IsExit);
 
                 return ($" SUCCESSFULLY EXIT ", true);
             }
             else
             {
                 card.Location = true;
-                ChangeAndSaveData(card, door, CardConstants.IsEntrance);
+                await ChangeAndSaveDataAsync(card, door, CardConstants.IsEntrance);
 
                 return ($" SUCCESSFULLY ENTRANCE ", true);
             }

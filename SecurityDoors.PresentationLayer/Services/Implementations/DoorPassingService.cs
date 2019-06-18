@@ -4,6 +4,7 @@ using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.Services.Interfaces;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
@@ -24,14 +25,14 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public List<DoorPassingViewModel> GetDoorPassings()
+		public async Task<List<DoorPassingViewModel>> GetDoorPassingsAsync()
 		{
 			var models = dataManager.DoorsPassing.GetDoorsPassingList();
 			var viewModels = new List<DoorPassingViewModel>();
 
 			foreach (var model in models)
 			{
-                var cardModel = dataManager.Cards.GetCardById(model.CardId);
+                var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
                 var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
 
                 // Статус. Нахождение.

@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Interfaces
 {
@@ -9,7 +10,7 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// Получить все проходы.
         /// </summary>
         /// <returns>Список проходов.</returns>
-		List<DoorPassingViewModel> GetDoorPassings();
+		Task<List<DoorPassingViewModel>> GetDoorPassingsAsync();
 
         /// <summary>
         /// Получить проход.
@@ -31,7 +32,5 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// <param name="model">Модель карточки для сохранения.</param>
         /// <returns>Карточка.</returns>
         DoorPassingViewModel SaveCard(DoorPassingEditModel model);
-
-
     }
 }

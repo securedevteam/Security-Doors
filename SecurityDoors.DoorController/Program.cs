@@ -88,7 +88,7 @@ namespace SecurityDoors.DoorController
                             Console.Write(string.Format("| {0,15} |", card) +
                                   string.Format(" {0,10} |", door));
 
-                            var result = mainController.ControllerАctuation(card, door);
+                            var result = mainController.ControllerАctuationAsync(card, door).Result;
 
                             if (result.Item2)
                             {

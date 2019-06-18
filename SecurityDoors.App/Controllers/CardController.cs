@@ -63,7 +63,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Create(CardViewModel card)
+        public async Task<IActionResult> Create(CardViewModel card)
         {
             card.UniqueNumber = Guid.NewGuid().ToString();
 
@@ -71,7 +71,7 @@ namespace SecurityDoors.App.Controllers
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
-                _serviceManager.Cards.SaveCard(card);
+                await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -87,9 +87,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns></returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {            
-            var model = _serviceManager.Cards.GetCardById(id);
+            var model = await _serviceManager.Cards.GetCardByIdAsync(id);
 
             if (model == null)
             {
@@ -108,9 +108,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.Cards.EditCardById(id);
+            var model = await _serviceManager.Cards.EditCardByIdAsync(id);
 
             return View(model);
         }
@@ -121,13 +121,13 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(CardEditModel card)
+        public async Task<IActionResult> Edit(CardEditModel card)
         {
             if (ModelState.IsValid)
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
-                _serviceManager.Cards.SaveCard(card);
+                await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -143,9 +143,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {            
-            _serviceManager.Cards.DeleteCardById(id);
+            await _serviceManager.Cards.DeleteCardByIdAsync(id);
 
             _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.CARD_IS_DELETED);
 

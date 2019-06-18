@@ -95,7 +95,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add-card":
                     case "a-c":
                         {
-                            cec.AddCard();
+                            await cec.AddCardAsync();
                         }
                         break;
 
@@ -109,7 +109,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-card":
                     case "l-c":
                         {
-                            await cec.PrintListOfCards();
+                            await cec.PrintListOfCardsAsync();
                         }
                         break;
 
@@ -130,7 +130,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-card":
                     case "s-c":
                         {
-                            cec.PrintCardById();
+                            await cec.PrintCardByIdAsync();
                         }
                         break;
 
@@ -151,7 +151,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-card":
                     case "d-c":
                         {
-                            cec.DeleteCardById();
+                            await cec.DeleteCardByIdAsync();
                         }
                         break;
 
