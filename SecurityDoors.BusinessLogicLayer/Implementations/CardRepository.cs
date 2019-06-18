@@ -4,6 +4,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -23,9 +24,9 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Card> GetCardsList()
+        public async Task<IEnumerable<Card>> GetCardsListAsync()
         {
-            return db.Cards;
+            return await db.Cards.ToListAsync();
         }
 
         /// <inheritdoc/>

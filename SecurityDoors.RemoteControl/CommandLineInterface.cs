@@ -3,6 +3,7 @@ using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.Implementations;
 using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.RemoteControl.cli
 {
@@ -28,7 +29,7 @@ namespace SecurityDoors.RemoteControl.cli
         /// <summary>
         /// Запуск консольной программы.
         /// </summary>
-        public void Run()
+        public async Task Run()
         {
             CLIColor.WriteInfo("Wellcome to remote Controll system!\n");
        
@@ -108,7 +109,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-card":
                     case "l-c":
                         {
-                            cec.PrintListOfCards();
+                            await cec.PrintListOfCards();
                         }
                         break;
 

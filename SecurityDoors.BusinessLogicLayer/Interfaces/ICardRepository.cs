@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
@@ -13,7 +14,7 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Коллекция карт.
         /// </summary>
         /// <returns>Список карт.</returns>
-        IEnumerable<Card> GetCardsList();
+        Task<IEnumerable<Card>> GetCardsListAsync();
 
         /// <summary>
         /// Получить карту по Id.

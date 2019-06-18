@@ -6,6 +6,7 @@ using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -31,9 +32,9 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком карточек.
         /// </summary>
         /// <returns>Представление со списком карточек.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var models = _serviceManager.Cards.GetCards();
+            var models = await _serviceManager.Cards.GetCardsAsync();
 
             if (models == null)
             {

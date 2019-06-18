@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.RemoteControl.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace SecurityDoors.RemoteControl.Interfaces
 {
     /// <summary>
     /// Интерфейс для управления дверями через консольные команды.
@@ -23,6 +25,6 @@
         /// <summary>
         /// Вывести список карт.
         /// </summary>
-        void PrintListOfCards();
+        Task PrintListOfCards();
     }
 }

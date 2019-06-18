@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Interfaces
 {
@@ -12,7 +13,7 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// Получить карточки.
         /// </summary>
         /// <returns>Список карточек.</returns>
-        List<CardViewModel> GetCards();
+        Task<List<CardViewModel>> GetCardsAsync();
 
         /// <summary>
         /// Получить карточку.

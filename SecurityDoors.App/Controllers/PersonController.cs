@@ -50,7 +50,7 @@ namespace SecurityDoors.App.Controllers
 
         private List<string> GetListAvailableCards(int form)
         {
-            var cards = _serviceManager.Cards.GetCards();
+            var cards = _serviceManager.Cards.GetCardsAsync().Result;
             var people = _serviceManager.People.GetPeople();
 
             var allUniqueNumbersCards = new List<string>();

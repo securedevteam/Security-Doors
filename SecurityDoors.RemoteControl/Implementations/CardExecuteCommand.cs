@@ -4,6 +4,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.RemoteControl.Implementations
 {
@@ -145,7 +146,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintListOfCards()
+        public async Task PrintListOfCards()
         {
             CLIColor.WriteInfo("Information about cards:");
 
@@ -167,7 +168,7 @@ namespace SecurityDoors.RemoteControl.Implementations
             Console.Write("=====================================");
             Console.WriteLine();
 
-            var cards = _dataManager.Cards.GetCardsList();
+            var cards = await _dataManager.Cards.GetCardsListAsync();
 
             foreach (var c in cards)
             {

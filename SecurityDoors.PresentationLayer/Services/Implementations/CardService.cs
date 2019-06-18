@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
@@ -25,9 +26,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public List<CardViewModel> GetCards()
+        public async Task<List<CardViewModel>> GetCardsAsync()
         {
-            var models = dataManager.Cards.GetCardsList();
+            var models = await dataManager.Cards.GetCardsListAsync();
             var viewModels = new List<CardViewModel>();
 
             foreach (var model in models)
