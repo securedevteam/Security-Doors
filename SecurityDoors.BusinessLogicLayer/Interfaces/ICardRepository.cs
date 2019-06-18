@@ -21,20 +21,20 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
         /// <returns>Карта.</returns>
-        Card GetCardById(int id);
+        Task<Card> GetCardByIdAsync(int id);
 
         /// <summary>
         /// Получить карту по уникальному номеру.
         /// </summary>
         /// <param name="item">уникальный номер.</param>
         /// <returns>Карта.</returns>
-        Card GetCardByUniqueNumber(string item);
+        Task<Card> GetCardByUniqueNumberAsync(string item);
 
         /// <summary>
         /// Создать карту.
         /// </summary>
         /// <param name="item">элемент.</param>
-		void Create(Card item);
+		Task CreateAsync(Card item);
 
         /// <summary>
         /// Обновить карту.
@@ -46,12 +46,12 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Удалить карту.
         /// </summary>
         /// <param name="id">идентификатор карты.</param>
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
         /// <summary>
         /// Сохранить изменения.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Save(Card item);
+        Task SaveAsync(Card item);
     }
 }
