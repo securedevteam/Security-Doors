@@ -59,7 +59,7 @@ namespace SecurityDoors.App
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Add our repository type
-            services.AddSingleton<ILoggerRepository, LoggerRepository>();            
+            //services.AddSingleton<ILoggerRepository, LoggerRepository>();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +68,7 @@ namespace SecurityDoors.App
             if (env.IsDevelopment())
             {                
                 app.UseDeveloperExceptionPage();
+                _logger.LogInformation("In Development environment");
             }
             else
             {
