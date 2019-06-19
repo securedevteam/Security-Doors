@@ -15,8 +15,6 @@ using Microsoft.Extensions.Logging.EventLog;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
-using SecurityDoors.Core.Infrastructure;
-using SecurityDoors.Core.Logger.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App
@@ -56,10 +54,7 @@ namespace SecurityDoors.App
             services.AddScoped<DataManager>();
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            // Add our repository type
-            //services.AddSingleton<ILoggerRepository, LoggerRepository>();            
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
