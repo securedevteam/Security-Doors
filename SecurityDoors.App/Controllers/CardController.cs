@@ -125,14 +125,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.CARD_IS_NOT_VALID);
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.CARD_IS_NOT_VALID);
 
                 return View(card);
             }

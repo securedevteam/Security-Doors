@@ -69,14 +69,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOORPASSING_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.DOORPASSING_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.DoorPassings.SaveCardAsync(doorPassing);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.DOORPASSING_IS_NOT_VALID);
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.DOORPASSING_IS_NOT_VALID);
 
                 return View(doorPassing);
             }

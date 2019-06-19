@@ -122,14 +122,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
 
                 return View(door);
             }

@@ -197,14 +197,14 @@ namespace SecurityDoors.App.Controllers
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.People.SavePersonAsync(person);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
+                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
 
                 return View();
             }
