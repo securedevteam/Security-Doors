@@ -36,7 +36,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _serviceManager.Cards.GetCardsAsync();
 
-            if (models == null)
+            if (models == null || models.Count == 0)
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.CARDS_LIST_IS_EMPTY);
             }

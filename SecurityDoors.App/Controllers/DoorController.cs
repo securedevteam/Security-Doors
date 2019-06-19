@@ -35,7 +35,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _serviceManager.Doors.GetDoorsAsync();
 
-            if (models == null)
+            if (models == null || models.Count == 0)
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.DOORS_LIST_IS_EMPTY);
             }

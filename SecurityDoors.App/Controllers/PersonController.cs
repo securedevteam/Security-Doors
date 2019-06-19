@@ -37,7 +37,7 @@ namespace SecurityDoors.App.Controllers
 		{
             var models = await _serviceManager.People.GetPeopleAsync();
 
-            if (models == null)
+            if (models == null || models.Count == 0)
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.PEOPLE_LIST_IS_EMPTY);
             }

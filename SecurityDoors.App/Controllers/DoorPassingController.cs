@@ -35,7 +35,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
-            if (models == null)
+            if (models == null || models.Count == 0)
             {
                 _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.DOORPASSING_LIST_IS_EMPTY);
             }
