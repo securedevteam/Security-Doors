@@ -27,7 +27,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<List<DoorPassingViewModel>> GetDoorPassingsAsync()
 		{
-			var models = dataManager.DoorsPassing.GetDoorsPassingList();
+			var models = await dataManager.DoorsPassing.GetDoorsPassingListAsync();
 			var viewModels = new List<DoorPassingViewModel>();
 
 			foreach (var model in models)
@@ -54,9 +54,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-        public DoorPassingViewModel GetDoorPassingById(int id)
+        public async Task<DoorPassingViewModel> GetDoorPassingByIdAsync(int id)
         {
-            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+            var model = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
             var result = model.ConvertStatus();
@@ -73,9 +73,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public DoorPassingEditModel EditDoorPassingById(int id)
+        public async Task<DoorPassingEditModel> EditDoorPassingByIdAsync(int id)
         {
-            var model = dataManager.DoorsPassing.GetDoorPassingById(id);
+            var model = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
             var result = model.ConvertStatus();
@@ -92,13 +92,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         }
 
         /// <inheritdoc/>
-        public DoorPassingViewModel SaveCard(DoorPassingEditModel model)
+        public async Task<DoorPassingViewModel> SaveCardAsync(DoorPassingEditModel model)
         {
             var doorPassing = new DoorPassing();
 
             if (model.Id != 0)
             {
-                doorPassing = dataManager.DoorsPassing.GetDoorPassingById(model.Id);
+                doorPassing = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(model.Id);
             }
 
             // Статус. Нахождение.
@@ -108,9 +108,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             doorPassing.Status = result.Item1;
             doorPassing.Comment = model.Comment;
 
-            dataManager.DoorsPassing.Save(doorPassing);
+            await dataManager.DoorsPassing.SaveAsync(doorPassing);
 
-            return GetDoorPassingById(doorPassing.Id);
+            return await GetDoorPassingByIdAsync(doorPassing.Id);
         }
     }
 }

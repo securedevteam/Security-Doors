@@ -34,8 +34,8 @@ namespace SecurityDoors.DoorController
             doorpassing.Status = 1;
             doorpassing.Location = location;
 
-            _dataManager.DoorsPassing.Create(doorpassing);
-            _dataManager.DoorsPassing.Save(doorpassing);
+            await _dataManager.DoorsPassing.CreateAsync(doorpassing);
+            await _dataManager.DoorsPassing.SaveAsync(doorpassing);
         }
 
         /// <summary>

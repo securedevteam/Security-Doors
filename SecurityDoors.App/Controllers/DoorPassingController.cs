@@ -52,9 +52,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.DoorPassings.EditDoorPassingById(id);
+            var model = await _serviceManager.DoorPassings.EditDoorPassingByIdAsync(id);
 
             return View(model);
         }
@@ -65,13 +65,13 @@ namespace SecurityDoors.App.Controllers
         /// <param name="doorPassing">модель прохода.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(DoorPassingEditModel doorPassing)
+        public async Task<IActionResult> Edit(DoorPassingEditModel doorPassing)
         {
             if (ModelState.IsValid)
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOORPASSING_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
-                _serviceManager.DoorPassings.SaveCard(doorPassing);
+                await _serviceManager.DoorPassings.SaveCardAsync(doorPassing);
                 return RedirectToAction(nameof(Index));
             }
             else
