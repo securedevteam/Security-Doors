@@ -216,9 +216,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-		public IActionResult Delete (int id)
+		public async Task<IActionResult> Delete (int id)
 		{
-			_serviceManager.People.DeletePersonById(id);
+			await _serviceManager.People.DeletePersonByIdAsync(id);
 
             _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
 

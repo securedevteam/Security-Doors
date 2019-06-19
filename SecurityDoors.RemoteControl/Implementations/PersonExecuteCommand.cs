@@ -6,6 +6,7 @@ using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.RemoteControl.Implementations
 {
@@ -29,7 +30,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void AddPerson()
+        public async Task AddPersonAsync()
         {
             try
             {
@@ -59,7 +60,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 Console.Write("Enter CardId: ");
                 var cardId = int.Parse(Console.ReadLine());
 
-                var people = _dataManager.People.GetPeopleList();
+                var people = await _dataManager.People.GetPeopleListAsync();
 
                 var allCardIds = new List<int>();
 
@@ -87,7 +88,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     CardId = cardId
                 };
 
-                _dataManager.People.Create(person);
+                await _dataManager.People.CreateAsync(person);
                 _applicationContext.SaveChanges();
 
                 Console.WriteLine();
@@ -104,7 +105,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintPersonById()
+        public async Task PrintPersonByIdAsync()
         {
             Console.Write("Enter person id: ");
 
@@ -113,7 +114,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var person = _dataManager.People.GetPersonById(id);
+                var person = await _dataManager.People.GetPersonByIdAsync(id);
 
                 if (person != null)
                 {
@@ -145,7 +146,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void DeletePersonById()
+        public async Task DeletePersonByIdAsync()
         {
             Console.Write("Enter person id: ");
 
@@ -154,11 +155,11 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var card = _dataManager.People.GetPersonById(id);
+                var card = await _dataManager.People.GetPersonByIdAsync(id);
 
                 if (card != null)
                 {
-                    _dataManager.People.Delete(id);
+                    await _dataManager.People.DeleteAsync(id);
                     CLIColor.WriteInfo("Person successfully deleted!\n");
                 }
                 else
@@ -174,7 +175,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintListOfPeople()
+        public async Task PrintListOfPeopleAsync()
         {
             CLIColor.WriteInfo("Information about people:");
 
@@ -198,7 +199,7 @@ namespace SecurityDoors.RemoteControl.Implementations
             Console.Write("=====================================");
             Console.WriteLine();
 
-            var people = _dataManager.People.GetPeopleList();
+            var people = await _dataManager.People.GetPeopleListAsync();
 
             foreach (var p in people)
             {

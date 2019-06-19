@@ -27,7 +27,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<List<PersonViewModel>> GetPeopleAsync()
 		{
-			var models = dataManager.People.GetPeopleList();
+			var models = await dataManager.People.GetPeopleListAsync();
 			var viewModels = new List<PersonViewModel>();
 
             var gender = string.Empty;
@@ -56,7 +56,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<PersonViewModel> GetPersonByIdAsync(int id)
 		{
-			var model = dataManager.People.GetPersonById(id);
+			var model = await dataManager.People.GetPersonByIdAsync(id);
             var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
 
             var gender = model.ConvertGender();
@@ -77,7 +77,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<PersonEditModel> EditPersonByIdAsync(int id)
 		{
-			var model = dataManager.People.GetPersonById(id);
+			var model = await dataManager.People.GetPersonByIdAsync(id);
             var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
 
             var gender = model.ConvertGender();
@@ -96,9 +96,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public void DeletePersonById(int id)
+		public async Task DeletePersonByIdAsync(int id)
 		{
-			dataManager.People.Delete(id);
+			await dataManager.People.DeleteAsync(id);
 		}
 
         /// <inheritdoc/>
@@ -120,7 +120,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				CardId = cardModel.Id
             };
 
-			dataManager.People.Save(person);
+			await dataManager.People.SaveAsync(person);
 
 			return await GetPersonByIdAsync(person.Id);
 		}
@@ -144,7 +144,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				CardId = cardModel.Id
             };
 
-			dataManager.People.Save(person);
+			await dataManager.People.SaveAsync(person);
 
 			return await GetPersonByIdAsync(person.Id);
 		}

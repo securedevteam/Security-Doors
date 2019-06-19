@@ -81,7 +81,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add person":
                     case "a-p":
                         {
-                            pec.AddPerson();
+                            await pec.AddPersonAsync();
                         }
                         break;
 
@@ -102,7 +102,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-person":
                     case "l-p":
                         {
-                            pec.PrintListOfPeople();
+                            await pec.PrintListOfPeopleAsync();
                         }
                         break;
 
@@ -123,7 +123,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-person":
                     case "s-p":
                         {
-                            pec.PrintPersonById();
+                            await pec.PrintPersonByIdAsync();
                         }
                         break;
 
@@ -144,7 +144,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-person":
                     case "d-p":
                         {
-                            pec.DeletePersonById();
+                            await pec.DeletePersonByIdAsync();
                         }
                         break;
 

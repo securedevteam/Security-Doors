@@ -30,7 +30,7 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// Удалить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-		void DeletePersonById(int id);
+		Task DeletePersonByIdAsync(int id);
 
         /// <summary>
         /// Сохранить сотрудника с сигнатурой PersonViewModel.

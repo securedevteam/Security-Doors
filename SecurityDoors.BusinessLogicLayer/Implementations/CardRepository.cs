@@ -55,7 +55,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         /// <inheritdoc/>
         public async Task DeleteAsync(int id)
         {
-            Card card = await db.Cards.FindAsync(id);
+            var card = await db.Cards.FindAsync(id);
 
             if (card != null)
             {

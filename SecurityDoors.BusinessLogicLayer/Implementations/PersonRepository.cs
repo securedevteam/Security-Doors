@@ -3,6 +3,7 @@ using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -22,21 +23,21 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Person> GetPeopleList()
+        public async Task<IEnumerable<Person>> GetPeopleListAsync()
         {
-            return db.People;
+            return await db.People.ToListAsync();
         }
 
         /// <inheritdoc/>
-        public Person GetPersonById(int id)
+        public async Task<Person> GetPersonByIdAsync(int id)
         {
-            return db.People.Find(id);
+            return await db.People.FindAsync(id);
         }
 
 		/// <inheritdoc/>
-		public void Create(Person item)
+		public async Task CreateAsync(Person item)
         {
-            db.People.Add(item);
+            await db.People.AddAsync(item);
         }
 
         /// <inheritdoc/>
@@ -47,29 +48,30 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         /// TODO: Человек являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на него в DoorPassing, если они есть
         /// <inheritdoc/>
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            Person person = db.People.Find(id);
+            var person = await db.People.FindAsync(id);
+
             if (person != null)
             {
                 db.People.Remove(person);
-				db.SaveChanges();
+				await db.SaveChangesAsync();
 			}
 		}
 
         /// <inheritdoc/>
-        public void Save(Person item)
+        public async Task SaveAsync(Person item)
         {
             if (item.Id <= 0)
             {
-                db.People.Add(item);
+                await db.People.AddAsync(item);
             }
             else
             {
                 db.Entry(item).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
 

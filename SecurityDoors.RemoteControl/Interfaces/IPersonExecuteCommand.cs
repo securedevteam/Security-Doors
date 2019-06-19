@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.RemoteControl.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace SecurityDoors.RemoteControl.Interfaces
 {
     /// <summary>
     /// Интерфейс для управления сотрудниками через консольные команды.
@@ -8,21 +10,21 @@
         /// <summary>
         /// Добавить нового сотрудника.
         /// </summary>
-        void AddPerson();
+        Task AddPersonAsync();
 
         /// <summary>
         /// Получить данные о сотруднике.
         /// </summary>
-        void PrintPersonById();
+        Task PrintPersonByIdAsync();
 
         /// <summary>
         /// Удалить выбранного сотрудника.
         /// </summary>
-        void DeletePersonById();
+        Task DeletePersonByIdAsync();
 
         /// <summary>
         /// Вывести список сотрудников.
         /// </summary>
-        void PrintListOfPeople();
+        Task PrintListOfPeopleAsync();
     }
 }
