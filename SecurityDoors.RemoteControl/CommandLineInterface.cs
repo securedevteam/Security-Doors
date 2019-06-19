@@ -88,7 +88,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "add-door":
                     case "a-d":
                         {
-                            dec.AddDoor();
+                            await dec.AddDoorAsync();
                         }
                         break;
 
@@ -116,7 +116,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "list-doors":
                     case "l-d":
                         {
-                            dec.PrintListOfDoors();
+                            await dec.PrintListOfDoorsAsync();
                         }
                         break;
 
@@ -137,7 +137,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "show-door":
                     case "s-d":
                         {
-                            dec.PrintDoorById();
+                            await dec.PrintDoorByIdAsync();
                         }
                         break;
 
@@ -158,7 +158,7 @@ namespace SecurityDoors.RemoteControl.cli
                     case "delete-door":
                     case "d-d":
                         {
-                            dec.DeleteDoorById();
+                            await dec.DeleteDoorByIdAsync();
                         }
                         break;
 

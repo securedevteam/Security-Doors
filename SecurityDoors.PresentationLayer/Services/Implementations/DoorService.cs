@@ -4,6 +4,7 @@ using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.Services.Interfaces;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Implementation
 {
@@ -24,9 +25,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public List<DoorViewModel> GetDoors()
+		public async Task<List<DoorViewModel>> GetDoorsAsync()
 		{
-			var models = dataManager.Doors.GetDoorsList();
+			var models = await dataManager.Doors.GetDoorsListAsync();
 			var viewModels = new List<DoorViewModel>();
 
             foreach (var model in models)
@@ -49,9 +50,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public DoorViewModel GetDoorById(int id)
+		public async Task<DoorViewModel> GetDoorByIdAsync(int id)
 		{
-			var model = dataManager.Doors.GetDoorById(id);
+			var model = await dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
             var result = model.ConvertStatus();
@@ -70,9 +71,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public DoorEditModel EditDoorDyId(int id)
+		public async Task<DoorEditModel> EditDoorDyIdAsync(int id)
 		{
-			var model = dataManager.Doors.GetDoorById(id);
+			var model = await dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
             var result = model.ConvertStatus();
@@ -90,19 +91,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 		}
 
         /// <inheritdoc/>
-		public void DeleteDoorById(int id)
+		public async Task DeleteDoorByIdAsync(int id)
 		{
-			dataManager.Doors.Delete(id);
+			await dataManager.Doors.DeleteAsync(id);
 		}
 
         /// <inheritdoc/>
-		public DoorViewModel SaveDoor(DoorViewModel model)
+		public async Task<DoorViewModel> SaveDoorAsync(DoorViewModel model)
 		{
             var door = new Door();
 
             if (model.Id != 0)
             {
-                door = dataManager.Doors.GetDoorById(model.Id);
+                door = await dataManager.Doors.GetDoorByIdAsync(model.Id);
             }
 
             // Статус. Уровень.
@@ -114,19 +115,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             door.Level = result.Item2;
             door.Comment = model.Comment;
 
-            dataManager.Doors.Save(door);
+            await dataManager.Doors.SaveAsync(door);
 
-            return GetDoorById(door.Id);
+            return await GetDoorByIdAsync(door.Id);
         }
 
         /// <inheritdoc/>
-        public DoorViewModel SaveDoor(DoorEditModel model)
+        public async Task<DoorViewModel> SaveDoorAsync(DoorEditModel model)
         {
             var door = new Door();
 
             if (model.Id != 0)
             {
-                door = dataManager.Doors.GetDoorById(model.Id);
+                door = await dataManager.Doors.GetDoorByIdAsync(model.Id);
             }
 
             var status = model.ConvertStatus();
@@ -136,9 +137,9 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             door.Status = status;
             door.Comment = model.Comment;
 
-            dataManager.Doors.Save(door);
+            await dataManager.Doors.SaveAsync(door);
 
-            return GetDoorById(door.Id);
+            return await GetDoorByIdAsync(door.Id);
         }
     }
 }

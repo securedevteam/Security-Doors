@@ -33,7 +33,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 			foreach (var model in models)
 			{
                 var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
-                var doorModel = dataManager.Doors.GetDoorById(model.DoorId);
+                var doorModel = await dataManager.Doors.GetDoorByIdAsync(model.DoorId);
 
                 // Статус. Нахождение.
                 var result = model.ConvertStatus();

@@ -47,7 +47,7 @@ namespace SecurityDoors.DoorController
         public async Task<(string, bool)> ControllerАctuationAsync(string cardNumber, string doorName)
         {
             var card = await _dataManager.Cards.GetCardByUniqueNumberAsync(cardNumber);
-            var door = _dataManager.Doors.GetDoorByName(doorName);
+            var door = await _dataManager.Doors.GetDoorByNameAsync(doorName);
 
             if(card == null)
             {

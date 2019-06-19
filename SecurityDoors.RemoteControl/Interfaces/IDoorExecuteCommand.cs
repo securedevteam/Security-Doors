@@ -1,4 +1,6 @@
-﻿namespace SecurityDoors.RemoteControl.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace SecurityDoors.RemoteControl.Interfaces
 {
     /// <summary>
     /// Интерфейс для управления дверями через консольные команды.
@@ -8,21 +10,21 @@
         /// <summary>
         /// Добавить новую дверь.
         /// </summary>
-        void AddDoor();
+        Task AddDoorAsync();
 
         /// <summary>
         /// Получить данные о двери.
         /// </summary>
-        void PrintDoorById();
+        Task PrintDoorByIdAsync();
 
         /// <summary>
         /// Удалить выбранную дверь.
         /// </summary>
-        void DeleteDoorById();
+        Task DeleteDoorByIdAsync();
 
         /// <summary>
         /// Вывести список дверей.
         /// </summary>
-        void PrintListOfDoors();
+        Task PrintListOfDoorsAsync();
     }
 }

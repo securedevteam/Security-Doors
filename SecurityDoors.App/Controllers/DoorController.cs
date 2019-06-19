@@ -5,6 +5,7 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -30,9 +31,9 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверей.
         /// </summary>
         /// <returns>Представление со списком дверей.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var models = _serviceManager.Doors.GetDoors();
+            var models = await _serviceManager.Doors.GetDoorsAsync();
 
             if (models == null)
             {
@@ -61,13 +62,13 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Create(DoorViewModel door)
+        public async Task<IActionResult> Create(DoorViewModel door)
         {
             if (ModelState.IsValid)
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
-                _serviceManager.Doors.SaveDoor(door);
+                await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -83,9 +84,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление</returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = _serviceManager.Doors.GetDoorById(id);
+            var model = await _serviceManager.Doors.GetDoorByIdAsync(id);
 
             if (model == null)
             {
@@ -104,9 +105,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.Doors.EditDoorDyId(id);
+            var model = await _serviceManager.Doors.EditDoorDyIdAsync(id);
 
             return View(model);
         }
@@ -117,13 +118,13 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(DoorEditModel door)
+        public async Task<IActionResult> Edit(DoorEditModel door)
         {
             if (ModelState.IsValid)
             {
                 _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
-                _serviceManager.Doors.SaveDoor(door);
+                await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -139,9 +140,9 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _serviceManager.Doors.DeleteDoorById(id);
+            await _serviceManager.Doors.DeleteDoorByIdAsync(id);
 
             _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
 

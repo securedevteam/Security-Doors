@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.PresentationLayer.Services.Interfaces
 {
@@ -9,40 +10,40 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
         /// Получить двери.
         /// </summary>
         /// <returns>Список дверей.</returns>
-		List<DoorViewModel> GetDoors();
+		Task<List<DoorViewModel>> GetDoorsAsync();
 
         /// <summary>
         /// Получить дверь.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Дверь.</returns>
-		DoorViewModel GetDoorById(int id);
+		Task<DoorViewModel> GetDoorByIdAsync(int id);
 
         /// <summary>
         /// Изменить дверь.
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Дверь.</returns>
-		DoorEditModel EditDoorDyId(int id);
+		Task<DoorEditModel> EditDoorDyIdAsync(int id);
 
         /// <summary>
         /// Удалить дверь.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-		void DeleteDoorById(int id);
+		Task DeleteDoorByIdAsync(int id);
 
         /// <summary>
         /// Сохранить дверь с сигнатурой DoorViewModel.
         /// </summary>
         /// <param name="model">модель двери для сохранения.</param>
         /// <returns>Дверь.</returns>
-		DoorViewModel SaveDoor(DoorViewModel model);
+		Task<DoorViewModel> SaveDoorAsync(DoorViewModel model);
 
         /// <summary>
         /// Сохранить дверь с сигнатурой DoorEditModel.
         /// </summary>
         /// <param name="model">модель двери для сохранения.</param>
         /// <returns>Дверь.</returns>
-        DoorViewModel SaveDoor(DoorEditModel model);
+        Task<DoorViewModel> SaveDoorAsync(DoorEditModel model);
     }
 }

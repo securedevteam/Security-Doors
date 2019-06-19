@@ -4,6 +4,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.RemoteControl.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.RemoteControl.Implementations
 {
@@ -27,7 +28,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void AddDoor()
+        public async Task AddDoorAsync()
         {
             try
             {
@@ -65,7 +66,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     Comment = comment
                 };
 
-                _dataManager.Doors.Create(door);
+                await _dataManager.Doors.CreateAsync(door);
                 _applicationContext.SaveChanges();
 
                 Console.WriteLine();
@@ -78,7 +79,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintDoorById()
+        public async Task PrintDoorByIdAsync()
         {
             Console.Write("Enter door id: ");
 
@@ -87,7 +88,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var door = _dataManager.Doors.GetDoorById(id);
+                var door = await _dataManager.Doors.GetDoorByIdAsync(id);
 
                 if (door != null)
                 {
@@ -117,7 +118,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void DeleteDoorById()
+        public async Task DeleteDoorByIdAsync()
         {
             Console.Write("Enter door id: ");
 
@@ -126,11 +127,11 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var id = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                var door = _dataManager.Doors.GetDoorById(id);
+                var door = await _dataManager.Doors.GetDoorByIdAsync(id);
 
                 if (door != null)
                 {
-                    _dataManager.Doors.Delete(id);
+                    await _dataManager.Doors.DeleteAsync(id);
                     CLIColor.WriteInfo("Door successfully deleted!\n");
                 }
                 else
@@ -146,7 +147,7 @@ namespace SecurityDoors.RemoteControl.Implementations
         }
 
         /// <inheritdoc/>
-        public void PrintListOfDoors()
+        public async Task PrintListOfDoorsAsync()
         {
             CLIColor.WriteInfo("Information about doors:");
 
@@ -168,7 +169,7 @@ namespace SecurityDoors.RemoteControl.Implementations
             Console.Write("=========");
             Console.WriteLine();
 
-            var doors = _dataManager.Doors.GetDoorsList();
+            var doors = await _dataManager.Doors.GetDoorsListAsync();
 
             foreach (var d in doors)
             {
