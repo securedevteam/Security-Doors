@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,36 +14,30 @@ namespace SecurityDoors.App
     {     
         public static void Main(string[] args)
         {
-            
+            // В случае отсутсвия журнала, выполнить команду:
+            // New-EventLog -LogName SDoorsApplication -Source SecurityDoors.App
 
-            string logName = "SDoorsApplication";
-            string sourceName = "SecurityDoors.App";
-
-            if (EventLog.SourceExists(sourceName) == false)
-            {
-                var eventSourceData = new EventSourceCreationData(sourceName, logName);
-                EventLog.CreateEventSource(eventSourceData);
-            }
-
-            var settings = new EventLogSettings
-            {
-                LogName = "SDoorsApplication",
-                SourceName = "SDoorsApplication",
-                Filter = (source, level) => level >= LogLevel.Debug
-            };
-            var webHost = new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory())
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                var env = hostingContext.HostingEnvironment;
-                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);                
-            })
-            .ConfigureLogging((hostingContext, logging) =>
-            {
-                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));                
-                logging.AddEventLog(settings);             
-            })
-            .UseStartup<Startup>()
-            .Build();
+            var webHost = new WebHostBuilder()
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);                
+                })
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddEventLog(new EventLogSettings()
+                    {
+                        SourceName = "SecurityDoors.App",
+                        LogName = "SDoorsApplication",
+                        Filter = (x, y) => y >= LogLevel.Information
+                    });
+                    logging.AddConsole();
+                })
+                .UseStartup<Startup>()
+                .Build();
 
             // Заполнение начальными данными пустую базу данных.
             using (var scope = webHost.Services.CreateScope())
