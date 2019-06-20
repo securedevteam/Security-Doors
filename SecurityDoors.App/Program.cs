@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,7 +14,7 @@ namespace SecurityDoors.App
 {
     public class Program
     {     
-        public static void Main(string[] args)
+        public async Task Main(string[] args)
         {
             // В случае отсутсвия журнала, выполнить команду:
             // New-EventLog -LogName SDoorsApplication -Source SecurityDoors.App
@@ -45,8 +47,12 @@ namespace SecurityDoors.App
                 var services = scope.ServiceProvider;
                 try
                 {
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await DbInitializerRoles.InitializeAsync(userManager, rolesManager);
+
                     var context = services.GetRequiredService<ApplicationContext>();
-                    DbInitializerData.Initialize(context);
+                    await DbInitializerData.Initialize(context);
                 }
                 catch (Exception ex)
                 {
