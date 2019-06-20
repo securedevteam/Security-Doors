@@ -65,13 +65,13 @@ namespace SecurityDoors.Tests
 			_context.DoorPassings.AddRange(listDoorsPassing);
 			_context.SaveChanges();
 
-			//// Act
-			//var doorPassingList = _dataManagerService.DoorsPassing.GetDoorsPassingList().ToList();
-			//var actual = doorPassingList.Count();
+            // Act
+            var doorPassingList = _dataManagerService.DoorsPassing.GetDoorsPassingListAsync().Result;
+            var actual = doorPassingList.Count();
 
-			//// Assert
-			//Assert.Equal(expected, actual);
-		}
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 
 		/// <summary>
 		/// Тест на проверку получения определенного прохода через дверь.
@@ -93,18 +93,18 @@ namespace SecurityDoors.Tests
 			_context.DoorPassings.Add(expected);
 			_context.SaveChanges();
 
-			//// Act			
-			//var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            // Act			
+            var actual = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//// Assert
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.PassingTime, actual.PassingTime);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Location, actual.Location);
-			//Assert.Equal(expected.Comment, actual.Comment);
-			//Assert.Equal(expected.DoorId, actual.DoorId);
-			//Assert.Equal(expected.CardId, actual.CardId);
-		}
+            // Assert
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.PassingTime, actual.PassingTime);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.DoorId, actual.DoorId);
+            Assert.Equal(expected.CardId, actual.CardId);
+        }
 
 		/// <summary>
 		///  Тест на проверку создания нового прохода через двер.
@@ -123,23 +123,24 @@ namespace SecurityDoors.Tests
 				CardId = rnd.Next(),
 			};
 
-			// Act
-			//_dataManagerService.DoorsPassing.Create(expected);
-			//_context.SaveChanges();
+            //Act
 
-			//var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            _dataManagerService.DoorsPassing.CreateAsync(expected);
+            _context.SaveChanges();
 
-			//// Assert
-			//Assert.Equal(expected, actual);
+            var actual = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.PassingTime, actual.PassingTime);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Location, actual.Location);
-			//Assert.Equal(expected.Comment, actual.Comment);
-			//Assert.Equal(expected.DoorId, actual.DoorId);
-			//Assert.Equal(expected.CardId, actual.CardId);
-		}
+            // Assert
+            Assert.Equal(expected, actual);
+
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.PassingTime, actual.PassingTime);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.DoorId, actual.DoorId);
+            Assert.Equal(expected.CardId, actual.CardId);
+        }
 
 		/// <summary>
 		/// Тест на проверку обновления прохода через дверь.
@@ -161,30 +162,30 @@ namespace SecurityDoors.Tests
 			_context.DoorPassings.Add(expected);
 			_context.SaveChanges();
 
-			// Act
-			//var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            // Act
+            var actual = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//actual.PassingTime = DateTime.Now;
-			//actual.Status = rnd.Next();
-			//actual.Location = true;
-			//actual.Comment = Guid.NewGuid().ToString();
-			//actual.DoorId = rnd.Next();
-			//actual.CardId = rnd.Next();
+            actual.PassingTime = DateTime.Now;
+            actual.Status = rnd.Next();
+            actual.Location = true;
+            actual.Comment = Guid.NewGuid().ToString();
+            actual.DoorId = rnd.Next();
+            actual.CardId = rnd.Next();
 
-			//_dataManagerService.DoorsPassing.Update(actual);
+            _dataManagerService.DoorsPassing.Update(actual);
 
-			//var result = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            var result = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//// Assert
-			//Assert.NotEqual(expected, result);
-			
-			//Assert.NotEqual(expected.PassingTime, result.PassingTime);
-			//Assert.NotEqual(expected.Status, result.Status);
-			//Assert.NotEqual(expected.Location, result.Location);
-			//Assert.NotEqual(expected.Comment, result.Comment);
-			//Assert.NotEqual(expected.DoorId, result.DoorId);
-			//Assert.NotEqual(expected.CardId, result.CardId);
-		}
+            // Assert
+            Assert.NotEqual(expected, result);
+
+            Assert.NotEqual(expected.PassingTime, result.PassingTime);
+            Assert.NotEqual(expected.Status, result.Status);
+            Assert.NotEqual(expected.Location, result.Location);
+            Assert.NotEqual(expected.Comment, result.Comment);
+            Assert.NotEqual(expected.DoorId, result.DoorId);
+            Assert.NotEqual(expected.CardId, result.CardId);
+        }
 
 		/// <summary>
 		/// Тест на проверку удаления прохода через дверь.
@@ -206,13 +207,13 @@ namespace SecurityDoors.Tests
 			_context.DoorPassings.Add(expected);
 			_context.SaveChanges();
 
-			// Act
-			//_dataManagerService.DoorsPassing.DeleteAsync(expected.Id);
-			//var result = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            // Act
+            _dataManagerService.DoorsPassing.DeleteAsync(expected.Id);
+            var result = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//// Assert
-			//Assert.Null(result);
-		}
+            // Assert
+            Assert.Null(result);
+        }
 
 		/// <summary>
 		/// Тест на проверку сохранения прохода через дверь.
@@ -231,21 +232,21 @@ namespace SecurityDoors.Tests
 				CardId = rnd.Next(),
 			};
 
-			//// Act
-			//_dataManagerService.DoorsPassing.Save(expected);
+            // Act
+            _dataManagerService.DoorsPassing.SaveAsync(expected);
 
-			//var actual = _dataManagerService.DoorsPassing.GetDoorPassingById(expected.Id);
+            var actual = _dataManagerService.DoorsPassing.GetDoorPassingByIdAsync(expected.Id).Result;
 
-			//// Assert
-			//Assert.Equal(expected, actual);
+            // Assert
+            Assert.Equal(expected, actual);
 
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.PassingTime, actual.PassingTime);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Location, actual.Location);
-			//Assert.Equal(expected.Comment, actual.Comment);
-			//Assert.Equal(expected.DoorId, actual.DoorId);
-			//Assert.Equal(expected.CardId, actual.CardId);
-		}		
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.PassingTime, actual.PassingTime);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.DoorId, actual.DoorId);
+            Assert.Equal(expected.CardId, actual.CardId);
+        }		
 	}
 }

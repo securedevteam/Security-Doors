@@ -1,10 +1,14 @@
-﻿namespace SecurityDoors.DataAccessLayer.Models
+﻿using System.Collections.Generic;
+
+namespace SecurityDoors.DataAccessLayer.Models
 {
     /// <summary>
     /// Сотрудник.
     /// </summary>
     public class Person
     {
+        public IEnumerable<object> id;
+
         /// <summary>
         /// Id сотрудника.
         /// </summary> 
