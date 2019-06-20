@@ -19,7 +19,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// </summary>
         [Required(ErrorMessage = "Недопустимый псевдоним")]
         [Display(Name = "Псевдоним")]
-        public int Nickname { get; set; }
+        public string Nickname { get; set; }
 
         /// <summary>
         /// Пароль.

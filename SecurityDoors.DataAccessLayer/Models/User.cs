@@ -8,8 +8,8 @@ namespace SecurityDoors.DataAccessLayer.Models
     public class User : IdentityUser
     {
         /// <summary>
-        /// Прозвище.
+        /// Псевдоним.
         /// </summary>
-        public int Nickname { get; set; }
+        public string Nickname { get; set; }
     }
 }
