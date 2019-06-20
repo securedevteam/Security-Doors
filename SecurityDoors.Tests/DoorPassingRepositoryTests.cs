@@ -219,7 +219,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку сохранения прохода через дверь.
 		/// </summary>
 		[Fact]
-		public async void SaveDPTest_Return_True() // TODO: Разобраться почему ругается с SaveDoorPassing
+		public async void SaveDoorPassingTest_Return_True() // TODO: Разобраться почему ругается с SaveDoorPassing
 		{
 			// Arrange
 			var expected = new DoorPassing()

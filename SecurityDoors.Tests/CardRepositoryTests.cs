@@ -150,7 +150,7 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            _dataManagerService.Cards.CreateAsync(expected);
+            await _dataManagerService.Cards.CreateAsync(expected);
             _context.SaveChanges();
 
             var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
