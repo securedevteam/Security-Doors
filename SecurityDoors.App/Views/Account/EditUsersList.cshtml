@@ -10,7 +10,8 @@
             <tr>
                 <th>#</th>
                 <th>Электронная почта</th>
-                <th></th>
+                <th>Псевдоним</th>
+                <th>Доступные действия</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +20,15 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Email</td>
-                    <td><a asp-action="EditUsersRoles" asp-route-userid="@item.Id">Права доступа</a></td>
+                    <td>@item.Nickname</td>
+                    <td>
+                        @if (User.Identity.Name != item.Email)
+                        {
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                <button type="submit">Удалить</button>
+                            </form>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

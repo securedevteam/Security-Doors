@@ -32,6 +32,34 @@ namespace SecurityDoors.App.Controllers
         }
 
         /// <summary>
+        /// Редактирование списка активных пользователей.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> EditUsersList()
+        {
+            var result = await _userManager.Users.ToListAsync();
+            return View(result);
+        }
+
+        /// <summary>
+        /// Удаление выбранного активного пользователя.
+        /// </summary>
+        /// <param name="id">идентификатор.</param>
+        /// <returns>Представление главной страницы.</returns>
+        [HttpPost]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+
+            return RedirectToAction(nameof(EditUsersList));
+        }
+
+        /// <summary>
         /// Настройка пользовательских ролей.
         /// </summary>
         /// <returns></returns>

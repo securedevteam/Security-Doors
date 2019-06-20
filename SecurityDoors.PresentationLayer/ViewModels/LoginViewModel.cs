@@ -10,8 +10,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Электронный адрес.
         /// </summary>
-        [Required(ErrorMessage = "Неверный электронный адрес")]
-        [Display(Name = "Электронный адрес")]
+        [Required(ErrorMessage = "Неверная электронная почта")]
+        [Display(Name = "Электронная почта")]
         public string Email { get; set; }
 
         /// <summary>
