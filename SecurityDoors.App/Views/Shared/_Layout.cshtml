@@ -6,9 +6,24 @@
 
 </head>
 <body>
-    <a href="/Home/Index">Home</a> <br />
-    <a href="/Home/About">About</a> <br />
-    
+    <a asp-action="Index" asp-controller="Home">Home</a> <br />
+    <a asp-action="About" asp-controller="About">About</a> <br />
+
+    <br />
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Вы вошли в систему, как: @User.Identity.Name</p>
+
+        <form method="post" asp-controller="Account" asp-action="LogOff">
+            <input type="submit" value="Выход" />
+        </form>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login">Вход</a>
+    }
+
     <br />
 
     <a asp-action="Index" asp-controller="Card">Cards</a> <br />
