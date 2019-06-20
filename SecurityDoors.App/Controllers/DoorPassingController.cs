@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -31,7 +32,8 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверных проходов.
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>
-		public async Task<ActionResult> Index()
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Index()
         {
             var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 

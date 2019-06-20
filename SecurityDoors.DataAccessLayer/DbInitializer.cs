@@ -39,7 +39,7 @@ namespace SecurityDoors.DataAccessLayer
 
 			#endregion
 
-			// TODO: Добавить больше значений.
+			// TODO: Добавить больше значений. РЕФАКТОРИНГ
 			var rnd = new Random();
 			var cards = new Card[]
 			{

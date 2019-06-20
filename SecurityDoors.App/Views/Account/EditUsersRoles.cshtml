@@ -1,0 +1,17 @@
+﻿@model RoleViewModel
+
+<h2>Изменение ролей для пользователя @Model.UserEmail</h2>
+
+<form asp-action="EditUsersRoles" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    
+    <div>
+        @foreach (IdentityRole role in Model.AllRoles)
+        {
+            <input type="checkbox" name="roles" value="@role.Name"
+                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
+            }
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>

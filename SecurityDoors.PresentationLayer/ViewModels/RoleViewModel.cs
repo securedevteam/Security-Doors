@@ -21,12 +21,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Все роли.
         /// </summary>
-        public List<IdentityRole> AllRoles { get; set; }
+        public IEnumerable<IdentityRole> AllRoles { get; set; }
 
         /// <summary>
         /// Пользовательские роли.
         /// </summary>
-        public IList<string> UserRoles { get; set; }
+        public IEnumerable<string> UserRoles { get; set; }
 
         /// <summary>
         /// Конструктор.

@@ -1,16 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
+    // TODO: Logger
+
     /// <summary>
-    /// Контроллер для работы с аккаунтом пользователя.
+    /// Контроллер для работы с аккаунтом пользователя (Admin, Moderator, User, Visitor).
     /// </summary>
     public class AccountController : Controller
     {
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
@@ -18,10 +24,61 @@ namespace SecurityDoors.App.Controllers
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
+        }
+
+        public async Task<IActionResult> SettingUsersRoles()
+        {
+            var result = await _userManager.Users.ToListAsync();
+            return View(result);
+        }
+
+        public async Task<IActionResult> EditUsersRoles(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+
+                var model = new RoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUsersRoles(string userId, List<string> roles)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = await _roleManager.Roles.ToListAsync();
+                var addedRoles = roles.Except(userRoles);
+                var removedRoles = userRoles.Except(roles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+                return RedirectToAction(nameof(SettingUsersRoles));
+            }
+
+            return NotFound();
         }
 
         /// <summary>
