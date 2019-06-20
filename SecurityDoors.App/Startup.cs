@@ -75,7 +75,7 @@ namespace SecurityDoors.App
             }
 
             app.UseHttpsRedirection();
-            
+            app.UseStatusCodePagesWithRedirects("/{0}.html"); // TODO: Реализовать базовые страницы HTML в wwwroot
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
