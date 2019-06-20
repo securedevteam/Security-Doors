@@ -46,7 +46,7 @@ namespace SecurityDoors.App
                 try
                 {
                     var context = services.GetRequiredService<ApplicationContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializerData.Initialize(context);
                 }
                 catch (Exception ex)
                 {

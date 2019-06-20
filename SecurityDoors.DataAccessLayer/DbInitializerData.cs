@@ -7,7 +7,7 @@ namespace SecurityDoors.DataAccessLayer
 	/// <summary>
 	/// Класс для заполнения данными пустую базу данных.
 	/// </summary>
-	public class DbInitializer
+	public class DbInitializerData
 	{
 		/// <summary>
 		/// Заполнение первоначальными данными.
