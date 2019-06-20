@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.EventLog;
-using SecurityDoors.DataAccessLayer;
+using SecurityDoors.DataAccessLayer.InitialDbData;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App

@@ -2,7 +2,7 @@
 using SecurityDoors.DataAccessLayer.Models;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.DataAccessLayer
+namespace SecurityDoors.DataAccessLayer.InitialDbData
 {
     /// <summary>
     /// Класс для заполнения данными пустую базу данных AspNet (Identity).

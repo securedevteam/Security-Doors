@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace SecurityDoors.DataAccessLayer
+namespace SecurityDoors.DataAccessLayer.InitialDbData
 {
 	/// <summary>
 	/// Класс для заполнения данными пустую базу данных.
