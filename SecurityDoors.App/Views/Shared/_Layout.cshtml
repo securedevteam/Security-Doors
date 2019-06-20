@@ -18,7 +18,10 @@
                 <input type="submit" value="Выход" />
             </form>
 
-            <p><a asp-controller="Account" asp-action="SettingUsersRoles">Разграничить права пользователей</a></p>
+            <br />
+
+            <a asp-controller="Account" asp-action="SettingUsersRoles">Разграничить права пользователей</a> <br />
+            <a asp-controller="Account" asp-action="EditUsersList">Редактироать список активных пользователей</a> <br />
         }
         else
         {
@@ -26,7 +29,6 @@
             <a asp-controller="Account" asp-action="Registration">Регистрация</a>
         }
 
-        <br />
         <br />
 
         <a asp-action="Index" asp-controller="Card">Cards</a> <br />
