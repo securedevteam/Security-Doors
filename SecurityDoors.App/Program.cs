@@ -44,17 +44,18 @@ namespace SecurityDoors.App
             // Заполнение начальными данными пустую базу данных.
             using (var scope = webHost.Services.CreateScope())
             {
-                Task t;
+                Task roles, data;
                 var services = scope.ServiceProvider;
                 try
                 {
                     var context = services.GetRequiredService<ApplicationContext>();
-                    DbInitializerData.Initialize(context);
+                    data = DbInitializerData.InitializeAsync(context);
+                    data.Wait();
 
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    t = DbInitializerRoles.InitializeAsync(userManager, rolesManager);
-                    t.Wait();
+                    roles = DbInitializerRoles.InitializeAsync(userManager, rolesManager);
+                    roles.Wait();
                 }
                 catch (Exception ex)
                 {
