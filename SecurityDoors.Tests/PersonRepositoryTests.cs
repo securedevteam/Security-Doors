@@ -43,7 +43,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения списка людей.
         /// </summary>
         [Fact]
-        public void GetPeopleListTest_Return_10()
+        public async void GetPeopleListTest_Return_10()
         {
             // Arrange
             var listPeople = new List<Person>();
@@ -66,7 +66,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act			
-            var personList = _dataManagerService.People.GetPeopleListAsync().Result;
+            var personList = await _dataManagerService.People.GetPeopleListAsync();
             var actual = personList.Count();
 
             // Assert
@@ -76,7 +76,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получение определенного человека.
         /// </summary>
         [Fact]
-        public void GetPersonByIdTest_Return_1()
+        public async void GetPersonByIdTest_Return_1()
         {
             // Arrange
             var expected = new Person()
@@ -93,7 +93,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // act
-            var actual = _dataManagerService.People.GetPersonByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
             // assert			
             Assert.Equal(expected.id, actual.id);
@@ -109,7 +109,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку создания человека.
         /// </summary>
         [Fact]
-        public void CreatePersonTest_Return_True()
+        public async void CreatePersonTest_Return_True()
         {
             // Arrange
             var expected = new Person()
@@ -123,10 +123,10 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            _dataManagerService.People.CreateAsync(expected);
+            await _dataManagerService.People.CreateAsync(expected);
             _context.SaveChanges();
 
-            var actual = _dataManagerService.People.GetPersonByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
             //Assert
             Assert.Equal(expected, actual);
@@ -143,7 +143,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку обновления человека.
         /// </summary>
         [Fact]
-        public void UpdatePersonTest_Return_True()
+        public async void UpdatePersonTest_Return_True()
         {
             // Arrange
             var expected = new Person()
@@ -160,7 +160,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             //Act
-            var actual = _dataManagerService.People.GetPersonByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
             actual.FirstName = Guid.NewGuid().ToString();
             actual.SecondName = Guid.NewGuid().ToString();
             actual.LastName = Guid.NewGuid().ToString();
@@ -171,7 +171,7 @@ namespace SecurityDoors.Tests
             _dataManagerService.People.Update(actual);
             _context.SaveChanges();
 
-            var result = _dataManagerService.People.GetPersonByIdAsync(actual.Id).Result;
+            var result = await _dataManagerService.People.GetPersonByIdAsync(actual.Id);
 
             //Assert
             Assert.NotEqual(expected.FirstName, result.FirstName);
@@ -186,7 +186,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку удаления человека.
         /// </summary>
         [Fact]
-        public void DeletePersonTest_Return_True()
+        public async void DeletePersonTest_Return_True()
         {
             // Arrange           
             var expected = new Person()
@@ -203,8 +203,8 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            _dataManagerService.People.DeleteAsync(expected.Id);
-            var result = _dataManagerService.People.GetPersonByIdAsync(expected.Id).Result;
+            await _dataManagerService.People.DeleteAsync(expected.Id);
+            var result = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
             // Assert
             Assert.Null(result);
@@ -214,7 +214,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку сохранения человека.
         /// </summary>
         [Fact]
-        public void SavePersonTest_Return_True()
+        public async void SavePersonTest_Return_True()
         {
             // Arrange           
             var expected = new Person()
@@ -228,9 +228,9 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            _dataManagerService.People.SaveAsync(expected);
+            await _dataManagerService.People.SaveAsync(expected);
 
-            var actual = _dataManagerService.People.GetPersonByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected, actual);

@@ -43,7 +43,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку получения списка дверей.
 		/// </summary>
 		[Fact]
-		public void GetDoorsListTest_Return_10()
+		public async void GetDoorsListTest_Return_10()
 		{
 			// Arrange
 			var listDoors = new List<Door>();
@@ -65,7 +65,7 @@ namespace SecurityDoors.Tests
 			_context.SaveChanges();
 
             // Act			
-            var doorsList = _dataManagerService.Doors.GetDoorsListAsync().Result;
+            var doorsList = await _dataManagerService.Doors.GetDoorsListAsync();
             var actual = doorsList.Count();
 
             // Assert
@@ -76,7 +76,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку получение определенной двери.
 		/// </summary>
 		[Fact]
-		public void GetDoorByIdTest_Return_1()
+		public async void GetDoorByIdTest_Return_1()
 		{
 			// Arrange
 			var expected = new Door()
@@ -92,7 +92,7 @@ namespace SecurityDoors.Tests
 			_context.SaveChanges();
 
             // Act			
-            var actual = _dataManagerService.Doors.GetDoorByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
             // Assert		
             Assert.Equal(expected.Id, actual.Id);
@@ -107,7 +107,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку получение двери по имени.
 		/// </summary>
 		[Fact]
-		public void GetDoorByNameTest_Return_True()
+		public async void GetDoorByNameTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -123,7 +123,7 @@ namespace SecurityDoors.Tests
 			_context.SaveChanges();
 
             // Act			
-            var actual = _dataManagerService.Doors.GetDoorByNameAsync(expected.Name).Result;
+            var actual = await _dataManagerService.Doors.GetDoorByNameAsync(expected.Name);
 
             // Assert		
             Assert.Equal(expected.Id, actual.Id);
@@ -138,7 +138,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку создания двери.
 		/// </summary>
 		[Fact]
-		public void CreateDoorTest_Return_True()
+		public async void CreateDoorTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -151,10 +151,10 @@ namespace SecurityDoors.Tests
 			};
 
             // Act
-            _dataManagerService.Doors.CreateAsync(expected);
+            await _dataManagerService.Doors.CreateAsync(expected);
             _context.SaveChanges();
 
-            var actual = _dataManagerService.Doors.GetDoorByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -171,7 +171,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку обновления двери.
 		/// </summary>
 		[Fact]
-		public void UpdateDoorTest_Return_True()
+		public async void UpdateDoorTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -197,7 +197,7 @@ namespace SecurityDoors.Tests
             _dataManagerService.Doors.Update(actual);
             _context.SaveChanges();
 
-            var result = _dataManagerService.Doors.GetDoorByIdAsync(actual.Id).Result;
+            var result = await _dataManagerService.Doors.GetDoorByIdAsync(actual.Id);
 
             // Assert
             Assert.NotEqual(expected.Name, result.Name);
@@ -211,7 +211,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку удаление двери.
 		/// </summary>
 		[Fact]
-		public void DeleteDoorTest_Return_True()
+		public async void DeleteDoorTest_Return_True()
 		{
             // TODO: Тест выдает ошибку
 
@@ -229,8 +229,8 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            _dataManagerService.Doors.DeleteAsync(expected.Id);
-            var result = _dataManagerService.Doors.GetDoorByIdAsync(expected.Id).Result;
+            _dataManagerService.Doors.DeleteAsync(expected.Id).Wait();
+            var result = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
             // Assert
             Assert.Null(result);
@@ -240,7 +240,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку сохраниения двери.
 		/// </summary>
 		[Fact]
-		public void SaveDoorTest_Return_True()
+		public async void SaveDoorTest_Return_True()
 		{
             // TODO: Тест выдает ошибку
 
@@ -255,9 +255,9 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            _dataManagerService.Doors.SaveAsync(expected);
+            await _dataManagerService.Doors.SaveAsync(expected);
 
-            var actual = _dataManagerService.Doors.GetDoorByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected, actual);

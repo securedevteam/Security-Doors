@@ -43,7 +43,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения списка карт.
         /// </summary>
         [Fact]
-        public void GetCardsListTest_Return_10()
+        public async void GetCardsListTest_Return_10()
         {
             // Arrange
             var listCards = new List<Card>();
@@ -65,7 +65,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            var cardList = _dataManagerService.Cards.GetCardsListAsync().Result; 
+            var cardList = await _dataManagerService.Cards.GetCardsListAsync(); 
             var actual = cardList.Count();
 
             Assert.Equal(expected, actual);
@@ -75,7 +75,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения определенной карты.
         /// </summary>
         [Fact]
-        public void GetCardsByIdTest_Return_1()
+        public async void GetCardsByIdTest_Return_1()
         {
             // Arrange
             var expected = new Card()
@@ -91,7 +91,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            var actual = _dataManagerService.Cards.GetCardByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected.Id, actual.Id);
@@ -106,7 +106,7 @@ namespace SecurityDoors.Tests
         /// Тест на получение карты по уникальному номеру.
         /// </summary>
         [Fact]
-        public void GetCardByUniqueNumberTest_Return_True()
+        public async void GetCardByUniqueNumberTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -122,7 +122,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            var actual = _dataManagerService.Cards.GetCardByUniqueNumberAsync(expected.UniqueNumber).Result;
+            var actual = await _dataManagerService.Cards.GetCardByUniqueNumberAsync(expected.UniqueNumber);
 
             // Assert
             Assert.Equal(expected.Id, actual.Id);
@@ -137,7 +137,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку создания новой карты.
         /// </summary>
         [Fact]
-        public void CreateCardTest_Return_True()
+        public async void CreateCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -153,7 +153,7 @@ namespace SecurityDoors.Tests
             _dataManagerService.Cards.CreateAsync(expected);
             _context.SaveChanges();
 
-            var actual = _dataManagerService.Cards.GetCardByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -170,7 +170,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку удаления карты.
         /// </summary>
         [Fact]
-        public void DeletCardTest_Return_True()
+        public async void DeletCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -186,8 +186,8 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            _dataManagerService.Cards.DeleteAsync(expected.Id);
-            var result = _dataManagerService.Cards.GetCardByIdAsync(expected.Id).Result;
+            await _dataManagerService.Cards.DeleteAsync(expected.Id);
+            var result = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
             // Assert
             Assert.Null(result);
@@ -197,7 +197,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку сохранения карты.
         /// </summary>
         [Fact]
-        public void SaveCardTest_Return_True()
+        public async void SaveCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -210,8 +210,8 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            _dataManagerService.Cards.SaveAsync(expected);
-            var actual = _dataManagerService.Cards.GetCardByIdAsync(expected.Id).Result;
+            await _dataManagerService.Cards.SaveAsync(expected);
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
             // Assert
             Assert.Equal(expected, actual);
@@ -228,7 +228,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку обновления карты.
         /// </summary>
         [Fact]        
-        public void UpdateCardTest_Return_True()
+        public async void UpdateCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -244,7 +244,7 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             //Act
-            var actual = _dataManagerService.Cards.GetCardByIdAsync(expected.Id).Result;
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
             actual.UniqueNumber = Guid.NewGuid().ToString();
             actual.Status = rnd.Next();
@@ -255,7 +255,7 @@ namespace SecurityDoors.Tests
             _dataManagerService.Cards.Update(actual);
             _context.SaveChanges();
 
-            var result = _dataManagerService.Cards.GetCardByIdAsync(actual.Id).Result;
+            var result = await _dataManagerService.Cards.GetCardByIdAsync(actual.Id);
 
             Assert.NotEqual(expected, result);
 
