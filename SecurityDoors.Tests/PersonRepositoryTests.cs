@@ -235,5 +235,34 @@ namespace SecurityDoors.Tests
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        /// Exception
+
+        /// <summary>
+        ///  Тест на проверку получения исключения при создании нового человека.
+        /// </summary>
+        [Fact]
+        public async void CreatePersonTest_Return_Exception()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.People.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении человека.
+        /// </summary>
+        [Fact]
+        public void UpdatePersonTest_Return_Exception()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.People.Update(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при сохранении человека.
+        /// </summary>
+        [Fact]
+        public async void SavePersonTest_Return_Exception()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.People.SaveAsync(null));
+        }
     }
 }

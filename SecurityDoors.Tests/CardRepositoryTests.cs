@@ -265,5 +265,36 @@ namespace SecurityDoors.Tests
             Assert.NotEqual(expected.Location, result.Location);
             Assert.NotEqual(expected.Comment, result.Comment);
         }
+
+
+        /// Exception
+
+        /// <summary>
+        /// Тест на проверку получения исключения при создании новой карты.
+        /// </summary>
+        [Fact]
+        public async void CreateCardTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Cards.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при сохранении карты.
+        /// </summary>
+        [Fact]
+        public async void SaveCardTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Cards.SaveAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении карты.
+        /// </summary>
+        [Fact]
+        public  void UpdateCardTest_Return_Exсeption()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.Cards.Update(null));
+        }
+
     }
 }

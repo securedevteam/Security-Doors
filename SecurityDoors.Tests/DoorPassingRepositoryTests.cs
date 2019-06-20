@@ -247,6 +247,28 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Comment, actual.Comment);
             Assert.Equal(expected.DoorId, actual.DoorId);
             Assert.Equal(expected.CardId, actual.CardId);
-        }		
-	}
+        }
+
+
+        /// Exception
+
+        /// <summary>
+        ///  Тест на проверку получения исключения при созданиb нового прохода через двер.
+        /// </summary>
+        [Fact]
+        public async void CreateDoorPassingTest_Return_Exception()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.DoorsPassing.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении прохода через дверь.
+        /// </summary>
+        [Fact]
+        public  void UpdateDoorPassingTest_Return_Exception()
+        {
+             Assert.ThrowsAny<Exception>(() => _dataManagerService.DoorsPassing.Update(null));
+        }
+
+    }
 }

@@ -269,5 +269,26 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Comment, actual.Comment);
         }
+
+        /// Exception
+
+        /// <summary>
+        /// Тест на проверку получения исключения при создании новой двери.
+        /// </summary>
+        [Fact]
+        public async void CreateDoorTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Doors.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении двери.
+        /// </summary>
+        [Fact]
+        public void UpdateDoorTest_Return_Exсeption()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.Doors.Update(null));
+        }
+
     }
 }
