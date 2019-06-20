@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\SecurityDoors.Core\SecurityDoors.Core.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
