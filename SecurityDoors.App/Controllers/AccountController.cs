@@ -31,12 +31,21 @@ namespace SecurityDoors.App.Controllers
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Настройка пользовательских ролей.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> SettingUsersRoles()
         {
             var result = await _userManager.Users.ToListAsync();
             return View(result);
         }
 
+        /// <summary>
+        /// Изменить роли у пользователя.
+        /// </summary>
+        /// <param name="userId">Id пользователя.</param>
+        /// <returns>Представление.</returns>
         public async Task<IActionResult> EditUsersRoles(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -60,6 +69,12 @@ namespace SecurityDoors.App.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Изменить роли у пользователя (POST).
+        /// </summary>
+        /// <param name="userId">Id пользователя</param>
+        /// <param name="roles">все роли в приложении.</param>
+        /// <returns>Представление.</returns>
         [HttpPost]
         public async Task<IActionResult> EditUsersRoles(string userId, List<string> roles)
         {
