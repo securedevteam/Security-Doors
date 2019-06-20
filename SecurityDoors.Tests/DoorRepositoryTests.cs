@@ -43,7 +43,7 @@ namespace SecurityDoors.Tests
 		/// Тест на проверку получения списка дверей.
 		/// </summary>
 		[Fact]
-		public void GetDoorsListTest_Return_10()
+		public async void GetDoorsListTest_Return_10()
 		{
 			// Arrange
 			var listDoors = new List<Door>();
@@ -64,19 +64,19 @@ namespace SecurityDoors.Tests
 			_context.Doors.AddRange(listDoors);
 			_context.SaveChanges();
 
-			//// Act			
-			//var doorsList = _dataManagerService.Doors.GetDoorsList().ToList();
-			//var actual = doorsList.Count();
+            // Act			
+            var doorsList = await _dataManagerService.Doors.GetDoorsListAsync();
+            var actual = doorsList.Count();
 
-			//// Assert
-			//Assert.Equal(expected, actual);			
-		}
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 		
 		/// <summary>
 		/// Тест на проверку получение определенной двери.
 		/// </summary>
 		[Fact]
-		public void GetDoorByIdTest_Return_1()
+		public async void GetDoorByIdTest_Return_1()
 		{
 			// Arrange
 			var expected = new Door()
@@ -91,23 +91,23 @@ namespace SecurityDoors.Tests
 			_context.Doors.Add(expected);
 			_context.SaveChanges();
 
-			//// Act			
-			//var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+            // Act			
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
-			//// Assert		
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.Name, actual.Name);
-			//Assert.Equal(expected.Description, actual.Description);
-			//Assert.Equal(expected.Level, actual.Level);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Comment, actual.Comment);
-		}
+            // Assert		
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Comment, actual.Comment);
+        }
 
 		/// <summary>
 		/// Тест на проверку получение двери по имени.
 		/// </summary>
 		[Fact]
-		public void GetDoorByNameTest_Return_True()
+		public async void GetDoorByNameTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -122,23 +122,23 @@ namespace SecurityDoors.Tests
 			_context.Doors.Add(expected);
 			_context.SaveChanges();
 
-			//// Act			
-			//var actual = _dataManagerService.Doors.GetDoorByName(expected.Name);
+            // Act			
+            var actual = await _dataManagerService.Doors.GetDoorByNameAsync(expected.Name);
 
-			//// Assert		
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.Name, actual.Name);
-			//Assert.Equal(expected.Description, actual.Description);
-			//Assert.Equal(expected.Level, actual.Level);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Comment, actual.Comment);
-		}
+            // Assert		
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Comment, actual.Comment);
+        }
 
 		/// <summary>
 		/// Тест на проверку создания двери.
 		/// </summary>
 		[Fact]
-		public void CreateDoorTest_Return_True()
+		public async void CreateDoorTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -150,28 +150,28 @@ namespace SecurityDoors.Tests
 				Comment = string.Empty,
 			};
 
-			//// Act
-			//_dataManagerService.Doors.Create(expected);
-			//_context.SaveChanges();
+            // Act
+            await _dataManagerService.Doors.CreateAsync(expected);
+            _context.SaveChanges();
 
-			//var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
-			//// Assert
-			//Assert.Equal(expected, actual);
+            // Assert
+            Assert.Equal(expected, actual);
 
-			//Assert.Equal(expected.Id, actual.Id);
-			//Assert.Equal(expected.Name, actual.Name);
-			//Assert.Equal(expected.Description, actual.Description);
-			//Assert.Equal(expected.Level, actual.Level);
-			//Assert.Equal(expected.Status, actual.Status);
-			//Assert.Equal(expected.Comment, actual.Comment);
-		}
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Comment, actual.Comment);
+        }
 
 		/// <summary>
 		/// Тест на проверку обновления двери.
 		/// </summary>
 		[Fact]
-		public void UpdateDoorTest_Return_True()
+		public async void UpdateDoorTest_Return_True()
 		{
 			// Arrange
 			var expected = new Door()
@@ -186,88 +186,109 @@ namespace SecurityDoors.Tests
 			_context.Doors.Add(expected);
 			_context.SaveChanges();
 
-			//// Act
-			//var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
-			//actual.Name = Guid.NewGuid().ToString();
-			//actual.Description = Guid.NewGuid().ToString();
-			//actual.Level = rnd.Next();
-			//actual.Status = rnd.Next();
-			//actual.Comment = Guid.NewGuid().ToString();
+            // Act
+            var actual = _dataManagerService.Doors.GetDoorByIdAsync(expected.Id).Result;
+            actual.Name = Guid.NewGuid().ToString();
+            actual.Description = Guid.NewGuid().ToString();
+            actual.Level = rnd.Next();
+            actual.Status = rnd.Next();
+            actual.Comment = Guid.NewGuid().ToString();
 
-			//_dataManagerService.Doors.Update(actual);
-			//_context.SaveChanges();
+            _dataManagerService.Doors.Update(actual);
+            _context.SaveChanges();
 
-			//var result = _dataManagerService.Doors.GetDoorById(actual.Id);
+            var result = await _dataManagerService.Doors.GetDoorByIdAsync(actual.Id);
 
-			//// Assert
-			//Assert.NotEqual(expected.Name, result.Name);
-			//Assert.NotEqual(expected.Description, result.Description);
-			//Assert.NotEqual(expected.Level, result.Level);
-			//Assert.NotEqual(expected.Status, result.Status);
-			//Assert.NotEqual(expected.Comment, result.Comment);
+            // Assert
+            Assert.NotEqual(expected.Name, result.Name);
+            Assert.NotEqual(expected.Description, result.Description);
+            Assert.NotEqual(expected.Level, result.Level);
+            Assert.NotEqual(expected.Status, result.Status);
+            Assert.NotEqual(expected.Comment, result.Comment);
 
-		}
+        }
 		/// <summary>
 		/// Тест на проверку удаление двери.
 		/// </summary>
 		[Fact]
-		public void DeleteDoorTest_Return_True()
+		public async void DeleteDoorTest_Return_True()
 		{
             // TODO: Тест выдает ошибку
 
-			//// Arrange
-			//var expected = new Door()
-			//{
-			//	Name = Guid.NewGuid().ToString(),
-			//	Description = Guid.NewGuid().ToString(),
-			//	Level = rnd.Next(),
-			//	Status = rnd.Next(),
-			//	Comment = string.Empty,
-			//};
+            // Arrange
+            var expected = new Door()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Description = Guid.NewGuid().ToString(),
+                Level = rnd.Next(),
+                Status = rnd.Next(),
+                Comment = string.Empty,
+            };
 
-			//_context.Doors.Add(expected);
-			//_context.SaveChanges();
-			
-			//// Act
-			//_dataManagerService.Doors.Delete(expected.Id);
-			//var result = _dataManagerService.Doors.GetDoorById(expected.Id);
+            _context.Doors.Add(expected);
+            _context.SaveChanges();
 
-			//// Assert
-			//Assert.Null(result);
-		}
+            // Act
+            _dataManagerService.Doors.DeleteAsync(expected.Id).Wait();
+            var result = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
+
+            // Assert
+            Assert.Null(result);
+        }
 
 		/// <summary>
 		/// Тест на проверку сохраниения двери.
 		/// </summary>
 		[Fact]
-		public void SaveDoorTest_Return_True()
+		public async void SaveDoorTest_Return_True()
 		{
             // TODO: Тест выдает ошибку
 
-            //// Arrange
-            //var expected = new Door()
-            //{
-            //	Name = Guid.NewGuid().ToString(),
-            //	Description = Guid.NewGuid().ToString(),
-            //	Level = rnd.Next(),
-            //	Status = rnd.Next(),
-            //	Comment = string.Empty,
-            //};
+            // Arrange
+            var expected = new Door()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Description = Guid.NewGuid().ToString(),
+                Level = rnd.Next(),
+                Status = rnd.Next(),
+                Comment = string.Empty,
+            };
 
-            //// Act
-            //_dataManagerService.Doors.Save(expected);
+            // Act
+            await _dataManagerService.Doors.SaveAsync(expected);
 
-            //var actual = _dataManagerService.Doors.GetDoorById(expected.Id);
+            var actual = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
 
-            //// Assert
-            //Assert.Equal(expected, actual);
+            // Assert
+            Assert.Equal(expected, actual);
 
-            //Assert.Equal(expected.Id, actual.Id);
-            //Assert.Equal(expected.Name, actual.Name);
-            //Assert.Equal(expected.Description, actual.Description);
-            //Assert.Equal(expected.Level, actual.Level);
-            //Assert.Equal(expected.Status, actual.Status);
-            //Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Name, actual.Name);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
+
+        /// Exception
+
+        /// <summary>
+        /// Тест на проверку получения исключения при создании новой двери.
+        /// </summary>
+        [Fact]
+        public async void CreateDoorTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Doors.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении двери.
+        /// </summary>
+        [Fact]
+        public void UpdateDoorTest_Return_Exсeption()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.Doors.Update(null));
+        }
+
     }
 }

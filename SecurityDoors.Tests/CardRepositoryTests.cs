@@ -43,7 +43,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения списка карт.
         /// </summary>
         [Fact]
-        public void GetCardsListTest_Return_10()
+        public async void GetCardsListTest_Return_10()
         {
             // Arrange
             var listCards = new List<Card>();
@@ -65,18 +65,17 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            //var cardList = _dataManagerService.Cards.GetCardsList().ToList(); // TODO: Асинхронность.
-            //var actual = cardList.Count();
+            var cardList = await _dataManagerService.Cards.GetCardsListAsync(); 
+            var actual = cardList.Count();
 
-            // Assert
-            //Assert.Equal(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
         /// <summary>
         /// Тест на проверку получения определенной карты.
         /// </summary>
         [Fact]
-        public void GetCardsByIdTest_Return_1()
+        public async void GetCardsByIdTest_Return_1()
         {
             // Arrange
             var expected = new Card()
@@ -92,22 +91,22 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            //var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
-            //// Assert
-            //Assert.Equal(expected.Id, actual.Id);
-            //Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
-            //Assert.Equal(expected.Status, actual.Status);
-            //Assert.Equal(expected.Level, actual.Level);
-            //Assert.Equal(expected.Location, actual.Location);
-            //Assert.Equal(expected.Comment, actual.Comment);
+            // Assert
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
 
         /// <summary>
         /// Тест на получение карты по уникальному номеру.
         /// </summary>
         [Fact]
-        public void GetCardByUniqueNumberTest_Return_True()
+        public async void GetCardByUniqueNumberTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -123,22 +122,22 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            //var actual = _dataManagerService.Cards.GetCardByUniqueNumber(expected.UniqueNumber);
+            var actual = await _dataManagerService.Cards.GetCardByUniqueNumberAsync(expected.UniqueNumber);
 
-            //// Assert
-            //Assert.Equal(expected.Id, actual.Id);
-            //Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
-            //Assert.Equal(expected.Status, actual.Status);
-            //Assert.Equal(expected.Level, actual.Level);
-            //Assert.Equal(expected.Location, actual.Location);
-            //Assert.Equal(expected.Comment, actual.Comment);
+            // Assert
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
 
         /// <summary>
         /// Тест на проверку создания новой карты.
         /// </summary>
         [Fact]
-        public void CreateCardTest_Return_True()
+        public async void CreateCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -151,27 +150,27 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            //_dataManagerService.Cards.CreateAsync(expected);
-            //_context.SaveChanges();
+            await _dataManagerService.Cards.CreateAsync(expected);
+            _context.SaveChanges();
 
-            //var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
-            //// Assert
-            //Assert.Equal(expected, actual);
+            // Assert
+            Assert.Equal(expected, actual);
 
-            //Assert.Equal(expected.Id, actual.Id);
-            //Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
-            //Assert.Equal(expected.Status, actual.Status);
-            //Assert.Equal(expected.Level, actual.Level);
-            //Assert.Equal(expected.Location, actual.Location);
-            //Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         }
 
         /// <summary>
         /// Тест на проверку удаления карты.
         /// </summary>
         [Fact]
-        public void DeletCardTest_Return_True()
+        public async void DeletCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -187,18 +186,18 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             // Act
-            //_dataManagerService.Cards.Delete(expected.Id);
-            //var result = _dataManagerService.Cards.GetCardById(expected.Id);
+            await _dataManagerService.Cards.DeleteAsync(expected.Id);
+            var result = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
-            //// Assert
-            //Assert.Null(result);
+            // Assert
+            Assert.Null(result);
         }
 
         /// <summary>
         /// Тест на проверку сохранения карты.
         /// </summary>
         [Fact]
-        public void SaveCardTest_Return_True()
+        public async void SaveCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -211,25 +210,25 @@ namespace SecurityDoors.Tests
             };
 
             // Act
-            //_dataManagerService.Cards.SaveAsync(expected);
-            //var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+            await _dataManagerService.Cards.SaveAsync(expected);
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
-            //// Assert
-            //Assert.Equal(expected, actual);
+            // Assert
+            Assert.Equal(expected, actual);
 
-            //Assert.Equal(expected.Id, actual.Id);
-            //Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
-            //Assert.Equal(expected.Status, actual.Status);
-            //Assert.Equal(expected.Level, actual.Level);
-            //Assert.Equal(expected.Location, actual.Location);
-            //Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.UniqueNumber, actual.UniqueNumber);
+            Assert.Equal(expected.Status, actual.Status);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Location, actual.Location);
+            Assert.Equal(expected.Comment, actual.Comment);
         } 
         
         /// <summary>
         /// Тест на проверку обновления карты.
         /// </summary>
         [Fact]        
-        public void UpdateCardTest_Return_True()
+        public async void UpdateCardTest_Return_True()
         {
             // Arrange
             var expected = new Card()
@@ -245,27 +244,57 @@ namespace SecurityDoors.Tests
             _context.SaveChanges();
 
             //Act
-            //var actual = _dataManagerService.Cards.GetCardById(expected.Id);
+            var actual = await _dataManagerService.Cards.GetCardByIdAsync(expected.Id);
 
-            //actual.UniqueNumber = Guid.NewGuid().ToString();
-            //actual.Status = rnd.Next();
-            //actual.Level = rnd.Next();
-            //actual.Location = true;
-            //actual.Comment = Guid.NewGuid().ToString();
+            actual.UniqueNumber = Guid.NewGuid().ToString();
+            actual.Status = rnd.Next();
+            actual.Level = rnd.Next();
+            actual.Location = true;
+            actual.Comment = Guid.NewGuid().ToString();
 
-            //_dataManagerService.Cards.Update(actual);
-            //_context.SaveChanges();
+            _dataManagerService.Cards.Update(actual);
+            _context.SaveChanges();
 
-            //var result = _dataManagerService.Cards.GetCardById(actual.Id);
+            var result = await _dataManagerService.Cards.GetCardByIdAsync(actual.Id);
 
-            //Assert            
-            //Assert.NotEqual(expected, result);
+            Assert.NotEqual(expected, result);
 
-            //Assert.NotEqual(expected.UniqueNumber, result.UniqueNumber);
-            //Assert.NotEqual(expected.Status, result.Status);
-            //Assert.NotEqual(expected.Level, result.Level);
-            //Assert.NotEqual(expected.Location, result.Location);
-            //Assert.NotEqual(expected.Comment, result.Comment);
+            Assert.NotEqual(expected.UniqueNumber, result.UniqueNumber);
+            Assert.NotEqual(expected.Status, result.Status);
+            Assert.NotEqual(expected.Level, result.Level);
+            Assert.NotEqual(expected.Location, result.Location);
+            Assert.NotEqual(expected.Comment, result.Comment);
         }
+
+
+        /// Exception
+
+        /// <summary>
+        /// Тест на проверку получения исключения при создании новой карты.
+        /// </summary>
+        [Fact]
+        public async void CreateCardTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Cards.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при сохранении карты.
+        /// </summary>
+        [Fact]
+        public async void SaveCardTest_Return_Exсeption()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.Cards.SaveAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении карты.
+        /// </summary>
+        [Fact]
+        public  void UpdateCardTest_Return_Exсeption()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.Cards.Update(null));
+        }
+
     }
 }
