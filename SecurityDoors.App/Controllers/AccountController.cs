@@ -11,15 +11,63 @@ namespace SecurityDoors.App.Controllers
     /// </summary>
     public class AccountController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            _userManager = userManager;
             _signInManager = signInManager;
+        }
+
+        /// <summary>
+        /// Регистрация.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Регистрация.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Registration(RegistrationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User
+                {
+                    Email = model.Email,
+                    UserName = model.Email,
+                    Nickname = model.Nickname
+                };
+                
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+
+            return View(model);
         }
 
         /// <summary>
