@@ -28,9 +28,9 @@ namespace SecurityDoors.App.Controllers
         /// <param name="returnUrl">возврат по определенному адресу.</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Authorization(string returnUrl = null)
+        public IActionResult Login(string returnUrl = null)
         {
-            return View(new AuthorizationViewModel { ReturnUrl = returnUrl });
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Authorization(AuthorizationViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {

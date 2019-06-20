@@ -5,7 +5,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     /// <summary>
     /// Модель формы авторизации.
     /// </summary>
-    public class AuthorizationViewModel
+    public class LoginViewModel
     {       
         /// <summary>
         /// Электронный адрес.
