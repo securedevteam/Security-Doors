@@ -14,7 +14,7 @@ namespace SecurityDoors.App
 {
     public class Program
     {     
-        public async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             // В случае отсутсвия журнала, выполнить команду:
             // New-EventLog -LogName SDoorsApplication -Source SecurityDoors.App
@@ -44,15 +44,17 @@ namespace SecurityDoors.App
             // Заполнение начальными данными пустую базу данных.
             using (var scope = webHost.Services.CreateScope())
             {
+                Task t;
                 var services = scope.ServiceProvider;
                 try
                 {
+                    var context = services.GetRequiredService<ApplicationContext>();
+                    DbInitializerData.Initialize(context);
+
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await DbInitializerRoles.InitializeAsync(userManager, rolesManager);
-
-                    var context = services.GetRequiredService<ApplicationContext>();
-                    await DbInitializerData.Initialize(context);
+                    t = DbInitializerRoles.InitializeAsync(userManager, rolesManager);
+                    t.Wait();
                 }
                 catch (Exception ex)
                 {

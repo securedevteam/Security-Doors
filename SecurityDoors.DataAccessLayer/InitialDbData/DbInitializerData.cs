@@ -14,7 +14,7 @@ namespace SecurityDoors.DataAccessLayer.InitialDbData
 		/// Заполнение первоначальными данными.
 		/// </summary>
 		/// <param name="context"></param>
-		public static async Task Initialize(ApplicationContext context)
+		public static void Initialize(ApplicationContext context)
 		{
 			#region Проверка на пустоту данных в базе данных.
 
@@ -68,9 +68,9 @@ namespace SecurityDoors.DataAccessLayer.InitialDbData
 			};
 			foreach (Card c in cards)
 			{
-				await context.Cards.AddAsync(c);
+				context.Cards.Add(c);
 			}
-            await context.SaveChangesAsync();
+            context.SaveChanges();
 
 			var doors = new Door[]
 			{
@@ -90,9 +90,9 @@ namespace SecurityDoors.DataAccessLayer.InitialDbData
 			};
 			foreach (Door d in doors)
 			{
-                await context.Doors.AddAsync(d);
+                context.Doors.Add(d);
 			}
-            await context.SaveChangesAsync();
+            context.SaveChanges();
 
 			var people = new Person[]
 			{
@@ -112,9 +112,9 @@ namespace SecurityDoors.DataAccessLayer.InitialDbData
 			};
 			foreach (Person p in people)
 			{
-                await context.People.AddAsync(p);
+                context.People.Add(p);
 			}
-            await context.SaveChangesAsync();
+            context.SaveChanges();
 		}
 	}
 }
