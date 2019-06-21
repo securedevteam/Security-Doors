@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Logger;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
@@ -19,16 +22,18 @@ namespace SecurityDoors.App.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, ILogger<CardController> logger)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         /// <summary>
@@ -37,8 +42,18 @@ namespace SecurityDoors.App.Controllers
         /// <returns></returns>
         public async Task<IActionResult> EditUsersList()
         {
-            var result = await _userManager.Users.ToListAsync();
-            return View(result);
+            var models = await _userManager.Users.ToListAsync();
+
+            if (models == null || models.Count == 0)
+            {
+                _logger.LogWarning(LoggingEvents.ListUsersItemsNotFound, LoggerConstants.USERS_LIST_IS_NOT_EMPTY);
+            }
+            else
+            {
+                _logger.LogInformation(LoggingEvents.ListUsersItems, LoggerConstants.USERS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+            }
+
+            return View(models);
         }
 
         /// <summary>
@@ -54,6 +69,8 @@ namespace SecurityDoors.App.Controllers
             if (user != null)
             {
                 await _userManager.DeleteAsync(user);
+
+                _logger.LogInformation(LoggingEvents.DeleteUserItem, LoggerConstants.CARD_IS_DELETED);
             }
 
             return RedirectToAction(nameof(EditUsersList));
@@ -65,8 +82,11 @@ namespace SecurityDoors.App.Controllers
         /// <returns></returns>
         public async Task<IActionResult> SettingUsersRoles()
         {
-            var result = await _userManager.Users.ToListAsync();
-            return View(result);
+            var models = await _userManager.Users.ToListAsync();
+
+            _logger.LogInformation(LoggingEvents.ListUsersItems, LoggerConstants.USERS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+
+            return View(models);
         }
 
         /// <summary>
@@ -91,8 +111,12 @@ namespace SecurityDoors.App.Controllers
                     AllRoles = allRoles
                 };
 
+                _logger.LogInformation(LoggingEvents.EditUserItem, LoggerConstants.USER_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
                 return View(model);
             }
+
+            _logger.LogWarning(LoggingEvents.EditUserNotFound, LoggerConstants.CARD_IS_NOT_VALID);
 
             return NotFound();
         }
@@ -118,8 +142,12 @@ namespace SecurityDoors.App.Controllers
                 await _userManager.AddToRolesAsync(user, addedRoles);
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
+                _logger.LogInformation(LoggingEvents.EditUserItem, LoggerConstants.USER_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
                 return RedirectToAction(nameof(SettingUsersRoles));
             }
+
+            _logger.LogWarning(LoggingEvents.EditUserNotFound, LoggerConstants.CARD_IS_NOT_VALID);
 
             return NotFound();
         }
@@ -156,6 +184,9 @@ namespace SecurityDoors.App.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
+
+                    _logger.LogInformation(LoggingEvents.RegisterUserItem, LoggerConstants.USER_IS_REGISTER + " " + LoggerConstants.USER_IS_VALID + $"{model.Email}.");
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -166,6 +197,8 @@ namespace SecurityDoors.App.Controllers
                     }
                 }
             }
+
+            _logger.LogWarning(LoggingEvents.RegisterUserItemNotFound, LoggerConstants.USER_IS_NOT_VALID);
 
             return View(model);
         }
@@ -201,16 +234,22 @@ namespace SecurityDoors.App.Controllers
                     // Проверка на принадлежность URL приложению.
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
+                        _logger.LogInformation(LoggingEvents.LoginUserItem, LoggerConstants.USER_IS_LOGIN + " " + LoggerConstants.USER_IS_VALID + $"{model.Email}.");
+
                         return Redirect(model.ReturnUrl);
                     }
                     else
                     {
+                        _logger.LogInformation(LoggingEvents.LoginUserItem, LoggerConstants.USER_IS_LOGIN + " " + LoggerConstants.USER_IS_VALID + $"{model.Email}.");
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+
+                    _logger.LogWarning(LoggingEvents.LoginUserItemNotFound, LoggerConstants.USER_IS_NOT_VALID);
                 }
             }
 
@@ -226,6 +265,9 @@ namespace SecurityDoors.App.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync(); // Удаление аутентификационных куков.
+
+            _logger.LogInformation(LoggingEvents.LogoffUserItem, LoggerConstants.USER_IS_LOGOFF);
+
             return RedirectToAction("Index", "Home");
         }
     }

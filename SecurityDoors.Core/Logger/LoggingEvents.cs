@@ -45,10 +45,44 @@
         /// </summary>
         public const int InformationItem = 1007;
 
+
+
+        /// <summary>
+        /// Успешный лист пользователей.
+        /// </summary>
+        public const int ListUsersItems = 2001;
+
         /// <summary>
         /// Успешная вставка нового пользователя.
         /// </summary>
-        public const int InsertAccountItem = 2003;
+        public const int InsertUserItem = 2003;
+
+        /// <summary>
+        /// Успешное удаление пользователя.
+        /// </summary>
+        public const int DeleteUserItem = 2005;
+
+        /// <summary>
+        /// Успешное изменение пользователя.
+        /// </summary>
+        public const int EditUserItem = 2004;
+        
+
+
+        /// <summary>
+        /// Успешная регистрация пользователя.
+        /// </summary>
+        public const int RegisterUserItem = 3000;
+
+        /// <summary>
+        /// Успешное авторизация пользователя.
+        /// </summary>
+        public const int LoginUserItem = 3001;
+
+        /// <summary>
+        /// Успешный выход из аккаунта пользователя.
+        /// </summary>
+        public const int LogoffUserItem = 3002;
 
 
 
@@ -91,5 +125,27 @@
         /// Запрашиваем пользователь для создания не найден.
         /// </summary>
         public const int CreateAccountNotFound = 4003;
+
+
+
+        /// <summary>
+        /// Запрашиваемые объекты не найдены.
+        /// </summary>
+        public const int ListUsersItemsNotFound = 5002;
+
+        /// <summary>
+        /// Запрашиваем пользователь для редактирования не найден.
+        /// </summary>
+        public const int EditUserNotFound = 5005;
+
+        /// <summary>
+        /// Авторизация пользователя завершилась с ошибкой.
+        /// </summary>
+        public const int LoginUserItemNotFound = 6001;
+
+        /// <summary>
+        /// Регистрация пользователя завершилась с ошибкой.
+        /// </summary>
+        public const int RegisterUserItemNotFound = 6000;
     }
 }
