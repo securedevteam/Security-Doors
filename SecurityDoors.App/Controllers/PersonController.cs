@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
@@ -39,11 +40,11 @@ namespace SecurityDoors.App.Controllers
 
             if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.PEOPLE_LIST_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, PersonLoggerConstants.PEOPLE_LIST_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, PersonLoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
             return View(models);
@@ -126,14 +127,14 @@ namespace SecurityDoors.App.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+                    _logger.LogInformation(CommonSuccessfulEvents.CreateItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
                     await _serviceManager.People.SavePersonAsync(person);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
+                    _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
 
                     return View();
                 }
@@ -157,11 +158,11 @@ namespace SecurityDoors.App.Controllers
 
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, LoggerConstants.PERSON_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, PersonLoggerConstants.PERSON_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.InformationItem, LoggerConstants.PERSON_IS_NOT_EMPTY);
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, PersonLoggerConstants.PERSON_IS_NOT_EMPTY);
             }
 
             return View(model);
@@ -197,14 +198,15 @@ namespace SecurityDoors.App.Controllers
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.PERSON_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.People.SavePersonAsync(person);
+
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.PERSON_IS_NOT_VALID);
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
 
                 return View();
             }
@@ -220,7 +222,7 @@ namespace SecurityDoors.App.Controllers
 		{
 			await _serviceManager.People.DeletePersonByIdAsync(id);
 
-            _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, PersonLoggerConstants.PERSON_IS_DELETED);
 
             return RedirectToAction(nameof(Index));
 		}

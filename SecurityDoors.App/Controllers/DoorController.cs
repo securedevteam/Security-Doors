@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Threading.Tasks;
@@ -37,11 +38,11 @@ namespace SecurityDoors.App.Controllers
 
             if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.DOORS_LIST_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorLoggerConstants.DOORS_LIST_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.DOORS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorLoggerConstants.DOORS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
             return View(models);
@@ -66,14 +67,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+                _logger.LogInformation(CommonSuccessfulEvents.CreateItem, DoorLoggerConstants.DOOR_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
                 await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
+                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
 
                 return View(door);
             }
@@ -90,11 +91,11 @@ namespace SecurityDoors.App.Controllers
 
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, LoggerConstants.DOOR_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, DoorLoggerConstants.DOOR_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.InformationItem, LoggerConstants.DOOR_IS_NOT_EMPTY);
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, DoorLoggerConstants.DOOR_IS_NOT_EMPTY);
             }
 
             return View(model);
@@ -122,14 +123,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.DOOR_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, DoorLoggerConstants.DOOR_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.DOOR_IS_NOT_VALID);
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
 
                 return View(door);
             }
@@ -144,7 +145,7 @@ namespace SecurityDoors.App.Controllers
         {
             await _serviceManager.Doors.DeleteDoorByIdAsync(id);
 
-            _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.DOOR_IS_DELETED);
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, DoorLoggerConstants.DOOR_IS_DELETED);
 
             return RedirectToAction(nameof(Index));
         }

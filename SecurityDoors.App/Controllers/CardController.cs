@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
@@ -38,11 +39,11 @@ namespace SecurityDoors.App.Controllers
 
             if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, LoggerConstants.CARDS_LIST_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, CardLoggerConstants.CARDS_LIST_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.ListItems, LoggerConstants.CARDS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, CardLoggerConstants.CARDS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
             return View(models);
@@ -69,14 +70,14 @@ namespace SecurityDoors.App.Controllers
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.CreateItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+                _logger.LogInformation(CommonSuccessfulEvents.CreateItem, CardLoggerConstants.CARD_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
 
                 await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, LoggerConstants.CARD_IS_NOT_VALID);
+                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
 
                 return View(card);
             }
@@ -93,11 +94,11 @@ namespace SecurityDoors.App.Controllers
 
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, LoggerConstants.CARD_IS_EMPTY);
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, CardLoggerConstants.CARD_IS_EMPTY);
             }
             else
             {
-                _logger.LogInformation(LoggingEvents.InformationItem, LoggerConstants.CARD_IS_NOT_EMPTY);
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, CardLoggerConstants.CARD_IS_NOT_EMPTY);
             }
             
             return View(model);
@@ -125,14 +126,14 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                _logger.LogInformation(LoggingEvents.EditItem, LoggerConstants.CARD_IS_VALID + LoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, CardLoggerConstants.CARD_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
 
                 await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, LoggerConstants.CARD_IS_NOT_VALID);
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
 
                 return View(card);
             }
@@ -147,7 +148,7 @@ namespace SecurityDoors.App.Controllers
         {            
             await _serviceManager.Cards.DeleteCardByIdAsync(id);
 
-            _logger.LogInformation(LoggingEvents.DeleteItem, LoggerConstants.CARD_IS_DELETED);
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, CardLoggerConstants.CARD_IS_DELETED);
 
             return RedirectToAction(nameof(Index));
         }
