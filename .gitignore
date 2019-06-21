@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#E-mail settings
+
+emailConfig.json
+
 #log files
 
 logger.txt
