@@ -161,6 +161,7 @@ namespace SecurityDoors.Tests
 
             //Act
             var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
+
             actual.FirstName = Guid.NewGuid().ToString();
             actual.SecondName = Guid.NewGuid().ToString();
             actual.LastName = Guid.NewGuid().ToString();

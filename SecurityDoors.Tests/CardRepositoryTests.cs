@@ -291,7 +291,7 @@ namespace SecurityDoors.Tests
         /// Тест на проверку получения исключения при обновлении карты.
         /// </summary>
         [Fact]
-        public  void UpdateCardTest_Return_Exсeption()
+        public void UpdateCardTest_Return_Exсeption()
         {
             Assert.ThrowsAny<Exception>(() => _dataManagerService.Cards.Update(null));
         }
