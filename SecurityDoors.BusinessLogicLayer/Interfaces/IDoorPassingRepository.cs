@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
@@ -13,20 +14,20 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Коллекция проходов.
         /// </summary>
         /// <returns>Список проходов.</returns>
-        IEnumerable<DoorPassing> GetDoorsPassingList();
+        Task<IEnumerable<DoorPassing>> GetDoorsPassingListAsync();
 
         /// <summary>
         /// Получить проход.
         /// </summary>
         /// <param name="id">идентификатор прохода.</param>
         /// <returns>Проход.</returns>
-        DoorPassing GetDoorPassingById(int id);
+        Task<DoorPassing> GetDoorPassingByIdAsync(int id);
 
         /// <summary>
         /// Создать проход.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Create(DoorPassing item);
+        Task CreateAsync(DoorPassing item);
 
         /// <summary>
         /// Обновить проход.
@@ -38,12 +39,12 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Удалить проход.
         /// </summary>
         /// <param name="id">идентификатор прохода.</param>
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
         /// <summary>
         /// Сохранить изменения.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Save(DoorPassing item);
+        Task SaveAsync(DoorPassing item);
     }
 }

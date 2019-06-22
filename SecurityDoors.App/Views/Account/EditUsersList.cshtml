@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SecurityDoors.DataAccessLayer.Models.User>
+
+<h1>Список активных пользователей</h1>
+
+<br />
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Электронная почта</th>
+                <th>Псевдоним</th>
+                <th>Доступные действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Email</td>
+                    <td>@item.Nickname</td>
+                    <td>
+                        @if (User.Identity.Name != item.Email)
+                        {
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                <button type="submit">Удалить</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

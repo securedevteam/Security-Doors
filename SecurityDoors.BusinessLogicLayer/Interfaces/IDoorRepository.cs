@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
@@ -13,27 +14,27 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Коллекция дверей.
         /// </summary>
         /// <returns>Список дверей.</returns>
-        IEnumerable<Door> GetDoorsList();
+        Task<IEnumerable<Door>> GetDoorsListAsync();
 
         /// <summary>
         /// Получить дверь.
         /// </summary>
         /// <param name="id">идентификатор двери.</param>
         /// <returns>Дверь.</returns>
-        Door GetDoorById(int id);
+        Task<Door> GetDoorByIdAsync(int id);
 
         /// <summary>
         /// Получить дверь по названию.
         /// </summary>
         /// <param name="item">название.</param>
         /// <returns>Дверь.</returns>
-        Door GetDoorByName(string item);
+        Task<Door> GetDoorByNameAsync(string item);
 
         /// <summary>
         /// Создать дверь.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Create(Door item);
+        Task CreateAsync(Door item);
 
         /// <summary>
         /// Обновить дверь.
@@ -45,12 +46,12 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Удалить дверь.
         /// </summary>
         /// <param name="id">идентификатор двери.</param>
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
         /// <summary>
         /// Сохранить изменения.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Save(Door item);
+        Task SaveAsync(Door item);
     }
 }

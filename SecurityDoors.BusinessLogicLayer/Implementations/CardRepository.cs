@@ -3,7 +3,7 @@ using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -23,28 +23,27 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Card> GetCardsList()
+        public async Task<IEnumerable<Card>> GetCardsListAsync()
         {
-            return db.Cards;
+            return await db.Cards.ToListAsync();
         }
 
         /// <inheritdoc/>
-        public Card GetCardById(int id)
+        public async Task<Card> GetCardByIdAsync(int id)
         {
-            return db.Cards.Find(id);
+            return await db.Cards.FindAsync(id);
         }
 
         /// <inheritdoc/>
-        public Card GetCardByUniqueNumber(string item)
+        public async Task<Card> GetCardByUniqueNumberAsync(string item)
         {
-            return db.Cards.FirstOrDefault(c => c.UniqueNumber == item);
+            return await db.Cards.FirstOrDefaultAsync(c => c.UniqueNumber == item);
         }
 
         /// <inheritdoc/>
-        [Obsolete]
-		public void Create(Card item)
+		public async Task CreateAsync(Card item)
         {
-            db.Cards.Add(item);
+            await db.Cards.AddAsync(item);
         }
 
         /// <inheritdoc/>
@@ -54,36 +53,37 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            Card card = db.Cards.Find(id);
+            var card = await db.Cards.FindAsync(id);
+
             if (card != null)
             {
                 db.Cards.Remove(card);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
         /// <inheritdoc/>
-        public void Save(Card item)
+        public async Task SaveAsync(Card item)
         {
             if (item.Id <= 0)
             {
-                db.Cards.Add(item);
+                await db.Cards.AddAsync(item);
             }
             else
             {
                 db.Entry(item).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
 
 
         private bool disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if (!this.disposed)
             {

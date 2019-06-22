@@ -1,21 +1,42 @@
 ﻿<!DOCTYPE html>
 
 <html>
-<head>
-    <title>@ViewData["Title"]</title>
+    <head>
+        <title>@ViewData["Title"]</title>
+    </head>
+    <body>
+        <a asp-action="Index" asp-controller="Home">Home</a> <br />
+        <a asp-action="About" asp-controller="Home">About</a> <br />
 
-</head>
-<body>
-    <a href="/Home/Index">Home</a> <br />
-    <a href="/Home/About">About</a> <br />
-    
-    <br />
+        <br />
 
-    <a asp-action="Index" asp-controller="Card">Cards</a> <br />
-    <a asp-action="Index" asp-controller="Door">Doors</a> <br />
-    <a asp-action="Index" asp-controller="Person">People</a> <br />
-    <a asp-action="Index" asp-controller="DoorPassing">Door Passings</a> <br />
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>Вы вошли в систему, как: @User.Identity.Name</p>
 
-    @RenderBody()
-</body>
+            <form method="post" asp-controller="Account" asp-action="LogOff">
+                <input type="submit" value="Выход" />
+            </form>
+
+            <br />
+
+            <a asp-controller="Account" asp-action="SettingUsersRoles">Разграничить права пользователей</a> <br />
+            <a asp-controller="Account" asp-action="EditUsersList">Редактироать список активных пользователей</a> <br />
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">Вход</a>
+            <a asp-controller="Account" asp-action="Registration">Регистрация</a>
+        }
+
+        <br />
+
+        <a asp-action="Index" asp-controller="Card">Cards</a> <br />
+        <a asp-action="Index" asp-controller="Door">Doors</a> <br />
+        <a asp-action="Index" asp-controller="Person">People</a> <br />
+        <a asp-action="Index" asp-controller="DoorPassing">Door Passings</a> <br />
+
+        @RenderBody()
+
+    </body>
 </html>

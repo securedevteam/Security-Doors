@@ -1,6 +1,7 @@
 ﻿using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
@@ -13,20 +14,20 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Коллекция сотрудников.
         /// </summary>
         /// <returns>Список сотрудников.</returns>
-        IEnumerable<Person> GetPeopleList();
+        Task<IEnumerable<Person>> GetPeopleListAsync();
 
         /// <summary>
         /// Получить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор пользователя.</param>
         /// <returns>Сотрудник.</returns>
-        Person GetPersonById(int id);
+        Task<Person> GetPersonByIdAsync(int id);
 
         /// <summary>
         /// Создать сотрудника.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Create(Person item);
+        Task CreateAsync(Person item);
 
         /// <summary>
         /// Обновить сотрудника.
@@ -38,12 +39,12 @@ namespace SecurityDoors.BusinessLogicLayer.Interfaces
         /// Удалить сотрудника.
         /// </summary>
         /// <param name="id">идентификатор пользователя.</param>
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
         /// <summary>
         /// Сохранить изменения.
         /// </summary>
         /// <param name="item">элемент.</param>
-        void Save(Person item);
+        Task SaveAsync(Person item);
     }
 }

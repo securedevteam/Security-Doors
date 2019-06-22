@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.EventLog;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
-using SecurityDoors.Core.Infrastructure;
-using SecurityDoors.Core.Logger.Interfaces;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App
@@ -47,6 +45,9 @@ namespace SecurityDoors.App
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>();
+
             // Добавлен DI
             services.AddTransient<ICardRepository, CardRepository>();
             services.AddTransient<IDoorRepository, DoorRepository>();
@@ -56,10 +57,7 @@ namespace SecurityDoors.App
             services.AddScoped<DataManager>();
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            // Add our repository type
-            services.AddSingleton<ILoggerRepository, LoggerRepository>();            
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +66,7 @@ namespace SecurityDoors.App
             if (env.IsDevelopment())
             {                
                 app.UseDeveloperExceptionPage();
+                _logger.LogInformation("In Development environment");
             }
             else
             {
@@ -76,7 +75,9 @@ namespace SecurityDoors.App
             }
 
             app.UseHttpsRedirection();
+            app.UseStatusCodePagesWithRedirects("/{0}.html"); // TODO: Реализовать базовые страницы HTML в wwwroot
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
             
             app.UseMvc(routes =>

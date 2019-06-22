@@ -4,236 +4,266 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace SecurityDoors.Tests
 {
-	public class PersonRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
-	{
-		private readonly ServiceProvider _serviceProvider;
-		private readonly DataManager _dataManagerService;
-		private readonly ApplicationContext _context;
+    /// <summary>
+    /// Класс для тестов класса PersonRepository
+    /// </summary>
+    public class PersonRepositoryTests : IClassFixture<ServiceFixture>, IDisposable
+    {
+        private readonly ServiceProvider _serviceProvider;
+        private readonly DataManager _dataManagerService;
+        private readonly ApplicationContext _context;
+        private readonly ClearingDataContext _clearingDataContext;
 
-		private readonly Random rnd = new Random();
-		/// <summary>
-		/// Конструктор.
-		/// </summary>
-		/// <param name="fixture">приспособление для внедрения DI и InMemoryDatabase.</param>
-		public PersonRepositoryTests(ServiceFixture fixture)
-		{
-			_serviceProvider = fixture.ServiceProvider;
-			_context = _serviceProvider.GetRequiredService<ApplicationContext>();
-			_dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
-		}
+        private readonly Random rnd = new Random();
 
-		public void Dispose()
-		{
-			foreach (var entity in _context.Doors)
-			{
-				_context.Doors.Remove(entity);
-			}
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="fixture">приспособление для внедрения DI и InMemoryDatabase.</param>
+        public PersonRepositoryTests(ServiceFixture fixture)
+        {
+            _serviceProvider = fixture.ServiceProvider;
 
-			_context.SaveChanges();
-		}
+            _context = _serviceProvider.GetRequiredService<ApplicationContext>();
+            _dataManagerService = _serviceProvider.GetRequiredService<DataManager>();
 
-		/// <summary>
-		/// Тест получения списка людей
-		/// </summary>
-		[Fact]
-		public void GetPeopleListTest ()
-		{
-			// Arrange
-			var people = new List<Person>();
-			var expected = 10;
+            _clearingDataContext = new ClearingDataContext(_context);
+        }
 
-			for (int i = 0; i < expected; i++)
-			{
-				people.Add(new Person()
-				{
-					FirstName = Guid.NewGuid().ToString(),
-					SecondName = Guid.NewGuid().ToString(),
-					LastName = Guid.NewGuid().ToString(),
-					Comment = Guid.NewGuid().ToString(),
-					Passport = Guid.NewGuid().ToString(),
-					Gender = rnd.Next(0,1)
-				});
-			}
+        public void Dispose()
+        {
+            _clearingDataContext.Clear();
+        }
 
-			// Act
-			_context.People.AddRange(people);
-			_context.SaveChanges();
+        /// <summary>
+        /// Тест на проверку получения списка людей.
+        /// </summary>
+        [Fact]
+        public async void GetPeopleListTest_Return_10()
+        {
+            // Arrange
+            var listPeople = new List<Person>();
+            var expected = 10;
 
-			var peopleInDB = _dataManagerService.People.GetPeopleList().ToList();
-			var actual = peopleInDB.Count;
+            for (int i = 0; i < expected; i++)
+            {
+                listPeople.Add(new Person()
+                {
+                    FirstName = string.Empty,
+                    SecondName = string.Empty,
+                    LastName = string.Empty,
+                    Gender = rnd.Next(),
+                    Passport = string.Empty,
+                    Comment = string.Empty,
+                });
+            }
 
-			// Assert
-			Assert.Equal(expected, actual);
-			Assert.True(Equal(people, peopleInDB));
-		}
-		/// <summary>
-		/// Тест получения человека по Id
-		/// </summary>
-		[Fact]
-		public void GetPersonByIdTest ()
-		{
-			//Arrange
-			var person = new Person()
-			{
-				FirstName = Guid.NewGuid().ToString(),
-				SecondName = Guid.NewGuid().ToString(),
-				LastName = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Passport = Guid.NewGuid().ToString(),
-				Gender = rnd.Next(0, 1)
-			};
+            _context.People.AddRange(listPeople);
+            _context.SaveChanges();
 
-			_context.Add(person);
-			_context.SaveChanges();
-			//Act
-			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
-			//Assert
-			Assert.NotNull(personInDB);
-			Assert.True(Equal(person, personInDB));
-		}
+            // Act			
+            var personList = await _dataManagerService.People.GetPeopleListAsync();
+            var actual = personList.Count();
 
-		/// <summary>
-		/// Тест обновления человека
-		/// </summary>
-		[Fact]
-		public void UpdateTest ()
-		{
-			//Arrange
-			var person = new Person()
-			{
-				FirstName = Guid.NewGuid().ToString(),
-				SecondName = Guid.NewGuid().ToString(),
-				LastName = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Passport = Guid.NewGuid().ToString(),
-				Gender = rnd.Next(0, 1)
-			};
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+        /// <summary>
+        /// Тест на проверку получение определенного человека.
+        /// </summary>
+        [Fact]
+        public async void GetPersonByIdTest_Return_1()
+        {
+            // Arrange
+            var expected = new Person()
+            {
+                FirstName = string.Empty,
+                SecondName = string.Empty,
+                LastName = string.Empty,
+                Gender = rnd.Next(),
+                Passport = string.Empty,
+                Comment = string.Empty,
+            };
 
-			_context.Add(person);
-			_context.SaveChanges();
-			//Act
-			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
-			personInDB.FirstName = Guid.NewGuid().ToString();
-			personInDB.SecondName = Guid.NewGuid().ToString();
-			personInDB.LastName = Guid.NewGuid().ToString();
-			personInDB.Comment = Guid.NewGuid().ToString();
-			personInDB.Passport = Guid.NewGuid().ToString();
-			personInDB.Gender = rnd.Next(0, 1);
+            _context.Add(expected);
+            _context.SaveChanges();
 
-			_dataManagerService.People.Update(personInDB);
+            // act
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
-			var newPersonInDB = _dataManagerService.People.GetPersonById(personInDB.Id);
-			//Assert
-			Assert.NotNull(newPersonInDB);
-			Assert.True(Equal(newPersonInDB, personInDB));
-		}
+            // assert			
+            Assert.Equal(expected.id, actual.id);
+            Assert.Equal(expected.FirstName, actual.FirstName);
+            Assert.Equal(expected.SecondName, actual.SecondName);
+            Assert.Equal(expected.LastName, actual.LastName);
+            Assert.Equal(expected.Gender, actual.Gender);
+            Assert.Equal(expected.Passport, actual.Passport);
+            Assert.Equal(expected.Comment, actual.Comment);
+        }
 
-		/// <summary>
-		/// Тест удаления человека
-		/// </summary>
-		[Fact]
-		public void DeleteTest ()
-		{
-			//Arrange
-			int countOfPeople = _context.People.Count();
-			var person = new Person()
-			{
-				FirstName = Guid.NewGuid().ToString(),
-				SecondName = Guid.NewGuid().ToString(),
-				LastName = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Passport = Guid.NewGuid().ToString(),
-				Gender = rnd.Next(0, 1)
-			};
+        /// <summary>
+        /// Тест на проверку создания человека.
+        /// </summary>
+        [Fact]
+        public async void CreatePersonTest_Return_True()
+        {
+            // Arrange
+            var expected = new Person()
+            {
+                FirstName = string.Empty,
+                SecondName = string.Empty,
+                LastName = string.Empty,
+                Gender = rnd.Next(),
+                Passport = string.Empty,
+                Comment = string.Empty,
+            };
 
-			_context.Add(person);
-			_context.SaveChanges();
-			//Act
-			_dataManagerService.People.Delete(person.Id);
+            // Act
+            await _dataManagerService.People.CreateAsync(expected);
+            _context.SaveChanges();
 
-			var personInDB = _dataManagerService.People.GetPersonById(person.Id);
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
-			//Assert
-			Assert.Null(personInDB);
-			Assert.True(countOfPeople == _context.People.Count());
-		}
+            //Assert
+            Assert.Equal(expected, actual);
 
-		/// <summary>
-		/// Тест сохранения человека
-		/// </summary>
-		[Fact]
-		public void SaveTest ()
-		{
-			//Arrange
-			int countOfPeople = _context.People.Count();
-			var person = new Person()
-			{
-				FirstName = Guid.NewGuid().ToString(),
-				SecondName = Guid.NewGuid().ToString(),
-				LastName = Guid.NewGuid().ToString(),
-				Comment = Guid.NewGuid().ToString(),
-				Passport = Guid.NewGuid().ToString(),
-				Gender = rnd.Next(0, 1)
-			};
+            Assert.Equal(expected.FirstName, actual.FirstName);
+            Assert.Equal(expected.SecondName, actual.SecondName);
+            Assert.Equal(expected.LastName, actual.LastName);
+            Assert.Equal(expected.Gender, actual.Gender);
+            Assert.Equal(expected.Passport, actual.Passport);
+            Assert.Equal(expected.Comment, actual.Comment);
+        }
 
-			//Act
-			_dataManagerService.People.Save(person);
+        /// <summary>
+        /// Тест на проверку обновления человека.
+        /// </summary>
+        [Fact]
+        public async void UpdatePersonTest_Return_True()
+        {
+            // Arrange
+            var expected = new Person()
+            {
+                FirstName = string.Empty,
+                SecondName = string.Empty,
+                LastName = string.Empty,
+                Gender = rnd.Next(),
+                Passport = string.Empty,
+                Comment = string.Empty,
+            };
 
-			var personInDB = _context.People.Find(person.Id);
+            _context.Add(expected);
+            _context.SaveChanges();
 
-			//Assert
-			Assert.NotNull(personInDB);
-			Assert.True(Equal(person, personInDB));
-		}
+            //Act
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
 
-		/// <summary>
-		/// Сравнивает два объекта Person по каждому полю
-		/// </summary>
-		/// <param name="personA">Первый человек</param>
-		/// <param name="personB">Второй человек</param>
-		/// <returns>Если все поля совпадают - true</returns>
-		private static bool Equal (Person personA, Person personB)
-		{
-			return personA.Id == personB.Id &&
-					personA.FirstName == personB.FirstName &&
-					personA.SecondName == personB.SecondName &&
-					personA.LastName == personB.LastName &&
-					personA.Comment == personB.Comment &&
-					personA.CardId == personB.CardId &&
-					personA.Card == personB.Card &&
-					personA.Gender == personB.Gender &&
-					personA.Passport == personB.Passport;
-		}
+            actual.FirstName = Guid.NewGuid().ToString();
+            actual.SecondName = Guid.NewGuid().ToString();
+            actual.LastName = Guid.NewGuid().ToString();
+            actual.Gender = rnd.Next();
+            actual.Passport = Guid.NewGuid().ToString();
+            actual.Comment = Guid.NewGuid().ToString();
 
-		/// <summary>
-		/// Сравнивает два списка людей по каждому полю их содержимого
-		/// </summary>
-		/// <param name="peopleA">Первый список</param>
-		/// <param name="peopleB">Второй список</param>
-		/// <returns>Если все поля всех людей совпадают - true</returns>
-		private static bool Equal (List<Person> peopleA, List<Person> peopleB)
-		{
-			if (peopleA.Count != peopleB.Count)
-			{
-				return false;
-			}
-			for (int i = 0; i < peopleA.Count; i++)
-			{
-				if (Equal(peopleA[i],peopleB[i]))
-				{
-					continue;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-	}
+            _dataManagerService.People.Update(actual);
+            _context.SaveChanges();
+
+            var result = await _dataManagerService.People.GetPersonByIdAsync(actual.Id);
+
+            //Assert
+            Assert.NotEqual(expected.FirstName, result.FirstName);
+            Assert.NotEqual(expected.SecondName, result.SecondName);
+            Assert.NotEqual(expected.LastName, result.LastName);
+            Assert.NotEqual(expected.Gender, result.Gender);
+            Assert.NotEqual(expected.Passport, result.Passport);
+            Assert.NotEqual(expected.Comment, result.Comment);
+        }
+
+        /// <summary>
+        /// Тест на проверку удаления человека.
+        /// </summary>
+        [Fact]
+        public async void DeletePersonTest_Return_True()
+        {
+            // Arrange           
+            var expected = new Person()
+            {
+                FirstName = string.Empty,
+                SecondName = string.Empty,
+                LastName = string.Empty,
+                Gender = rnd.Next(),
+                Passport = string.Empty,
+                Comment = string.Empty,
+            };
+
+            _context.Add(expected);
+            _context.SaveChanges();
+
+            // Act
+            await _dataManagerService.People.DeleteAsync(expected.Id);
+            var result = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        /// <summary>
+        /// Тест на проверку сохранения человека.
+        /// </summary>
+        [Fact]
+        public async void SavePersonTest_Return_True()
+        {
+            // Arrange           
+            var expected = new Person()
+            {
+                FirstName = string.Empty,
+                SecondName = string.Empty,
+                LastName = string.Empty,
+                Gender = rnd.Next(),
+                Passport = string.Empty,
+                Comment = string.Empty,
+            };
+
+            // Act
+            await _dataManagerService.People.SaveAsync(expected);
+
+            var actual = await _dataManagerService.People.GetPersonByIdAsync(expected.Id);
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        /// Exception
+
+        /// <summary>
+        ///  Тест на проверку получения исключения при создании нового человека.
+        /// </summary>
+        [Fact]
+        public async void CreatePersonTest_Return_Exception()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.People.CreateAsync(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при обновлении человека.
+        /// </summary>
+        [Fact]
+        public void UpdatePersonTest_Return_Exception()
+        {
+            Assert.ThrowsAny<Exception>(() => _dataManagerService.People.Update(null));
+        }
+
+        /// <summary>
+        /// Тест на проверку получения исключения при сохранении человека.
+        /// </summary>
+        [Fact]
+        public async void SavePersonTest_Return_Exception()
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _dataManagerService.People.SaveAsync(null));
+        }
+    }
 }

@@ -15,7 +15,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Уникальный номер карты.
         /// </summary>
-        [Required(ErrorMessage = "Неверный уникальный номер")]
+        //[Required(ErrorMessage = "Неверный уникальный номер")]
         [Display(Name = "Уникальный номер")]
         public string UniqueNumber { get; set; }
 

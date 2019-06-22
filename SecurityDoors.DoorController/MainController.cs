@@ -2,6 +2,7 @@
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.DataAccessLayer.Models;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.DoorController
 {
@@ -21,10 +22,10 @@ namespace SecurityDoors.DoorController
             _dataManager = dataManager;
         }
 
-        private void ChangeAndSaveData(Card card, Door door, bool location)
+        private async Task ChangeAndSaveDataAsync(Card card, Door door, bool location)
         {
             _dataManager.Cards.Update(card);
-            _dataManager.Cards.Save(card);
+            await _dataManager.Cards.SaveAsync(card);
 
 
             var doorpassing = new DoorPassing();
@@ -33,8 +34,8 @@ namespace SecurityDoors.DoorController
             doorpassing.Status = 1;
             doorpassing.Location = location;
 
-            _dataManager.DoorsPassing.Create(doorpassing);
-            _dataManager.DoorsPassing.Save(doorpassing);
+            await _dataManager.DoorsPassing.CreateAsync(doorpassing);
+            await _dataManager.DoorsPassing.SaveAsync(doorpassing);
         }
 
         /// <summary>
@@ -43,10 +44,10 @@ namespace SecurityDoors.DoorController
         /// <param name="cardNumber">уникальный номер карты.</param>
         /// <param name="doorName">название двери.</param>
         /// <returns>Строку с пояснением. Результат действия.</returns>
-        public (string, bool) ControllerАctuation(string cardNumber, string doorName)
+        public async Task<(string, bool)> ControllerАctuationAsync(string cardNumber, string doorName)
         {
-            var card = _dataManager.Cards.GetCardByUniqueNumber(cardNumber);
-            var door = _dataManager.Doors.GetDoorByName(doorName);
+            var card = await _dataManager.Cards.GetCardByUniqueNumberAsync(cardNumber);
+            var door = await _dataManager.Doors.GetDoorByNameAsync(doorName);
 
             if(card == null)
             {
@@ -56,6 +57,11 @@ namespace SecurityDoors.DoorController
             if (door == null)
             {
                 return ($" THE DOOR NOT FOUND ", false);
+            }
+
+            if (door.Status != (int)DoorStatus.IsActive)
+            {
+                return ($" THE DOOR CLOSED(*) ", false);
             }
 
             if (card.Level != (int)CardStatus.IsActive)
@@ -71,14 +77,14 @@ namespace SecurityDoors.DoorController
             if (card.Location)
             {
                 card.Location = false;
-                ChangeAndSaveData(card, door, CardConstants.IsExit);
+                await ChangeAndSaveDataAsync(card, door, CardConstants.IsExit);
 
                 return ($" SUCCESSFULLY EXIT ", true);
             }
             else
             {
                 card.Location = true;
-                ChangeAndSaveData(card, door, CardConstants.IsEntrance);
+                await ChangeAndSaveDataAsync(card, door, CardConstants.IsEntrance);
 
                 return ($" SUCCESSFULLY ENTRANCE ", true);
             }

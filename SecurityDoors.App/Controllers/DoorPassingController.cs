@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -29,14 +33,20 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверных проходов.
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>
-		public ActionResult Index()
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Index()
         {
-            var models = _serviceManager.DoorPassings.GetDoorPassings();
-            if (models == null)
+            var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+
+            if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "DoorPassing list unavailable");
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "DoorPassing list");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+            }
+
             return View(models);
         }
 
@@ -45,14 +55,10 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.DoorPassings.EditDoorPassingById(id);
-            if (model == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassings change failed");
-            }
-            _logger.LogWarning(LoggingEvents.EditItem, "Edit doorPassings");
+            var model = await _serviceManager.DoorPassings.EditDoorPassingByIdAsync(id);
+
             return View(model);
         }
 
@@ -62,20 +68,20 @@ namespace SecurityDoors.App.Controllers
         /// <param name="doorPassing">модель прохода.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(DoorPassingEditModel doorPassing)
+        public async Task<IActionResult> Edit(DoorPassingEditModel doorPassing)
         {
             if (ModelState.IsValid)
             {
-                _serviceManager.DoorPassings.SaveCard(doorPassing);
-                return RedirectToAction("Index");
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, DoorPassingLoggerConstants.DOORPASSING_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+                await _serviceManager.DoorPassings.SaveCardAsync(doorPassing);
+
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(doorPassing) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "DoorPassing change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit doorPassing (POST)");
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorPassingLoggerConstants.DOORPASSING_IS_NOT_VALID);
+
                 return View(doorPassing);
             }
         }

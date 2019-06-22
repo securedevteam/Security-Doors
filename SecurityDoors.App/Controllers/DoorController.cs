@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -29,14 +32,19 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверей.
         /// </summary>
         /// <returns>Представление со списком дверей.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var models = _serviceManager.Doors.GetDoors();
-            if (models == null)
+            var models = await _serviceManager.Doors.GetDoorsAsync();
+
+            if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Door list unavailable");
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorLoggerConstants.DOORS_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "Door list");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorLoggerConstants.DOORS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+            }
+
             return View(models);
         }
 
@@ -46,11 +54,6 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         public IActionResult Create()
         {
-            if (View() == null)
-            {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created");
-            }
-            _logger.LogInformation(LoggingEvents.CreateItem, "Door created");
             return View();
         }
 
@@ -60,20 +63,19 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Create(DoorViewModel door)
+        public async Task<IActionResult> Create(DoorViewModel door)
         {
             if (ModelState.IsValid)
             {
-                _serviceManager.Doors.SaveDoor(door);
+                _logger.LogInformation(CommonSuccessfulEvents.CreateItem, DoorLoggerConstants.DOOR_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
+                await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(door) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Door not created (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.CreateItem, "Door created (POST)");
+                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
+
                 return View(door);
             }
         }
@@ -83,14 +85,19 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление</returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = _serviceManager.Doors.GetDoorById(id);
+            var model = await _serviceManager.Doors.GetDoorByIdAsync(id);
+
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Door information is not available");
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, DoorLoggerConstants.DOOR_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.InformationItem, "Door information received");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, DoorLoggerConstants.DOOR_IS_NOT_EMPTY);
+            }
+
             return View(model);
         }
 
@@ -99,14 +106,10 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.Doors.EditDoorDyId(id);
-            if (model == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed");
-            }
-            _logger.LogWarning(LoggingEvents.EditItem, "Edit door");
+            var model = await _serviceManager.Doors.EditDoorDyIdAsync(id);
+
             return View(model);
         }
 
@@ -116,20 +119,19 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(DoorEditModel door)
+        public async Task<IActionResult> Edit(DoorEditModel door)
         {
             if (ModelState.IsValid)
             {
-                _serviceManager.Doors.SaveDoor(door);
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, DoorLoggerConstants.DOOR_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+                await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(door) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Door change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit door (POST)");
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
+
                 return View(door);
             }
         }
@@ -139,14 +141,12 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _serviceManager.Doors.DeleteDoorById(id);
-            if (RedirectToAction(nameof(Index)) == null)
-            {
-                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Door not deleted");
-            }
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Door deleted");
+            await _serviceManager.Doors.DeleteDoorByIdAsync(id);
+
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, DoorLoggerConstants.DOOR_IS_DELETED);
+
             return RedirectToAction(nameof(Index));
         }
     }

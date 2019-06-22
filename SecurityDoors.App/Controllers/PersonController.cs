@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Logger;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -29,29 +34,84 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком сотрудников.
         /// </summary>
         /// <returns>Представление</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
-            var models = _serviceManager.People.GetPeople();
-            if (models == null)
+            var models = await _serviceManager.People.GetPeopleAsync();
+
+            if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Person list unavailable");
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, PersonLoggerConstants.PEOPLE_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "Person list");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, PersonLoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+            }
+
             return View(models);
 		}
+
+        private async Task<List<string>> GetListAvailableCardsAsync(int form)
+        {
+            var cards = await _serviceManager.Cards.GetCardsAsync();
+            var people = await _serviceManager.People.GetPeopleAsync();
+
+            var allUniqueNumbersCards = new List<string>();
+            var getAvailableCards = new List<string>();
+
+            foreach (var item in cards)
+            {
+                allUniqueNumbersCards.Add(item.UniqueNumber);
+            }
+
+            foreach (var p in people)
+            {
+                foreach (var c in cards)
+                {
+                    if (p.Card == c.UniqueNumber)
+                    {
+                        getAvailableCards.Add(c.UniqueNumber);
+                    }
+                }
+            }
+
+            var availableCards = allUniqueNumbersCards.Except(getAvailableCards).ToList();
+            var listSendCardsToViewModel = new List<string>();
+
+            if(form == 0)
+            {
+                listSendCardsToViewModel.Add(AppConstants.NOT_SELECTED);
+            }
+
+            listSendCardsToViewModel.AddRange(availableCards);
+
+            if(form == 1)
+            {
+                if (listSendCardsToViewModel.Count == 0)
+                {
+                    listSendCardsToViewModel.Add(AppConstants.NO_AVAILABLE_CARDS);
+                }
+            }
+            else
+            {
+                if (listSendCardsToViewModel.Count == 1)
+                {
+                    listSendCardsToViewModel.Add(AppConstants.NO_AVAILABLE_CARDS);
+                }
+            }
+
+            return listSendCardsToViewModel;
+        }
 
         /// <summary>
         /// Создание нового сотрудника.
         /// </summary>
         /// <returns>Представление.</returns>
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-            if (View() == null)
-            {
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created");
-            }
-            _logger.LogInformation(LoggingEvents.CreateItem, "Person created");
-            return View();
+            var availableCards = await GetListAvailableCardsAsync(1);
+            var viewModel = new PersonViewModel { AvailableCards = availableCards };
+
+            return View(viewModel);
 		}
 
         /// <summary>
@@ -60,22 +120,31 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public IActionResult Create(PersonViewModel person)
+		public async Task<IActionResult> Create(PersonViewModel person)
 		{
-			if (ModelState.IsValid)
-			{
-				_serviceManager.People.SavePerson(person);
-				return RedirectToAction(nameof(Index));
-			}
-			else
-			{
-                if (View() == null)
+            if (person.Card != null &&
+                person.Card != AppConstants.NO_AVAILABLE_CARDS)
+            {
+                if (ModelState.IsValid)
                 {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Person not created (POST)");
+                    _logger.LogInformation(CommonSuccessfulEvents.CreateItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
+                    await _serviceManager.People.SavePersonAsync(person);
+                    return RedirectToAction(nameof(Index));
                 }
-                _logger.LogInformation(LoggingEvents.CreateItem, "Person created (POST)");
-                return View();
-			}
+                else
+                {
+                    _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
+
+                    return View();
+                }
+            }
+            else
+            {
+                var availableCards = await GetListAvailableCardsAsync(1);
+                var viewModel = new PersonViewModel { AvailableCards = availableCards };
+                return View(viewModel);
+            }
 		}
 
         /// <summary>
@@ -83,14 +152,19 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление</returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model = _serviceManager.People.GetPersonById(id);
+            var model = await _serviceManager.People.GetPersonByIdAsync(id);
+
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Person information is not available");
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, PersonLoggerConstants.PERSON_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.InformationItem, "Person information");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, PersonLoggerConstants.PERSON_IS_NOT_EMPTY);
+            }
+
             return View(model);
         }
 
@@ -99,14 +173,11 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-		public IActionResult Edit (int id)
+		public async Task<IActionResult> Edit (int id)
 		{
-			var editModel = _serviceManager.People.EditPersonById(id);
-            if (editModel == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed");
-            }
-            _logger.LogInformation(LoggingEvents.EditItem, "Edit person");
+			var editModel = await _serviceManager.People.EditPersonByIdAsync(id);
+
+            editModel.AvailableCards = await GetListAvailableCardsAsync(0);
             return View(editModel);
 		}
 
@@ -116,22 +187,30 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public IActionResult Edit (PersonEditModel person)
+		public async Task<IActionResult> Edit (PersonEditModel person)
 		{
-			if (ModelState.IsValid)
-			{
-				_serviceManager.People.SavePerson(person);
-				return RedirectToAction(nameof(Index));
-			}
-			else
-			{
-                if (person == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Person change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit person (POST)");
+            if (person.SelectedNewUniqueNumberCard != null && 
+                person.SelectedNewUniqueNumberCard != AppConstants.NO_AVAILABLE_CARDS &&
+                person.SelectedNewUniqueNumberCard != AppConstants.NOT_SELECTED)
+            {
+                person.Card = person.SelectedNewUniqueNumberCard;
+            }
+
+            if (ModelState.IsValid)
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+                await _serviceManager.People.SavePersonAsync(person);
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
+
                 return View();
-			}
+            }
+            
 		}
 
         /// <summary>
@@ -139,14 +218,12 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-		public IActionResult Delete (int id)
+		public async Task<IActionResult> Delete (int id)
 		{
-			_serviceManager.People.DeletePersonById(id);
-            if (RedirectToAction(nameof(Index)) == null)
-            {
-                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Person not deleted");
-            }
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Person deleted");
+			await _serviceManager.People.DeletePersonByIdAsync(id);
+
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, PersonLoggerConstants.PERSON_IS_DELETED);
+
             return RedirectToAction(nameof(Index));
 		}
 	}

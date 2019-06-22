@@ -7,14 +7,16 @@
 <form method="post" asp-controller="Card" asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <div>
+
+        @*TODO: Присваивается автоматически.*@
+        @*<div>
             <label asp-for="UniqueNumber">Уникальный номер: </label>
             <input type="text" asp-for="UniqueNumber" />
             <span asp-validation-for="UniqueNumber"></span>
-        </div>
+        </div>*@
 
         <div>
-            <label asp-for="Level">Уровень: </label>
+            <label asp-for="Level"></label>
             <select asp-for="Level">
                 <option>@CardConstants.IsGuest</option>
                 <option>@CardConstants.IsIntern</option>
@@ -25,7 +27,7 @@
         </div>
 
         <div>
-            <label asp-for="Location">Нахождение в данный момент: </label>
+            <label asp-for="Location"></label>
             <select asp-for="Location">
                 <option>@CardConstants.Entrance</option>
                 <option>@CardConstants.Exit</option>
@@ -33,7 +35,7 @@
         </div>
 
         <div>
-            <label asp-for="Status">Статус: </label>
+            <label asp-for="Status"></label>
             <select asp-for="Status">
                 <option>@CardConstants.IsActive</option>
                 <option>@CardConstants.IsClosed</option>
@@ -43,7 +45,7 @@
         </div>
 
         <div>
-            <label asp-for="Comment">Комментарий: </label>
+            <label asp-for="Comment"></label>
             <input type="text" asp-for="Comment" />
             <span asp-validation-for="Comment"></span>
         </div>

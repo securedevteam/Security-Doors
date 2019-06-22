@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace SecurityDoors.DataAccessLayer.Models
 {
-	public class ApplicationContext : DbContext
-	{
+	public class ApplicationContext : IdentityDbContext<User>
+    {
 		public DbSet<Person> People { get; set; }
 		public DbSet<Card> Cards { get; set; }
 		public DbSet<Door> Doors { get; set; }

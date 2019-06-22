@@ -3,6 +3,7 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -22,22 +23,21 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<DoorPassing> GetDoorsPassingList()
+        public async Task<IEnumerable<DoorPassing>> GetDoorsPassingListAsync()
         {
-            return db.DoorPassings;
+            return await db.DoorPassings.ToListAsync();
         }
 
         /// <inheritdoc/>
-        public DoorPassing GetDoorPassingById(int id)
+        public async Task<DoorPassing> GetDoorPassingByIdAsync(int id)
         {
-            return db.DoorPassings.Find(id);
+            return await db.DoorPassings.FindAsync(id);
         }
 
         /// <inheritdoc/>
-		[Obsolete]
-        public void Create(DoorPassing item)
+        public async Task CreateAsync(DoorPassing item)
         {
-            db.DoorPassings.Add(item);
+            await db.DoorPassings.AddAsync(item);
         }
 
         /// <inheritdoc/>
@@ -47,36 +47,37 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            DoorPassing doorPassing = db.DoorPassings.Find(id);
+            var doorPassing = await db.DoorPassings.FindAsync(id);
+
             if (doorPassing != null)
             {
                 db.DoorPassings.Remove(doorPassing);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
         /// <inheritdoc/>
-        public void Save(DoorPassing item)
+        public async Task SaveAsync(DoorPassing item)
         {
             if (item.Id <= 0)
             {
-                db.DoorPassings.Add(item);
+                await db.DoorPassings.AddAsync(item);
             }
             else
             {
                 db.Entry(item).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
 
 
         private bool disposed = false;
 
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if (!this.disposed)
             {

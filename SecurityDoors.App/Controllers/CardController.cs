@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.Core.Logger;
-using SecurityDoors.Core.Logger.Interfaces;
-using SecurityDoors.Core.Logger.Model;
+using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Logger.Constants;
+using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -31,14 +33,19 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком карточек.
         /// </summary>
         /// <returns>Представление со списком карточек.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var models = _serviceManager.Cards.GetCards();
-            if (models == null)
+            var models = await _serviceManager.Cards.GetCardsAsync();
+
+            if (models == null || models.Count == 0)
             {
-                _logger.LogWarning(LoggingEvents.ListItemsNotFound, "Card list unavailable");
+                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, CardLoggerConstants.CARDS_LIST_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.ListItems, "Card list");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.ListItems, CardLoggerConstants.CARDS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+            }
+
             return View(models);
         }
 
@@ -48,13 +55,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         public IActionResult Create()
         {  
-            if(View() == null)
-            {                
-                _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created");
-            }
-            _logger.LogInformation(LoggingEvents.CreateItem, "Card created");
             return View();
-
         }
 
         /// <summary>
@@ -63,20 +64,21 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Create(CardViewModel card)
-        {           
+        public async Task<IActionResult> Create(CardViewModel card)
+        {
+            card.UniqueNumber = Guid.NewGuid().ToString();
+
             if (ModelState.IsValid)
             {
-                _serviceManager.Cards.SaveCard(card);
-                return RedirectToAction("Index");
+                _logger.LogInformation(CommonSuccessfulEvents.CreateItem, CardLoggerConstants.CARD_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
+                await _serviceManager.Cards.SaveCardAsync(card);
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(card) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.CreateItemNotFound, "Card not created (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.CreateItem, "Card created");
+                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
+
                 return View(card);
             }
         }
@@ -86,14 +88,19 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns></returns>
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {            
-            var model = _serviceManager.Cards.GetCardById(id);
+            var model = await _serviceManager.Cards.GetCardByIdAsync(id);
+
             if (model == null)
             {
-                _logger.LogWarning(LoggingEvents.InformationItemNotFound, "Сard information is not available");
+                _logger.LogWarning(CommonUnsuccessfulEvents.InformationItemNotFound, CardLoggerConstants.CARD_IS_EMPTY);
             }
-            _logger.LogInformation(LoggingEvents.InformationItem, "Card information received");
+            else
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.InformationItem, CardLoggerConstants.CARD_IS_NOT_EMPTY);
+            }
+            
             return View(model);
         }
 
@@ -102,14 +109,10 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = _serviceManager.Cards.EditCardById(id);
-            if(model == null)
-            {
-                _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed");
-            }
-            _logger.LogInformation(LoggingEvents.EditItem, "Edit card");
+            var model = await _serviceManager.Cards.EditCardByIdAsync(id);
+
             return View(model);
         }
 
@@ -119,20 +122,19 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
-        public IActionResult Edit(CardEditModel card)
+        public async Task<IActionResult> Edit(CardEditModel card)
         {
             if (ModelState.IsValid)
             {
-                _serviceManager.Cards.SaveCard(card);
-                return RedirectToAction("Index");
+                _logger.LogInformation(CommonSuccessfulEvents.EditItem, CardLoggerConstants.CARD_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+                await _serviceManager.Cards.SaveCardAsync(card);
+                return RedirectToAction(nameof(Index));
             }
             else
             {
-                if (View(card) == null)
-                {
-                    _logger.LogWarning(LoggingEvents.EditItemNotFound, "Сard change failed (POST)");
-                }
-                _logger.LogInformation(LoggingEvents.EditItem, "Edit card (POST)");
+                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
+
                 return View(card);
             }
         }
@@ -142,15 +144,13 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {            
-            _serviceManager.Cards.DeleteCardById(id);
-            if (RedirectToAction("Index") == null)
-            {
-                _logger.LogWarning(LoggingEvents.DeleteItemNotFound, "Сard not deleted");
-            }
-            _logger.LogInformation(LoggingEvents.DeleteItem, "Сard deleted");
-            return RedirectToAction("Index");
+            await _serviceManager.Cards.DeleteCardByIdAsync(id);
+
+            _logger.LogInformation(CommonSuccessfulEvents.DeleteItem, CardLoggerConstants.CARD_IS_DELETED);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

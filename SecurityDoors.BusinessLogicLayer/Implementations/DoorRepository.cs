@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
 {
@@ -23,28 +24,27 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Door> GetDoorsList()
+        public async Task<IEnumerable<Door>> GetDoorsListAsync()
         {
-            return db.Doors;
+            return await db.Doors.ToListAsync();
         }
 
         /// <inheritdoc/>
-        public Door GetDoorById(int id)
+        public async Task<Door> GetDoorByIdAsync(int id)
         {
-            return db.Doors.Find(id);
+            return await db.Doors.FindAsync(id);
         }
 
         /// <inheritdoc/>
-        public Door GetDoorByName(string item)
+        public async Task<Door> GetDoorByNameAsync(string item)
         {
-            return db.Doors.FirstOrDefault(d => d.Name == item);
+            return await db.Doors.FirstOrDefaultAsync(d => d.Name == item);
         }
 
         /// <inheritdoc/>
-        [Obsolete]
-        public void Create(Door item)
+        public async Task CreateAsync(Door item)
         {
-            db.Doors.Add(item);
+            await db.Doors.AddAsync(item);
         }
 
         /// <inheritdoc/>
@@ -55,36 +55,37 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
 
         /// TODO: Дверь являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на дверь в DoorPassing, если они есть
         /// <inheritdoc/>
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            Door door = db.Doors.Find(id);
+            var door = await db.Doors.FindAsync(id);
+
             if (door != null)
             {
                 db.Doors.Remove(door);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
         /// <inheritdoc/>
-        public void Save(Door item)
+        public async Task SaveAsync(Door item)
         {
             if (item.Id <= 0)
             {
-                db.Doors.Add(item);
+                await db.Doors.AddAsync(item);
             }
             else
             {
                 db.Entry(item).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
 
 
         private bool disposed = false;
         
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
