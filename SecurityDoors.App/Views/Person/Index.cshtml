@@ -36,9 +36,13 @@
                 <td>@item.Card</td>
                 <td>@item.Comment</td>
                 <td>
-                    <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> |
-                    <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> |
-                    <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
+                    <a asp-action="Details" asp-controller="Person" asp-route-id="@item.Id">Подробнее</a> 
+                    <a asp-action="Edit" asp-controller="Person" asp-route-id="@item.Id">Изменить</a> 
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">Удалить</a>
+                    }
                 </td>
             </tr>
             }

@@ -2,11 +2,14 @@
 
 <h1>Список карточек</h1>
 
+@if (User.IsInRole("admin"))
+{
 <div>
     <a asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
 </div>
 
 <br />
+}
 
 <div>
     <table>
@@ -32,10 +35,13 @@
                 <td>@item.Status</td>
                 <td>@item.Comment</td>
                 <td>
-                    <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> |
-                    <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a>
-                    @*|
-            <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>*@
+                    <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> 
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a> 
+                        <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
+                    }
                 </td>
             </tr>
             }
