@@ -56,6 +56,8 @@ namespace SecurityDoors.App
 
             services.AddScoped<DataManager>();
 
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SecurityDoors API", Version = "v1" }));
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);         
         }
@@ -74,6 +76,8 @@ namespace SecurityDoors.App
                 app.UseHsts();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecurityDoors API version 1"));
             app.UseHttpsRedirection();
             app.UseStatusCodePagesWithRedirects("/{0}.html"); // TODO: Реализовать базовые страницы HTML в wwwroot
             app.UseStaticFiles();
