@@ -27,12 +27,14 @@ namespace SecurityDoors.DoorController
             _dataManager.Cards.Update(card);
             await _dataManager.Cards.SaveAsync(card);
 
-
-            var doorpassing = new DoorPassing();
-            doorpassing.DoorId = door.Id;
-            doorpassing.CardId = card.Id;
-            doorpassing.Status = 1;
-            doorpassing.Location = location;
+            var doorpassing = new DoorPassing()
+            {
+                DoorId = door.Id,
+                CardId = card.Id,
+                Status = 1,
+                Location = location,
+                Comment = card.Comment
+            };   
 
             await _dataManager.DoorsPassing.CreateAsync(doorpassing);
             await _dataManager.DoorsPassing.SaveAsync(doorpassing);

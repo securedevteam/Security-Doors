@@ -19,16 +19,29 @@
                 @if (User.IsInRole("admin"))
                 {
                     <th>Доступные действия</th>
-                }    
+                }
             </tr>
         </thead>
 
-        @if(User.IsInRole("user") || User.IsInRole("visitor"))
+        @if (User.IsInRole("user") || User.IsInRole("visitor"))
         {
-            @*@if(User.Identity.Name == )
-            {
-
-            }*@
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (User.Identity.Name == item.Comment)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.PassingTime</td>
+                            <td>@item.Door</td>
+                            <td>@item.Card</td>
+                            <td>@item.Status</td>
+                            <td>@item.Location</td>
+                            <td>@item.Comment</td>
+                        </tr>
+                    }
+                }
+            </tbody> 
         }
 
         @if (User.IsInRole("admin") || User.IsInRole("moderator"))
@@ -36,20 +49,20 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.PassingTime</td>
-                    <td>@item.Door</td>
-                    <td>@item.Card</td>
-                    <td>@item.Status</td>
-                    <td>@item.Location</td>
-                    <td>@item.Comment</td>
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PassingTime</td>
+                        <td>@item.Door</td>
+                        <td>@item.Card</td>
+                        <td>@item.Status</td>
+                        <td>@item.Location</td>
+                        <td>@item.Comment</td>
 
-                    @if (User.IsInRole("admin"))
-                    {
-                        <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
-                    } 
-                </tr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
+                        }
+                    </tr>
                 }
             </tbody>
         }
