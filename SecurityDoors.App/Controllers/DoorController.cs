@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -31,7 +32,8 @@ namespace SecurityDoors.App.Controllers
         /// <summary>
         /// Главная страница со списком дверей.
         /// </summary>
-        /// <returns>Представление со списком дверей.</returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Index()
         {
             var models = await _serviceManager.Doors.GetDoorsAsync();
@@ -52,6 +54,7 @@ namespace SecurityDoors.App.Controllers
         /// Создание новой двери.
         /// </summary>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public IActionResult Create()
         {
             return View();
@@ -63,6 +66,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Create(DoorViewModel door)
         {
             if (ModelState.IsValid)
@@ -84,7 +88,8 @@ namespace SecurityDoors.App.Controllers
         /// Информация о двери.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-        /// <returns>Представление</returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Details(int id)
         {
             var model = await _serviceManager.Doors.GetDoorByIdAsync(id);
@@ -106,6 +111,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _serviceManager.Doors.EditDoorDyIdAsync(id);
@@ -119,6 +125,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="door">модель двери.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Edit(DoorEditModel door)
         {
             if (ModelState.IsValid)
@@ -140,7 +147,8 @@ namespace SecurityDoors.App.Controllers
         /// Удаление выбранной двери.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-        /// <returns>Представление главной страницы.</returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _serviceManager.Doors.DeleteDoorByIdAsync(id);

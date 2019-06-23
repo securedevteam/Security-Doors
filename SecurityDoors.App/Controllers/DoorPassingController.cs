@@ -33,7 +33,7 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверных проходов.
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, moderator, user, visitor")]
         public async Task<ActionResult> Index()
         {
             var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
@@ -55,6 +55,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _serviceManager.DoorPassings.EditDoorPassingByIdAsync(id);
@@ -68,6 +69,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="doorPassing">модель прохода.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(DoorPassingEditModel doorPassing)
         {
             if (ModelState.IsValid)

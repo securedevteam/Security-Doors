@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -33,6 +34,7 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком карточек.
         /// </summary>
         /// <returns>Представление со списком карточек.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Index()
         {
             var models = await _serviceManager.Cards.GetCardsAsync();
@@ -53,6 +55,7 @@ namespace SecurityDoors.App.Controllers
         /// Создание новой карточки.
         /// </summary>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {  
             return View();
@@ -64,6 +67,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(CardViewModel card)
         {
             card.UniqueNumber = Guid.NewGuid().ToString();
@@ -87,7 +91,8 @@ namespace SecurityDoors.App.Controllers
         /// Информация о карточке.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-        /// <returns></returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Details(int id)
         {            
             var model = await _serviceManager.Cards.GetCardByIdAsync(id);
@@ -109,6 +114,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _serviceManager.Cards.EditCardByIdAsync(id);
@@ -122,6 +128,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="card">модель карточки.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(CardEditModel card)
         {
             if (ModelState.IsValid)
@@ -144,6 +151,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {            
             await _serviceManager.Cards.DeleteCardByIdAsync(id);

@@ -8,7 +8,7 @@ namespace SecurityDoors.App.Controllers
         {
             return View();
         }
-		public IActionResult About ()
+		public IActionResult About()
 		{
 			return View();
 		}

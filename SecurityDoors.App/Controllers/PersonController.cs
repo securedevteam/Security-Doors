@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -34,6 +35,7 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком сотрудников.
         /// </summary>
         /// <returns>Представление</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Index()
 		{
             var models = await _serviceManager.People.GetPeopleAsync();
@@ -106,7 +108,8 @@ namespace SecurityDoors.App.Controllers
         /// Создание нового сотрудника.
         /// </summary>
         /// <returns>Представление.</returns>
-		public async Task<IActionResult> Create()
+        [Authorize(Roles = "admin, moderator")]
+        public async Task<IActionResult> Create()
 		{
             var availableCards = await GetListAvailableCardsAsync(1);
             var viewModel = new PersonViewModel { AvailableCards = availableCards };
@@ -120,7 +123,8 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public async Task<IActionResult> Create(PersonViewModel person)
+        [Authorize(Roles = "admin, moderator")]
+        public async Task<IActionResult> Create(PersonViewModel person)
 		{
             if (person.Card != null &&
                 person.Card != AppConstants.NO_AVAILABLE_CARDS)
@@ -152,6 +156,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление</returns>
+        [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Details(int id)
         {
             var model = await _serviceManager.People.GetPersonByIdAsync(id);
@@ -173,7 +178,8 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление.</returns>
-		public async Task<IActionResult> Edit (int id)
+        [Authorize(Roles = "admin, moderator")]
+        public async Task<IActionResult> Edit (int id)
 		{
 			var editModel = await _serviceManager.People.EditPersonByIdAsync(id);
 
@@ -187,7 +193,8 @@ namespace SecurityDoors.App.Controllers
         /// <param name="person">модель сотрудника.</param>
         /// <returns>Представление.</returns>
 		[HttpPost]
-		public async Task<IActionResult> Edit (PersonEditModel person)
+        [Authorize(Roles = "admin, moderator")]
+        public async Task<IActionResult> Edit (PersonEditModel person)
 		{
             if (person.SelectedNewUniqueNumberCard != null && 
                 person.SelectedNewUniqueNumberCard != AppConstants.NO_AVAILABLE_CARDS &&
@@ -217,8 +224,9 @@ namespace SecurityDoors.App.Controllers
         /// Удаление выбранного сотрудника.
         /// </summary>
         /// <param name="id">идентификатор.</param>
-        /// <returns>Представление главной страницы.</returns>
-		public async Task<IActionResult> Delete (int id)
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete (int id)
 		{
 			await _serviceManager.People.DeletePersonByIdAsync(id);
 

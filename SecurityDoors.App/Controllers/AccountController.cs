@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,8 @@ namespace SecurityDoors.App.Controllers
         /// <summary>
         /// Редактирование списка активных пользователей.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditUsersList()
         {
             var models = await _userManager.Users.ToListAsync();
@@ -61,6 +63,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="id">идентификатор.</param>
         /// <returns>Представление главной страницы.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -78,7 +81,8 @@ namespace SecurityDoors.App.Controllers
         /// <summary>
         /// Настройка пользовательских ролей.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> SettingUsersRoles()
         {
             var models = await _userManager.Users.ToListAsync();
@@ -93,6 +97,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="userId">Id пользователя.</param>
         /// <returns>Представление.</returns>
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditUsersRoles(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -127,6 +132,7 @@ namespace SecurityDoors.App.Controllers
         /// <param name="roles">все роли в приложении.</param>
         /// <returns>Представление.</returns>
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditUsersRoles(string userId, List<string> roles)
         {
             var user = await _userManager.FindByIdAsync(userId);
