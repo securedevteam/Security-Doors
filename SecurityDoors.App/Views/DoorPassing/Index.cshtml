@@ -14,11 +14,15 @@
                 <th>Уникальный номер карточки</th>
                 <th>Статус</th>
                 <th>Проход</th>
-                <th>Комментарий</th>
 
-                @if (User.IsInRole("admin"))
+                @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                 {
-                    <th>Доступные действия</th>
+                    <th>Пользователь</th>
+
+                    @if (User.IsInRole("admin"))
+                    { 
+                        <th>Доступные действия</th>
+                    }
                 }
             </tr>
         </thead>
@@ -37,7 +41,6 @@
                             <td>@item.Card</td>
                             <td>@item.Status</td>
                             <td>@item.Location</td>
-                            <td>@item.Comment</td>
                         </tr>
                     }
                 }
