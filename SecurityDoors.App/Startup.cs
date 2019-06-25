@@ -87,17 +87,10 @@ namespace SecurityDoors.App
             
             app.UseMvc(routes =>
             {
-                // TODO: Поменять с добавлением контроллера Home
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           
-            // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }
