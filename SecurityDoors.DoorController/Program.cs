@@ -46,7 +46,7 @@ namespace SecurityDoors.DoorController
 			Int32.TryParse(valuePort, out int port); // TODO: Реализовать проверку на диапазон и если значение не цифра
 
 			var GUID = Guid.NewGuid().ToString();
-			Console.WriteLine($"Secret key to work with door controller: {GUID}\n"); // TODO: Реализовать проверку на GUID при приёме сообщения
+			Console.WriteLine($"Secret key to work with door controller: {GUID}\n");
 			Console.Write("All configurations successfully loaded! Waiting for a connection... \n\n");
 
 			TcpListener server = null;
