@@ -172,8 +172,6 @@ namespace SecurityDoors.RemoteControl.Implementations
 
             foreach (var c in cards)
             {
-                // TODO: Доделать с выводом string значений location, level и status
-
                 var result = c.ConvertStatus();
 
                 Console.Write(string.Format("| {0,5} |", c.Id));

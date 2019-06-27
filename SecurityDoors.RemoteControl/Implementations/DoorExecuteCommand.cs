@@ -173,8 +173,6 @@ namespace SecurityDoors.RemoteControl.Implementations
 
             foreach (var d in doors)
             {
-                // TODO: Доделать с выводом string значений level и status
-
                 var result = d.ConvertStatus();
 
                 Console.Write(string.Format("| {0,5} |", d.Id));
