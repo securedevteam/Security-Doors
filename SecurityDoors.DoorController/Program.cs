@@ -51,88 +51,101 @@ namespace SecurityDoors.DoorController
 
 			TcpListener server = null;
 
-			try
+			//try
+			//{
+
+			IPAddress localAddr = IPAddress.Parse(ipAddress);
+			server = new TcpListener(localAddr, port);
+			server.Start();
+
+			byte[] bytes = new byte[256];
+			string data = null;
+
+			while (true)
 			{
-				IPAddress localAddr = IPAddress.Parse(ipAddress);
-				server = new TcpListener(localAddr, port);
-				server.Start();
+                try
+                {
+                    TcpClient client = server.AcceptTcpClient();
 
-				byte[] bytes = new byte[256];
-				string data = null;
+				data = null;
+				var stream = client.GetStream();
+				int length = stream.Read(bytes, 0, bytes.Length);
 
-				while (true)
+				data = Encoding.UTF8.GetString(bytes, 0 , length);
+
+				var words = data.Split('$'); // Разделительный символ
+				var guid_accept = words[0] == GUID;
+				var card = words[1];
+				var door = words[2];
+
+				if (guid_accept)
 				{
-					TcpClient client = server.AcceptTcpClient();
 
-					data = null;
-					var stream = client.GetStream();
-					int length = stream.Read(bytes, 0, bytes.Length);
+					#region Эмуляция дверного контроллера
 
-					data = Encoding.UTF8.GetString(bytes, 0 , length);
+					// TODO: Рефакторинг и в отдельный метод / класс.
 
-					var words = data.Split('$'); // Разделительный символ
-					var guid_accept = words[0] == GUID;
-					var card = words[1];
-					var door = words[2];
+					Console.Write(string.Format("| {0,15} |", card) +
+							string.Format(" {0,10} |", door));
 
-					if (guid_accept)
+					var result = mainController.ControllerАctuationAsync(card, door).Result;
+
+					if (result.Item2)
 					{
+						var resultString = "OPERATION SUCCEEDED";
+						Console.Write(string.Format("{0,25}", result.Item1) +
+										string.Format("| {0,20} |", resultString));
 
-						#region Эмуляция дверного контроллера
-
-						// TODO: Рефакторинг и в отдельный метод / класс.
-
-						Console.Write(string.Format("| {0,15} |", card) +
-							  string.Format(" {0,10} |", door));
-
-						var result = mainController.ControllerАctuationAsync(card, door).Result;
-
-						if (result.Item2)
-						{
-							var resultString = "OPERATION SUCCEEDED";
-							Console.Write(string.Format("{0,25}", result.Item1) +
-										  string.Format("| {0,20} |", resultString));
-
-							data = "200 OK";
-						}
-						else
-						{
-							var resultString = "OPERATION ERROR";
-							Console.Write(string.Format("{0,25}", result.Item1) +
-										  string.Format("| {0,20} |", resultString));
-
-							data = "404 Not Found";
-						}
-
-						Console.WriteLine();
-
-						#endregion
+						data = "200 OK";
 					}
 					else
 					{
-						data = "406 Not Acceptable";
+						var resultString = "OPERATION ERROR";
+						Console.Write(string.Format("{0,25}", result.Item1) +
+										string.Format("| {0,20} |", resultString));
+
+						data = "404 Not Found";
 					}
 
-					var msg = Encoding.ASCII.GetBytes(data);
-					stream.Write(msg, 0, msg.Length);
-					client.Close();
+					Console.WriteLine();
+
+					#endregion
 				}
-			}
-			catch (SocketException e)
-			{
-				Console.WriteLine($"SocketException: {e}");
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine($"Exception: {e.Message}");
-			}
-			finally
-			{
-				if (server != null)
+				else
 				{
-					server.Stop();
+					data = "406 Not Acceptable";
 				}
-			}
+
+				var msg = Encoding.ASCII.GetBytes(data);
+				stream.Write(msg, 0, msg.Length);
+				client.Close();
+                }
+                catch (SocketException e)
+                {
+                    Console.WriteLine($"SocketException: {e}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Exception: {e.Message}");
+                }
+            }
+
+			//}
+			//catch (SocketException e)
+			//{
+			//	Console.WriteLine($"SocketException: {e}");
+			//}
+			//catch (Exception e)
+			//{
+			//	Console.WriteLine($"Exception: {e.Message}");
+			//}
+			//finally
+			//{
+			//	if (server != null)
+			//	{
+			//		server.Stop();
+			//	}
+			//}
 
 			Console.ReadLine();
 		}
