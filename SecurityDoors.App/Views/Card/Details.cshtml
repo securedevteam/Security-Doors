@@ -1,24 +1,19 @@
 ﻿@model CardViewModel
 
-<h2>Информация о карточке №@Model.Id</h2>
+@{
+    ViewData["Title"] = "Информация о карточке - Security Doors";
+}
 
-<table>
-    <thead>
-        <tr>
-            <th>Уникальный номер</th>
-            <th>Уровень доступа</th>
-            <th>Нахождение в данный момент</th>
-            <th>Статус</th>
-            <th>Комментарий</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.UniqueNumber</td>
-            <td>@Model.Level</td>
-            <td>@Model.Location</td>
-            <td>@Model.Status</td>
-            <td>@Model.Comment</td>
-        </tr>
-    </tbody>
-</table>
+<div class="text-center">
+    <h2>Информация о карточке №@Model.Id</h2>
+</div>
+
+<br />
+
+
+    <li class="list-group-item">Уникальный номер: <b>@Model.UniqueNumber</b></li>
+    <li class="list-group-item">Уровень доступа: <b>@Model.Level</b></li>
+    <li class="list-group-item">Нахождение в данный момен: <b>@Model.Location</b></li>
+    <li class="list-group-item">Статус: <b>@Model.Status</b></li>
+    <li class="list-group-item">Комментарий: <b>@Model.Comment</b></li>
+

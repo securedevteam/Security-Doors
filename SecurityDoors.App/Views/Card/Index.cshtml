@@ -1,49 +1,51 @@
 ﻿@model IEnumerable<SecurityDoors.PresentationLayer.ViewModels.CardViewModel>
 
-<h1>Список карточек</h1>
+@{
+    ViewData["Title"] = "Список карточек - Security Doors";
+}
 
-@if (User.IsInRole("admin"))
-{
-<div>
-    <a asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
+<div class="text-center">
+    <h1>Список карточек</h1>
 </div>
 
 <br />
+
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a class="btn btn-outline-success" asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
+    </div>
+
+    <br />
 }
 
-<div>
-    <table>
-        <thead>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Уникальный номер</th>
-                <th>Уровень доступа</th>
-                <th>Нахождение в данный момент</th>
-                <th>Статус</th>
-                <th>Комментарий</th>
-                <th>Доступные действия</th>
+                <th scope="col">#</th>
+                <th scope="col">Уникальный номер</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Доступные действия</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.UniqueNumber</td>
-                <td>@item.Level</td>
-                <td>@item.Location</td>
-                <td>@item.Status</td>
-                <td>@item.Comment</td>
-                <td>
-                    <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a> 
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.UniqueNumber</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Card" asp-route-id="@item.Id">Подробнее</a>
 
-                    @if (User.IsInRole("admin"))
-                    {
-                        <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a> 
-                        <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
-                    }
-                </td>
-            </tr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">Изменить</a>
+                            <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">Удалить</a>
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
