@@ -1,53 +1,54 @@
 ﻿@model DoorViewModel
 
-<div>
+@{
+    ViewData["Title"] = "Создать дверь - Security Doors";
+}
+
+<div class="text-center">
     <h2>Создать новую дверь</h2>
 </div>
 
+<br />
+
 <form method="post" asp-controller="Door" asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <div>
-            <label asp-for="Name"></label>
-            <input type="text" asp-for="Name" />
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <b><label asp-for="Name"></label></b>
+            <input type="text" asp-for="Name" class="form-control"/>
             <span asp-validation-for="Name"></span>
         </div>
-
-        <div>
-            <label asp-for="Description"></label>
-            <input type="text" asp-for="Description" />
+        <div class="form-group col-md-6">
+            <b><label asp-for="Description"></label></b>
+            <input type="text" asp-for="Description" class="form-control"/>
             <span asp-validation-for="Description"></span>
         </div>
+    </div>
 
-        <div>
-            <label asp-for="Level"></label>
-            <select asp-for="Level">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <b><label asp-for="Level"></label></b>
+            <select asp-for="Level" class="form-control">
                 <option>@DoorConstants.IsCommon</option>
                 <option>@DoorConstants.IsSpecial</option>
                 <option>@DoorConstants.IsGuarded</option>
             </select>
         </div>
-
-        <div>
-            <label asp-for="Status"></label>
-            <select asp-for="Status">
+        <div class="form-group col-md-4">
+            <b><label asp-for="Status"></label></b>
+            <select asp-for="Status" class="form-control">
                 <option>@DoorConstants.IsActive</option>
                 <option>@DoorConstants.IsClosed</option>
                 <option>@DoorConstants.OnRepair</option>
             </select>
         </div>
-
-        <div>
-            <label asp-for="Comment"></label>
-            <input type="text" asp-for="Comment" />
-            <span asp-validation-for="Comment"></span>
-        </div>
-
-        <br />
-
-        <div>
-            <input type="submit" value="Подтвердить" />
-            <input type="reset" value="Очистить" />
+        <div class="form-group col-md-4">
+            <b><label asp-for="Comment"></label></b>
+        <input type="text" asp-for="Comment" class="form-control" />
+        <span asp-validation-for="Comment"></span>
         </div>
     </div>
+
+    <button type="submit" class="btn btn-success">Создать</button>
 </form>

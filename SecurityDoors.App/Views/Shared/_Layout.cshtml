@@ -27,8 +27,8 @@
                 @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                 {
                     <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Список карточек</a>
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Список сотрудников</a>
                     <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Список дверей</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Список сотрудников</a>
                 }
                 <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Список дверных проходов</a>
             </nav>
