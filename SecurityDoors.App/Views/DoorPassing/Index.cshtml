@@ -1,71 +1,80 @@
 ﻿@model IEnumerable<DoorPassingViewModel>
 
-<h1>Список дверных проходов</h1>
+@{
+    ViewData["Title"] = "Список дверных проходов - Security Doors";
+}
+
+<div class="text-center">
+    <h1>Список дверных проходов</h1>
+</div>
 
 <br />
 
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Время прохода</th>
-                <th>Название двери</th>
-                <th>Уникальный номер карточки</th>
-                <th>Статус</th>
-                <th>Проход</th>
-
-                @if (User.IsInRole("admin") || User.IsInRole("moderator"))
-                {
-                    <th>Пользователь</th>
-
-                    @if (User.IsInRole("admin"))
-                    { 
-                        <th>Доступные действия</th>
-                    }
-                }
-            </tr>
-        </thead>
-
+<div class="table-responsive">
+    <table class="table">
         @if (User.IsInRole("user") || User.IsInRole("visitor"))
         {
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Время прохода</th>
+                    <th scope="col">Название двери</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Проход</th>
+                </tr>
+            </thead>
+
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @if (User.Identity.Name == item.Comment)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.PassingTime</td>
-                            <td>@item.Door</td>
-                            <td>@item.Card</td>
-                            <td>@item.Status</td>
-                            <td>@item.Location</td>
-                        </tr>
-                    }
+                @if (User.Identity.Name == item.Comment)
+                {
+                    <tr>
+                        <td>@item.PassingTime</td>
+                        <td>@item.Door</td>
+                        <td>@item.Status</td>
+                        <td>@item.Location</td>
+                    </tr>
                 }
-            </tbody> 
+                }
+            </tbody>
         }
 
         @if (User.IsInRole("admin") || User.IsInRole("moderator"))
         {
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Время прохода</th>
+                    <th scope="col">Уникальный номер карточки</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">Проход</th>
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <th scope="col">Название двери</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Доступные действия</th>
+                    }
+                </tr>
+            </thead>
+
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.PassingTime</td>
-                        <td>@item.Door</td>
-                        <td>@item.Card</td>
-                        <td>@item.Status</td>
-                        <td>@item.Location</td>
-                        <td>@item.Comment</td>
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.PassingTime</td>
+                    <td>@item.Card</td>
+                    <td>@item.Comment</td>
+                    <td>@item.Location</td>
 
-                        @if (User.IsInRole("admin"))
-                        {
-                            <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
-                        }
-                    </tr>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td>@item.Door</td>
+                        <td>@item.Status</td>
+                        <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
+                    }
+                </tr>
                 }
             </tbody>
         }

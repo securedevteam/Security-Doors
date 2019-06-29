@@ -1,41 +1,40 @@
 ﻿@model DoorPassingEditModel
 
-<div>
-    <h2>Данные для изменения прохода №@Model.Id</h2>
+@{
+    ViewData["Title"] = "Редактировать дверной проход - Security Doors";
+}
+
+<div class="text-center">
+    <h2>Редактировать дверной проход №@Model.Id</h2>
 </div>
+
+<br />
 
 <form method="post" asp-controller="DoorPassing" asp-action="Edit" asp-route-id="@Model.Id">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <div>
-
-        <div>
-            <label asp-for="Location"></label>
-            <select asp-for="Location">
-                <option>@DoorPassingConstants.Entrance</option>
-                <option>@DoorPassingConstants.Exit</option>
-            </select>
-        </div>
-
-        <div>
-            <label asp-for="Status"></label>
-            <select asp-for="Status">
-                <option>@DoorPassingConstants.WithoutСontrol</option>
-                <option>@DoorPassingConstants.OnControl</option>
-                <option>@DoorPassingConstants.IsAnnul</option>
-            </select>
-        </div>
-
-        <div>
-            <label asp-for="Comment"></label>
-            <input type="text" asp-for="Comment" />
-            <span asp-validation-for="Comment"></span>
-        </div>
-
-        <br />
-
-        <div>
-            <input type="submit" value="Подтвердить редактирование" />
-        </div>
+    <div class="form-group">
+        <b><label asp-for="Location"></label></b>
+        <select asp-for="Location" class="form-control">
+            <option>@DoorPassingConstants.Entrance</option>
+            <option>@DoorPassingConstants.Exit</option>
+        </select>
     </div>
+
+    <div class="form-group">
+        <b><label asp-for="Status"></label></b>
+        <select asp-for="Status" class="form-control">
+            <option>@DoorPassingConstants.WithoutСontrol</option>
+            <option>@DoorPassingConstants.OnControl</option>
+            <option>@DoorPassingConstants.IsAnnul</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <b><label asp-for="Comment"></label></b>
+        <input type="text" asp-for="Comment" class="form-control" />
+        <span asp-validation-for="Comment"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Изменить</button>
 </form>
