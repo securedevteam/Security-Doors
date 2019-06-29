@@ -14,7 +14,7 @@
     <div asp-validation-summary="ModelOnly"></div>
 
     <div class="form-group">
-        <label asp-for="Level"></label>
+        <b><label asp-for="Level"></label></b>
         <select asp-for="Level" class="form-control">
             <option>@CardConstants.IsGuest</option>
             <option>@CardConstants.IsIntern</option>
@@ -23,26 +23,31 @@
             <option>@CardConstants.IsManager</option>
         </select>
     </div>
-    <div class="form-group">
-        <label asp-for="Location"></label>
-        <select asp-for="Location" class="form-control">
-            <option>@CardConstants.Entrance</option>
-            <option>@CardConstants.Exit</option>
-        </select>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <b><label asp-for="Location"></label></b>
+            <select asp-for="Location" class="form-control">
+                <option>@CardConstants.Entrance</option>
+                <option>@CardConstants.Exit</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <b><label asp-for="Status"></label></b>
+            <select asp-for="Status" class="form-control">
+                <option>@CardConstants.IsActive</option>
+                <option>@CardConstants.IsClosed</option>
+                <option>@CardConstants.IsLost</option>
+                <option>@CardConstants.IsSuspended</option>
+            </select>
+        </div>
     </div>
+
     <div class="form-group">
-        <label asp-for="Status"></label>
-        <select asp-for="Status" class="form-control">
-            <option>@CardConstants.IsActive</option>
-            <option>@CardConstants.IsClosed</option>
-            <option>@CardConstants.IsLost</option>
-            <option>@CardConstants.IsSuspended</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Comment"></label>
+        <b><label asp-for="Comment"></label></b>
         <input type="text" asp-for="Comment" class="form-control" />
         <span asp-validation-for="Comment"></span>
     </div>
+     
     <button type="submit" class="btn btn-success">Создать</button>
 </form>

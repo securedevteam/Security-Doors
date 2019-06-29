@@ -1,28 +1,19 @@
 ﻿@model PersonViewModel
 
-<h2>Информация о сотруднике №@Model.Id</h2>
+@{
+    ViewData["Title"] = "Информация о сотруднике - Security Doors";
+}
 
-<table>
-    <thead>
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Отчество</th>
-            <th>Пол</th>
-            <th>Паспорт</th>
-            <th>Уникальный номер карты</th>
-            <th>Коментарий</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.FirstName</td>
-            <td>@Model.LastName</td>
-            <td>@Model.SecondName</td>
-            <td>@Model.Gender</td>
-            <td>@Model.Passport</td>
-            <td>@Model.Card</td>
-            <td>@Model.Comment</td>
-        </tr>
-    </tbody>
-</table>
+<div class="text-center">
+    <h2>Информация о сотруднике №@Model.Id</h2>
+</div>
+
+<br />
+
+<li class="list-group-item">Имя: <b>@Model.FirstName</b></li>
+<li class="list-group-item">Фамилия: <b>@Model.LastName</b></li>
+<li class="list-group-item">Отчество: <b>@Model.SecondName</b></li>
+<li class="list-group-item">Пол: <b>@Model.Gender</b></li>
+<li class="list-group-item">Паспорт: <b>@Model.Passport</b></li>
+<li class="list-group-item">Уникальный номер карты: <b>@Model.Card</b></li>
+<li class="list-group-item">Коментарий: <b>@Model.Comment</b></li>
