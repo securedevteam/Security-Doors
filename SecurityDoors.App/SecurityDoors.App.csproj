@@ -46,10 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\DoorPassing\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
