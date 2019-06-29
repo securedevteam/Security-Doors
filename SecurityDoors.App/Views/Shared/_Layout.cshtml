@@ -1,56 +1,75 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"]</title>
 
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Custom styles for this template -->
+    <link href="~/css/main.css" rel="stylesheet">
 </head>
-    <body>
-        <a asp-action="Index" asp-controller="Home">Home</a> <br />
-        <a asp-action="About" asp-controller="Home">About</a> <br />
-
-        <br />
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Security Doors</h5>
 
         @if (User.Identity.IsAuthenticated)
         {
-            <p>Вы вошли в систему, как: @User.Identity.Name</p>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Home</a>
+
+                @if (User.IsInRole("admin"))
+                {
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">Users rights</a>
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">Edit users list</a>
+                }
+
+                @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                {
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Cards</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Doors</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">People</a>
+                }
+
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Door Passings</a>
+            </nav>
 
             <form method="post" asp-controller="Account" asp-action="LogOff">
-                <input type="submit" value="Выход" />
+                <input class="btn btn-outline-primary" type="submit" value="Sign out" />
             </form>
-
-            <br />
-
-            @if (User.IsInRole("admin"))
-            {
-                <a asp-controller="Account" asp-action="SettingUsersRoles">Разграничить права пользователей</a> <br />
-                <a asp-controller="Account" asp-action="EditUsersList">Редактироать список активных пользователей</a> <br />
-            }
-
-            @if (User.IsInRole("admin") || User.IsInRole("moderator"))
-            {
-                <a asp-action="Index" asp-controller="Card">Cards</a> <br />
-                <a asp-action="Index" asp-controller="Door">Doors</a> <br />
-                <a asp-action="Index" asp-controller="Person">People</a> <br />
-            }
-
-            <a asp-action="Index" asp-controller="DoorPassing">Door Passings</a> <br />
         }
         else
         {
-            <p>
-                <a asp-controller="Account" asp-action="Login">Вход</a>
-                <a asp-controller="Account" asp-action="Registration">Регистрация</a>
-            </p>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Home</a>
+            </nav>
+
+            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Sign up</a>
         }
 
-        @RenderBody()
+    </div>
 
-    </body>
+    @RenderBody()
+
+    <div class="container">
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    <small class="d-block mb-3 text-muted">30 seconds to bug © 2019</small>
+                </div>
+                <div class="col-6 col-md"></div>
+                <div class="col-6 col-md"></div>
+                <div class="col-6 col-md">
+                    <h5>About</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" asp-action="About" asp-controller="Home">Team</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
 </html>
