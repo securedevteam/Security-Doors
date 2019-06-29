@@ -1,33 +1,46 @@
 ﻿@model LoginViewModel
 
-<div>
-    <h2>Вход в систему</h2>
-</div>
+@{
+    Layout = null;
+}
 
-<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sign in</title>
 
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <div>
-        <label asp-for="RememberMe"></label>
-        <input asp-for="RememberMe" />
-    </div>
+    <!-- Custom styles for this template -->
+    <link href="~/css/signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+    <form class="form-signin" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
 
-    <br />
+        <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-    <div>
-        <input type="submit" value="Войти" />
-        <input type="reset" value="Очистить" />
-    </div>
-</form>
+        <div>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <input asp-for="RememberMe" />
+            <label asp-for="RememberMe"> Remember me</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">SecureDevTeam &copy; 2019</p>
+
+    </form>
+</body>
+</html>
