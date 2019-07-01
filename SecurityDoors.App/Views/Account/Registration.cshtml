@@ -19,7 +19,7 @@
     <link href="~/css/signin.css" rel="stylesheet">
 
     <!-- e-mail validation script -->
-    <script  type="text/javascript" src="~/js/mailValidation.js" ></script>
+    <script  type="text/javascript" src="~/js/email-validation.js" ></script>
 </head>
 <body class="text-center">
     <form class="form-signin" method="post" asp-controller="Account" asp-action="Registration">
@@ -28,7 +28,7 @@
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
 
         <div class="form-group">
-            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="ValidMail()" onblur="ValidMail()">
+            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="validation()" onblur="validation()">
             <span asp-validation-for="Email"></span>
             <small id="emailHelp" class="form-text text-muted">Мы не передадим ваш email 3-им лицам.</small>
             <small id="message" class="form-text text-muted"></small>
