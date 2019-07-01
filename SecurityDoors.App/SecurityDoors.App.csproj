@@ -11,13 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\js\**" />
     <Compile Remove="wwwroot\Новая папка1\**" />
-    <Content Remove="wwwroot\js\**" />
     <Content Remove="wwwroot\Новая папка1\**" />
-    <EmbeddedResource Remove="wwwroot\js\**" />
     <EmbeddedResource Remove="wwwroot\Новая папка1\**" />
-    <None Remove="wwwroot\js\**" />
     <None Remove="wwwroot\Новая папка1\**" />
   </ItemGroup>
 
