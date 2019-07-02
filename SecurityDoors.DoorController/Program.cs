@@ -16,8 +16,6 @@ namespace SecurityDoors.DoorController
 	{
 		static void Main(string[] args)
 		{
-			// TODO: Продумать возможность поделения контроллера на моделирование и реальную ситуацию
-
 			Console.Title = "DoorController Application v1.0";
 
 			var serviceCollection = new ServiceCollection();
@@ -50,9 +48,6 @@ namespace SecurityDoors.DoorController
 			Console.Write("All configurations successfully loaded! Waiting for a connection... \n\n");
 
 			TcpListener server = null;
-
-			//try
-			//{
 
 			IPAddress localAddr = IPAddress.Parse(ipAddress);
 			server = new TcpListener(localAddr, port);
@@ -129,25 +124,6 @@ namespace SecurityDoors.DoorController
                     Console.WriteLine($"Exception: {e.Message}");
                 }
             }
-
-			//}
-			//catch (SocketException e)
-			//{
-			//	Console.WriteLine($"SocketException: {e}");
-			//}
-			//catch (Exception e)
-			//{
-			//	Console.WriteLine($"Exception: {e.Message}");
-			//}
-			//finally
-			//{
-			//	if (server != null)
-			//	{
-			//		server.Stop();
-			//	}
-			//}
-
-			Console.ReadLine();
 		}
 	}
 }
