@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -16,12 +19,27 @@ namespace SecurityDoors.DoorController
 	{
 		static void Main(string[] args)
 		{
-			Console.Title = "DoorController Application v1.0";
+            Console.Title = "DoorController Application v1.0";
+
+            var connectionString = string.Empty;
+
+            if (File.Exists("appsettings.json"))
+            {
+                var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+                var configuration = builder.Build();
+
+                connectionString = configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                connectionString = AppConstants.CONNECTION_STRING;
+            }
 
 			var serviceCollection = new ServiceCollection();
 
-			serviceCollection.AddDbContext<ApplicationContext>(options =>
-				options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true"));
+			serviceCollection.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
 			serviceCollection.AddScoped<ICardRepository, CardRepository>();
 			serviceCollection.AddScoped<IDoorRepository, DoorRepository>();
