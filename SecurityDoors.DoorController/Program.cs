@@ -8,7 +8,6 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -21,21 +20,7 @@ namespace SecurityDoors.DoorController
 		{
             Console.Title = "DoorController Application v1.0";
 
-            var connectionString = string.Empty;
-
-            if (File.Exists("appsettings.json"))
-            {
-                var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-                var configuration = builder.Build();
-
-                connectionString = configuration.GetConnectionString("DefaultConnection");
-            }
-            else
-            {
-                connectionString = AppConstants.CONNECTION_STRING;
-            }
+            var connectionString = ConnectionStringConfiguration.GetConnectionString();
 
 			var serviceCollection = new ServiceCollection();
 

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App
@@ -37,8 +38,9 @@ namespace SecurityDoors.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = ConnectionStringConfiguration.GetConnectionString();
+
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationContext>()

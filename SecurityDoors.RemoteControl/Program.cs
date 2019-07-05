@@ -4,11 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.RemoteControl.cli;
-using SecurityDoors.Core.Constants;
 using System;
-using System.IO;
 
 namespace SecurityDoors.RemoteControl
 {
@@ -18,21 +17,7 @@ namespace SecurityDoors.RemoteControl
         {
             Console.Title = "RemoteControll Application v1.0";
 
-            var connectionString = string.Empty;
-
-            if (File.Exists("appsettings.json"))
-            {
-                var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-                var configuration = builder.Build();
-
-                connectionString = configuration.GetConnectionString("DefaultConnection");
-            }
-            else
-            {
-                connectionString = AppConstants.CONNECTION_STRING;
-            }
+            var connectionString = ConnectionStringConfiguration.GetConnectionString();
 
             var serviceCollection = new ServiceCollection();
 
