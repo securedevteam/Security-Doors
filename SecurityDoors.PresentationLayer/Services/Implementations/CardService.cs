@@ -34,15 +34,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             foreach (var model in models)
             {
                 // Статус. Уровень. Нахождение.
-                var result = model.ConvertStatus();
+                var (status, level, location) = model.ConvertStatus();
 
                 viewModels.Add(new CardViewModel
                 {
                     Id = model.Id,
                     UniqueNumber = model.UniqueNumber,
-                    Status = result.Item1,
-                    Level = result.Item2,
-                    Location = result.Item3,
+                    Status = status,
+                    Level = level,
+                    Location = location,
                     Comment = model.Comment
                 });
             }
@@ -56,15 +56,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, level, location) = model.ConvertStatus();
 
             var viewModel = new CardViewModel()
             {
                 Id = model.Id,
                 UniqueNumber = model.UniqueNumber,
-                Status = result.Item1,
-                Level = result.Item2,
-                Location = result.Item3,
+                Status = status,
+                Level = level,
+                Location = location,
                 Comment = model.Comment
             };
 
@@ -77,12 +77,12 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, _, _) = model.ConvertStatus();
 
             var editModel = new CardEditModel()
             {
                 Id = model.Id,
-                Status = result.Item1,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -111,12 +111,12 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             }
 
             // Статус. Уровень. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, level, location) = model.ConvertStatus();
 
             card.UniqueNumber = model.UniqueNumber;
-            card.Status = result.Item1;
-            card.Level = result.Item2;
-            card.Location = result.Item3;
+            card.Status = status;
+            card.Level = level;
+            card.Location = location;
             card.Comment = model.Comment;
 
             await _dataManager.Cards.SaveAsync(card);

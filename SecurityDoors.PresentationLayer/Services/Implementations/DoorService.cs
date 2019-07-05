@@ -33,15 +33,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             foreach (var model in models)
 			{
                 // Статус. Уровень.
-                var result = model.ConvertStatus();
+                var (status, level) = model.ConvertStatus();
 
                 viewModels.Add(new DoorViewModel
                 {
                     Id = model.Id,
                     Name = model.Name,
                     Description = model.Description,
-                    Status = result.Item1,
-                    Level = result.Item2,
+                    Status = status,
+                    Level = level,
                     Comment = model.Comment
                 });
 			}
@@ -55,15 +55,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 			var model = await _dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
-            var result = model.ConvertStatus();
+            var (status, level) = model.ConvertStatus();
 
             var viewModel = new DoorViewModel()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                Level = result.Item2,
-                Status = result.Item1,
+                Level = level,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -76,14 +76,14 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 			var model = await _dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
-            var result = model.ConvertStatus();
+            var (status, _) = model.ConvertStatus();
 
             var editModel = new DoorEditModel()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Description = model.Description,
-                Status = result.Item1,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -107,12 +107,12 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             }
 
             // Статус. Уровень.
-            var result = model.ConvertStatus();
+            var (status, level) = model.ConvertStatus();
 
             door.Name = model.Name;
             door.Description = model.Description;
-            door.Status = result.Item1;
-            door.Level = result.Item2;
+            door.Status = status;
+            door.Level = level;
             door.Comment = model.Comment;
 
             await _dataManager.Doors.SaveAsync(door);

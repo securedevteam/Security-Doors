@@ -91,15 +91,15 @@ namespace SecurityDoors.RemoteControl.Implementations
 
                 if (card != null)
                 {
-                    var result = card.ConvertStatus();
+                    var (status, level, location) = card.ConvertStatus();
 
                     CLIColor.WriteInfo("Information about card:");
                     Console.WriteLine("===========================");
                     Console.WriteLine($"Id: {card.Id}");
                     Console.WriteLine($"UniqueNumber: {card.UniqueNumber}");
-                    Console.WriteLine($"Level: {result.Item2}");
-                    Console.WriteLine($"Status: {result.Item1}");
-                    Console.WriteLine($"Location: {result.Item3}");
+                    Console.WriteLine($"Level: {level}");
+                    Console.WriteLine($"Status: {status}");
+                    Console.WriteLine($"Location: {location}");
                     Console.WriteLine($"Comment: {card.Comment}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
@@ -172,13 +172,13 @@ namespace SecurityDoors.RemoteControl.Implementations
 
             foreach (var c in cards)
             {
-                var result = c.ConvertStatus();
+                var (status, level, location) = c.ConvertStatus();
 
                 Console.Write(string.Format("| {0,5} |", c.Id));
                 Console.Write(string.Format(" {0,36} |", c.UniqueNumber));               
-                Console.Write(string.Format(" {0,13} |", result.Item2));
-                Console.Write(string.Format(" {0,10} |", result.Item1));
-                Console.Write(string.Format(" {0,19} |", result.Item3));
+                Console.Write(string.Format(" {0,13} |", level));
+                Console.Write(string.Format(" {0,10} |", status));
+                Console.Write(string.Format(" {0,19} |", location));
                 Console.Write(string.Format(" {0,15} |", c.Comment));
                 Console.WriteLine();
             }

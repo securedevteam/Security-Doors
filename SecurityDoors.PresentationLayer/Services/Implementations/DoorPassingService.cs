@@ -36,16 +36,16 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
                 var doorModel = await _dataManager.Doors.GetDoorByIdAsync(model.DoorId);
 
                 // Статус. Нахождение.
-                var result = model.ConvertStatus();
+                var (status, location) = model.ConvertStatus();
 
                 viewModels.Add(new DoorPassingViewModel()
 				{
 					Id = model.Id,
 					Door = doorModel.Name,
 					Card = cardModel.UniqueNumber,
-                    Location = result.Item2,
+                    Location = location,
 					PassingTime = model.PassingTime,
-                    Status = result.Item1,
+                    Status = status,
 					Comment = model.Comment
 				});
 			}
@@ -59,13 +59,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             var model = await _dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, location) = model.ConvertStatus();
 
             var viewModel = new DoorPassingViewModel()
             {
                 Id = model.Id,
-                Location = result.Item2,
-                Status = result.Item1,
+                Location = location,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -78,13 +78,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             var model = await _dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, location) = model.ConvertStatus();
 
             var editModel = new DoorPassingEditModel()
             {
                 Id = model.Id,
-                Location = result.Item2,
-                Status = result.Item1,
+                Location = location,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -102,10 +102,10 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             }
 
             // Статус. Нахождение.
-            var result = model.ConvertStatus();
+            var (status, location) = model.ConvertStatus();
 
-            doorPassing.Location = result.Item2;
-            doorPassing.Status = result.Item1;
+            doorPassing.Location = location;
+            doorPassing.Status = status;
             doorPassing.Comment = model.Comment;
 
             await _dataManager.DoorsPassing.SaveAsync(doorPassing);
