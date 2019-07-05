@@ -13,7 +13,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
     /// </summary>
 	public class DoorPassingService : IDoorPassingService
 	{
-		private DataManager dataManager;
+		private DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
@@ -21,19 +21,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public DoorPassingService(DataManager dataManager)
 		{
-			this.dataManager = dataManager;
+            _dataManager = dataManager;
 		}
 
         /// <inheritdoc/>
 		public async Task<List<DoorPassingViewModel>> GetDoorPassingsAsync()
 		{
-			var models = await dataManager.DoorsPassing.GetDoorsPassingListAsync();
+			var models = await _dataManager.DoorsPassing.GetDoorsPassingListAsync();
 			var viewModels = new List<DoorPassingViewModel>();
 
-			foreach (var model in models)
+            foreach (var model in models)
 			{
-                var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
-                var doorModel = await dataManager.Doors.GetDoorByIdAsync(model.DoorId);
+                var cardModel = await _dataManager.Cards.GetCardByIdAsync(model.CardId);
+                var doorModel = await _dataManager.Doors.GetDoorByIdAsync(model.DoorId);
 
                 // Статус. Нахождение.
                 var result = model.ConvertStatus();
@@ -56,7 +56,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<DoorPassingViewModel> GetDoorPassingByIdAsync(int id)
         {
-            var model = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
+            var model = await _dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
             var result = model.ConvertStatus();
@@ -75,7 +75,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<DoorPassingEditModel> EditDoorPassingByIdAsync(int id)
         {
-            var model = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
+            var model = await _dataManager.DoorsPassing.GetDoorPassingByIdAsync(id);
 
             // Статус. Нахождение.
             var result = model.ConvertStatus();
@@ -98,7 +98,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                doorPassing = await dataManager.DoorsPassing.GetDoorPassingByIdAsync(model.Id);
+                doorPassing = await _dataManager.DoorsPassing.GetDoorPassingByIdAsync(model.Id);
             }
 
             // Статус. Нахождение.
@@ -108,7 +108,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             doorPassing.Status = result.Item1;
             doorPassing.Comment = model.Comment;
 
-            await dataManager.DoorsPassing.SaveAsync(doorPassing);
+            await _dataManager.DoorsPassing.SaveAsync(doorPassing);
 
             return await GetDoorPassingByIdAsync(doorPassing.Id);
         }

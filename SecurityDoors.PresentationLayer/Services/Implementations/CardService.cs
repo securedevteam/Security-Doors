@@ -14,7 +14,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
     /// </summary>
     public class CardService : ICardService
     {
-        private DataManager dataManager;
+        private DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
@@ -22,19 +22,19 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
         public CardService(DataManager dataManager)
         {
-            this.dataManager = dataManager;
+            _dataManager = dataManager;
         }
 
         /// <inheritdoc/>
         public async Task<List<CardViewModel>> GetCardsAsync()
         {
-            var models = await dataManager.Cards.GetCardsListAsync();
+            var models = await _dataManager.Cards.GetCardsListAsync();
             var viewModels = new List<CardViewModel>();
 
             foreach (var model in models)
             {
                 // Статус. Уровень. Нахождение.
-                (string, string, string) result = model.ConvertStatus();
+                var result = model.ConvertStatus();
 
                 viewModels.Add(new CardViewModel
                 {
@@ -53,10 +53,10 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<CardViewModel> GetCardByIdAsync(int id)
         {
-            var model = await dataManager.Cards.GetCardByIdAsync(id);
+            var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            (string, string, string) result = model.ConvertStatus();
+            var result = model.ConvertStatus();
 
             var viewModel = new CardViewModel()
             {
@@ -74,10 +74,10 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<CardEditModel> EditCardByIdAsync(int id)
         {
-            var model = await dataManager.Cards.GetCardByIdAsync(id);
+            var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            (string, string, string) result = model.ConvertStatus();
+            var result = model.ConvertStatus();
 
             var editModel = new CardEditModel()
             {
@@ -92,7 +92,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task DeleteCardByIdAsync(int id)
         {
-            await dataManager.Cards.DeleteAsync(id);
+            await _dataManager.Cards.DeleteAsync(id);
         }
 
         /// <inheritdoc/>
@@ -102,7 +102,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
+                card = await _dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             if(model.UniqueNumber == null)
@@ -111,7 +111,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             }
 
             // Статус. Уровень. Нахождение.
-            (int, int, bool) result = model.ConvertStatus();
+            var result = model.ConvertStatus();
 
             card.UniqueNumber = model.UniqueNumber;
             card.Status = result.Item1;
@@ -119,7 +119,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             card.Location = result.Item3;
             card.Comment = model.Comment;
 
-            await dataManager.Cards.SaveAsync(card);
+            await _dataManager.Cards.SaveAsync(card);
 
             return await GetCardByIdAsync(card.Id);
         }
@@ -131,7 +131,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
+                card = await _dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             var status = model.ConvertStatus();
@@ -139,7 +139,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             card.Status = status;
             card.Comment = model.Comment;
 
-            await dataManager.Cards.SaveAsync(card);
+            await _dataManager.Cards.SaveAsync(card);
 
             return await GetCardByIdAsync(card.Id);
         }

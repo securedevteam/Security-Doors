@@ -13,7 +13,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
     /// </summary>
 	public class DoorService : IDoorService
 	{
-        private DataManager dataManager;
+        private DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
@@ -21,13 +21,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public DoorService(DataManager dataManager)
 		{
-			this.dataManager = dataManager;
+            _dataManager = dataManager;
 		}
 
         /// <inheritdoc/>
 		public async Task<List<DoorViewModel>> GetDoorsAsync()
 		{
-			var models = await dataManager.Doors.GetDoorsListAsync();
+			var models = await _dataManager.Doors.GetDoorsListAsync();
 			var viewModels = new List<DoorViewModel>();
 
             foreach (var model in models)
@@ -52,7 +52,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<DoorViewModel> GetDoorByIdAsync(int id)
 		{
-			var model = await dataManager.Doors.GetDoorByIdAsync(id);
+			var model = await _dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
             var result = model.ConvertStatus();
@@ -73,7 +73,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<DoorEditModel> EditDoorDyIdAsync(int id)
 		{
-			var model = await dataManager.Doors.GetDoorByIdAsync(id);
+			var model = await _dataManager.Doors.GetDoorByIdAsync(id);
 
             // Статус. Уровень.
             var result = model.ConvertStatus();
@@ -93,7 +93,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task DeleteDoorByIdAsync(int id)
 		{
-			await dataManager.Doors.DeleteAsync(id);
+			await _dataManager.Doors.DeleteAsync(id);
 		}
 
         /// <inheritdoc/>
@@ -103,7 +103,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                door = await dataManager.Doors.GetDoorByIdAsync(model.Id);
+                door = await _dataManager.Doors.GetDoorByIdAsync(model.Id);
             }
 
             // Статус. Уровень.
@@ -115,7 +115,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             door.Level = result.Item2;
             door.Comment = model.Comment;
 
-            await dataManager.Doors.SaveAsync(door);
+            await _dataManager.Doors.SaveAsync(door);
 
             return await GetDoorByIdAsync(door.Id);
         }
@@ -127,7 +127,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                door = await dataManager.Doors.GetDoorByIdAsync(model.Id);
+                door = await _dataManager.Doors.GetDoorByIdAsync(model.Id);
             }
 
             var status = model.ConvertStatus();
@@ -137,7 +137,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             door.Status = status;
             door.Comment = model.Comment;
 
-            await dataManager.Doors.SaveAsync(door);
+            await _dataManager.Doors.SaveAsync(door);
 
             return await GetDoorByIdAsync(door.Id);
         }

@@ -13,7 +13,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
     /// </summary>
 	public class PersonService : IPersonService
 	{
-		DataManager dataManager;
+		DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
@@ -21,22 +21,18 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
 		public PersonService(DataManager dataManager)
 		{
-			this.dataManager = dataManager;
+            _dataManager = dataManager;
 		}
 
         /// <inheritdoc/>
         public async Task<List<PersonViewModel>> GetPeopleAsync()
 		{
-			var models = await dataManager.People.GetPeopleListAsync();
+			var models = await _dataManager.People.GetPeopleListAsync();
 			var viewModels = new List<PersonViewModel>();
-
-            var gender = string.Empty;
 
             foreach (var model in models)
 			{
-                var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
-
-                gender = model.ConvertGender();
+                var cardModel = await _dataManager.Cards.GetCardByIdAsync(model.CardId);
 
                 viewModels.Add(new PersonViewModel()
 				{
@@ -44,7 +40,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 					FirstName = model.FirstName,
 					SecondName = model.SecondName,
 					LastName = model.LastName,
-					Gender = gender,
+					Gender = model.ConvertGender(),
 					Passport = model.Passport,
 					Comment = model.Comment,
 					Card = cardModel.UniqueNumber
@@ -56,10 +52,8 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<PersonViewModel> GetPersonByIdAsync(int id)
 		{
-			var model = await dataManager.People.GetPersonByIdAsync(id);
-            var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
-
-            var gender = model.ConvertGender();
+			var model = await _dataManager.People.GetPersonByIdAsync(id);
+            var cardModel = await _dataManager.Cards.GetCardByIdAsync(model.CardId);
 
             return new PersonViewModel()
 			{
@@ -67,7 +61,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				FirstName = model.FirstName,
 				SecondName = model.SecondName,
 				LastName = model.LastName,
-				Gender = gender,
+				Gender = model.ConvertGender(),
 				Passport = model.Passport,
 				Comment = model.Comment,
 				Card = cardModel.UniqueNumber
@@ -77,10 +71,8 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<PersonEditModel> EditPersonByIdAsync(int id)
 		{
-			var model = await dataManager.People.GetPersonByIdAsync(id);
-            var cardModel = await dataManager.Cards.GetCardByIdAsync(model.CardId);
-
-            var gender = model.ConvertGender();
+			var model = await _dataManager.People.GetPersonByIdAsync(id);
+            var cardModel = await _dataManager.Cards.GetCardByIdAsync(model.CardId);
 
             return new PersonEditModel()
 			{
@@ -88,7 +80,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				FirstName = model.FirstName,
 				SecondName = model.SecondName,
 				LastName = model.LastName,
-				Gender = gender,
+				Gender = model.ConvertGender(),
 				Passport = model.Passport,
 				Comment = model.Comment,
 				Card = cardModel.UniqueNumber
@@ -98,15 +90,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task DeletePersonByIdAsync(int id)
 		{
-			await dataManager.People.DeleteAsync(id);
+			await _dataManager.People.DeleteAsync(id);
 		}
 
         /// <inheritdoc/>
 		public async Task<PersonViewModel> SavePersonAsync(PersonEditModel model)
 		{
-            var cardModel = await dataManager.Cards.GetCardByUniqueNumberAsync(model.Card);
-
-            var gender = model.ConvertGender();
+            var cardModel = await _dataManager.Cards.GetCardByUniqueNumberAsync(model.Card);
 
             var person = new Person()
 			{
@@ -114,13 +104,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				FirstName = model.FirstName,
 				SecondName = model.SecondName,
 				LastName = model.LastName,
-				Gender = gender,
+				Gender = model.ConvertGender(),
 				Passport = model.Passport,
 				Comment = model.Comment,
 				CardId = cardModel.Id
             };
 
-			await dataManager.People.SaveAsync(person);
+			await _dataManager.People.SaveAsync(person);
 
 			return await GetPersonByIdAsync(person.Id);
 		}
@@ -128,9 +118,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
 		public async Task<PersonViewModel> SavePersonAsync(PersonViewModel model)
 		{
-            var cardModel = await dataManager.Cards.GetCardByUniqueNumberAsync(model.Card);
-
-            var gender = model.ConvertGender();
+            var cardModel = await _dataManager.Cards.GetCardByUniqueNumberAsync(model.Card);
 
             var person = new Person()
 			{
@@ -138,13 +126,13 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 				FirstName = model.FirstName,
 				SecondName = model.SecondName,
 				LastName = model.LastName,
-				Gender = gender,
+				Gender = model.ConvertGender(),
 				Passport = model.Passport,
 				Comment = model.Comment,
 				CardId = cardModel.Id
             };
 
-			await dataManager.People.SaveAsync(person);
+			await _dataManager.People.SaveAsync(person);
 
 			return await GetPersonByIdAsync(person.Id);
 		}
