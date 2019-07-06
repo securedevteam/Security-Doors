@@ -18,7 +18,6 @@ namespace SecurityDoors.Tests
         /// </summary>
         public ServiceProvider ServiceProvider { get; private set; }
 
-
         /// <summary>
         /// Конструктор.
         /// </summary>
