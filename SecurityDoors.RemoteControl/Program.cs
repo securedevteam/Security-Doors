@@ -36,7 +36,7 @@ namespace SecurityDoors.RemoteControl
             var applicationContext = serviceProvider.GetService<ApplicationContext>();
 
             CommandLineInterface cli = new CommandLineInterface(dataManagerService, applicationContext);
-            _ = cli.Run(); // TODO: Разобраться почему так (!)
+            _ = cli.Run();
         }
     }
 }

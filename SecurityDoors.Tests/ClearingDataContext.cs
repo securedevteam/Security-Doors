@@ -2,15 +2,25 @@
 
 namespace SecurityDoors.Tests
 {
+    /// <summary>
+    /// Класс для очистки контекста InMemoryDatabase.
+    /// </summary>
     public class ClearingDataContext
     {
         private readonly ApplicationContext _context;
 
+        /// <summary>
+        /// Конструктор с параметром.
+        /// </summary>
+        /// <param name="context">контекст.</param>
         public ClearingDataContext(ApplicationContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Очистить контекст.
+        /// </summary>
         public void Clear()
         {
             foreach (var entity in _context.Cards)

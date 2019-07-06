@@ -81,8 +81,6 @@ namespace SecurityDoors.DoorController
 
 					#region Эмуляция дверного контроллера
 
-					// TODO: Рефакторинг и в отдельный метод / класс.
-
 					Console.Write(string.Format("| {0,15} |", card) +
 							string.Format(" {0,10} |", door));
 

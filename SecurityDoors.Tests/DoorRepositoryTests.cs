@@ -208,34 +208,6 @@ namespace SecurityDoors.Tests
             Assert.NotEqual(expected.Comment, result.Comment);
 
         }
-		/// <summary>
-		/// Тест на проверку удаление двери.
-		/// </summary>
-		[Fact]
-		public async void DeleteTest_Return_True()
-		{
-            // Arrange
-            var expected = new Door()
-            {
-                Name = Guid.NewGuid().ToString(),
-                Description = Guid.NewGuid().ToString(),
-                Level = rnd.Next(),
-                Status = rnd.Next(),
-                Comment = string.Empty,
-            };
-
-            _context.Doors.Add(expected);
-            _context.SaveChanges();
-
-            // TODO: Тест выдает ошибку
-
-            // Act
-            //await _dataManagerService.Doors.DeleteAsync(expected.Id);
-            //var result = await _dataManagerService.Doors.GetDoorByIdAsync(expected.Id);
-
-            // Assert
-            //Assert.Null(result);
-        }
 
         /// <summary>
         /// Тест на проверку сохраниения двери.

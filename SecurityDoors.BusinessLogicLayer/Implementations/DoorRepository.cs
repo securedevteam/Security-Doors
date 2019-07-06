@@ -3,7 +3,6 @@ using SecurityDoors.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Implementations
@@ -53,7 +52,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db.Entry(item).State = EntityState.Modified;
         }
 
-        /// TODO: Дверь являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на дверь в DoorPassing, если они есть
         /// <inheritdoc/>
         public async Task DeleteAsync(int id)
         {
