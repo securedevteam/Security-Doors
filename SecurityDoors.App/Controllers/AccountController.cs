@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.DataAccessLayer.Models;
+using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +25,19 @@ namespace SecurityDoors.App.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
+        private readonly ServicesManager _serviceManager;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, ILogger<CardController> logger)
+        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, ILogger<CardController> logger, DataManager dataManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _serviceManager = new ServicesManager(dataManager);
         }
 
         /// <summary>
@@ -183,23 +187,32 @@ namespace SecurityDoors.App.Controllers
                     UserName = model.Email,
                     Nickname = model.Nickname
                 };
-                
-                var result = await _userManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
+                var duplicateNickname = await _serviceManager.Users.CanUserCreateAccountAsync(model.Nickname);
+
+                if (duplicateNickname)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    var result = await _userManager.CreateAsync(user, model.Password);
 
-                    _logger.LogInformation(UserSuccessfulEvents.RegisterUserItem, UserLoggerConstants.USER_IS_REGISTER + " " + UserLoggerConstants.USER_IS_VALID + $"{model.Email}.");
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, false);
 
-                    return RedirectToAction("Index", "Home");
+                        _logger.LogInformation(UserSuccessfulEvents.RegisterUserItem, UserLoggerConstants.USER_IS_REGISTER + " " + UserLoggerConstants.USER_IS_VALID + $"{model.Email}.");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    ModelState.AddModelError(string.Empty, $"User nickname '{model.Nickname}' is already taken.");
                 }
             }
 

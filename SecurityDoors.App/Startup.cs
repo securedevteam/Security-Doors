@@ -51,6 +51,7 @@ namespace SecurityDoors.App
             services.AddTransient<IDoorRepository, DoorRepository>();
             services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddScoped<DataManager>();
 
