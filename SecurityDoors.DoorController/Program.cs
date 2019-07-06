@@ -30,7 +30,9 @@ namespace SecurityDoors.DoorController
 			serviceCollection.AddScoped<IDoorRepository, DoorRepository>();
 			serviceCollection.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
 			serviceCollection.AddScoped<IPersonRepository, PersonRepository>();
-			serviceCollection.AddScoped<DataManager>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
+
+            serviceCollection.AddScoped<DataManager>();
 
 			var serviceProvider = serviceCollection.BuildServiceProvider();
 			var dataManagerService = serviceProvider.GetService<DataManager>();

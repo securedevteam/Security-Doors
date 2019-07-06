@@ -27,6 +27,7 @@ namespace SecurityDoors.RemoteControl
             serviceCollection.AddScoped<IDoorRepository, DoorRepository>();
             serviceCollection.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
             serviceCollection.AddScoped<IPersonRepository, PersonRepository>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
 
             serviceCollection.AddScoped<DataManager>();
 
