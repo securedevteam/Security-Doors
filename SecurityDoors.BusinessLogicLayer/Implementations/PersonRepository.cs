@@ -12,7 +12,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
     /// </summary>
     public class PersonRepository : IPersonRepository
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext db;
 
         /// <summary>
         /// Конструктор.

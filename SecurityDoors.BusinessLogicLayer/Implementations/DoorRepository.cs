@@ -12,7 +12,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
     /// </summary>
     public class DoorRepository : IDoorRepository
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext db;
 
         /// <summary>
         /// Конструктор.
