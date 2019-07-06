@@ -84,7 +84,7 @@ namespace SecurityDoors.DoorController
 					#region Эмуляция дверного контроллера
 
 					Console.Write(string.Format("| {0,15} |", card) +
-							string.Format(" {0,10} |", door));
+							string.Format(" {0,25} |", door));
 
 					var result = mainController.ControllerАctuationAsync(card, door).Result;
 
