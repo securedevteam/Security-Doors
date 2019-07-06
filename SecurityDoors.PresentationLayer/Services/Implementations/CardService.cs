@@ -7,19 +7,19 @@ using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.PresentationLayer.Services.Implementation
+namespace SecurityDoors.PresentationLayer.Services.Implementations
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
     public class CardService : ICardService
     {
-        private DataManager _dataManager;
+        private readonly DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
+        /// <param name="dataManager">менеджер для работы с репозиторием.</param>
         public CardService(DataManager dataManager)
         {
             _dataManager = dataManager;

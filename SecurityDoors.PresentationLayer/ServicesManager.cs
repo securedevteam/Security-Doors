@@ -1,6 +1,5 @@
 ﻿using SecurityDoors.BusinessLogicLayer;
-using SecurityDoors.PresentationLayer.Services;
-using SecurityDoors.PresentationLayer.Services.Implementation;
+using SecurityDoors.PresentationLayer.Services.Implementations;
 
 namespace SecurityDoors.PresentationLayer
 {
@@ -9,12 +8,13 @@ namespace SecurityDoors.PresentationLayer
     /// </summary>
     public class ServicesManager
     {
-        DataManager _dataManager;
+        private readonly DataManager _dataManager;
 
         private CardService _cardService;
 		private DoorService _doorService;
 		private PersonService _personService;
         private DoorPassingService _doorPassingService;
+        private UserService _userService;
 
         /// <summary>
         /// Конструктор.
@@ -27,6 +27,7 @@ namespace SecurityDoors.PresentationLayer
             _doorService = new DoorService(_dataManager);
 			_personService = new PersonService(_dataManager);
             _doorPassingService = new DoorPassingService(_dataManager);
+            _userService = new UserService(_dataManager);
         }
 
         /// <summary>
@@ -48,5 +49,10 @@ namespace SecurityDoors.PresentationLayer
         /// Сервис дверного контроллера.
         /// </summary>
         public DoorPassingService DoorPassings { get { return _doorPassingService; } }
+
+        /// <summary>
+        /// Сервис для управления Identity.
+        /// </summary>
+        public UserService Users { get { return _userService; } }
     }
 }

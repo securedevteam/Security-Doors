@@ -6,19 +6,19 @@ using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.PresentationLayer.Services.Implementation
+namespace SecurityDoors.PresentationLayer.Services.Implementations
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
 	public class DoorPassingService : IDoorPassingService
 	{
-		private DataManager _dataManager;
+		private readonly DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
+        /// <param name="dataManager">менеджер для работы с репозиторием.</param>
 		public DoorPassingService(DataManager dataManager)
 		{
             _dataManager = dataManager;

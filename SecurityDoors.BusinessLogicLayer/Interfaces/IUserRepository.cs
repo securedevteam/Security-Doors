@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace SecurityDoors.BusinessLogicLayer.Interfaces
 {
     /// <summary>
     /// Интерфейс для класса UserRepository.
     /// </summary>
-    interface IUserRepository
+    public interface IUserRepository : IDisposable
     {
         /// Проверка на существование выбранного псевдонима в системе.
         /// </summary>
