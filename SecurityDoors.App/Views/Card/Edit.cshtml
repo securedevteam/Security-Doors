@@ -1,34 +1,33 @@
 ﻿@model CardEditModel
 
-<div>
-    <h2>Редактирование карточки №@Model.Id</h2>
+@{
+    ViewData["Title"] = "Редактировать карточку - Security Doors";
+}
+
+<div class="text-center">
+    <h2>Редактировать карточку №@Model.Id</h2>
 </div>
+
+<br />
 
 <form method="post" asp-controller="Card" asp-action="Edit" asp-route-id="@Model.Id">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <div>
-
-        <div>
-            <label asp-for="Status"></label>
-            <select asp-for="Status">
-                <option>@CardConstants.IsActive</option>
-                <option>@CardConstants.IsClosed</option>
-                <option>@CardConstants.IsLost</option>
-                <option>@CardConstants.IsSuspended</option>
-            </select>
-        </div>
-
-        <div>
-            <label asp-for="Comment"></label>
-            <input type="text" asp-for="Comment" />
-            <span asp-validation-for="Comment"></span>
-        </div>
-
-        <br />
-
-        <div>
-            <input type="submit" value="Подтвердить редактирование" />
-        </div>
+    <div class="form-group">
+        <b><label asp-for="Status"></label></b>
+        <select asp-for="Status" class="form-control">
+            <option>@CardConstants.IsActive</option>
+            <option>@CardConstants.IsClosed</option>
+            <option>@CardConstants.IsLost</option>
+            <option>@CardConstants.IsSuspended</option>
+        </select>
     </div>
+
+    <div class="form-group">
+        <b><label asp-for="Comment"></label></b>
+        <input type="text" asp-for="Comment" class="form-control" />
+        <span asp-validation-for="Comment"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Изменить</button>
 </form>

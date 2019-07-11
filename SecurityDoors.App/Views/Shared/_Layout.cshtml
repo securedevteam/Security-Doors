@@ -1,52 +1,70 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"]</title>
 
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/main.css" rel="stylesheet">
 </head>
-    <body>
-        <a asp-action="Index" asp-controller="Home">Home</a> <br />
-        <a asp-action="About" asp-controller="Home">About</a> <br />
-
-        <br />
-
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Security Doors</h5>
         @if (User.Identity.IsAuthenticated)
         {
-            <p>Вы вошли в систему, как: @User.Identity.Name</p>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Главная</a>
+                @if (User.IsInRole("admin"))
+                {
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">Права пользователей</a>
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">Список пользователей</a>
+                }
+                @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                {
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Список карточек</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Список дверей</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Список сотрудников</a>
+                }
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Список дверных проходов</a>
+            </nav>
 
             <form method="post" asp-controller="Account" asp-action="LogOff">
-                <input type="submit" value="Выход" />
+                <input class="btn btn-outline-primary" type="submit" value="Выход" />
             </form>
-
-            <br />
-
-            @if (User.IsInRole("admin"))
-            {
-                <a asp-controller="Account" asp-action="SettingUsersRoles">Разграничить права пользователей</a> <br />
-                <a asp-controller="Account" asp-action="EditUsersList">Редактироать список активных пользователей</a> <br />
-            }
-
-            @if (User.IsInRole("admin") || User.IsInRole("moderator"))
-            {
-                <a asp-action="Index" asp-controller="Card">Cards</a> <br />
-                <a asp-action="Index" asp-controller="Door">Doors</a> <br />
-                <a asp-action="Index" asp-controller="Person">People</a> <br />
-            }
-
-            <a asp-action="Index" asp-controller="DoorPassing">Door Passings</a> <br />
         }
         else
         {
-            <p>
-                <a asp-controller="Account" asp-action="Login">Вход</a>
-                <a asp-controller="Account" asp-action="Registration">Регистрация</a>
-            </p>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Главная</a>
+                <a class="p-2 text-dark" asp-action="Registration" asp-controller="Account">Зарегистрироваться</a>
+            </nav>
+
+            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Войти</a>
         }
 
+    </div>
+    <div class="container">
         @RenderBody()
-
-    </body>
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    <small class="d-block mb-3 text-muted">30 commits to bug © 2019</small>
+                </div>
+                <div class="col-6 col-md"></div>
+                <div class="col-6 col-md"></div>
+                <div class="col-6 col-md">
+                    <h5>О проекте</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" asp-action="About" asp-controller="Home">Команда</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
 </html>

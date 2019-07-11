@@ -19,5 +19,10 @@
         /// Точка.
         /// </summary>
         public const string DOT = ".";
+
+        /// <summary>
+        /// Строка подключения к базе данных.
+        /// </summary>
+        public const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=SecurityDoorsApplication;Trusted_Connection=True;MultipleActiveResultSets=true";
     }
 }

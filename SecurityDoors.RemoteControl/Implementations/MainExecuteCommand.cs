@@ -34,8 +34,6 @@ namespace SecurityDoors.RemoteControl.Implementations
         /// <inheritdoc/>
         public void PrintHelpInformation()
         {
-            // TODO: Рефакторинг, как необходимо..
-
             CLIColor.WriteInfo("Available commands:");
             Console.WriteLine(
                               "quit          || q  \n" +

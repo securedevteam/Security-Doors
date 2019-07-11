@@ -1,24 +1,17 @@
 ﻿@model DoorViewModel
 
-<h2>Информация о двери №@Model.Id</h2>
+@{
+    ViewData["Title"] = "Информация о двери - Security Doors";
+}
 
-<table>
-    <thead>
-        <tr>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Уровень</th>
-            <th>Статус</th>
-            <th>Комментарий</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.Name</td>
-            <td>@Model.Description</td>
-            <td>@Model.Level</td>
-            <td>@Model.Status</td>
-            <td>@Model.Comment</td>
-        </tr>
-    </tbody>
-</table>
+<div class="text-center">
+    <h2>Информация о двери №@Model.Id</h2>
+</div>
+
+<br />
+
+<li class="list-group-item">Название: <b>@Model.Name</b></li>
+<li class="list-group-item">Описание: <b>@Model.Description</b></li>
+<li class="list-group-item">Уровень: <b>@Model.Level</b></li>
+<li class="list-group-item">Статус: <b>@Model.Status</b></li>
+<li class="list-group-item">Комментарий: <b>@Model.Comment</b></li>

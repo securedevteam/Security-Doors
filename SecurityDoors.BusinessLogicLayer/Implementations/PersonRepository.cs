@@ -12,7 +12,7 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
     /// </summary>
     public class PersonRepository : IPersonRepository
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext db;
 
         /// <summary>
         /// Конструктор.
@@ -46,7 +46,6 @@ namespace SecurityDoors.BusinessLogicLayer.Implementations
             db.Entry(item).State = EntityState.Modified;
         }
 
-        /// TODO: Человек являет внешним ключем для таблицы DoorPassing, соответственно надо перед удалением почистить ссылки на него в DoorPassing, если они есть
         /// <inheritdoc/>
         public async Task DeleteAsync(int id)
         {

@@ -1,62 +1,61 @@
 ﻿@model PersonViewModel
 
-<div>
+@{
+    ViewData["Title"] = "Создать сотрудника - Security Doors";
+}
+
+<div class="text-center">
     <h2>Создать нового сотрудника</h2>
 </div>
+
+<br />
 
 <form method="post" asp-controller="Person" asp-action="Create">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <div>
-        <div>
-            <label asp-for="FirstName"></label>
-            <input type="text" asp-for="FirstName" />
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <b><label asp-for="FirstName"></label></b>
+            <input type="text" asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName"></span>
         </div>
-        <div>
-            <label asp-for="LastName"></label>
-            <input type="text" asp-for="LastName" />
+        <div class="form-group col-md-4">
+            <b><label asp-for="LastName"></label></b>
+            <input type="text" asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName"></span>
         </div>
-        <div>
-            <label asp-for="SecondName"></label>
-            <input type="text" asp-for="SecondName" />
+        <div class="form-group col-md-4">
+            <b><label asp-for="SecondName"></label></b>
+            <input type="text" asp-for="SecondName" class="form-control" />
             <span asp-validation-for="SecondName"></span>
         </div>
-        <div>
-            <label asp-for="Gender"></label>
-            <select asp-for="Gender">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <b><label asp-for="Gender"></label></b>
+            <select asp-for="Gender" class="form-control">
                 <option>@PersonConstants.IsMale</option>
                 <option>@PersonConstants.IsFemale</option>
             </select>
         </div>
-        <div>
-            <label asp-for="Passport"></label>
-            <input type="text" asp-for="Passport" />
+        <div class="form-group col-md-6">
+            <b><label asp-for="Passport"></label></b>
+            <input type="text" asp-for="Passport" class="form-control" />
             <span asp-validation-for="Passport"></span>
         </div>
-        <div>
-            <label asp-for="Comment"></label>
-            <input type="text" asp-for="Comment" />
-            <span asp-validation-for="Comment"></span>
-        </div>
-
-        @*TODO: Представления списка незанятых карточек*@
-        @*<div>
-            <label asp-for="Card">Уникальный номер карты</label>
-            <input type="text" asp-for="Card" />
-            <span asp-validation-for="Card"></span>
-        </div>*@
-
-        <div>
-            <label asp-for="Card"></label>
-            <select asp-for="Card" asp-items="@(new SelectList(Model.AvailableCards))"></select>
-        </div>
-
     </div>
 
-    <div>
-        <input type="submit" value="Подтвердить" />
-        <input type="reset" value="Очистить" />
+    <div class="form-group">
+        <b><label asp-for="Card"></label></b>
+        <select asp-for="Card" asp-items="@(new SelectList(Model.AvailableCards))" class="form-control"></select>
     </div>
+
+    <div class="form-group">
+        <b><label asp-for="Comment"></label></b>
+        <input type="text" asp-for="Comment" class="form-control" />
+        <span asp-validation-for="Comment"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Создать</button>
 </form>

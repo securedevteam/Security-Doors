@@ -15,27 +15,22 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// </summary>
         /// <param name="model">модель DoorPassing.</param>
         /// <returns>Кортеж из статуса и прохода.</returns>
-        public static (string, string) ConvertStatus(this DoorPassing model)
+        public static (string status, string location) ConvertStatus(this DoorPassing model)
         {
-            var status = string.Empty;
-            var location = string.Empty;
+            var result = (status: string.Empty, location: string.Empty);
 
             switch (model.Status)
             {
-                case (int)DoorPassingStatus.WithoutСontrol: { status = DoorPassingConstants.WithoutСontrol; } break;
-                case (int)DoorPassingStatus.OnControl: { status = DoorPassingConstants.OnControl; } break;
-                case (int)DoorPassingStatus.IsAnnul: { status = DoorPassingConstants.IsAnnul; } break;
+                case (int)DoorPassingStatus.WithoutСontrol: { result.status = DoorPassingConstants.WithoutСontrol; } break;
+                case (int)DoorPassingStatus.OnControl: { result.status = DoorPassingConstants.OnControl; } break;
+                case (int)DoorPassingStatus.IsAnnul: { result.status = DoorPassingConstants.IsAnnul; } break;
             }
 
             switch (model.Location)
             {
-                case CardConstants.IsExit: { location = DoorPassingConstants.Exit; } break;
-                case CardConstants.IsEntrance: { location = DoorPassingConstants.Entrance; } break;
+                case CardConstants.IsExit: { result.location = DoorPassingConstants.Exit; } break;
+                case CardConstants.IsEntrance: { result.location = DoorPassingConstants.Entrance; } break;
             }
-
-            var result = (string.Empty, string.Empty);
-            result.Item1 = status;
-            result.Item2 = location;
 
             return result;
         }
@@ -45,27 +40,22 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// </summary>
         /// <param name="model">модель DoorPassingEditModel.</param>
         /// <returns>Статус.</returns>
-        public static (int, bool) ConvertStatus(this DoorPassingViewModel model)
+        public static (int status, bool location) ConvertStatus(this DoorPassingViewModel model)
         {
-            var status = 0;
-            var location = false;
+            var result = (status: 0, location: false);
 
             switch (model.Status)
             {
-                case DoorPassingConstants.WithoutСontrol: { status = (int)DoorPassingStatus.WithoutСontrol; } break;
-                case DoorPassingConstants.OnControl: { status = (int)DoorPassingStatus.OnControl; } break;
-                case DoorPassingConstants.IsAnnul: { status = (int)DoorPassingStatus.IsAnnul; } break;
+                case DoorPassingConstants.WithoutСontrol: { result.status = (int)DoorPassingStatus.WithoutСontrol; } break;
+                case DoorPassingConstants.OnControl: { result.status = (int)DoorPassingStatus.OnControl; } break;
+                case DoorPassingConstants.IsAnnul: { result.status = (int)DoorPassingStatus.IsAnnul; } break;
             }
 
             switch (model.Location)
             {
-                case DoorPassingConstants.Exit: { location = CardConstants.IsExit; } break;
-                case DoorPassingConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+                case DoorPassingConstants.Exit: { result.location = CardConstants.IsExit; } break;
+                case DoorPassingConstants.Entrance: { result.location = CardConstants.IsEntrance; } break;
             }
-
-            var result = (0, false);
-            result.Item1 = status;
-            result.Item2 = location;
 
             return result;
         }
@@ -75,27 +65,22 @@ namespace SecurityDoors.PresentationLayer.Extensions
         /// </summary>
         /// <param name="model">модель DoorPassingEditModel.</param>
         /// <returns>Статус.</returns>
-        public static (int, bool) ConvertStatus(this DoorPassingEditModel model)
+        public static (int status, bool location) ConvertStatus(this DoorPassingEditModel model)
         {
-            var status = 0;
-            var location = false;
+            var result = (status: 0, location: false);
 
             switch (model.Status)
             {
-                case DoorPassingConstants.WithoutСontrol: { status = (int)DoorPassingStatus.WithoutСontrol; } break;
-                case DoorPassingConstants.OnControl: { status = (int)DoorPassingStatus.OnControl; } break;
-                case DoorPassingConstants.IsAnnul: { status = (int)DoorPassingStatus.IsAnnul; } break;
+                case DoorPassingConstants.WithoutСontrol: { result.status = (int)DoorPassingStatus.WithoutСontrol; } break;
+                case DoorPassingConstants.OnControl: { result.status = (int)DoorPassingStatus.OnControl; } break;
+                case DoorPassingConstants.IsAnnul: { result.status = (int)DoorPassingStatus.IsAnnul; } break;
             }
 
             switch (model.Location)
             {
-                case DoorPassingConstants.Exit: { location = CardConstants.IsExit; } break;
-                case DoorPassingConstants.Entrance: { location = CardConstants.IsEntrance; } break;
+                case DoorPassingConstants.Exit: { result.location = CardConstants.IsExit; } break;
+                case DoorPassingConstants.Entrance: { result.location = CardConstants.IsEntrance; } break;
             }
-
-            var result = (0, false);
-            result.Item1 = status;
-            result.Item2 = location;
 
             return result;
         }

@@ -1,24 +1,33 @@
 ﻿@model IEnumerable<DoorViewModel>
 
-<h1>Список дверей</h1>
+@{
+    ViewData["Title"] = "Список дверей - Security Doors";
+}
 
-<div>
-    <a asp-action="Create" asp-controller="Door">Добавить новую дверь</a>
+<div class="text-center">
+    <h1>Список дверей</h1>
 </div>
 
 <br />
 
-<div>
-    <table>
-        <thead>
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a class="btn btn-outline-success" asp-action="Create" asp-controller="Door">Добавить новую дверь</a>
+    </div>
+}
+
+<br />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Название</th>
-                <th>Описание</th>
-                <th>Уровень</th>
-                <th>Статус</th>
-                <th>Комментарий</th>
-                <th>Доступные действия</th>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Уровень</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Доступные действия</th>
             </tr>
         </thead>
         <tbody>
@@ -27,13 +36,11 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
-                    <td>@item.Description</td>
                     <td>@item.Level</td>
                     <td>@item.Status</td>
-                    <td>@item.Comment</td>
                     <td>
-                        <a asp-action="Details" asp-controller="Door" asp-route-id="@item.Id">Подробнее</a> 
-                        <a asp-action="Edit" asp-controller="Door" asp-route-id="@item.Id">Изменить</a> 
+                        <a asp-action="Details" asp-controller="Door" asp-route-id="@item.Id">Подробнее</a>
+                        <a asp-action="Edit" asp-controller="Door" asp-route-id="@item.Id">Изменить</a>
 
                         @if (User.IsInRole("admin"))
                         {

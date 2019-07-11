@@ -72,6 +72,7 @@ namespace SecurityDoors.Tests
             // Assert
             Assert.Equal(expected, actual);
         }
+
         /// <summary>
         /// Тест на проверку получение определенного человека.
         /// </summary>

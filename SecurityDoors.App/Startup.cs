@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
+using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
 
 namespace SecurityDoors.App
@@ -42,17 +38,20 @@ namespace SecurityDoors.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = ConnectionStringConfiguration.GetConnectionString();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+			services.AddIdentity<User, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationContext>()
+				.AddDefaultTokenProviders();
 
             // Добавлен DI
             services.AddTransient<ICardRepository, CardRepository>();
             services.AddTransient<IDoorRepository, DoorRepository>();
             services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddScoped<DataManager>();
 
@@ -79,24 +78,17 @@ namespace SecurityDoors.App
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecurityDoors API version 1"));
             app.UseHttpsRedirection();
-            app.UseStatusCodePagesWithRedirects("/{0}.html");
+            app.UseStatusCodePagesWithRedirects("/Errors/{0}.html");
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
             
             app.UseMvc(routes =>
             {
-                // TODO: Поменять с добавлением контроллера Home
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           
-            // TODO: На текущий момент нету необходимости в этом. (Не удалять!)
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

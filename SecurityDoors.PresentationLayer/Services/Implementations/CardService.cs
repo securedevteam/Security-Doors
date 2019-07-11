@@ -7,42 +7,42 @@ using SecurityDoors.PresentationLayer.Extensions;
 using SecurityDoors.PresentationLayer.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.PresentationLayer.Services.Implementation
+namespace SecurityDoors.PresentationLayer.Services.Implementations
 {
     /// <summary>
     /// Сервис для работы с контроллером.
     /// </summary>
     public class CardService : ICardService
     {
-        private DataManager dataManager;
+        private readonly DataManager _dataManager;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        /// <param name="dataManager">менеджер для работы с репозиторием карточек.</param>
+        /// <param name="dataManager">менеджер для работы с репозиторием.</param>
         public CardService(DataManager dataManager)
         {
-            this.dataManager = dataManager;
+            _dataManager = dataManager;
         }
 
         /// <inheritdoc/>
         public async Task<List<CardViewModel>> GetCardsAsync()
         {
-            var models = await dataManager.Cards.GetCardsListAsync();
+            var models = await _dataManager.Cards.GetCardsListAsync();
             var viewModels = new List<CardViewModel>();
 
             foreach (var model in models)
             {
                 // Статус. Уровень. Нахождение.
-                (string, string, string) result = model.ConvertStatus();
+                var (status, level, location) = model.ConvertStatus();
 
                 viewModels.Add(new CardViewModel
                 {
                     Id = model.Id,
                     UniqueNumber = model.UniqueNumber,
-                    Status = result.Item1,
-                    Level = result.Item2,
-                    Location = result.Item3,
+                    Status = status,
+                    Level = level,
+                    Location = location,
                     Comment = model.Comment
                 });
             }
@@ -53,18 +53,18 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<CardViewModel> GetCardByIdAsync(int id)
         {
-            var model = await dataManager.Cards.GetCardByIdAsync(id);
+            var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            (string, string, string) result = model.ConvertStatus();
+            var (status, level, location) = model.ConvertStatus();
 
             var viewModel = new CardViewModel()
             {
                 Id = model.Id,
                 UniqueNumber = model.UniqueNumber,
-                Status = result.Item1,
-                Level = result.Item2,
-                Location = result.Item3,
+                Status = status,
+                Level = level,
+                Location = location,
                 Comment = model.Comment
             };
 
@@ -74,15 +74,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task<CardEditModel> EditCardByIdAsync(int id)
         {
-            var model = await dataManager.Cards.GetCardByIdAsync(id);
+            var model = await _dataManager.Cards.GetCardByIdAsync(id);
 
             // Статус. Уровень. Нахождение.
-            (string, string, string) result = model.ConvertStatus();
+            var (status, _, _) = model.ConvertStatus();
 
             var editModel = new CardEditModel()
             {
                 Id = model.Id,
-                Status = result.Item1,
+                Status = status,
                 Comment = model.Comment
             };
 
@@ -92,7 +92,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
         /// <inheritdoc/>
         public async Task DeleteCardByIdAsync(int id)
         {
-            await dataManager.Cards.DeleteAsync(id);
+            await _dataManager.Cards.DeleteAsync(id);
         }
 
         /// <inheritdoc/>
@@ -102,7 +102,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
+                card = await _dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             if(model.UniqueNumber == null)
@@ -111,15 +111,15 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             }
 
             // Статус. Уровень. Нахождение.
-            (int, int, bool) result = model.ConvertStatus();
+            var (status, level, location) = model.ConvertStatus();
 
             card.UniqueNumber = model.UniqueNumber;
-            card.Status = result.Item1;
-            card.Level = result.Item2;
-            card.Location = result.Item3;
+            card.Status = status;
+            card.Level = level;
+            card.Location = location;
             card.Comment = model.Comment;
 
-            await dataManager.Cards.SaveAsync(card);
+            await _dataManager.Cards.SaveAsync(card);
 
             return await GetCardByIdAsync(card.Id);
         }
@@ -131,7 +131,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
 
             if (model.Id != 0)
             {
-                card = await dataManager.Cards.GetCardByIdAsync(model.Id);
+                card = await _dataManager.Cards.GetCardByIdAsync(model.Id);
             }
 
             var status = model.ConvertStatus();
@@ -139,7 +139,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementation
             card.Status = status;
             card.Comment = model.Comment;
 
-            await dataManager.Cards.SaveAsync(card);
+            await _dataManager.Cards.SaveAsync(card);
 
             return await GetCardByIdAsync(card.Id);
         }

@@ -203,8 +203,6 @@ namespace SecurityDoors.RemoteControl.Implementations
 
             foreach (var p in people)
             {
-                // TODO: Доделать с выводом string значений level и status
-
                 var result = p.ConvertGender();
 
                 Console.Write(string.Format("| {0,5} |", p.Id));

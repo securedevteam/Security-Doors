@@ -1,11 +1,17 @@
 ﻿@model RoleViewModel
 
-<h2>Изменение ролей для пользователя @Model.UserEmail</h2>
+@{
+    ViewData["Title"] = "Смена ролей для пользователя - Security Doors";
+}
+
+<div class="text-center">
+    <h2>Изменение ролей для пользователя @Model.UserEmail</h2>
+</div>
 
 <form asp-action="EditUsersRoles" method="post">
     <input type="hidden" name="userId" value="@Model.UserId" />
-    
-    <div>
+
+    <div class="d-block my-3">
         @foreach (IdentityRole role in Model.AllRoles)
         {
             <input type="checkbox" name="roles" value="@role.Name"
@@ -13,5 +19,5 @@
             }
     </div>
 
-    <button type="submit">Сохранить</button>
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить изменения</button>
 </form>

@@ -1,16 +1,22 @@
 ﻿@model IEnumerable<SecurityDoors.DataAccessLayer.Models.User>
 
-<h1>Список активных пользователей</h1>
+@{
+    ViewData["Title"] = "Разграничение прав пользователей - Security Doors";
+}
+
+<div class="text-center">
+    <h1>Разграничение прав пользователей</h1>
+</div>
 
 <br />
 
-<div>
-    <table>
-        <thead>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Электронная почта</th>
-                <th>Доступные действия</th>
+                <th scope="col">#</th>
+                <th scope="col">Электронная почта</th>
+                <th scope="col">Доступные действия</th>
             </tr>
         </thead>
         <tbody>

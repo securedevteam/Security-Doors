@@ -18,7 +18,6 @@ namespace SecurityDoors.Tests
         /// </summary>
         public ServiceProvider ServiceProvider { get; private set; }
 
-
         /// <summary>
         /// Конструктор.
         /// </summary>
@@ -32,6 +31,7 @@ namespace SecurityDoors.Tests
             serviceCollection.AddScoped<IDoorRepository, DoorRepository>();
             serviceCollection.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
             serviceCollection.AddScoped<IPersonRepository, PersonRepository>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
 
             serviceCollection.AddScoped<DataManager>();
 

@@ -1,17 +1,23 @@
 ﻿@model IEnumerable<SecurityDoors.DataAccessLayer.Models.User>
 
-<h1>Список активных пользователей</h1>
+@{
+    ViewData["Title"] = "Список активных пользователей - Security Doors";
+}
+
+<div class="text-center">
+    <h1>Список активных пользователей</h1>
+</div>
 
 <br />
 
-<div>
-    <table>
-        <thead>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <th>#</th>
-                <th>Электронная почта</th>
-                <th>Псевдоним</th>
-                <th>Доступные действия</th>
+                <th scope="col">#</th>
+                <th scope="col">Электронная почта</th>
+                <th scope="col">Псевдоним</th>
+                <th scope="col">Доступные действия</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +31,7 @@
                         @if (User.Identity.Name != item.Email)
                         {
                             <form asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                <button type="submit">Удалить</button>
+                                <button class="btn btn-outline-danger" type="submit">Удалить</button>
                             </form>
                         }
                     </td>
