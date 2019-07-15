@@ -14,9 +14,9 @@ namespace SecurityDoors.App.Controllers
     /// <summary>
     /// Контроллер для работы с дверями.
     /// </summary>
-    public class DoorPassingController : Controller
+    public class DoorPassingController: Controller
     {
-		private ServicesManager _serviceManager;
+        private ServicesManager _serviceManager;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -24,30 +24,36 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <param name="dataManager">менеджер для работы с репозиторием дверей.</param>
 		public DoorPassingController(DataManager dataManager, ILogger<DoorPassingController> logger)
-		{
-			_serviceManager = new ServicesManager(dataManager);
+        {
+            _serviceManager = new ServicesManager(dataManager);
             _logger = logger;
         }
 
         /// <summary>
         /// Главная страница со списком дверных проходов.
         /// </summary>
-        /// <returns>Представление со списком дверных проходов.</returns>
-        [Authorize(Roles = "admin, moderator, user, visitor")]
+        /// <returns>Представление со списком дверных проходов.</returns>        
         public async Task<ActionResult> Index()
         {
-            var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
-
-            if (models == null || models.Count == 0)
+            if (User.IsInRole("admin")| User.IsInRole("moderator") | User.IsInRole("user") | User.IsInRole("visitor"))
             {
-                _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_EMPTY);
+                var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+
+                if (models == null || models.Count == 0)
+                {
+                    _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_EMPTY);
+                }
+                else
+                {
+                    _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+                }
+
+                return View(models);
             }
             else
             {
-                _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
+                return View("Error");
             }
-
-            return View(models);
         }
 
         /// <summary>
