@@ -13,7 +13,24 @@
 @if (User.IsInRole("admin"))
 {
     <div>
-        <a class="btn btn-outline-success" asp-action="Create" asp-controller="Card">Добавить новую карточку</a>
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addNewCard">Добавить новую карточку</a>
+    </div>
+
+    <div class="modal fade" id="addNewCard">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h3 class="modal-title">Создать новую карточку</h3>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+
+                <div class="modal-body">
+                    <partial name="_CreatePartialView.cshtml" model="new CardViewModel()" />
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <br />
@@ -50,3 +67,6 @@
         </tbody>
     </table>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
