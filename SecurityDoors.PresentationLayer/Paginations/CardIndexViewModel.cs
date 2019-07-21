@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using SecurityDoors.PresentationLayer.ViewModels;
+using System.Collections.Generic;
 
-namespace SecurityDoors.PresentationLayer.ViewModels
+namespace SecurityDoors.PresentationLayer.Paginations
 {
     public class CardIndexViewModel
     {

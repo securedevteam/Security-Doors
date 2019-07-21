@@ -6,6 +6,7 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
+using SecurityDoors.PresentationLayer.Paginations;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SecurityDoors.PresentationLayer.ViewModels
+namespace SecurityDoors.PresentationLayer.Paginations
 {
     public class PageViewModel
     {
