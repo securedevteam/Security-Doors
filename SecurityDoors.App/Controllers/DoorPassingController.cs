@@ -33,9 +33,10 @@ namespace SecurityDoors.App.Controllers
         /// Главная страница со списком дверных проходов.
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>        
+        [Authorize]
         public async Task<ActionResult> Index()
         {
-            if (User.IsInRole("admin")| User.IsInRole("moderator") | User.IsInRole("user") | User.IsInRole("visitor"))
+            if (User.IsInRole("admin") || User.IsInRole("moderator") || User.IsInRole("user") || User.IsInRole("visitor"))
             {
                 var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
