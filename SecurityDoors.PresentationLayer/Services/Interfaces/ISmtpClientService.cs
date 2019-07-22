@@ -25,6 +25,6 @@ namespace SecurityDoors.PresentationLayer.Services.Interfaces
 		/// <param name="smtpServerAddress">Адрес smtp сервера</param>
 		/// <param name="smtpServerPort">Порт smtp сервера</param>
 		/// <returns></returns>
-		Task ConfigureSmtpClientAsync(string senderEmail, string password, string smtpServerAddress, string smtpServerPort);
+		Task ConfigureSmtpClientAsync(string senderEmail, string password, string smtpServerAddress, int smtpServerPort);
 	}
 }
