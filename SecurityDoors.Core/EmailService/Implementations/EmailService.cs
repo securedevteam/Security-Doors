@@ -1,16 +1,17 @@
-﻿using SecurityDoors.PresentationLayer.Services.Interfaces;
+﻿using SecurityDoors.Core.EmailService.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.Core.EmailService.Implementations
 {
-	public class SmtpClientService : ISmtpClientService
+    /// <summary>
+    /// Сервис для работы с почтой.
+    /// </summary>
+	public class EmailService : IEmailService
 	{
 		private SmtpClient _smtpClient;
 		private string senderEmail;
@@ -18,13 +19,23 @@ namespace SecurityDoors.Core.EmailService.Implementations
 		private string smtpServerAddress;
 		private int smtpServerPort;
 
-		public SmtpClientService()
+        /// <summary>
+        /// Пустой конструктор.
+        /// </summary>
+		public EmailService()
 		{
 			GetConfigurationFromFile();
 			_ = ConfigureSmtpClientAsync();
 		}
 
-		public SmtpClientService(string senderEmail, string password, string smtpServerAddress, int smtpServerPort)
+        /// <summary>
+        /// Конструктор с параметрами.
+        /// </summary>
+        /// <param name="senderEmail">e-mail отправителя.</param>
+        /// <param name="password">пароль.</param>
+        /// <param name="smtpServerAddress">SMTP.</param>
+        /// <param name="smtpServerPort">SMTP Port.</param>
+		public EmailService(string senderEmail, string password, string smtpServerAddress, int smtpServerPort)
 		{
 			this.senderEmail = senderEmail ?? throw new ArgumentNullException(nameof(senderEmail));
 			this.password = password ?? throw new ArgumentNullException(nameof(password));
@@ -38,6 +49,7 @@ namespace SecurityDoors.Core.EmailService.Implementations
 		{
 			await Task.Run(ConfigureSmtpClient);
 		}
+
 		private void ConfigureSmtpClient()
 		{
 			_smtpClient = new SmtpClient()
@@ -48,6 +60,7 @@ namespace SecurityDoors.Core.EmailService.Implementations
 				EnableSsl = true,
 			};
 		}
+
 		private void GetConfigurationFromFile ()
 		{
 			try
@@ -69,6 +82,7 @@ namespace SecurityDoors.Core.EmailService.Implementations
 			}
 		}
 
+        /// <inheritdoc/>
 		public async Task SendEmailAsync(string to, string subject, string body, Attachment attachment = null)
 		{
 			var mailMessage = new MailMessage(new MailAddress(senderEmail), new MailAddress(to));
