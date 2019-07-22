@@ -1,8 +1,10 @@
 ﻿using SecurityDoors.PresentationLayer.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,7 +54,23 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
 		}
 		private void GetConfigurationFromFile ()
 		{
+			try
+			{
+				DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof((string,string,string,int)));
+				using (FileStream fs = new FileStream("emailConfig.json", FileMode.OpenOrCreate))
+				{
+					var settings = ((string senderEmail, string password, string smtpServerAddress, int smtpServerPort))jsonFormatter.ReadObject(fs);
 
+					senderEmail = settings.senderEmail;
+					password = settings.password;
+					smtpServerAddress = settings.smtpServerAddress;
+					smtpServerPort = settings.smtpServerPort;
+				}
+			}
+			catch (Exception exc)
+			{
+				throw exc;
+			}
 		}
 
 		public async Task SendEmailAsync(string to, string subject, string body, Attachment attachment = null)
