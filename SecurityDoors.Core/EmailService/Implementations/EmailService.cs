@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.PresentationLayer.Services.Implementations
+namespace SecurityDoors.Core.EmailService.Implementations
 {
 	public class SmtpClientService : ISmtpClientService
 	{
