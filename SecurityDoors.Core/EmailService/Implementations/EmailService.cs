@@ -14,66 +14,61 @@ namespace SecurityDoors.Core.EmailService.Implementations
 	public class EmailService : IEmailService
 	{
 		private SmtpClient _smtpClient;
-		private string senderEmail;
-		private string password;
-		private string smtpServerAddress;
-		private int smtpServerPort;
+		private string _senderEmail;
+		private string _senderPassword;
+		private string _smtpServerAddress;
+		private int _smtpServerPort;
 
         /// <summary>
-        /// Пустой конструктор.
+        /// Конструктор для установки настроек из файла emailconfig.json.
         /// </summary>
 		public EmailService()
-		{
-			GetConfigurationFromFile();
-			_ = ConfigureSmtpClientAsync();
-		}
+        {
+            GetConfigurationFromFile();
+            ConfigureSmtpClient();
+        }
 
         /// <summary>
         /// Конструктор с параметрами.
         /// </summary>
         /// <param name="senderEmail">e-mail отправителя.</param>
-        /// <param name="password">пароль.</param>
+        /// <param name="senderPassword">пароль.</param>
         /// <param name="smtpServerAddress">SMTP.</param>
         /// <param name="smtpServerPort">SMTP Port.</param>
-		public EmailService(string senderEmail, string password, string smtpServerAddress, int smtpServerPort)
+		public EmailService(string senderEmail, string senderPassword, string smtpServerAddress, int smtpServerPort)
 		{
-			this.senderEmail = senderEmail ?? throw new ArgumentNullException(nameof(senderEmail));
-			this.password = password ?? throw new ArgumentNullException(nameof(password));
-			this.smtpServerAddress = smtpServerAddress ?? throw new ArgumentNullException(nameof(smtpServerAddress));
-			this.smtpServerPort = smtpServerPort;
+			_senderEmail = senderEmail ?? throw new ArgumentNullException(nameof(senderEmail));
+			_senderPassword = senderPassword ?? throw new ArgumentNullException(nameof(senderPassword));
+			_smtpServerAddress = smtpServerAddress ?? throw new ArgumentNullException(nameof(smtpServerAddress));
+			_smtpServerPort = smtpServerPort;
 
-			_ = ConfigureSmtpClientAsync();
-		}
-
-		private async Task ConfigureSmtpClientAsync()
-		{
-			await Task.Run(ConfigureSmtpClient);
+            ConfigureSmtpClient();
 		}
 
 		private void ConfigureSmtpClient()
 		{
 			_smtpClient = new SmtpClient()
 			{
-				Host = smtpServerAddress,
-				Port = smtpServerPort,
-				Credentials = new NetworkCredential(senderEmail, password),
+				Host = _smtpServerAddress,
+				Port = _smtpServerPort,
+				Credentials = new NetworkCredential(_senderEmail, _senderPassword),
 				EnableSsl = true,
 			};
 		}
 
-		private void GetConfigurationFromFile ()
+		private void GetConfigurationFromFile()
 		{
 			try
 			{
-				DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof((string,string,string,int)));
-				using (FileStream fs = new FileStream("emailConfig.json", FileMode.OpenOrCreate))
+				var jsonFormatter = new DataContractJsonSerializer(typeof((string,string,string,int)));
+				using (var fs = new FileStream("emailconfig.json", FileMode.OpenOrCreate))
 				{
-					var settings = ((string senderEmail, string password, string smtpServerAddress, int smtpServerPort))jsonFormatter.ReadObject(fs);
+					var (senderEmail, senderPassword, smtpServerAddress, smtpServerPort) = ((string senderEmail, string senderPassword, string smtpServerAddress, int smtpServerPort))jsonFormatter.ReadObject(fs);
 
-					senderEmail = settings.senderEmail;
-					password = settings.password;
-					smtpServerAddress = settings.smtpServerAddress;
-					smtpServerPort = settings.smtpServerPort;
+					_senderEmail = senderEmail;
+                    _senderPassword = senderPassword;
+					_smtpServerAddress = smtpServerAddress;
+					_smtpServerPort = smtpServerPort;
 				}
 			}
 			catch (Exception exc)
@@ -85,7 +80,7 @@ namespace SecurityDoors.Core.EmailService.Implementations
         /// <inheritdoc/>
 		public async Task SendEmailAsync(string to, string subject, string body, Attachment attachment = null)
 		{
-			var mailMessage = new MailMessage(new MailAddress(senderEmail), new MailAddress(to));
+			var mailMessage = new MailMessage(new MailAddress(_senderEmail), new MailAddress(to));
 
 			if (attachment != null)
 			{
