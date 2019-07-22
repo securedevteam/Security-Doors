@@ -6,8 +6,10 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
+using SecurityDoors.PresentationLayer.Paginations;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
@@ -18,7 +20,7 @@ namespace SecurityDoors.App.Controllers
     public class CardController : Controller
     {
         private ServicesManager _serviceManager;
-        private readonly ILogger _logger;        
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Конструктор.
@@ -35,7 +37,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <returns>Представление со списком карточек.</returns>
         [Authorize(Roles = "admin, moderator")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var models = await _serviceManager.Cards.GetCardsAsync();
 
@@ -48,7 +50,18 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogInformation(CommonSuccessfulEvents.ListItems, CardLoggerConstants.CARDS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
-            return View(models);
+            int pageSize = 5;
+            var count = models.Count;
+            var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var pageViewModel = new PageViewModel(count, page, pageSize);
+            var viewModel = new CardIndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Cards = items
+            };
+
+            return View(viewModel);
         }
 
         /// <summary>
