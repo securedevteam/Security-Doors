@@ -26,20 +26,16 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
 
 		public SmtpClientService(string senderEmail, string password, string smtpServerAddress, int smtpServerPort)
 		{
-			_ = ConfigureSmtpClientAsync(senderEmail,password,smtpServerAddress,smtpServerPort);
-		}
-
-		private async Task ConfigureSmtpClientAsync()
-		{
-			await Task.Run(ConfigureSmtpClient);
-		}
-		public async Task ConfigureSmtpClientAsync(string senderEmail, string password, string smtpServerAddress, int smtpServerPort)
-		{
 			this.senderEmail = senderEmail ?? throw new ArgumentNullException(nameof(senderEmail));
 			this.password = password ?? throw new ArgumentNullException(nameof(password));
 			this.smtpServerAddress = smtpServerAddress ?? throw new ArgumentNullException(nameof(smtpServerAddress));
 			this.smtpServerPort = smtpServerPort;
 
+			_ = ConfigureSmtpClientAsync();
+		}
+
+		private async Task ConfigureSmtpClientAsync()
+		{
 			await Task.Run(ConfigureSmtpClient);
 		}
 		private void ConfigureSmtpClient()
