@@ -49,7 +49,7 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorLoggerConstants.DOORS_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
-            int pageSize = 5;
+            int pageSize = 15;
             var count = models.Count;
             var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 

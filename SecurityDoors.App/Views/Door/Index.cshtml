@@ -13,10 +13,6 @@
 @if (User.IsInRole("admin"))
 {
     <div>
-        <a class="btn btn-outline-success" asp-action="Create" asp-controller="Door">Добавить новую дверь</a>
-    </div>
-
-    <div>
         <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addNewCard">Добавить новую дверь</a>
     </div>
 
@@ -36,9 +32,9 @@
             </div>
         </div>
     </div>
-}
 
-<br />
+    <br />
+}
 
 <div class="table-responsive">
     <table class="table">

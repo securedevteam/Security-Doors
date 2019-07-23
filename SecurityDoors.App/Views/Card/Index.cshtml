@@ -31,10 +31,10 @@
 
             </div>
         </div>
-    </div>    
-}
+    </div>
 
-<br />
+    <br />
+}
 
 <div class="table-responsive">
     <table class="table">
@@ -72,14 +72,16 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       class="btn btn-outline-secondary btn-sm"> Назад
+       class="btn btn-outline-secondary btn-sm">
+        Назад
     </a>
 }
 @if (Model.PageViewModel.HasNextPage)
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       class="btn btn-outline-secondary btn-sm"> Вперед
+       class="btn btn-outline-secondary btn-sm">
+        Вперед
     </a>
 }
 
