@@ -211,7 +211,9 @@ namespace SecurityDoors.App.Controllers
 						var emailService = new EmailService();
 						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
-                        return View("SuccessRegistration", "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме.");
+                        var message = new SuccessRegistrationViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+
+                        return View("SuccessRegistration", message);
                     }
                     else
                     {

@@ -1,4 +1,5 @@
-﻿@model string
+﻿@model SuccessRegistrationViewModel
+
 @{
     ViewData["Title"] = "Регистрация успешно завершена - Security Doors";
 }
@@ -23,7 +24,7 @@
 </div>
 
 <div class="lead text-center" style="margin-top: 50px">
-    @Model
+    @Model.Message
     <br />
     Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.
     Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a>
