@@ -51,7 +51,7 @@ namespace SecurityDoors.App.Controllers
                     _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
                 }
 
-                int pageSize = 15;
+                int pageSize = 45;
                 var count = models.Count;
                 var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -62,7 +62,7 @@ namespace SecurityDoors.App.Controllers
                     DoorPassings = items
                 };
 
-                return View(models);
+                return View(viewModel);
             }
             else
             {
