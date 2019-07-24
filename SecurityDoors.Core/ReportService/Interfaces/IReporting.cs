@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SecurityDoors.Core.ReportService.Interfaces
 {
-	public interface IReporting<T>
+	public interface IReporting
 	{
 		string DocumentName { get; set; }
 
@@ -25,6 +25,11 @@ namespace SecurityDoors.Core.ReportService.Interfaces
 		/// <param name="table">Таблица</param>
 		void AddTable(DataTable table);
 		/// <summary>
+		/// Добавить изображение
+		/// </summary>
+		/// <param name="sourcePath">Пусть до изображения</param>
+		void AddImage(string sourcePath);
+		/// <summary>
 		/// Очищает созданный документ
 		/// </summary>
 		void ClearDocument();
@@ -34,10 +39,5 @@ namespace SecurityDoors.Core.ReportService.Interfaces
 		/// <param name="to">e-mail получателя</param>
 		/// <param name="subject">Заголовок письма</param>
 		void SendViaEmail(string to, string subject);
-		/// <summary>
-		/// Возвращает документ
-		/// </summary>
-		/// <returns>Документ</returns>
-		T GetResult();
 	}
 }

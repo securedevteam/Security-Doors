@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SecurityDoors.Core.ReportService.Implementations;
 
 namespace SecurityDoors.App.Controllers
 {
@@ -6,6 +7,7 @@ namespace SecurityDoors.App.Controllers
     {
         public IActionResult Index()
         {
+			var pdf = new PdfReportService();
             return View();
         }
 		public IActionResult About()
