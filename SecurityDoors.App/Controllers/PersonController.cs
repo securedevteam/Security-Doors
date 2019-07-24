@@ -54,11 +54,14 @@ namespace SecurityDoors.App.Controllers
             var count = models.Count;
             var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
+            var availableCards = await GetListAvailableCardsAsync(1);
+
             var pageViewModel = new PageViewModel(count, page, pageSize);
             var viewModel = new PersonIndexViewModel
             {
                 PageViewModel = pageViewModel,
-                People = items
+                People = items,
+                AvailableCards = availableCards
             };
 
             return View(viewModel);
