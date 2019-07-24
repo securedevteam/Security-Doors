@@ -22,15 +22,15 @@
                 @if (User.IsInRole("admin"))
                 {
                     <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">Права пользователей</a>
-                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">Список пользователей</a>
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">Пользователи</a>
                 }
                 @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                 {
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Список карточек</a>
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Список дверей</a>
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Список сотрудников</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Карточки</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Двери</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Сотрудники</a>
                 }
-                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Список дверных проходов</a>
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Дверные проходы</a>
             </nav>
 
             <form method="post" asp-controller="Account" asp-action="LogOff">
