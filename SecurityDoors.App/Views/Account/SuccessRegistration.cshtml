@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Регистрация успешно завершена - Security Doors";
+}
+
+<script>
+    var timeout = 15;
+    window.onload = function RedirectPage() {
+        document.getElementById("seconds").innerHTML = timeout;
+        timeout--;
+        if (timeout <= 0) {
+            var getLinq = document.getElementById("linq").origin;
+            location.replace(getLinq)
+        }
+        else {
+            setTimeout(RedirectPage, 1000)
+        }
+    }
+</script>
+
+<div class="text-center">
+    <h2>Регистрация успешно завершена</h2>
+</div>
+
+<div class="lead text-center" style="margin-top: 50px">
+    Спасибо! Ваша регистрация успешно завершена. На указанный e-mail будет отправлено письмо для подтверждения регистрации.
+    <br />
+    Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.
+    Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a>
+</div>
