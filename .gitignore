@@ -5,7 +5,7 @@
 
 #E-mail settings
 
-SecurityDoors.Core/EmailService/emailConfig.json
+emailConfig.json
 
 #log files
 
