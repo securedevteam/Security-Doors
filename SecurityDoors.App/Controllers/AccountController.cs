@@ -211,7 +211,7 @@ namespace SecurityDoors.App.Controllers
 						var emailService = new EmailService();
 						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
-                        return View("SuccessRegistration");
+                        return View("SuccessRegistration", "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме.");
                     }
                     else
                     {
@@ -253,7 +253,7 @@ namespace SecurityDoors.App.Controllers
 			}
 			var result = await _userManager.ConfirmEmailAsync(user, code);
 			if (result.Succeeded)
-				return RedirectToAction("Index", "Home");
+				return View("SuccessRegistration", "Спасибо! Ваша почта потверждена.");
 			else
 				return View("Error");
 		}
