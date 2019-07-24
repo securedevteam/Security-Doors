@@ -188,9 +188,9 @@ namespace SecurityDoors.App.Controllers
                     Nickname = model.Nickname
                 };
 
-                var duplicateNickname = await _serviceManager.Users.CanUserCreateAccountAsync(model.Nickname);
+                var isUniqueNickname = await _serviceManager.Users.CanUserCreateAccountAsync(model.Nickname);
 
-                if (duplicateNickname)
+                if (isUniqueNickname)
                 {
                     var result = await _userManager.CreateAsync(user, model.Password);
 
