@@ -70,27 +70,45 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreatePDFReport(ReportDataViewModel reportDataViewModel)
+        public async Task<IActionResult> CreatePDFReport(ReportDataViewModel report)
         {
-            // TODO: Доделать сюда логгер
+            if (ModelState.IsValid)
+            {
+                // TODO: Доделать сюда логгер
 
-            var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+                // TODO: СДЕЛАТЬ JS ПРОВЕРКИ (ВАЛИДАЦИЯ) ОБЯЗАТЕЛЬНО НА REPORTPARTIALVIEW
 
-            var models = doorPassingModels.Select(d => 
-                                                  new DoorPassingModel
-                                                  {
-                                                      Id = d.Id,
-                                                      PassingTime = d.PassingTime,
-                                                      Status = d.Status,
-                                                      Location = d.Location,
-                                                      Comment = d.Comment,
-                                                      Door = d.Door,
-                                                      Card = d.Card
-                                                  })
-                                         .ToList();
+                var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
-            var service = new CreateAndSendReportService();
-            var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing);
+                var models = doorPassingModels.Select(d =>
+                                                      new DoorPassingModel
+                                                      {
+                                                          Id = d.Id,
+                                                          PassingTime = d.PassingTime,
+                                                          Status = d.Status,
+                                                          Location = d.Location,
+                                                          Comment = d.Comment,
+                                                          Door = d.Door,
+                                                          Card = d.Card
+                                                      })
+                                             .ToList();
+
+
+
+                // TODO: Сделать метод расширения в Core
+                var reportType = ReportType.IsNone;
+
+                switch (report.Type)
+                {
+                    case "Excel": { reportType = ReportType.IsExcel; } break;
+                    case "PDF": { reportType = ReportType.IsPDF; } break;
+
+                    default: { } break;
+                }
+
+                var service = new CreateAndSendReportService(reportType);
+                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer);
+            }
 
             return RedirectToAction(nameof(Index));
         }

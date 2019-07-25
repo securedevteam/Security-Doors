@@ -1,5 +1,6 @@
 ﻿using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Reporting.Implementations;
+using SecurityDoors.Core.Reporting.Interfaces;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.Core.Reporting
@@ -8,18 +9,29 @@ namespace SecurityDoors.Core.Reporting
 
     public class CreateAndSendReportService
     {
-        public async Task<bool> RunServiceAsync(object models, ReportType type)
+        private readonly IReportService _reportService;
+
+        public CreateAndSendReportService(ReportType reportType)
+        {
+            switch (reportType)
+            {
+                case ReportType.IsExcel: { } break;
+                case ReportType.IsPDF: { _reportService = new PdfReportService(); } break;
+
+                default: { } break;
+            }
+        }
+
+        public async Task<bool> RunServiceAsync(object models, ReportType type, string header, string description, string footer)
         {
             try
             {
-                var pdfService = new PdfReportService();
-
                 await Task.Run(() =>
                 {
-                    pdfService.AddHeader("Отчет по проходам через двери");
-                    pdfService.AddText("Таблица 1.");
-                    pdfService.AddTable(models, type);
-                    pdfService.AddFooter();
+                    _reportService.AddHeader(header);
+                    _reportService.AddText(description);
+                    _reportService.AddTable(models, type);
+                    _reportService.AddFooter(footer);
                 });
 
                 return true;

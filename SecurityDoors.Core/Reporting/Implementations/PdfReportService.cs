@@ -45,11 +45,12 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			PdfRenderer.PrintOptions.Header.FontSize = 12;
 		}
 
-		public void AddFooter()
+		public void AddFooter(string footer)
 		{
 			PdfRenderer.PrintOptions.Footer.DrawDividerLine = true;
 			PdfRenderer.PrintOptions.Footer.FontFamily = "Arial";
-			PdfRenderer.PrintOptions.Footer.FontSize = 10;
+            PdfRenderer.PrintOptions.Header.CenterText = footer;
+            PdfRenderer.PrintOptions.Footer.FontSize = 10;
 			PdfRenderer.PrintOptions.Footer.LeftText = "{date} {time}";
 			PdfRenderer.PrintOptions.Footer.RightText = "{page} of {total-pages}";
 		}
@@ -103,9 +104,9 @@ namespace SecurityDoors.Core.Reporting.Implementations
             htmlCode += "</tbody></table>";
         }
 
-		public void AddText(string text)
+		public void AddText(string description)
 		{
-			htmlCode += $"<p>{text}</p>";
+			htmlCode += $"<p>{description}</p>";
 		}
 
 		public void ClearDocument()

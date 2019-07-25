@@ -7,11 +7,11 @@ namespace SecurityDoors.Core.Reporting.Interfaces
     /// </summary>
 	public interface IReportService
 	{
-		/// <summary>
-		/// Добавляет текст в документ.
-		/// </summary>
-		/// <param name="text">текст.</param>
-		void AddText(string text);
+        /// <summary>
+        /// Добавляет текст в документ.
+        /// </summary>
+        /// <param name="description">описание.</param>
+        void AddText(string description);
 
 		/// <summary>
 		/// Добавляет заголовок в документ.
@@ -19,10 +19,11 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 		/// <param name="header">cодержимое.</param>
 		void AddHeader(string header);
 
-		/// <summary>
-		/// Добавляет подвал на документ.
-		/// </summary>
-		void AddFooter();
+        /// <summary>
+        /// Добавляет подвал на документ.
+        /// </summary>
+        /// <param name="footer">cодержимое.</param>
+        void AddFooter(string footer);
 
 		/// <summary>
 		/// Добавляет таблицу в документ.

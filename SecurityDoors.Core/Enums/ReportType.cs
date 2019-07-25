@@ -8,6 +8,12 @@ namespace SecurityDoors.Core.Enums
 
     public enum ReportType
     {
-        IsDoorPassing = 1
+        IsNone = -1,
+
+        IsExcel = 0,
+
+        IsPDF = 1,
+
+        IsDoorPassing = 5
     }
 }
