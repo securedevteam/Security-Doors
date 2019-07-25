@@ -5,8 +5,10 @@ using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
+using SecurityDoors.Core.ReportService.Implementations;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
@@ -55,6 +57,16 @@ namespace SecurityDoors.App.Controllers
             {
                 return View("Error");
             }
+        }
+
+        private async Task<IActionResult> CreatePdfReport(List<DoorPassingViewModel> doorPassings)
+        {
+            var pdfService = new PdfReportService();
+            pdfService.AddHeader("Отчет по проходам через двери");
+            pdfService.AddText("Таблица 1.");
+            pdfService.AddTable(doorPassings);
+            pdfService.AddFooter();
+            return null;
         }
 
         /// <summary>

@@ -6,10 +6,12 @@ using System.Text;
 using IronPdf;
 using SecurityDoors.Core.EmailService.Implementations;
 using System.IO;
+
 /// <summary>
 /// Документация по IronPdf
 /// https://ironpdf.com/docs/
 /// </summary>
+
 namespace SecurityDoors.Core.ReportService.Implementations
 {
 	public class PdfReportService : IReporting
