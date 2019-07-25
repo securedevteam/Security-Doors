@@ -8,6 +8,7 @@ using SecurityDoors.Core.ViewModels;
 using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.Core.Reporting.Interfaces;
 using System.Threading.Tasks;
+using SecurityDoors.Core.Enums;
 
 /// <summary>
 /// Документация по IronPdf
@@ -53,39 +54,54 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			PdfRenderer.PrintOptions.Footer.RightText = "{page} of {total-pages}";
 		}
 
-		public void AddTable(object data)
+		public void AddTable(object models, ReportType type)
 		{
-            var table = (List<DoorPassingViewModel>) data;
+            switch (type)
+            {
+                // Дополнять развидностями отчетов при необходимости.
 
-			htmlCode += "<br/>";
-			htmlCode += @"<table border=""1"" cellpadding=""5"" style = ""border-collapse: collapse; border: 1px solid black;"">";
-			htmlCode +=
-				$"<thead>" +
-				$"<td>Время прохода</td>" +
-				$"<td>Статус</td>" +
-				$"<td>Расположение</td>" +
-				$"<td>Коментарий</td>" +
-				$"<td>Дверь</td>" +
-				$"<td>Карта</td>" +
-				$"</thead>";
+                case ReportType.IsDoorPassing:
+                    {
+                        var data = (List<DoorPassingViewModel>) models;
+                        CreateDoorPassingTable(data);
+                    }
+                    break;
 
-			htmlCode += "<tbody>";
-
-			foreach (var row in table)
-			{
-				htmlCode +=
-					$"<tr>" +
-					$"<td>{row.PassingTime.ToString()}</td>" +
-					$"<td>{row.Status}</td>" +
-					$"<td>{row.Location}</td>" +
-					$"<td>{row.Comment}</td>" +
-					$"<td>{row.Door}</td>" +
-					$"<td>{row.Card}</td>" +
-					$"</tr>";
-			}
-
-			htmlCode += "</tbody></table>";
+                default: { }  break;
+            }
 		}
+
+        private void CreateDoorPassingTable(List<DoorPassingViewModel> table)
+        {
+            htmlCode += "<br/>";
+            htmlCode += @"<table border=""1"" cellpadding=""5"" style = ""border-collapse: collapse; border: 1px solid black;"">";
+            htmlCode +=
+                $"<thead>" +
+                $"<td>Время прохода</td>" +
+                $"<td>Статус</td>" +
+                $"<td>Расположение</td>" +
+                $"<td>Коментарий</td>" +
+                $"<td>Дверь</td>" +
+                $"<td>Карта</td>" +
+                $"</thead>";
+
+            htmlCode += "<tbody>";
+
+            foreach (var row in table)
+            {
+                htmlCode +=
+                    $"<tr>" +
+                    $"<td>{row.PassingTime.ToString()}</td>" +
+                    $"<td>{row.Status}</td>" +
+                    $"<td>{row.Location}</td>" +
+                    $"<td>{row.Comment}</td>" +
+                    $"<td>{row.Door}</td>" +
+                    $"<td>{row.Card}</td>" +
+                    $"</tr>";
+            }
+
+            htmlCode += "</tbody></table>";
+        }
 
 		public void AddText(string text)
 		{

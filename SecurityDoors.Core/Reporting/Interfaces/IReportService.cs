@@ -1,5 +1,4 @@
-﻿using SecurityDoors.Core.ViewModels;
-using System.Collections.Generic;
+﻿using SecurityDoors.Core.Enums;
 
 namespace SecurityDoors.Core.Reporting.Interfaces
 {
@@ -29,7 +28,7 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 		/// Добавляет таблицу в документ.
 		/// </summary>
 		/// <param name="data">данные таблица.</param>
-		void AddTable(object data);
+		void AddTable(object models, ReportType type);
 
 		/// <summary>
 		/// Добавить изображение.

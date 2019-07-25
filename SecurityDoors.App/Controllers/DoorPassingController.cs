@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
+using SecurityDoors.Core.Reporting;
 using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
@@ -74,35 +76,10 @@ namespace SecurityDoors.App.Controllers
             var all = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
             var models = all.Take(50).ToList();
 
-            var result = await CreateAndSendReportAsync(models); // TODO: Придумать логическое завершение всему этому :)
+            var service = new CreateAndSendReportService();
+            var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing);
 
             return null; // TODO: результат всего этого
-        }
-
-        // При необходимости создания отчетов вынести данный метод в Core в папку Reporting отдельным файлом
-        private async Task<bool> CreateAndSendReportAsync(List<DoorPassingViewModel> doorPassings)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    var pdfService = new PdfReportService();
-
-                    pdfService.AddHeader("Отчет по проходам через двери");
-                    pdfService.AddText("Таблица 1.");
-
-                    object dp = (object)doorPassings;
-
-                    pdfService.AddTable(dp);
-                    pdfService.AddFooter();
-                });
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         /// <summary>
