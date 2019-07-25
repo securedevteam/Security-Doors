@@ -6,29 +6,32 @@ using System.Text;
 using IronPdf;
 using SecurityDoors.Core.EmailService.Implementations;
 using System.IO;
+using SecurityDoors.Core.ViewModels;
 
 /// <summary>
 /// Документация по IronPdf
 /// https://ironpdf.com/docs/
 /// </summary>
 
+// TODO: Добавить XML комментарии
+
 namespace SecurityDoors.Core.ReportService.Implementations
 {
-	public class PdfReportService : IReporting
+    public class PdfReportService : IReportService
 	{
 		private HtmlToPdf PdfRenderer = new HtmlToPdf();
 		private string htmlCode = string.Empty;
-		private string documentName;
-		public string DocumentName { get => documentName; set => documentName = value; }
+
+        private string _documentName;
 
 		public PdfReportService(string documentName)
 		{
-			this.documentName = documentName ?? throw new ArgumentNullException(nameof(documentName));
+			_documentName = documentName ?? throw new ArgumentNullException(nameof(documentName));
 		}
 
 		public PdfReportService()
 		{
-			documentName = Guid.NewGuid().ToString();
+			_documentName = Guid.NewGuid().ToString();
 		}
 
 		public void AddHeader(string header)
@@ -48,8 +51,11 @@ namespace SecurityDoors.Core.ReportService.Implementations
 			PdfRenderer.PrintOptions.Footer.LeftText = "{date} {time}";
 			PdfRenderer.PrintOptions.Footer.RightText = "{page} of {total-pages}";
 		}
-		public void AddTable(List<(DateTime PassingTime, string Status, string Location, string Comment, string Door, string Card)> table)
+
+		public void AddTable(object data)
 		{
+            var table = (List<DoorPassingViewModel>) data;
+
 			htmlCode += "<br/>";
 			htmlCode += @"<table border=""1"" cellpadding=""5"" style = ""border-collapse: collapse; border: 1px solid black;"">";
 			htmlCode +=
@@ -63,6 +69,7 @@ namespace SecurityDoors.Core.ReportService.Implementations
 				$"</thead>";
 
 			htmlCode += "<tbody>";
+
 			foreach (var row in table)
 			{
 				htmlCode +=
@@ -75,6 +82,7 @@ namespace SecurityDoors.Core.ReportService.Implementations
 					$"<td>{row.Card}</td>" +
 					$"</tr>";
 			}
+
 			htmlCode += "</tbody></table>";
 		}
 
@@ -92,6 +100,7 @@ namespace SecurityDoors.Core.ReportService.Implementations
 		{
 			throw new NotImplementedException();
 		}
+
 		public void SaveAsFile(string path = @"D:\tmp")
 		{/*
 			if (!File.Exists(path))
@@ -101,6 +110,7 @@ namespace SecurityDoors.Core.ReportService.Implementations
 			}*/
 			PdfRenderer.RenderHtmlAsPdf(htmlCode).SaveAs("D://url.pdf");
 		}
+
 		public void SendViaEmail(string to, string subject)
 		{
 			///TODO: Почему не работает вот так?

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using SecurityDoors.Core.ViewModels;
 using System.Collections.Generic;
 
 namespace SecurityDoors.Core.ReportService.Interfaces
@@ -6,13 +6,8 @@ namespace SecurityDoors.Core.ReportService.Interfaces
     /// <summary>
     /// Интерфейс для отчета.
     /// </summary>
-	public interface IReporting
+	public interface IReportService
 	{
-        /// <summary>
-        /// Название документа.
-        /// </summary>
-		string DocumentName { get; set; }
-
 		/// <summary>
 		/// Добавляет текст в документ.
 		/// </summary>
@@ -33,8 +28,8 @@ namespace SecurityDoors.Core.ReportService.Interfaces
 		/// <summary>
 		/// Добавляет таблицу в документ.
 		/// </summary>
-		/// <param name="table">таблица.</param>
-		void AddTable(List<(DateTime PassingTime, string Status, string Location, string Comment, string Door, string Card)> table);
+		/// <param name="data">данные таблица.</param>
+		void AddTable(object data);
 
 		/// <summary>
 		/// Добавить изображение.

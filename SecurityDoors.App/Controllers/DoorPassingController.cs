@@ -9,6 +9,7 @@ using SecurityDoors.Core.ReportService.Implementations;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SecurityDoors.App.Controllers
@@ -59,14 +60,40 @@ namespace SecurityDoors.App.Controllers
             }
         }
 
-        private async Task<IActionResult> CreatePdfReport(List<DoorPassingViewModel> doorPassings)
+        /// <summary>
+        /// Изменение существующего прохода (POST).
+        /// </summary>
+        /// <param name="doorPassing">модель прохода.</param>
+        /// <returns>Представление.</returns>
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreatePDFReport(ReportDataViewModel reportDataViewModel)
+        {
+            // TODO: Доделать сюда логгер
+
+            var all = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+            var models = all.Take(50).ToList();
+
+            var result = await CreateAndSendReportAsync(models);
+
+
+
+            return null; // TODO: результат всего этого
+        }
+
+        private async Task<bool> CreateAndSendReportAsync(List<DoorPassingViewModel> doorPassings)
         {
             var pdfService = new PdfReportService();
+
             pdfService.AddHeader("Отчет по проходам через двери");
             pdfService.AddText("Таблица 1.");
-            pdfService.AddTable(doorPassings);
+
+            object dp = (object) doorPassings;
+
+            pdfService.AddTable(dp);
             pdfService.AddFooter();
-            return null;
+
+            return true; // True / false
         }
 
         /// <summary>
