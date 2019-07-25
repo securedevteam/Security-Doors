@@ -73,8 +73,9 @@ namespace SecurityDoors.App.Controllers
         {
             // TODO: Доделать сюда логгер
 
-            var all = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
-            var models = all.Take(50).ToList();
+            var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+
+            var models = doorPassingModels.Take(50).ToList();
 
             var service = new CreateAndSendReportService();
             var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing);

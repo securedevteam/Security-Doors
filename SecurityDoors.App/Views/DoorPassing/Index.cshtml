@@ -10,6 +10,32 @@
 
 <br />
 
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#createReport">Подготовить и отправить отчет</a>
+    </div>
+
+    <div class="modal fade" id="createReport">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title">Создать и отправить отчет</h3>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+
+                <div class="modal-body">
+                    <partial name="_ReportPartialView.cshtml" model="new ReportDataViewModel()" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+}
+
 <div class="table-responsive">
     <table class="table">
         @if (User.IsInRole("user") || User.IsInRole("visitor"))
@@ -26,15 +52,15 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                @if (User.Identity.Name == item.Comment)
-                {
-                    <tr>
-                        <td>@item.PassingTime</td>
-                        <td>@item.Door</td>
-                        <td>@item.Status</td>
-                        <td>@item.Location</td>
-                    </tr>
-                }
+                    @if (User.Identity.Name == item.Comment)
+                    {
+                        <tr>
+                            <td>@item.PassingTime</td>
+                            <td>@item.Door</td>
+                            <td>@item.Status</td>
+                            <td>@item.Location</td>
+                        </tr>
+                    }
                 }
             </tbody>
         }
@@ -61,22 +87,25 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.PassingTime</td>
-                    <td>@item.Card</td>
-                    <td>@item.Comment</td>
-                    <td>@item.Location</td>
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PassingTime</td>
+                        <td>@item.Card</td>
+                        <td>@item.Comment</td>
+                        <td>@item.Location</td>
 
-                    @if (User.IsInRole("admin"))
-                    {
-                        <td>@item.Door</td>
-                        <td>@item.Status</td>
-                        <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
-                    }
-                </tr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <td>@item.Door</td>
+                            <td>@item.Status</td>
+                            <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
+                        }
+                    </tr>
                 }
             </tbody>
         }
     </table>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
