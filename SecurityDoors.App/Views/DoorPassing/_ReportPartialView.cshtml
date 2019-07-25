@@ -1,0 +1,13 @@
+﻿@model ReportDataViewModel
+
+<form method="post" asp-controller="DoorPassing" asp-action="CreatePDFReport">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-group">
+        <b><label asp-for="TestProperty"></label></b>
+        <input type="text" asp-for="TestProperty" class="form-control" />
+        <span asp-validation-for="TestProperty"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg btn-block">Отправить</button>
+</form>
