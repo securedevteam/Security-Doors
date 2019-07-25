@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SecurityDoors.Core.ViewModels
+namespace SecurityDoors.Core.Models
 {
     /// <summary>
     /// Модель дверного контроллера.
     /// </summary>
-    public class DoorPassingViewModel
+    public class DoorPassingModel
     {
         /// <summary>
         /// Id дверного контроллера.

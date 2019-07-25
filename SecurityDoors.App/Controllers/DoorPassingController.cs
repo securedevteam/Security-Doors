@@ -6,6 +6,7 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
+using SecurityDoors.Core.Models;
 using SecurityDoors.Core.Reporting;
 using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.PresentationLayer;
@@ -75,12 +76,23 @@ namespace SecurityDoors.App.Controllers
 
             var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
-            var models = doorPassingModels.Take(50).ToList();
+            var models = doorPassingModels.Select(d => 
+                                                  new DoorPassingModel
+                                                  {
+                                                      Id = d.Id,
+                                                      PassingTime = d.PassingTime,
+                                                      Status = d.Status,
+                                                      Location = d.Location,
+                                                      Comment = d.Comment,
+                                                      Door = d.Door,
+                                                      Card = d.Card
+                                                  })
+                                         .ToList();
 
             var service = new CreateAndSendReportService();
             var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing);
 
-            return null; // TODO: результат всего этого
+            return RedirectToAction(nameof(Index));
         }
 
         /// <summary>

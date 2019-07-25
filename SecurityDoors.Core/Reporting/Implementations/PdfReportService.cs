@@ -4,11 +4,11 @@ using System.Data;
 using System.Text;
 using IronPdf;
 using System.IO;
-using SecurityDoors.Core.ViewModels;
 using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.Core.Reporting.Interfaces;
 using System.Threading.Tasks;
 using SecurityDoors.Core.Enums;
+using SecurityDoors.Core.Models;
 
 /// <summary>
 /// Документация по IronPdf
@@ -62,7 +62,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 
                 case ReportType.IsDoorPassing:
                     {
-                        var data = (List<DoorPassingViewModel>) models;
+                        var data = (List<DoorPassingModel>) models;
                         CreateDoorPassingTable(data);
                     }
                     break;
@@ -71,7 +71,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
             }
 		}
 
-        private void CreateDoorPassingTable(List<DoorPassingViewModel> table)
+        private void CreateDoorPassingTable(List<DoorPassingModel> table)
         {
             htmlCode += "<br/>";
             htmlCode += @"<table border=""1"" cellpadding=""5"" style = ""border-collapse: collapse; border: 1px solid black;"">";
