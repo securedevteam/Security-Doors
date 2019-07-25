@@ -7,6 +7,7 @@ using System.IO;
 using SecurityDoors.Core.ViewModels;
 using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.Core.Reporting.Interfaces;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Документация по IronPdf

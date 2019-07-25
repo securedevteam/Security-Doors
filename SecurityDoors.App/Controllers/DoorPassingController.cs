@@ -74,26 +74,35 @@ namespace SecurityDoors.App.Controllers
             var all = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
             var models = all.Take(50).ToList();
 
-            var result = await CreateAndSendReportAsync(models);
-
-
+            var result = await CreateAndSendReportAsync(models); // TODO: Придумать логическое завершение всему этому :)
 
             return null; // TODO: результат всего этого
         }
 
+        // При необходимости создания отчетов вынести данный метод в Core в папку Reporting отдельным файлом
         private async Task<bool> CreateAndSendReportAsync(List<DoorPassingViewModel> doorPassings)
         {
-            var pdfService = new PdfReportService();
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var pdfService = new PdfReportService();
 
-            pdfService.AddHeader("Отчет по проходам через двери");
-            pdfService.AddText("Таблица 1.");
+                    pdfService.AddHeader("Отчет по проходам через двери");
+                    pdfService.AddText("Таблица 1.");
 
-            object dp = (object) doorPassings;
+                    object dp = (object)doorPassings;
 
-            pdfService.AddTable(dp);
-            pdfService.AddFooter();
+                    pdfService.AddTable(dp);
+                    pdfService.AddFooter();
+                });
 
-            return true; // True / false
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
