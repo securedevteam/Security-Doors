@@ -255,9 +255,15 @@ namespace SecurityDoors.App.Controllers
 			}
 			var result = await _userManager.ConfirmEmailAsync(user, code);
 			if (result.Succeeded)
-				return View("SuccessRegistration", "Спасибо! Ваша почта потверждена.");
+			{
+				var message = new SuccessRegistrationViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+
+				return View("SuccessRegistration", message);
+			}
 			else
+			{
 				return View("Error");
+			}
 		}
 
 		/// <summary>
