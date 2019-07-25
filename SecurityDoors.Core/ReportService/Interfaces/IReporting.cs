@@ -17,13 +17,17 @@ namespace SecurityDoors.Core.ReportService.Interfaces
 		/// <summary>
 		/// Добавляет заголовок в документ
 		/// </summary>
-		/// <param name="header">Заголовок</param>
+		/// <param name="header">Содержимое</param>
 		void AddHeader(string header);
+		/// <summary>
+		/// Добавляет подвал на документ
+		/// </summary>
+		void AddFooter();
 		/// <summary>
 		/// Добавляет таблицу в документ
 		/// </summary>
 		/// <param name="table">Таблица</param>
-		void AddTable(DataTable table);
+		void AddTable(List<(DateTime PassingTime, string Status, string Location, string Comment, string Door, string Card)> table);
 		/// <summary>
 		/// Добавить изображение
 		/// </summary>
