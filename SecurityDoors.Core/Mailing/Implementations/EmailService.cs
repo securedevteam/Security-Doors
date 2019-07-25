@@ -1,13 +1,13 @@
-﻿using SecurityDoors.Core.EmailService.Interfaces;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SecurityDoors.Core.Mailing.Interfaces;
 
-namespace SecurityDoors.Core.EmailService.Implementations
+namespace SecurityDoors.Core.Mailing.Implementations
 {
     /// <summary>
     /// Сервис для работы с почтой.

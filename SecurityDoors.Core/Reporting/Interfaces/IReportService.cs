@@ -1,7 +1,7 @@
 ﻿using SecurityDoors.Core.ViewModels;
 using System.Collections.Generic;
 
-namespace SecurityDoors.Core.ReportService.Interfaces
+namespace SecurityDoors.Core.Reporting.Interfaces
 {
     /// <summary>
     /// Интерфейс для отчета.

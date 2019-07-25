@@ -15,7 +15,7 @@ namespace SecurityDoors.Core.ViewModels
         /// <summary>
         /// Время прохода.
         /// </summary>
-        public DateTime PassingTime { get; set; };
+        public DateTime PassingTime { get; set; }
 
         /// <summary>
         /// Статус.

@@ -1,12 +1,12 @@
-﻿using SecurityDoors.Core.ReportService.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using IronPdf;
-using SecurityDoors.Core.EmailService.Implementations;
 using System.IO;
 using SecurityDoors.Core.ViewModels;
+using SecurityDoors.Core.Mailing.Implementations;
+using SecurityDoors.Core.Reporting.Interfaces;
 
 /// <summary>
 /// Документация по IronPdf
@@ -15,7 +15,7 @@ using SecurityDoors.Core.ViewModels;
 
 // TODO: Добавить XML комментарии
 
-namespace SecurityDoors.Core.ReportService.Implementations
+namespace SecurityDoors.Core.Reporting.Implementations
 {
     public class PdfReportService : IReportService
 	{
@@ -115,7 +115,7 @@ namespace SecurityDoors.Core.ReportService.Implementations
 		{
 			///TODO: Почему не работает вот так?
 			//var emailService = new EmailService();
-			var emailService = new EmailService.Implementations.EmailService();
+			var emailService = new EmailService();
 			_ = emailService.SendEmailAsync(to, subject, "Pdf отчет");
 		}
 

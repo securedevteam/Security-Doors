@@ -5,7 +5,7 @@ using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
-using SecurityDoors.Core.ReportService.Implementations;
+using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;

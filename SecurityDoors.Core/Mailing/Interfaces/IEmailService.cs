@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace SecurityDoors.Core.EmailService.Interfaces
+namespace SecurityDoors.Core.Mailing.Interfaces
 {
 	public interface IEmailService
 	{
