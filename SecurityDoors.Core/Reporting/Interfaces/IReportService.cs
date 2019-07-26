@@ -38,6 +38,17 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 		void AddImage(string sourcePath);
 
 		/// <summary>
+		/// Сохраняет на сервере
+		/// </summary>
+		/// <param name="path">Путь к файлу</param>
+		void SaveAsFile(string path = @"D:\tpm");
+
+		/// <summary>
+		/// Возвращает имя документа на сервере
+		/// </summary>
+		string GetDocunetName { get; }
+
+		/// <summary>
 		/// Очищает созданный документ.
 		/// </summary>
 		void ClearDocument();

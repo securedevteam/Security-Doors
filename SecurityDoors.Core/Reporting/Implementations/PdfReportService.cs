@@ -25,6 +25,9 @@ namespace SecurityDoors.Core.Reporting.Implementations
 		private string htmlCode = string.Empty;
 
         private string _documentName;
+		private string _filePath;
+
+		public string GetDocunetName => _documentName;
 
 		public PdfReportService(string documentName)
 		{
@@ -120,21 +123,23 @@ namespace SecurityDoors.Core.Reporting.Implementations
 		}
 
 		public void SaveAsFile(string path = @"D:\tmp")
-		{/*
-			if (!File.Exists(path))
-			{
-				var file = File.Create(path);
-				file.Close();
-			}*/
-			PdfRenderer.RenderHtmlAsPdf(htmlCode).SaveAs("D://url.pdf");
+		{
+			_filePath = $"{path}{_documentName}.pdf";
+			PdfRenderer.RenderHtmlAsPdf(htmlCode).SaveAs(_filePath);
 		}
 
 		public void SendViaEmail(string to, string subject)
 		{
-			///TODO: Почему не работает вот так?
-			//var emailService = new EmailService();
-			var emailService = new EmailService();
-			_ = emailService.SendEmailAsync(to, subject, "Pdf отчет");
+			if (File.Exists(_filePath))
+			{
+				var attachedFile = new System.Net.Mail.Attachment(_filePath);
+				var emailService = new EmailService();
+				_ = emailService.SendEmailAsync(to, subject, "Pdf отчет", attachedFile);
+			}
+			else
+			{
+				///TODO: Написать это в логере
+			}
 		}
 
 		public void AddImage(string sourcePath)

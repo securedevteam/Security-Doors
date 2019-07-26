@@ -107,7 +107,8 @@ namespace SecurityDoors.App.Controllers
                 }
 
                 var service = new CreateAndSendReportService(reportType);
-                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer);
+                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
+				
             }
 
             return RedirectToAction(nameof(Index));

@@ -22,7 +22,7 @@ namespace SecurityDoors.Core.Reporting
             }
         }
 
-        public async Task<bool> RunServiceAsync(object models, ReportType type, string header, string description, string footer)
+        public async Task<bool> RunServiceAsync(object models, ReportType type, string header, string description, string footer, string email)
         {
             try
             {
@@ -32,6 +32,8 @@ namespace SecurityDoors.Core.Reporting
                     _reportService.AddText(description);
                     _reportService.AddTable(models, type);
                     _reportService.AddFooter(footer);
+					_reportService.SaveAsFile(@"D:\");
+					_reportService.SendViaEmail(email, header);
                 });
 
                 return true;
