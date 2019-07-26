@@ -19,13 +19,13 @@
     }
 </script>
 
-<div class="text-center">
-    <h2>Регистрация успешно завершена</h2>
-</div>
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Регистрация завершена</h1>
 
-<div class="lead text-center" style="margin-top: 50px">
-    @Model.Message
-    <br />
-    Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.
-    Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a>
+    <p class="lead">@Model.Message</p>
+
+    <br /> <br />
+
+    <p class="lead">Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.</p>
+    <p class="lead">Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a></p>
 </div>

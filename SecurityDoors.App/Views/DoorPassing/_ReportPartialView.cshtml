@@ -27,9 +27,9 @@
     <div asp-validation-summary="ModelOnly"></div>
 
     <div class="form-row">
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-8" onblur="emailValidation()">
             <b><label asp-for="Email"></label></b>
-            <input type="text" asp-for="Email" class="form-control" onblur="emailValidation()" oninput="emailValidation()" />
+            <input type="email" asp-for="Email" class="form-control" onblur="emailValidation()" oninput="emailValidation()" />
             <span asp-validation-for="Email"></span>
             <small id="message" class="form-text text-muted"></small>
         </div>

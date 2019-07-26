@@ -47,7 +47,7 @@
 
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
 
-        <div class="form-group" onblur="ValidMail()">
+        <div class="form-group" onblur="emailValidation()">
             <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="emailValidation()" onblur="emailValidation()">
             <span asp-validation-for="Email"></span>
             <small id="emailHelp" class="form-text text-muted">Мы не передадим ваш email 3-им лицам.</small>

@@ -6,14 +6,19 @@
 
 <script>
     var timeout = 15;
+
     window.onload = function RedirectPage() {
+
         document.getElementById("seconds").innerHTML = timeout;
         timeout--;
-        if (timeout <= 0) {
+
+        if (timeout <= 0)
+        {
             var getLinq = document.getElementById("linq").origin;
             location.replace(getLinq)
         }
-        else {
+        else
+        {
             setTimeout(RedirectPage, 1000)
         }
     }
@@ -28,5 +33,4 @@
 
     <p class="lead">Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.</p>
     <p class="lead">Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a></p>
- 
 </div>
