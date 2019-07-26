@@ -10,7 +10,9 @@ using SecurityDoors.Core.Models;
 using SecurityDoors.Core.Reporting;
 using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.PresentationLayer;
+using SecurityDoors.PresentationLayer.Paginations;
 using SecurityDoors.PresentationLayer.ViewModels;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +42,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <returns>Представление со списком дверных проходов.</returns>        
         [Authorize]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 1)
         {
             if (User.IsInRole("admin") || User.IsInRole("moderator") || User.IsInRole("user") || User.IsInRole("visitor"))
             {
@@ -55,7 +57,18 @@ namespace SecurityDoors.App.Controllers
                     _logger.LogInformation(CommonSuccessfulEvents.ListItems, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
                 }
 
-                return View(models);
+                int pageSize = 45;
+                var count = models.Count;
+                var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                var pageViewModel = new PageViewModel(count, page, pageSize);
+                var viewModel = new DoorPassingIndexViewModel
+                {
+                    PageViewModel = pageViewModel,
+                    DoorPassings = items
+                };
+
+                return View(viewModel);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SecurityDoors.PresentationLayer.ViewModels
 {
@@ -46,6 +47,12 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         //[Required(ErrorMessage = "Неверный комментарий")]
         [Display(Name = "Комментарий")]
         public string Comment { get; set; }
+
+        /// <summary>
+        /// Список доступных карт.
+        /// </summary>
+        //[Display(Name = "Список доступных уникальных номеров карт")]
+        public List<string> AvailableCards { get; set; }
     }
 
     /// <summary>
