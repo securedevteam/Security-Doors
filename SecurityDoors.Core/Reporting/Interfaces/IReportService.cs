@@ -1,4 +1,5 @@
-﻿using SecurityDoors.Core.Enums;
+﻿using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
 
 namespace SecurityDoors.Core.Reporting.Interfaces
 {
@@ -41,7 +42,7 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 		/// Сохраняет на сервере
 		/// </summary>
 		/// <param name="path">Путь к файлу</param>
-		void SaveAsFile(string path = @"D:\tpm");
+		void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH);
 
 		/// <summary>
 		/// Возвращает имя документа на сервере
