@@ -7,10 +7,12 @@ using SecurityDoors.Core.Reporting.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SecurityDoors.Core.Reporting.Implementations
 {
+    /// <summary>
+    /// Сервис для подготовки Excel отчета.
+    /// </summary>
 	public class ExcelReportService : IReportService
 	{
 		private readonly string _documentName;
@@ -18,20 +20,30 @@ namespace SecurityDoors.Core.Reporting.Implementations
 		private string filePath;
 		private ExcelPackage excel = new ExcelPackage();
 		private int currentRow = 1;
+
+        /// <inheritdoc/>
 		public string GetDocunetName => _documentName;
+
+        /// <summary>
+        /// Конструктор с параметрами.
+        /// </summary>
+        /// <param name="documentName">название файла.</param>
 		public ExcelReportService(string documentName)
 		{
 			_documentName = documentName;
 			AddSheet("Default");
 		}
 
+        /// <summary>
+        /// Пустой конструктор. Создает GUID название файла.
+        /// </summary>
 		public ExcelReportService()
 		{
 			_documentName = Guid.NewGuid().ToString();
 			AddSheet("Default");
 		}
 
-
+        /// <inheritdoc/>
 		public void AddFooter(string footer)
 		{
 			currentRow++;
@@ -40,17 +52,14 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			currentRow++;
 		}
 
+        /// <inheritdoc/>
 		public void AddHeader(string header)
 		{
 			excel.Workbook.Properties.Title = header;
 			excel.Workbook.Properties.Subject = header;
 		}
 
-		public void AddImage(string sourcePath)
-		{
-			throw new NotImplementedException();
-		}
-
+        /// <inheritdoc/>
 		public void AddTable(object models, ReportType type)
 		{
 			switch (type)
@@ -94,6 +103,8 @@ namespace SecurityDoors.Core.Reporting.Implementations
 				currentRow++;
 			}
 		}
+
+        /// <inheritdoc/>
 		public void AddText(string description)
 		{
 			var sheet = excel.Workbook.Worksheets[worksheetName];
@@ -103,12 +114,14 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			currentRow++;
 		}
 
+        /// <inheritdoc/>
 		public void ClearDocument()
 		{
 			excel = new ExcelPackage();
 			AddSheet(worksheetName);
 		}
 
+        /// <inheritdoc/>
 		public void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH)
 		{
 			var filePath = $"{path}{_documentName}{ReportDataConstants.FORMAT_EXCEL}";
@@ -119,6 +132,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			this.filePath = filePath;
 		}
 
+        /// <inheritdoc/>
 		public void SendViaEmail(string to, string subject)
 		{
 			var attachment = new System.Net.Mail.Attachment(filePath);
@@ -128,9 +142,9 @@ namespace SecurityDoors.Core.Reporting.Implementations
 		}
 
 		/// <summary>
-		/// Добавляет новый лист в документ
+		/// Добавить новый лист в документ.
 		/// </summary>
-		/// <param name="worksheetName">Название листа</param>
+		/// <param name="worksheetName">название листа.</param>
 		private void AddSheet (string worksheetName)
 		{
 			excel.Workbook.Worksheets.Add(worksheetName);

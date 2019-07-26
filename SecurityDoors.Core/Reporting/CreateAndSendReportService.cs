@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace SecurityDoors.Core.Reporting
 {
-    // TODO: XML комментарии
-
+    /// <summary>
+    /// Сервис для создания и отправки отчета по email адресу.
+    /// </summary>
     public class CreateAndSendReportService
     {
         private readonly IReportService _reportService;
 
+        /// <summary>
+        /// Конструктор с параметрами.
+        /// </summary>
+        /// <param name="reportType">тип отчета.</param>
         public CreateAndSendReportService(ReportType reportType)
         {
             switch (reportType)
@@ -23,6 +28,16 @@ namespace SecurityDoors.Core.Reporting
             }
         }
 
+        /// <summary>
+        /// Запуск сервиса.
+        /// </summary>
+        /// <param name="models">модели (данные).</param>
+        /// <param name="type">тип отчета.</param>
+        /// <param name="header">заголовок.</param>
+        /// <param name="description">описание.</param>
+        /// <param name="footer">нижний колонтитул.</param>
+        /// <param name="email">электронная почта.</param>
+        /// <returns></returns>
         public async Task<bool> RunServiceAsync(object models, ReportType type, string header, string description, string footer, string email)
         {
             try

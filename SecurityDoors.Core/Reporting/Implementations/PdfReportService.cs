@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
 using IronPdf;
 using System.IO;
 using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.Core.Reporting.Interfaces;
-using System.Threading.Tasks;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Models;
 using SecurityDoors.Core.Constants;
@@ -16,30 +13,40 @@ using SecurityDoors.Core.Constants;
 /// https://ironpdf.com/docs/
 /// </summary>
 
-// TODO: Добавить XML комментарии
-
 namespace SecurityDoors.Core.Reporting.Implementations
 {
+    /// <summary>
+    /// Сервис для подготовки PDF отчета.
+    /// </summary>
     public class PdfReportService : IReportService
 	{
 		private HtmlToPdf PdfRenderer = new HtmlToPdf();
 		private string htmlCode = string.Empty;
 
-        private string _documentName;
+        private readonly string _documentName;
 		private string _filePath;
 
+        /// <inheritdoc/>
 		public string GetDocunetName => _documentName;
 
+        /// <summary>
+        /// Конструктор с параметрами.
+        /// </summary>
+        /// <param name="documentName">название файла.</param>
 		public PdfReportService(string documentName)
 		{
 			_documentName = documentName ?? throw new ArgumentNullException(nameof(documentName));
 		}
 
+        /// <summary>
+        /// Пустой конструктор. Создает GUID название файла.
+        /// </summary>
 		public PdfReportService()
 		{
 			_documentName = Guid.NewGuid().ToString();
 		}
 
+        /// <inheritdoc/>
 		public void AddHeader(string header)
 		{
 			PdfRenderer.PrintOptions.FirstPageNumber = 1;
@@ -49,6 +56,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			PdfRenderer.PrintOptions.Header.FontSize = 12;
 		}
 
+        /// <inheritdoc/>
 		public void AddFooter(string footer)
 		{
 			PdfRenderer.PrintOptions.Footer.DrawDividerLine = true;
@@ -59,6 +67,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			PdfRenderer.PrintOptions.Footer.RightText = "{page} of {total-pages}";
 		}
 
+        /// <inheritdoc/>
 		public void AddTable(object models, ReportType type)
 		{
             switch (type)
@@ -108,27 +117,26 @@ namespace SecurityDoors.Core.Reporting.Implementations
             htmlCode += "</tbody></table>";
         }
 
+        /// <inheritdoc/>
 		public void AddText(string description)
 		{
 			htmlCode += $"<p>{description}</p>";
 		}
 
+        /// <inheritdoc/>
 		public void ClearDocument()
 		{
 			htmlCode = string.Empty;
 		}
 
-		public object GetResult()
-		{
-			throw new NotImplementedException();
-		}
-
+        /// <inheritdoc/>
 		public void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH)
 		{
 			_filePath = $"{path}{_documentName}{ReportDataConstants.FORMAT_PDF}";
 			PdfRenderer.RenderHtmlAsPdf(htmlCode).SaveAs(_filePath);
 		}
 
+        /// <inheritdoc/>
 		public void SendViaEmail(string to, string subject)
 		{
 			if (File.Exists(_filePath))
@@ -142,11 +150,5 @@ namespace SecurityDoors.Core.Reporting.Implementations
 				///TODO: Написать это в логере
 			}
 		}
-
-		public void AddImage(string sourcePath)
-		{
-			throw new NotImplementedException();
-		}
-
 	}
 }

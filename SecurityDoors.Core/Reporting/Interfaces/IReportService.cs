@@ -9,6 +9,11 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 	public interface IReportService
 	{
         /// <summary>
+		/// Возвращает имя документа на сервере.
+		/// </summary>
+		string GetDocunetName { get; }
+
+        /// <summary>
         /// Добавляет текст в документ.
         /// </summary>
         /// <param name="description">описание.</param>
@@ -33,21 +38,10 @@ namespace SecurityDoors.Core.Reporting.Interfaces
 		void AddTable(object models, ReportType type);
 
 		/// <summary>
-		/// Добавить изображение.
+		/// Сохраняет на сервере.
 		/// </summary>
-		/// <param name="sourcePath">пусть до изображения.</param>
-		void AddImage(string sourcePath);
-
-		/// <summary>
-		/// Сохраняет на сервере
-		/// </summary>
-		/// <param name="path">Путь к файлу</param>
+		/// <param name="path">путь к файлу</param>
 		void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH);
-
-		/// <summary>
-		/// Возвращает имя документа на сервере
-		/// </summary>
-		string GetDocunetName { get; }
 
 		/// <summary>
 		/// Очищает созданный документ.

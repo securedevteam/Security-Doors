@@ -1,7 +1,7 @@
 ﻿namespace SecurityDoors.Core.Constants
 {
     /// <summary>
-    /// Константы приложения
+    /// Константы приложения.
     /// </summary>
     public class AppConstants
     {

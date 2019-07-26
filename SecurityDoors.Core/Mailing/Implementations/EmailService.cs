@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SecurityDoors.Core.Mailing.Interfaces;
