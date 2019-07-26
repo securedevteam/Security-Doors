@@ -101,12 +101,33 @@ namespace SecurityDoors.App.Controllers
                                                           Door = d.Door,
                                                           Card = d.Card
                                                       })
+                                             .Where(s => s.PassingTime >= report.Start && s.PassingTime <= report.End)
                                              .ToList();
 
+                var infoCard = "каточка не была указана";
+                
+                if (!string.IsNullOrWhiteSpace(report.Card))
+                {
+                    models = models.Where(d => d.Card == report.Card).ToList();
+                    infoCard = $"уникальный номер карточки - {report.Card}";
+                }
 
-                var reportType = (report.Type).ConvertType();
-                var service = new CreateAndSendReportService(reportType);
-                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);		
+                if (models.Count > 0)
+                {
+                    var reportType = (report.Type).ConvertType();
+                    var service = new CreateAndSendReportService(reportType);
+                    var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
+
+                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_GENERATED} {report.Email}." };
+
+                    return View("ReportResult", message);
+                }
+                else
+                {
+                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_NOT_GENERATED} Указанные данные: дата и время - с {report.Start} по {report.End}, {infoCard}." };
+
+                    return View("ReportResult", message);
+                }  		
             }
 
             return RedirectToAction(nameof(Index));

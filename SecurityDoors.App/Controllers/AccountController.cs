@@ -211,7 +211,7 @@ namespace SecurityDoors.App.Controllers
 						var emailService = new EmailService();
 						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
-                        var message = new SuccessRegistrationViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+                        var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
 
                         return View("SuccessRegistration", message);
                     }
@@ -248,15 +248,19 @@ namespace SecurityDoors.App.Controllers
 			{
 				return View("Error");
 			}
+
 			var user = await _userManager.FindByIdAsync(userId);
+
 			if (user == null)
 			{
 				return View("Error");
 			}
+
 			var result = await _userManager.ConfirmEmailAsync(user, code);
+
 			if (result.Succeeded)
 			{
-				var message = new SuccessRegistrationViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+				var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
 
 				return View("SuccessRegistration", message);
 			}

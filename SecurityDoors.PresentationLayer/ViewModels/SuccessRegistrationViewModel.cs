@@ -1,9 +1,9 @@
 ﻿namespace SecurityDoors.PresentationLayer.ViewModels
 {
     /// <summary>
-    /// Модель данных об успешной регистрации.
+    /// Модель данных для отправки сообщения.
     /// </summary>
-    public class SuccessRegistrationViewModel
+    public class MessageViewModel
     {
         /// <summary>
         /// Сообщение.
