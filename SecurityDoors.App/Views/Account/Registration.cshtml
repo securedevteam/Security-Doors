@@ -19,21 +19,26 @@
     <link href="~/css/signin.css" rel="stylesheet">
 
     <script>
-        function ValidMail() {
-        var re = /^[\w-\.]+@@[\w-]+\.[a-z]{2,4}$/i;
-        var myMail = document.getElementById('email').value;
-        var valid = re.test(myMail);
-        if (valid) {
-            document.getElementById('submit').disabled = false;
-            output = '';
+        function emailValidation() {
+            var re = /^[\w-\.]+@@[\w-]+\.[a-z]{2,4}$/i;
+            var myEmail = document.getElementById('email').value;
+            var valid = re.test(myEmail);
+
+            if (valid)
+            {
+                document.getElementById('submit').disabled = false;
+                output = '';
+            }
+            else
+            {
+                document.getElementById('submit').setAttribute('disabled', 'disabled');
+                output = 'Адрес электронной почты введен неправильно!';
+            }
+
+            document.getElementById('message').innerHTML = output;
+
+            return valid;
         }
-        else {
-            document.getElementById('submit').setAttribute('disabled', 'disabled');
-            output = 'Адрес электронной почты введен неправильно!';
-        }
-        document.getElementById('message').innerHTML = output;
-        return valid;
-    }
     </script>
 </head>
 <body class="text-center">
@@ -43,7 +48,7 @@
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
 
         <div class="form-group" onblur="ValidMail()">
-            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="ValidMail()" onblur="ValidMail()">
+            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="emailValidation()" onblur="emailValidation()">
             <span asp-validation-for="Email"></span>
             <small id="emailHelp" class="form-text text-muted">Мы не передадим ваш email 3-им лицам.</small>
             <small id="message" class="form-text text-muted"></small>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SecurityDoors.PresentationLayer.ViewModels
+namespace SecurityDoors.PresentationLayer.ReportViewModels
 {
     /// <summary>
     /// Модель базовых данных для отчета для просмотра.
@@ -40,8 +40,5 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required(ErrorMessage = "Неверный нижний колонтитул")]
         [Display(Name = "Нижний колонтитул")]
         public string Footer { get; set; }
-
-        // TODO: Добавить сначала DoorPassing параметры, а потом остальные при необходимости
-        // Может быть сделать вообще родительской моделью? А остальные наследовать от нее (TODO: Delete me)
     }
 }

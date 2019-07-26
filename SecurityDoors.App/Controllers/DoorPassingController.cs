@@ -8,12 +8,10 @@ using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.Core.Models;
 using SecurityDoors.Core.Reporting;
-using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.Paginations;
+using SecurityDoors.PresentationLayer.ReportViewModels;
 using SecurityDoors.PresentationLayer.ViewModels;
-
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -83,7 +81,7 @@ namespace SecurityDoors.App.Controllers
         /// <returns>Представление.</returns>
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreatePDFReport(ReportDataViewModel report)
+        public async Task<IActionResult> CreatePDFReport(ReportDoorPassingViewModel report)
         {
             if (ModelState.IsValid)
             {
