@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.Core.Models;
@@ -35,7 +36,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 		{
 			currentRow++;
 			var sheet = excel.Workbook.Worksheets[worksheetName];
-			sheet.Cells[currentRow, 2].Value = "От команды SecurityDoors";
+			sheet.Cells[currentRow, 2].Value = ReportDataConstants.EXCEL_TITLE;
 			currentRow++;
 		}
 
@@ -108,9 +109,9 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			AddSheet(worksheetName);
 		}
 
-		public void SaveAsFile(string path = "D:\\tpm")
+		public void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH)
 		{
-			var filePath = $"{path}{_documentName}.xlsx";
+			var filePath = $"{path}{_documentName}{ReportDataConstants.FORMAT_EXCEL}";
 			var fileInfo = new FileInfo(filePath);
 
 			excel.SaveAs(fileInfo);
@@ -123,7 +124,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			var attachment = new System.Net.Mail.Attachment(filePath);
 
 			var emailService = new EmailService();
-			_ = emailService.SendEmailAsync(to, subject, "Excel-отчет", attachment);
+			_ = emailService.SendEmailAsync(to, subject, ReportDataConstants.REPORT_EXCEL + DateTime.Now, attachment);
 		}
 
 		/// <summary>

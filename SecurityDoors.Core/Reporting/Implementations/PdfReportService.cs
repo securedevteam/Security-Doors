@@ -9,6 +9,7 @@ using SecurityDoors.Core.Reporting.Interfaces;
 using System.Threading.Tasks;
 using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Models;
+using SecurityDoors.Core.Constants;
 
 /// <summary>
 /// Документация по IronPdf
@@ -122,9 +123,9 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			throw new NotImplementedException();
 		}
 
-		public void SaveAsFile(string path = @"D:\tmp")
+		public void SaveAsFile(string path = ReportDataConstants.DEFAULT_PATH)
 		{
-			_filePath = $"{path}{_documentName}.pdf";
+			_filePath = $"{path}{_documentName}{ReportDataConstants.FORMAT_PDF}";
 			PdfRenderer.RenderHtmlAsPdf(htmlCode).SaveAs(_filePath);
 		}
 
@@ -134,7 +135,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 			{
 				var attachedFile = new System.Net.Mail.Attachment(_filePath);
 				var emailService = new EmailService();
-				_ = emailService.SendEmailAsync(to, subject, "Pdf отчет", attachedFile);
+				_ = emailService.SendEmailAsync(to, subject, ReportDataConstants.REPORT_PDF + DateTime.Now, attachedFile);
 			}
 			else
 			{

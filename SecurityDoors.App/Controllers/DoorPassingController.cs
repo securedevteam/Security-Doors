@@ -113,8 +113,8 @@ namespace SecurityDoors.App.Controllers
 
                 switch (report.Type)
                 {
-                    case "Excel": { reportType = ReportType.IsExcel; } break;
-                    case "PDF": { reportType = ReportType.IsPDF; } break;
+                    case ReportDataConstants.IS_EXCEL: { reportType = ReportType.IsExcel; } break;
+                    case ReportDataConstants.IS_PDF: { reportType = ReportType.IsPDF; } break;
 
                     default: { } break;
                 }

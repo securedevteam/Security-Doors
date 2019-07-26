@@ -1,4 +1,5 @@
-﻿using SecurityDoors.Core.Enums;
+﻿using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
 using SecurityDoors.Core.Reporting.Implementations;
 using SecurityDoors.Core.Reporting.Interfaces;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace SecurityDoors.Core.Reporting
                     _reportService.AddText(description);
                     _reportService.AddTable(models, type);
                     _reportService.AddFooter(footer);
-					_reportService.SaveAsFile(@"D:\");
+					_reportService.SaveAsFile(ReportDataConstants.DEFAULT_DISK);
 					_reportService.SendViaEmail(email, header);
                 });
 
