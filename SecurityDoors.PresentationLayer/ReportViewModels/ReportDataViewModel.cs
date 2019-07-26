@@ -24,8 +24,8 @@ namespace SecurityDoors.PresentationLayer.ReportViewModels
         /// <summary>
         /// Заголовок документа.
         /// </summary>
-        [Required(ErrorMessage = "Неверный заголовок документа")]
-        [Display(Name = "Заголовок документа")]
+        [Required(ErrorMessage = "Неверный заголовок письма")]
+        [Display(Name = "Заголовок письма")]
         public string Header { get; set; }
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace SecurityDoors.PresentationLayer.ReportViewModels
         /// <summary>
         /// Нижний колонтитул.
         /// </summary>
-        [Required(ErrorMessage = "Неверный нижний колонтитул")]
-        [Display(Name = "Нижний колонтитул")]
+        [Required(ErrorMessage = "Неверный верхний колонтитул в документе")]
+        [Display(Name = "Верхний колонтитул в документе")]
         public string Footer { get; set; }
     }
 }

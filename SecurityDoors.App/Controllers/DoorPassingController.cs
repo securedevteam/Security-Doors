@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Enums;
+using SecurityDoors.Core.Extensions;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.Core.Models;
@@ -87,8 +88,6 @@ namespace SecurityDoors.App.Controllers
             {
                 // TODO: Доделать сюда логгер
 
-                // TODO: СДЕЛАТЬ JS ПРОВЕРКИ (ВАЛИДАЦИЯ) ОБЯЗАТЕЛЬНО НА REPORTPARTIALVIEW
-
                 var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
                 var models = doorPassingModels.Select(d =>
@@ -105,21 +104,9 @@ namespace SecurityDoors.App.Controllers
                                              .ToList();
 
 
-
-                // TODO: Сделать метод расширения в Core
-                var reportType = ReportType.IsNone;
-
-                switch (report.Type)
-                {
-                    case ReportDataConstants.IS_EXCEL: { reportType = ReportType.IsExcel; } break;
-                    case ReportDataConstants.IS_PDF: { reportType = ReportType.IsPDF; } break;
-
-                    default: { } break;
-                }
-
+                var reportType = (report.Type).ConvertType();
                 var service = new CreateAndSendReportService(reportType);
-                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
-				
+                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);		
             }
 
             return RedirectToAction(nameof(Index));

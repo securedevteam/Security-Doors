@@ -6,7 +6,7 @@ using SecurityDoors.PresentationLayer.ViewModels;
 namespace SecurityDoors.PresentationLayer.Extensions
 {
     /// <summary>
-    /// Методы расширени для Person.
+    /// Методы расширения для Person.
     /// </summary>
     public static class PersonExtensions
     {
