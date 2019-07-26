@@ -24,5 +24,15 @@
         /// Полученные данные дверного прохода корректны.
         /// </summary>
         public const string DOORPASSING_IS_VALID = "The received data of door passing is correct ";
+
+        /// <summary>
+        /// Данные для создания и отправки отчета успешно подготовлены.
+        /// </summary>
+        public const string DOORPASSING_REPORT_DATA_FOUND = "Data for creating and sending report of door passings is found.";
+
+        /// <summary>
+        /// Данные для создания и отправки отчета успешно подготовлены.
+        /// </summary>
+        public const string DOORPASSING_REPORT_DATA_NOT_FOUND = "Data for creating and sending report of door passings is not found.";
     }
 }

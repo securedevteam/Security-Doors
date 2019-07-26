@@ -145,10 +145,6 @@ namespace SecurityDoors.Core.Reporting.Implementations
 				var emailService = new EmailService();
 				_ = emailService.SendEmailAsync(to, subject, ReportDataConstants.REPORT_PDF + DateTime.Now, attachedFile);
 			}
-			else
-			{
-				///TODO: Написать это в логере
-			}
 		}
 	}
 }

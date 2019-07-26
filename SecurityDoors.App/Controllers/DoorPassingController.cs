@@ -86,8 +86,6 @@ namespace SecurityDoors.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO: Доделать сюда логгер
-
                 var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
                 var models = doorPassingModels.Select(d =>
@@ -118,12 +116,16 @@ namespace SecurityDoors.App.Controllers
                     var service = new CreateAndSendReportService(reportType);
                     var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
 
+                    _logger.LogInformation(CommonSuccessfulEvents.GenerateItems, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_FOUND);
+
                     var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_GENERATED} {report.Email}." };
 
                     return View("ReportResult", message);
                 }
                 else
                 {
+                    _logger.LogWarning(CommonUnsuccessfulEvents.GetItemNotFound, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_NOT_FOUND);
+
                     var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_NOT_GENERATED} Указанные данные: дата и время - с {report.Start} по {report.End}, {infoCard}." };
 
                     return View("ReportResult", message);
