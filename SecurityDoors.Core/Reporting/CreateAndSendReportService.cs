@@ -15,7 +15,7 @@ namespace SecurityDoors.Core.Reporting
         {
             switch (reportType)
             {
-                case ReportType.IsExcel: { } break;
+                case ReportType.IsExcel: { _reportService = new ExcelReportService(); } break;
                 case ReportType.IsPDF: { _reportService = new PdfReportService(); } break;
 
                 default: { } break;
