@@ -11,10 +11,4 @@
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="emailConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

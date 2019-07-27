@@ -1,12 +1,12 @@
-﻿using SecurityDoors.Core.EmailService.Interfaces;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SecurityDoors.Core.Mailing.Interfaces;
 
-namespace SecurityDoors.Core.EmailService.Implementations
+namespace SecurityDoors.Core.Mailing.Implementations
 {
     /// <summary>
     /// Сервис для работы с почтой.
@@ -60,15 +60,16 @@ namespace SecurityDoors.Core.EmailService.Implementations
 		{
 			try
 			{
-				var jsonFormatter = new DataContractJsonSerializer(typeof((string,string,string,int)));
+				var jsonFormat = new {senderEmail = "", senderPassword = "", smtpServerAddress = "", smtpServerPort = 0 };
 				using (var fs = new FileStream("emailconfig.json", FileMode.OpenOrCreate))
 				{
-					var (senderEmail, senderPassword, smtpServerAddress, smtpServerPort) = ((string senderEmail, string senderPassword, string smtpServerAddress, int smtpServerPort))jsonFormatter.ReadObject(fs);
-
-					_senderEmail = senderEmail;
-                    _senderPassword = senderPassword;
-					_smtpServerAddress = smtpServerAddress;
-					_smtpServerPort = smtpServerPort;
+					var json = new StreamReader(fs).ReadToEnd();
+					var config = JsonConvert.DeserializeAnonymousType(json, jsonFormat);
+					
+					_senderEmail = config.senderEmail;
+					_senderPassword = config.senderPassword;
+					_smtpServerAddress = config.smtpServerAddress;
+					_smtpServerPort = config.smtpServerPort;
 				}
 			}
 			catch (Exception exc)
@@ -80,7 +81,12 @@ namespace SecurityDoors.Core.EmailService.Implementations
         /// <inheritdoc/>
 		public async Task SendEmailAsync(string to, string subject, string body, Attachment attachment = null)
 		{
-			var mailMessage = new MailMessage(new MailAddress(_senderEmail), new MailAddress(to));
+			var mailMessage = new MailMessage(new MailAddress(_senderEmail), new MailAddress(to))
+			{
+				Subject = subject,
+				Body = body,
+				IsBodyHtml = true,
+			};
 
 			if (attachment != null)
 			{

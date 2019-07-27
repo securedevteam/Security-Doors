@@ -10,6 +10,32 @@
 
 <br />
 
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a href="#" class="btn btn-outline-warning" data-toggle="modal" data-target="#createReport">Подготовить и отправить отчет</a>
+    </div>
+
+    <div class="modal fade" id="createReport">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title">Создать и отправить отчет</h3>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+
+                <div class="modal-body">
+                    <partial name="_ReportPartialView.cshtml" model="new ReportDoorPassingViewModel()" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+}
+
 <div class="table-responsive">
     <table class="table">
         @if (User.IsInRole("user") || User.IsInRole("visitor"))

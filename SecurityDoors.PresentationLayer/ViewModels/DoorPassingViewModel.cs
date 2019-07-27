@@ -21,7 +21,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
 		public DateTime PassingTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// Статус
+        /// Статус.
         /// </summary>
         [Required(ErrorMessage = "Неверный статус")]
         [Display(Name = "Статус")]

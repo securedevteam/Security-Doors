@@ -3,10 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
+using SecurityDoors.Core.Enums;
+using SecurityDoors.Core.Extensions;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
+using SecurityDoors.Core.Models;
+using SecurityDoors.Core.Reporting;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.Paginations;
+using SecurityDoors.PresentationLayer.ReportViewModels;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,6 +73,66 @@ namespace SecurityDoors.App.Controllers
             {
                 return View("Error");
             }
+        }
+
+        /// <summary>
+        /// Изменение существующего прохода (POST).
+        /// </summary>
+        /// <param name="doorPassing">модель прохода.</param>
+        /// <returns>Представление.</returns>
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreatePDFReport(ReportDoorPassingViewModel report)
+        {
+            if (ModelState.IsValid)
+            {
+                var doorPassingModels = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
+
+                var models = doorPassingModels.Select(d =>
+                                                      new DoorPassingModel
+                                                      {
+                                                          Id = d.Id,
+                                                          PassingTime = d.PassingTime,
+                                                          Status = d.Status,
+                                                          Location = d.Location,
+                                                          Comment = d.Comment,
+                                                          Door = d.Door,
+                                                          Card = d.Card
+                                                      })
+                                             .Where(s => s.PassingTime >= report.Start && s.PassingTime <= report.End)
+                                             .ToList();
+
+                var infoCard = "каточка не была указана";
+                
+                if (!string.IsNullOrWhiteSpace(report.Card))
+                {
+                    models = models.Where(d => d.Card == report.Card).ToList();
+                    infoCard = $"уникальный номер карточки - {report.Card}";
+                }
+
+                if (models.Count > 0)
+                {
+                    var reportType = (report.Type).ConvertType();
+                    var service = new CreateAndSendReportService(reportType);
+                    var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
+
+                    _logger.LogInformation(CommonSuccessfulEvents.GenerateItems, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_FOUND);
+
+                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_GENERATED} {report.Email}." };
+
+                    return View("ReportResult", message);
+                }
+                else
+                {
+                    _logger.LogWarning(CommonUnsuccessfulEvents.GetItemNotFound, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_NOT_FOUND);
+
+                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_NOT_GENERATED} Указанные данные: дата и время - с {report.Start} по {report.End}, {infoCard}." };
+
+                    return View("ReportResult", message);
+                }  		
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         /// <summary>

@@ -18,8 +18,28 @@
     <!-- Custom styles for this template -->
     <link href="~/css/signin.css" rel="stylesheet">
 
-    <!-- e-mail validation script -->
-    <script  type="text/javascript" src="~/js/email-validation.js" ></script>
+    <script>
+        function emailValidation() {
+            var re = /^[\w-\.]+@@[\w-]+\.[a-z]{2,4}$/i;
+            var myEmail = document.getElementById('email').value;
+            var valid = re.test(myEmail);
+
+            if (valid)
+            {
+                document.getElementById('submit').disabled = false;
+                output = '';
+            }
+            else
+            {
+                document.getElementById('submit').setAttribute('disabled', 'disabled');
+                output = 'Адрес электронной почты введен неправильно!';
+            }
+
+            document.getElementById('message').innerHTML = output;
+
+            return valid;
+        }
+    </script>
 </head>
 <body class="text-center">
     <form class="form-signin" method="post" asp-controller="Account" asp-action="Registration">
@@ -27,8 +47,8 @@
 
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
 
-        <div class="form-group">
-            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="validation()" onblur="validation()">
+        <div class="form-group" onblur="emailValidation()">
+            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="emailValidation()" onblur="emailValidation()">
             <span asp-validation-for="Email"></span>
             <small id="emailHelp" class="form-text text-muted">Мы не передадим ваш email 3-им лицам.</small>
             <small id="message" class="form-text text-muted"></small>
@@ -50,7 +70,7 @@
             <span asp-validation-for="PasswordConfirm"></span>
         </div>
 
-        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit" disabled>Зарегистрироваться</button>
         <p class="mt-5 mb-3 text-muted">30 commits to bug &copy; 2019</p>
 
     </form>
