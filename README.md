@@ -20,6 +20,7 @@
 - Console App Core приложения;
 - N-Layer архитектура;
 - Repository pattern C#;
+- Entity Framework Core;
 - LINQ (Language-Integrated Query);
 - Manual и xUnit тестирование;
 - WebAPI + Swagger;
