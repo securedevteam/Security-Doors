@@ -19,7 +19,7 @@ namespace SecurityDoors.App.Controllers
     /// </summary>
     public class CardController : Controller
     {
-        private ServicesManager _serviceManager;
+        private readonly ServicesManager _serviceManager;
         private readonly ILogger _logger;
 
         /// <summary>
