@@ -1,7 +1,7 @@
-﻿function validation() {
-    var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-    var email = document.getElementById('email').value;
-    var valid = re.test(email);
+﻿function emailValidation() {
+    var re = /^[\w-\.]+@@[\w-]+\.[a-z]{2,4}$/i;
+    var myEmail = document.getElementById('email').value;
+    var valid = re.test(myEmail);
 
     if (valid) {
         document.getElementById('submit').disabled = false;

@@ -6,7 +6,7 @@ using SecurityDoors.PresentationLayer.ViewModels;
 namespace SecurityDoors.PresentationLayer.Extensions
 {
     /// <summary>
-    /// Методы расширени для Card.
+    /// Методы расширения для Card.
     /// </summary>
     public static class CardExtensions
     {

@@ -5,6 +5,9 @@ using SecurityDoors.PresentationLayer.ViewModels;
 
 namespace SecurityDoors.PresentationLayer.Extensions
 {
+    /// <summary>
+    /// Методы расширения для Door.
+    /// </summary>
     public static class DoorExtensions
     {
         /// <summary>

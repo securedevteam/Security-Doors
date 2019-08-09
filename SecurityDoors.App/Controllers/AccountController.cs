@@ -7,6 +7,7 @@ using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
+using SecurityDoors.Core.Mailing.Implementations;
 using SecurityDoors.DataAccessLayer.Models;
 using SecurityDoors.PresentationLayer;
 using SecurityDoors.PresentationLayer.ViewModels;
@@ -161,22 +162,22 @@ namespace SecurityDoors.App.Controllers
             return NotFound();
         }
 
-        /// <summary>
-        /// Регистрация.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+		/// <summary>
+		/// Регистрация.
+		/// </summary>
+		/// <returns>Представление.</returns>
+		[HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
 
-        /// <summary>
-        /// Регистрация.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
+		/// <summary>
+		/// Регистрация.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns>Представление.</returns>
+		[HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel model)
         {
             if (ModelState.IsValid)
@@ -188,9 +189,9 @@ namespace SecurityDoors.App.Controllers
                     Nickname = model.Nickname
                 };
 
-                var duplicateNickname = await _serviceManager.Users.CanUserCreateAccountAsync(model.Nickname);
+                var isUniqueNickname = await _serviceManager.Users.CanUserCreateAccountAsync(model.Nickname);
 
-                if (duplicateNickname)
+                if (isUniqueNickname)
                 {
                     var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -200,7 +201,19 @@ namespace SecurityDoors.App.Controllers
 
                         _logger.LogInformation(UserSuccessfulEvents.RegisterUserItem, UserLoggerConstants.USER_IS_REGISTER + " " + UserLoggerConstants.USER_IS_VALID + $"{model.Email}.");
 
-                        return RedirectToAction("Index", "Home");
+						
+						var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+						var callbackUrl = Url.Action(
+							"ConfirmEmail",
+							"Account",
+							new { userId = user.Id, code },
+							protocol: HttpContext.Request.Scheme);
+						var emailService = new EmailService();
+						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+
+                        var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+
+                        return View("SuccessRegistration", message);
                     }
                     else
                     {
@@ -221,12 +234,48 @@ namespace SecurityDoors.App.Controllers
             return View(model);
         }
 
-        /// <summary>
-        /// Вход в систему.
-        /// </summary>
-        /// <param name="returnUrl">возврат по определенному адресу.</param>
-        /// <returns></returns>
-        [HttpGet]
+		/// <summary>
+		/// Подтверждение e-mail при переходе по ссылке в письме
+		/// </summary>
+		/// <param name="userId">ID пользователя</param>
+		/// <param name="code">Код</param>
+		/// <returns></returns>
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<IActionResult> ConfirmEmail(string userId, string code)
+		{
+			if (userId == null || code == null)
+			{
+				return View("Error");
+			}
+
+			var user = await _userManager.FindByIdAsync(userId);
+
+			if (user == null)
+			{
+				return View("Error");
+			}
+
+			var result = await _userManager.ConfirmEmailAsync(user, code);
+
+			if (result.Succeeded)
+			{
+				var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+
+				return View("SuccessRegistration", message);
+			}
+			else
+			{
+				return View("Error");
+			}
+		}
+
+		/// <summary>
+		/// Вход в систему.
+		/// </summary>
+		/// <param name="returnUrl">возврат по определенному адресу.</param>
+		/// <returns></returns>
+		[HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });

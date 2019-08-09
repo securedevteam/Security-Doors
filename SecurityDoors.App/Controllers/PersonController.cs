@@ -6,6 +6,7 @@ using SecurityDoors.Core.Constants;
 using SecurityDoors.Core.Logger.Constants;
 using SecurityDoors.Core.Logger.Events;
 using SecurityDoors.PresentationLayer;
+using SecurityDoors.PresentationLayer.Paginations;
 using SecurityDoors.PresentationLayer.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace SecurityDoors.App.Controllers
     /// </summary>
 	public class PersonController : Controller
 	{
-		private ServicesManager _serviceManager;
+        private readonly ServicesManager _serviceManager;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace SecurityDoors.App.Controllers
         /// </summary>
         /// <returns>Представление</returns>
         [Authorize(Roles = "admin, moderator")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
 		{
             var models = await _serviceManager.People.GetPeopleAsync();
 
@@ -49,7 +50,21 @@ namespace SecurityDoors.App.Controllers
                 _logger.LogInformation(CommonSuccessfulEvents.ListItems, PersonLoggerConstants.PEOPLE_LIST_IS_NOT_EMPTY + models.Count + AppConstants.DOT);
             }
 
-            return View(models);
+            int pageSize = 5;
+            var count = models.Count;
+            var items = models.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var availableCards = await GetListAvailableCardsAsync(1);
+
+            var pageViewModel = new PageViewModel(count, page, pageSize);
+            var viewModel = new PersonIndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                People = items,
+                AvailableCards = availableCards
+            };
+
+            return View(viewModel);
 		}
 
         private async Task<List<string>> GetListAvailableCardsAsync(int form)
