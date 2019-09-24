@@ -46,7 +46,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
                     Location = location,
 					PassingTime = model.PassingTime,
                     Status = status,
-					Comment = model.Comment
+					Comment = model.UserAccount
 				});
 			}
 
@@ -66,7 +66,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
                 Id = model.Id,
                 Location = location,
                 Status = status,
-                Comment = model.Comment
+                Comment = model.UserAccount
             };
 
             return viewModel;
@@ -85,7 +85,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
                 Id = model.Id,
                 Location = location,
                 Status = status,
-                Comment = model.Comment
+                Comment = model.UserAccount
             };
 
             return editModel;
@@ -106,7 +106,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
 
             doorPassing.Location = location;
             doorPassing.Status = status;
-            doorPassing.Comment = model.Comment;
+            doorPassing.UserAccount = model.Comment;
 
             await _dataManager.DoorsPassing.SaveAsync(doorPassing);
 

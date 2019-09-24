@@ -33,7 +33,7 @@ namespace SecurityDoors.DoorController
                 CardId = card.Id,
                 Status = 1,
                 Location = location,
-                Comment = card.Comment
+                UserAccount = card.Comment
             };   
 
             await _dataManager.DoorsPassing.CreateAsync(doorpassing);
