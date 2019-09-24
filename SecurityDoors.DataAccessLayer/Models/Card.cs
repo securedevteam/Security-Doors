@@ -33,9 +33,9 @@ namespace SecurityDoors.DataAccessLayer.Models
 		public bool Location { get; set; }
 
         /// <summary>
-        /// Комментарий.
+        /// Аккаунт сотрудника.
         /// </summary>
-        public string Comment { get; set; }
+        public string UserAccount { get; set; }
 
         public virtual ICollection<DoorPassing> DoorPassings { get; set; }
 

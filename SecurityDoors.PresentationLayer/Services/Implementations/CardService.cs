@@ -43,7 +43,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
                     Status = status,
                     Level = level,
                     Location = location,
-                    Comment = model.Comment
+                    UserAccount = model.UserAccount
                 });
             }
 
@@ -65,7 +65,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
                 Status = status,
                 Level = level,
                 Location = location,
-                Comment = model.Comment
+                UserAccount = model.UserAccount
             };
 
             return viewModel;
@@ -83,7 +83,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
             {
                 Id = model.Id,
                 Status = status,
-                Comment = model.Comment
+                UserAccount = model.UserAccount
             };
 
             return editModel;
@@ -117,7 +117,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
             card.Status = status;
             card.Level = level;
             card.Location = location;
-            card.Comment = model.Comment;
+            card.UserAccount = model.UserAccount;
 
             await _dataManager.Cards.SaveAsync(card);
 
@@ -137,7 +137,7 @@ namespace SecurityDoors.PresentationLayer.Services.Implementations
             var status = model.ConvertStatus();
 
             card.Status = status;
-            card.Comment = model.Comment;
+            card.UserAccount = model.UserAccount;
 
             await _dataManager.Cards.SaveAsync(card);
 

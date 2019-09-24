@@ -41,10 +41,10 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Location { get; set; }
 
         /// <summary>
-        /// Комментарий.
+        /// Аккаунт сотрудника.
         /// </summary>
-        [Display(Name = "Комментарий")]
-        public string Comment { get; set; }
+        [Display(Name = "Аккаунт сотрудника")]
+        public string UserAccount { get; set; }
     }
 
     /// <summary>
@@ -65,9 +65,9 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         public string Status { get; set; }
 
         /// <summary>
-        /// Комментарий.
+        /// Аккаунт сотрудника.
         /// </summary>
-        [Display(Name = "Комментарий")]
-        public string Comment { get; set; }
+        [Display(Name = "Аккаунт сотрудника")]
+        public string UserAccount { get; set; }
     }
 }
