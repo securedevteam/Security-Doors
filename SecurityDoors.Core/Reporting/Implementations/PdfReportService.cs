@@ -108,7 +108,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
                     $"<td>{row.PassingTime.ToString()}</td>" +
                     $"<td>{row.Status}</td>" +
                     $"<td>{row.Location}</td>" +
-                    $"<td>{row.Comment}</td>" +
+                    $"<td>{row.UserAccount}</td>" +
                     $"<td>{row.Door}</td>" +
                     $"<td>{row.Card}</td>" +
                     $"</tr>";

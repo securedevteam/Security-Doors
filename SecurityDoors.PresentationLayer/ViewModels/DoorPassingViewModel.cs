@@ -36,8 +36,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Комментарий.
         /// </summary>
-        [Display(Name = "Комментарий")]
-		public string Comment { get; set; }
+        [Display(Name = "Аккаунт сотрудника")]
+		public string UserAccount { get; set; }
 		
         /// <summary>
         /// Название двери.
@@ -80,7 +80,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Комментарий.
         /// </summary>
-        [Display(Name = "Комментарий")]
-        public string Comment { get; set; }
+        [Display(Name = "Аккаунт сотрудника")]
+        public string UserAccount { get; set; }
     }
 }

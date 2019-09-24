@@ -95,7 +95,7 @@ namespace SecurityDoors.App.Controllers
                                                           PassingTime = d.PassingTime,
                                                           Status = d.Status,
                                                           Location = d.Location,
-                                                          Comment = d.Comment,
+                                                          UserAccount = d.UserAccount,
                                                           Door = d.Door,
                                                           Card = d.Card
                                                       })

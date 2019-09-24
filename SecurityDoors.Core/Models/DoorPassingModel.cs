@@ -28,9 +28,9 @@ namespace SecurityDoors.Core.Models
         public string Location { get; set; }
 
         /// <summary>
-        /// Комментарий.
+        /// Аккаунт сотрудника.
         /// </summary>
-        public string Comment { get; set; }
+        public string UserAccount { get; set; }
 
         /// <summary>
         /// Название двери.
