@@ -12,7 +12,7 @@ namespace SecurityDoors.DataAccessLayer.Models
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
     }
 }
