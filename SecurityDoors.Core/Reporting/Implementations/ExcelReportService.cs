@@ -97,7 +97,7 @@ namespace SecurityDoors.Core.Reporting.Implementations
 				sheet.Cells[currentRow, 3].Value = row.PassingTime;
 				sheet.Cells[currentRow, 4].Value = row.Status;
 				sheet.Cells[currentRow, 5].Value = row.Location;
-				sheet.Cells[currentRow, 6].Value = row.Comment;
+				sheet.Cells[currentRow, 6].Value = row.UserAccount;
 				sheet.Cells[currentRow, 7].Value = row.Door;
 				sheet.Cells[currentRow, 8].Value = row.Card;
 				currentRow++;

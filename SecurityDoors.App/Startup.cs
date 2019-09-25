@@ -43,8 +43,7 @@ namespace SecurityDoors.App
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
 			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationContext>()
-				.AddDefaultTokenProviders();
+				.AddEntityFrameworkStores<ApplicationContext>();
 
             // Добавлен DI
             services.AddTransient<ICardRepository, CardRepository>();

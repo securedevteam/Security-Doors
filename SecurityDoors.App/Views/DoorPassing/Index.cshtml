@@ -52,7 +52,7 @@
             <tbody>
                 @foreach (var item in Model.DoorPassings)
                 {
-                    @if (User.Identity.Name == item.Comment)
+                    @if (User.Identity.Name == item.UserAccount)
                     {
                         <tr>
                             <td>@item.PassingTime</td>
@@ -72,7 +72,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Время прохода</th>
                     <th scope="col">Уникальный номер карточки</th>
-                    <th scope="col">Пользователь</th>
+                    <th scope="col">Аккаунт сотрудника</th>
                     <th scope="col">Проход</th>
 
                     @if (User.IsInRole("admin"))
@@ -91,7 +91,7 @@
                         <td>@item.Id</td>
                         <td>@item.PassingTime</td>
                         <td>@item.Card</td>
-                        <td>@item.Comment</td>
+                        <td>@item.UserAccount</td>
                         <td>@item.Location</td>
 
                         @if (User.IsInRole("admin"))

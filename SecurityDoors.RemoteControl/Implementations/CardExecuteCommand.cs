@@ -62,7 +62,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     Level = level,
                     Status = status,
                     Location = location,
-                    Comment = comment
+                    UserAccount = comment
                 };
 
                 await _dataManager.Cards.CreateAsync(card);
@@ -100,7 +100,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                     Console.WriteLine($"Level: {level}");
                     Console.WriteLine($"Status: {status}");
                     Console.WriteLine($"Location: {location}");
-                    Console.WriteLine($"Comment: {card.Comment}");
+                    Console.WriteLine($"Comment: {card.UserAccount}");
                     Console.WriteLine("===========================");
                     Console.WriteLine();
                 }
@@ -179,7 +179,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 Console.Write(string.Format(" {0,13} |", level));
                 Console.Write(string.Format(" {0,10} |", status));
                 Console.Write(string.Format(" {0,19} |", location));
-                Console.Write(string.Format(" {0,15} |", c.Comment));
+                Console.Write(string.Format(" {0,15} |", c.UserAccount));
                 Console.WriteLine();
             }
 

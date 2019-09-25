@@ -56,7 +56,7 @@ namespace SecurityDoors.Tests
 					PassingTime = DateTime.Now,
 					Status = rnd.Next(),
 					Location = false,
-					Comment = string.Empty,
+					UserAccount = string.Empty,
 					DoorId = rnd.Next(),
 					CardId = rnd.Next(),
 				});
@@ -85,7 +85,7 @@ namespace SecurityDoors.Tests
 				PassingTime = DateTime.Now,
 				Status = rnd.Next(),
 				Location = false,
-				Comment = string.Empty,
+				UserAccount = string.Empty,
 				DoorId = rnd.Next(),
 				CardId = rnd.Next(),
 			};
@@ -101,7 +101,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.PassingTime, actual.PassingTime);
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
             Assert.Equal(expected.DoorId, actual.DoorId);
             Assert.Equal(expected.CardId, actual.CardId);
         }
@@ -118,7 +118,7 @@ namespace SecurityDoors.Tests
 				PassingTime = DateTime.Now,
 				Status = rnd.Next(),
 				Location = false,
-				Comment = string.Empty,
+				UserAccount = string.Empty,
 				DoorId = rnd.Next(),
 				CardId = rnd.Next(),
 			};
@@ -137,7 +137,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.PassingTime, actual.PassingTime);
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
             Assert.Equal(expected.DoorId, actual.DoorId);
             Assert.Equal(expected.CardId, actual.CardId);
         }
@@ -154,7 +154,7 @@ namespace SecurityDoors.Tests
 				PassingTime = DateTime.Now,
 				Status = rnd.Next(),
 				Location = false,
-				Comment = string.Empty,
+				UserAccount = string.Empty,
 				DoorId = rnd.Next(),
 				CardId = rnd.Next(),
 			};
@@ -168,7 +168,7 @@ namespace SecurityDoors.Tests
             actual.PassingTime = DateTime.Now;
             actual.Status = rnd.Next();
             actual.Location = true;
-            actual.Comment = Guid.NewGuid().ToString();
+            actual.UserAccount = Guid.NewGuid().ToString();
             actual.DoorId = rnd.Next();
             actual.CardId = rnd.Next();
 
@@ -182,7 +182,7 @@ namespace SecurityDoors.Tests
             Assert.NotEqual(expected.PassingTime, result.PassingTime);
             Assert.NotEqual(expected.Status, result.Status);
             Assert.NotEqual(expected.Location, result.Location);
-            Assert.NotEqual(expected.Comment, result.Comment);
+            Assert.NotEqual(expected.UserAccount, result.UserAccount);
             Assert.NotEqual(expected.DoorId, result.DoorId);
             Assert.NotEqual(expected.CardId, result.CardId);
         }
@@ -199,7 +199,7 @@ namespace SecurityDoors.Tests
 				PassingTime = DateTime.Now,
 				Status = rnd.Next(),
 				Location = false,
-				Comment = string.Empty,
+				UserAccount = string.Empty,
 				DoorId = rnd.Next(),
 				CardId = rnd.Next(),
 			};
@@ -227,7 +227,7 @@ namespace SecurityDoors.Tests
 				PassingTime = DateTime.Now,
 				Status = rnd.Next(),
 				Location = false,
-				Comment = string.Empty,
+				UserAccount = string.Empty,
 				DoorId = rnd.Next(),
 				CardId = rnd.Next(),
 			};
@@ -244,7 +244,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.PassingTime, actual.PassingTime);
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
             Assert.Equal(expected.DoorId, actual.DoorId);
             Assert.Equal(expected.CardId, actual.CardId);
         }

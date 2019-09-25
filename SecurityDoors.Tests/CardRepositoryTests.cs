@@ -57,7 +57,7 @@ namespace SecurityDoors.Tests
                     Status = rnd.Next(),
                     Level = rnd.Next(),
                     Location = false,
-                    Comment = string.Empty
+                    UserAccount = string.Empty
                 });
             }
 
@@ -84,7 +84,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             _context.Cards.Add(expected);
@@ -99,7 +99,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Level, actual.Level);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             _context.Cards.Add(expected);
@@ -130,7 +130,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Level, actual.Level);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             // Act
@@ -163,7 +163,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Level, actual.Level);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             _context.Cards.Add(expected);
@@ -206,7 +206,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             // Act
@@ -221,7 +221,7 @@ namespace SecurityDoors.Tests
             Assert.Equal(expected.Status, actual.Status);
             Assert.Equal(expected.Level, actual.Level);
             Assert.Equal(expected.Location, actual.Location);
-            Assert.Equal(expected.Comment, actual.Comment);
+            Assert.Equal(expected.UserAccount, actual.UserAccount);
         } 
         
         /// <summary>
@@ -237,7 +237,7 @@ namespace SecurityDoors.Tests
                 Status = rnd.Next(),
                 Level = rnd.Next(),
                 Location = false,
-                Comment = string.Empty
+                UserAccount = string.Empty
             };
 
             _context.Cards.Add(expected);
@@ -250,7 +250,7 @@ namespace SecurityDoors.Tests
             actual.Status = rnd.Next();
             actual.Level = rnd.Next();
             actual.Location = true;
-            actual.Comment = Guid.NewGuid().ToString();
+            actual.UserAccount = Guid.NewGuid().ToString();
 
             _dataManagerService.Cards.Update(actual);
             _context.SaveChanges();
@@ -263,7 +263,7 @@ namespace SecurityDoors.Tests
             Assert.NotEqual(expected.Status, result.Status);
             Assert.NotEqual(expected.Level, result.Level);
             Assert.NotEqual(expected.Location, result.Location);
-            Assert.NotEqual(expected.Comment, result.Comment);
+            Assert.NotEqual(expected.UserAccount, result.UserAccount);
         }
 
 

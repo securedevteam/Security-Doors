@@ -30,7 +30,7 @@ namespace SecurityDoors.DataAccessLayer.Models
         /// <summary>
         /// Комментарий.
         /// </summary>
-        public string Comment { get; set; }  
+        public string UserAccount { get; set; }  
 
         /// <summary>
         /// Id двери.
