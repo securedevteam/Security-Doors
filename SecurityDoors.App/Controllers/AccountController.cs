@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -27,18 +28,25 @@ namespace SecurityDoors.App.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
         private readonly ServicesManager _serviceManager;
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, ILogger<CardController> logger, DataManager dataManager)
+        public AccountController(RoleManager<IdentityRole> roleManager, 
+                                 UserManager<User> userManager, 
+                                 SignInManager<User> signInManager, 
+                                 ILogger<CardController> logger, 
+                                 DataManager dataManager,
+                                 IStringLocalizer<AccountController> localizer)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _serviceManager = new ServicesManager(dataManager);
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -211,7 +219,7 @@ namespace SecurityDoors.App.Controllers
 						var emailService = new EmailService();
 						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
-                        var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+                        var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
                         return View("SuccessRegistration", message);
                     }
@@ -314,7 +322,7 @@ namespace SecurityDoors.App.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", $"{_localizer["InvalidData"]}");
 
                     _logger.LogWarning(UserUnsuccessfulEvents.LoginUserItemNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
                 }

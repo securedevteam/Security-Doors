@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using System.Globalization;
 
 namespace SecurityDoors.App
 {
@@ -30,6 +32,8 @@ namespace SecurityDoors.App
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies 
@@ -46,13 +50,13 @@ namespace SecurityDoors.App
 				.AddEntityFrameworkStores<ApplicationContext>();
 
             // Добавлен DI
-            services.AddTransient<ICardRepository, CardRepository>();
-            services.AddTransient<IDoorRepository, DoorRepository>();
-            services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
-            services.AddTransient<IPersonRepository, PersonRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IDoorRepository, DoorRepository>();
+            services.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddScoped<DataManager>();
+            services.AddSingleton<DataManager>();
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SecurityDoors API", Version = "v1" }));
 
@@ -73,6 +77,18 @@ namespace SecurityDoors.App
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("ru-RU"),
+                new CultureInfo("en-US")  
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("ru-RU"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecurityDoors API version 1"));
