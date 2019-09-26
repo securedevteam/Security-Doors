@@ -61,6 +61,7 @@ namespace SecurityDoors.App
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SecurityDoors API", Version = "v1" }));
 
             services.AddMvc()
+                .AddViewLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);         
         }
 
