@@ -217,7 +217,7 @@ namespace SecurityDoors.App.Controllers
 							new { userId = user.Id, code },
 							protocol: HttpContext.Request.Scheme);
 						var emailService = new EmailService();
-						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+						await emailService.SendEmailAsync(user.Email, $"{_localizer["ConfirmationRegistration"]}", $"{_localizer["FollowingLink"]} <a href='{callbackUrl}'>link</a>");
 
                         var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
@@ -268,9 +268,10 @@ namespace SecurityDoors.App.Controllers
 
 			if (result.Succeeded)
 			{
-				var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+				var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
-				return View("SuccessRegistration", message);
+
+                return View("SuccessRegistration", message);
 			}
 			else
 			{

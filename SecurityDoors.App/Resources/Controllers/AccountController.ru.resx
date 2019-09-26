@@ -120,6 +120,9 @@
   <data name="ConfirmationRegistration" xml:space="preserve">
     <value>Подтверждение регистрации.</value>
   </data>
+  <data name="FollowingLink" xml:space="preserve">
+    <value>Подтвердите регистрацию, перейдя по ссылке:</value>
+  </data>
   <data name="InvalidData" xml:space="preserve">
     <value>Неправильный логин и (или) пароль.</value>
   </data>

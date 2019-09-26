@@ -120,6 +120,9 @@
   <data name="ConfirmationRegistration" xml:space="preserve">
     <value>Confirmation of registration.</value>
   </data>
+  <data name="FollowingLink" xml:space="preserve">
+    <value>Confirm the registration by clicking on the link:</value>
+  </data>
   <data name="InvalidData" xml:space="preserve">
     <value>Incorrect username and / or password. Hello</value>
   </data>
