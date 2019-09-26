@@ -16,6 +16,8 @@ using SecurityDoors.PresentationLayer.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 
+// TODO: Рефакторинг.
+
 namespace SecurityDoors.App.Controllers
 {
     /// <summary>
@@ -102,12 +104,12 @@ namespace SecurityDoors.App.Controllers
                                              .Where(s => s.PassingTime >= report.Start && s.PassingTime <= report.End)
                                              .ToList();
 
-                var infoCard = "каточка не была указана";
+                var infoCard = DoorPassingConstants.CardNotIndicated;
                 
                 if (!string.IsNullOrWhiteSpace(report.Card))
                 {
                     models = models.Where(d => d.Card == report.Card).ToList();
-                    infoCard = $"уникальный номер карточки - {report.Card}";
+                    infoCard = $"{DoorPassingConstants.UniqueCardNumber} - {report.Card}";
                 }
 
                 if (models.Count > 0)

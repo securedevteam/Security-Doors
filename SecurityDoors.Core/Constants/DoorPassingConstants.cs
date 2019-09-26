@@ -34,5 +34,15 @@
         /// Доступ запрещен.
         /// </summary>
         public const string AccessDenied = "Доступ запрещен";
+
+        /// <summary>
+        /// Карточка не была указана.
+        /// </summary>
+        public const string CardNotIndicated = "карточка не была указана";
+
+        /// <summary>
+        /// Уникальный номер карточки.
+        /// </summary>
+        public const string UniqueCardNumber = "уникальный номер карточки";
     }
 }
