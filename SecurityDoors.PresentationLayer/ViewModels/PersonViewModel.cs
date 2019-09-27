@@ -17,48 +17,48 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Имя.
         /// </summary>
-		[Required(ErrorMessage = "Неверное имя")]
-		[Display(Name = "Имя")]
+		[Required(ErrorMessage = "InvalidName")]
+		[Display(Name = "FirstName")]
 		public string FirstName { get; set; }
 
         /// <summary>
         /// Отчество.
         /// </summary>
-		[Display(Name = "Отчество")]
+		[Display(Name = "SecondName")]
 		public string SecondName { get; set; }
 
         /// <summary>
         /// Фамилия.
         /// </summary>
-		[Required(ErrorMessage = "Неверная фамилия")]
-		[Display(Name = "Фамилия")]
+		[Required(ErrorMessage = "InvalidLastName")]
+		[Display(Name = "LastName")]
 		public string LastName { get; set; }
 
         /// <summary>
         /// Пол.
         /// </summary>
-		[Required(ErrorMessage = "Неверный пол")]
-		[Display(Name = "Пол")]
+		[Required(ErrorMessage = "InvalidGender")]
+		[Display(Name = "Gender")]
 		public string Gender { get; set; }
 
         /// <summary>
         /// Паспорт.
         /// </summary>
-		[Required(ErrorMessage = "Неверный номер паспорта")]
-		[Display(Name = "Паспорт")]
+		[Required(ErrorMessage = "InvalidPassport")]
+		[Display(Name = "Passport")]
 		public string Passport { get; set; }
 
         /// <summary>
         /// Комментарий.
         /// </summary>
-		[Display(Name = "Комментарий")]
+		[Display(Name = "Comment")]
 		public string Comment { get; set; }
 
         /// <summary>
         /// Уникальный номер карты.
         /// </summary>
-        [Required(ErrorMessage = "Неверный уникальный номер карты")]
-		[Display(Name = "Уникальный номер карты")]
+        [Required(ErrorMessage = "InvalidUniqueNumber")]
+		[Display(Name = "UniqueNumber")]
 		public string Card { get; set; }
 
         /// <summary>
@@ -79,55 +79,55 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Имя.
         /// </summary>
-		[Required(ErrorMessage = "Неверное имя")]
-        [Display(Name = "Имя")]
+		[Required(ErrorMessage = "InvalidName")]
+        [Display(Name = "FirstName")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Отчество.
         /// </summary>
-		[Display(Name = "Отчество")]
+		[Display(Name = "SecondName")]
         public string SecondName { get; set; }
 
         /// <summary>
         /// Фамилия.
         /// </summary>
-		[Required(ErrorMessage = "Неверная фамилия")]
-        [Display(Name = "Фамилия")]
+		[Required(ErrorMessage = "InvalidLastName")]
+        [Display(Name = "LastName")]
         public string LastName { get; set; }
 
         /// <summary>
         /// Пол.
         /// </summary>
-		[Required(ErrorMessage = "Неверный пол")]
-        [Display(Name = "Пол")]
+		[Required(ErrorMessage = "InvalidGender")]
+        [Display(Name = "Gender")]
         public string Gender { get; set; }
 
         /// <summary>
         /// Паспорт.
         /// </summary>
-		[Required(ErrorMessage = "Неверный паспорт")]
-        [Display(Name = "Паспорт")]
+		[Required(ErrorMessage = "InvalidPassport")]
+        [Display(Name = "Passport")]
         public string Passport { get; set; }
 
         /// <summary>
         /// Комментарий.
         /// </summary>
-		[Display(Name = "Комментарий")]
+		[Display(Name = "Comment")]
         public string Comment { get; set; }
 
         /// <summary>
         /// Уникальный номер карты.
         /// </summary>
-		[Required(ErrorMessage = "Неверный уникальный номер карты")]
-        [Display(Name = "Уникальный номер карты")]
+		[Required(ErrorMessage = "InvalidUniqueNumber")]
+        [Display(Name = "UniqueNumber")]
         public string Card { get; set; }
 
         /// <summary>
         /// Новый уникальный номер карты.
         /// </summary>
-		[Required(ErrorMessage = "Неверный новый уникальный номер карты")]
-        [Display(Name = "Новый уникальный номер карты")]
+		[Required(ErrorMessage = "InvalidNewUniqueNumber")]
+        [Display(Name = "NewUniqueNumber")]
         public string SelectedNewUniqueNumberCard { get; set; }
 
         /// <summary>
