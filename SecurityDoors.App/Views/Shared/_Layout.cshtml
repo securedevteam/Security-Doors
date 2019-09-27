@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -55,12 +59,20 @@
                 <div class="col-12 col-md">
                     <small class="d-block mb-3 text-muted">30 commits to bug © 2019</small>
                 </div>
+
                 <div class="col-6 col-md"></div>
-                <div class="col-6 col-md"></div>
+
                 <div class="col-6 col-md">
                     <h5>О проекте</h5>
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" asp-action="About" asp-controller="Home">Команда</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md">
+                    <h5>Язык приложения</h5>
+                    <ul class="list-unstyled text-small">
+                        @await Html.PartialAsync("_SelectLanguagePartial")
                     </ul>
                 </div>
             </div>
