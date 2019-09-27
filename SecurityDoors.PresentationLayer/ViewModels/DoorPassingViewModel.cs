@@ -6,38 +6,14 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     /// <summary>
     /// Модель дверного контроллера для просмотра.
     /// </summary>
-    public class DoorPassingViewModel
-	{
-        /// <summary>
-        /// Id дверного контроллера.
-        /// </summary>
-		public int Id { get; set; }
-
+    public class DoorPassingViewModel : DoorPassingEditModel
+    {
         /// <summary>
         /// Время прохода.
         /// </summary>
 		[Required(ErrorMessage = "Неверное время прохода")]
 		[Display(Name = "Время прохода")]
 		public DateTime PassingTime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// Статус.
-        /// </summary>
-        [Required(ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
-        public string Status { get; set; }
-
-        /// <summary>
-        /// Нахождение.
-        /// </summary>
-        [Display(Name = "Нахождение")]
-        public string Location { get; set; }
-
-        /// <summary>
-        /// Комментарий.
-        /// </summary>
-        [Display(Name = "Аккаунт сотрудника")]
-		public string UserAccount { get; set; }
 		
         /// <summary>
         /// Название двери.
@@ -62,7 +38,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Id дверного контроллера.
         /// </summary>
-		public int Id { get; set; }
+        [Display(Name = "Id")]
+        public int Id { get; set; }
 
         /// <summary>
         /// Статус

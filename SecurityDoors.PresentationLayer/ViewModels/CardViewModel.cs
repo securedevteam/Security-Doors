@@ -5,26 +5,14 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     /// <summary>
     /// Модель карты для просмотра.
     /// </summary>
-    public class CardViewModel
+    public class CardViewModel : CardEditModel
     {
-        /// <summary>
-        /// Id карты.
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Уникальный номер карты.
         /// </summary>
         //[Required(ErrorMessage = "Неверный уникальный номер")]
         [Display(Name = "Уникальный номер")]
         public string UniqueNumber { get; set; }
-
-        /// <summary>
-        /// Статус.
-        /// </summary>
-        [Required(ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
-        public string Status { get; set; }
 
         /// <summary>
         /// Уровень.
@@ -39,12 +27,6 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         [Required(ErrorMessage = "Неверно указано нахождение")]
         [Display(Name = "Нахождение")]
         public string Location { get; set; }
-
-        /// <summary>
-        /// Аккаунт сотрудника.
-        /// </summary>
-        [Display(Name = "Аккаунт сотрудника")]
-        public string UserAccount { get; set; }
     }
 
     /// <summary>
@@ -55,6 +37,7 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Id карты.
         /// </summary>
+        [Display(Name = "Id")]
         public int Id { get; set; }
 
         /// <summary>
