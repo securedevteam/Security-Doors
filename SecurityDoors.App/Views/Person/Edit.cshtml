@@ -1,18 +1,21 @@
-﻿@model PersonEditModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model PersonEditModel
 
 @{
-    ViewData["Title"] = "Редактировать сотрудника - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h2>Редактировать сотрудника №@Model.Id</h2>
+    <h2>@Localizer["Header"] №@Model.Id</h2>
 </div>
 
 <br />
 
 <form method="post" asp-controller="Person" asp-action="Edit" asp-route-id="@Model.Id">
     <div asp-validation-summary="ModelOnly"></div>
-    
+
     <div class="form-row">
         <div class="form-group col-md-4">
             <b><label asp-for="FirstName"></label></b>
@@ -65,5 +68,5 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-warning">Изменить</button>
+    <button type="submit" class="btn btn-warning">@Localizer["Edit"]</button>
 </form>

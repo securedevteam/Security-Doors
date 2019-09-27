@@ -1,11 +1,14 @@
-﻿@model PersonViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model PersonViewModel
 
 @{
-    ViewData["Title"] = "Создать сотрудника - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h2>Создать нового сотрудника</h2>
+    <h2>@Localizer["Header"]</h2>
 </div>
 
 <br />
