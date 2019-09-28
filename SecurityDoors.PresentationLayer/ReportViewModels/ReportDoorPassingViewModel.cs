@@ -11,21 +11,21 @@ namespace SecurityDoors.PresentationLayer.ReportViewModels
         /// <summary>
         /// С (дата и время).
         /// </summary>
-        [Required(ErrorMessage = "Неверные данные")]
-        [Display(Name = "С (дата и время)")]
+        [Required(ErrorMessage = "WrongData")]
+        [Display(Name = "FromDateTime")]
         public DateTime Start { get; set; }
 
         /// <summary>
         /// По (дата и время).
         /// </summary>
-        [Required(ErrorMessage = "Неверные данные")]
-        [Display(Name = "По (дата и время)")]
+        [Required(ErrorMessage = "WrongData")]
+        [Display(Name = "ToDateTime")]
         public DateTime End { get; set; }
 
         /// <summary>
         /// Уникальный номер карточки.
         /// </summary>
-        [Display(Name = "Уникальный номер карточки")]
+        [Display(Name = "UniqueNumber")]
         public string Card { get; set; }
     }
 }
