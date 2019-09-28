@@ -129,14 +129,14 @@
   <data name="Id" xml:space="preserve">
     <value>Id</value>
   </data>
+  <data name="InvalidFirstName" xml:space="preserve">
+    <value>Invalid FirstName</value>
+  </data>
   <data name="InvalidGender" xml:space="preserve">
     <value>Invalid gender</value>
   </data>
   <data name="InvalidLastName" xml:space="preserve">
     <value>Invalid LastName</value>
-  </data>
-  <data name="InvalidName" xml:space="preserve">
-    <value>Invalid FirstName</value>
   </data>
   <data name="InvalidNewUniqueNumber" xml:space="preserve">
     <value>Invalid new unique card number</value>
