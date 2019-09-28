@@ -61,7 +61,8 @@ namespace SecurityDoors.App
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
 			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationContext>();
+				.AddEntityFrameworkStores<ApplicationContext>()
+				.AddDefaultTokenProviders();
 
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IDoorRepository, DoorRepository>();

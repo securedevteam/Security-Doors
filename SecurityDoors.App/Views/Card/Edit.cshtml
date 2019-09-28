@@ -1,11 +1,11 @@
 ﻿@model CardEditModel
 
 @{
-    ViewData["Title"] = "Редактировать карточку - Security Doors";
+    ViewData["Title"] = Localizer["EditCard"] + " - Security Doors";
 }
 
 <div class="text-center">
-    <h2>Редактировать карточку №@Model.Id</h2>
+    <h2>@Localizer["EdutCard"] @Model.Id</h2>
 </div>
 
 <br />
@@ -29,5 +29,5 @@
         <span asp-validation-for="UserAccount"></span>
     </div>
 
-    <button type="submit" class="btn btn-warning">Изменить</button>
+    <button type="submit" class="btn btn-warning">@Localizer["Edit"]</button>
 </form>
