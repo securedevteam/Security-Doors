@@ -120,19 +120,6 @@ namespace SecurityDoors.App.Controllers
         }
 
         /// <summary>
-        /// Создание нового сотрудника.
-        /// </summary>
-        /// <returns>Представление.</returns>
-        [Authorize(Roles = "admin, moderator")]
-        public async Task<IActionResult> Create()
-		{
-            var availableCards = await GetListAvailableCardsAsync(1);
-            var viewModel = new PersonViewModel { AvailableCards = availableCards };
-
-            return View(viewModel);
-		}
-
-        /// <summary>
         /// Создание нового струдника (POST).
         /// </summary>
         /// <param name="person">модель сотрудника.</param>
