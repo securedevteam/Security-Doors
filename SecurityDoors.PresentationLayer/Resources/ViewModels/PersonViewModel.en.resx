@@ -138,9 +138,6 @@
   <data name="InvalidName" xml:space="preserve">
     <value>Invalid FirstName</value>
   </data>
-  <data name="InvalidNewUniqueNumber" xml:space="preserve">
-    <value>Invalid new unique card number</value>
-  </data>
   <data name="InvalidPassport" xml:space="preserve">
     <value>Invalid passport</value>
   </data>
