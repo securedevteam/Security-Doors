@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="Header" xml:space="preserve">
-    <value>Edit employee №</value>
+    <value>Результат операции</value>
+  </data>
+  <data name="Message1_1" xml:space="preserve">
+    <value>Через</value>
+  </data>
+  <data name="Message1_2" xml:space="preserve">
+    <value>сек. вы будете переведены на главную страницу.</value>
+  </data>
+  <data name="Message2_1" xml:space="preserve">
+    <value>Если этого все еще не произошло нажмите</value>
+  </data>
+  <data name="Message2_2" xml:space="preserve">
+    <value>здесь</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>.</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Edit employee - Security Doors</value>
+    <value>Формирование и отправка отчета - Security Doors</value>
   </data>
 </root>

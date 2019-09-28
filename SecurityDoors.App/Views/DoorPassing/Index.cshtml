@@ -1,11 +1,11 @@
 ﻿@model DoorPassingIndexViewModel
 
 @{
-    ViewData["Title"] = "Список дверных проходов - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h1>Список дверных проходов</h1>
+    <h1>@Localizer["Header"]</h1>
 </div>
 
 <br />
@@ -13,7 +13,7 @@
 @if (User.IsInRole("admin"))
 {
     <div>
-        <a href="#" class="btn btn-outline-warning" data-toggle="modal" data-target="#createReport">Подготовить и отправить отчет</a>
+        <a href="#" class="btn btn-outline-warning" data-toggle="modal" data-target="#createReport">@Localizer["Prepare"]</a>
     </div>
 
     <div class="modal fade" id="createReport">
@@ -21,7 +21,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h3 class="modal-title">Создать и отправить отчет</h3>
+                    <h3 class="modal-title">@Localizer["Create"]</h3>
                     <a href="#" class="close" data-dismiss="modal">&times;</a>
                 </div>
 
@@ -42,10 +42,10 @@
         {
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Время прохода</th>
-                    <th scope="col">Название двери</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Проход</th>
+                    <th scope="col">@Localizer["PassageTime"]</th>
+                    <th scope="col">@Localizer["Door"]</th>
+                    <th scope="col">@Localizer["Status"]</th>
+                    <th scope="col">@Localizer["Passage"]</th>
                 </tr>
             </thead>
 
@@ -69,17 +69,17 @@
         {
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Время прохода</th>
-                    <th scope="col">Уникальный номер карточки</th>
-                    <th scope="col">Аккаунт сотрудника</th>
-                    <th scope="col">Проход</th>
+                    <th scope="col">@Localizer["Symbol"]</th>
+                    <th scope="col">@Localizer["PassageTime"]</th>
+                    <th scope="col">@Localizer["UniqueNumber"]</th>
+                    <th scope="col">@Localizer["Account"]</th>
+                    <th scope="col">@Localizer["Passage"]</th>
 
                     @if (User.IsInRole("admin"))
                     {
-                        <th scope="col">Название двери</th>
-                        <th scope="col">Статус</th>
-                        <th scope="col">Доступные действия</th>
+                        <th scope="col">@Localizer["Door"]</th>
+                        <th scope="col">@Localizer["Status"]</th>
+                        <th scope="col">@Localizer["AvailableActions"]</th>
                     }
                 </tr>
             </thead>
@@ -98,7 +98,7 @@
                         {
                             <td>@item.Door</td>
                             <td>@item.Status</td>
-                            <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">Изменить</a></td>
+                            <td><a asp-action="Edit" asp-controller="DoorPassing" asp-route-id="@item.Id">@Localizer["Edit"]</a></td>
                         }
                     </tr>
                 }
@@ -112,7 +112,7 @@
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
        class="btn btn-outline-secondary btn-sm">
-        Назад
+       @Localizer["Back"]
     </a>
 }
 @if (Model.PageViewModel.HasNextPage)
@@ -120,7 +120,7 @@
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
        class="btn btn-outline-secondary btn-sm">
-        Вперед
+       @Localizer["Forward"]
     </a>
 }
 

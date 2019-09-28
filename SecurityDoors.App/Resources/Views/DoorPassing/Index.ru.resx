@@ -117,13 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>Аккаунт сотрудника</value>
+  </data>
+  <data name="AvailableActions" xml:space="preserve">
+    <value>Доступные действия</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать и отправить отчет</value>
+  </data>
+  <data name="Door" xml:space="preserve">
+    <value>Название двери</value>
+  </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Изменить</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Вперед</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Edit employee №</value>
+    <value>Список дверных проходов</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Место прохода</value>
+  </data>
+  <data name="Passage" xml:space="preserve">
+    <value>Проход</value>
+  </data>
+  <data name="PassageTime" xml:space="preserve">
+    <value>Время прохода</value>
+  </data>
+  <data name="Prepare" xml:space="preserve">
+    <value>Подготовить и отправить отчет</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время прохода</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Edit employee - Security Doors</value>
+    <value>Список дверных проходов - Security Doors</value>
+  </data>
+  <data name="UniqueNumber" xml:space="preserve">
+    <value>Уникальный номер карты</value>
   </data>
 </root>

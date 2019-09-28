@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Изменить</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Edit employee №</value>
+    <value>Редактировать дверной проход №</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Edit employee - Security Doors</value>
+    <value>Редактировать дверной проход - Security Doors</value>
   </data>
 </root>
