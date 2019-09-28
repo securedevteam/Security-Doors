@@ -22,9 +22,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Views\Card\Index.en.resx" />
+    <EmbeddedResource Remove="Resources\Views\Card\Index.ru.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Views\Card\Index.ru.resx" />
+    <None Include="Resources\Views\Card\Index.en.resx" />
   </ItemGroup>
 
   <ItemGroup>
