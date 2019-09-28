@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Resources\Views\Card\Edit.en.resx" />
-    <EmbeddedResource Remove="Resources\Views\Card\Index.en.resx" />
-    <EmbeddedResource Remove="Resources\Views\Card\Index.ru.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,8 +30,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Views\Card\Edit.en.resx" />
-    <None Include="Resources\Views\Card\Index.ru.resx" />
-    <None Include="Resources\Views\Card\Index.en.resx" />
   </ItemGroup>
 
   <ItemGroup>

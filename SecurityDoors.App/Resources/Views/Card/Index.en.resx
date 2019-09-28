@@ -117,34 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewCard" xml:space="preserve">
-    <value>Добавить новую карту</value>
+  <data name="AddCard" xml:space="preserve">
+    <value>Add new card</value>
   </data>
-  <data name="CardList" xml:space="preserve">
-    <value>Список карт</value>
+  <data name="AvailableActions" xml:space="preserve">
+    <value>Available actions</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CreateCard" xml:space="preserve">
+    <value>Create new card</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Детали</value>
+    <value>Details</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Изменить</value>
+    <value>Edit</value>
   </data>
-  <data name="MoveBack" xml:space="preserve">
-    <value>Назад</value>
+  <data name="Forward" xml:space="preserve">
+    <value>Forward</value>
   </data>
-  <data name="MoveForvard" xml:space="preserve">
-    <value>Вперед</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Действия</value>
+  <data name="Header" xml:space="preserve">
+    <value>Card list</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Статус</value>
+    <value>Status</value>
   </data>
-  <data name="UniqeNumber" xml:space="preserve">
-    <value>Уникальный номер</value>
+  <data name="Symbol" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Card list - Security Doors</value>
+  </data>
+  <data name="UniqueNumber" xml:space="preserve">
+    <value>Unique number</value>
   </data>
 </root>

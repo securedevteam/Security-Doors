@@ -1,11 +1,11 @@
 ﻿@model CardIndexViewModel
 
 @{
-    ViewData["Title"] = Localizer["CardList"] + " - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h1>@Localizer["CardList"]</h1>
+    <h1>@Localizer["Header"]</h1>
 </div>
 
 <br />
@@ -13,7 +13,7 @@
 @if (User.IsInRole("admin"))
 {
     <div>
-        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addNewCard">@Localizer["AddNewCard"]</a>
+        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addNewCard">@Localizer["AddCard"]</a>
     </div>
 
     <div class="modal fade" id="addNewCard">
@@ -21,7 +21,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h3 class="modal-title">@Localizer["AddNewCard"]</h3>
+                    <h3 class="modal-title">@Localizer["CreateCard"]</h3>
                     <a href="#" class="close" data-dismiss="modal">&times;</a>
                 </div>
 
@@ -40,10 +40,10 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">@Localizer["Symbol"]</th>
                 <th scope="col">@Localizer["UniqueNumber"]</th>
                 <th scope="col">@Localizer["Status"]</th>
-                <th scope="col">@Localizer["Options"]</th>
+                <th scope="col">@Localizer["AvailableActions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -58,8 +58,8 @@
 
                         @if (User.IsInRole("admin"))
                         {
-                    <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">@Localizer["Edit"]</a>
-                    <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">@Localizer["Delete"]</a>
+                            <a asp-action="Edit" asp-controller="Card" asp-route-id="@item.Id">@Localizer["Edit"]</a>
+                            <a asp-action="Delete" asp-controller="Card" asp-route-id="@item.Id">@Localizer["Delete"]</a>
                         }
                     </td>
                 </tr>
@@ -70,19 +70,19 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
-<a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-   class="btn btn-outline-secondary btn-sm">
-    @Localizer["MoveBack"]
-</a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-secondary btn-sm">
+       @Localizer["Back"]
+    </a>
 }
 @if (Model.PageViewModel.HasNextPage)
 {
-<a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-   class="btn btn-outline-secondary btn-sm">
-    @Localizer["MoveForvard"]
-</a>
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-secondary btn-sm">
+       @Localizer["Forward"]
+    </a>
 }
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
