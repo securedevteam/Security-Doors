@@ -1,17 +1,17 @@
 ﻿@model DoorViewModel
 
 @{
-    ViewData["Title"] = "Информация о двери - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h2>Информация о двери №@Model.Id</h2>
+    <h2>@Localizer["DoorDetails"] @Model.Id</h2>
 </div>
 
 <br />
 
-<li class="list-group-item">Название: <b>@Model.Name</b></li>
-<li class="list-group-item">Описание: <b>@Model.Description</b></li>
-<li class="list-group-item">Уровень: <b>@Model.Level</b></li>
-<li class="list-group-item">Статус: <b>@Model.Status</b></li>
-<li class="list-group-item">Комментарий: <b>@Model.Comment</b></li>
+<li class="list-group-item">@Localizer["Name"]: <b>@Model.Name</b></li>
+<li class="list-group-item">@Localizer["Description"]: <b>@Model.Description</b></li>
+<li class="list-group-item">@Localizer["AccessLevel"]: <b>@Model.Level</b></li>
+<li class="list-group-item">@Localizer["Status"]: <b>@Model.Status</b></li>
+<li class="list-group-item">@Localizer["Comment"]: <b>@Model.Comment</b></li>
