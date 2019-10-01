@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Вход в систему - Security Doors</title>
+    <title>@Localizer["Title"]</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,24 +22,24 @@
     <form class="form-signin" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
         <div asp-validation-summary="ModelOnly"></div>
 
-        <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
+        <h1 class="h3 mb-3 font-weight-normal">@Localizer["Autorisation"]</h1>
 
         <div class="form-group">
-            <input type="email" id="inputEmail" class="form-control" placeholder="Электронная почта" asp-for="Email" />
+            <input type="email" id="inputEmail" class="form-control" placeholder="@Localizer["E-mail"]" asp-for="Email" />
             <span asp-validation-for="Email"></span>
         </div>
 
         <div class="form-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required asp-for="Password" />
+            <input type="password" id="inputPassword" class="form-control" placeholder="@Localizer["Password"]" required asp-for="Password" />
             <span asp-validation-for="Password"></span>
         </div>
 
         <div>
             <input asp-for="RememberMe" />
-            <label asp-for="RememberMe"> Запомнить меня</label>
+            <label asp-for="RememberMe">@Localizer["RememberMe"]</label>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">@Localizer["Login"]</button>
         <p class="mt-5 mb-3 text-muted">30 commits to bug &copy; 2019</p>
 
     </form>
