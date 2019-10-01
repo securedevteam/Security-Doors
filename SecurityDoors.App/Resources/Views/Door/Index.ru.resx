@@ -129,6 +129,9 @@
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="ConfirmationMessage" xml:space="preserve">
+    <value>Подтвердите удаление</value>
+  </data>
   <data name="CreateNewDoor" xml:space="preserve">
     <value>Создать новую дверь</value>
   </data>
