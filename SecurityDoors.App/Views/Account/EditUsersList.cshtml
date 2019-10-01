@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SecurityDoors.DataAccessLayer.Models.User>
 
 @{
-    ViewData["Title"] = "Список активных пользователей - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h1>Список активных пользователей</h1>
+    <h1>@Localizer["ActiveUsersList"]</h1>
 </div>
 
 <br />
@@ -14,10 +14,10 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Электронная почта</th>
-                <th scope="col">Псевдоним</th>
-                <th scope="col">Доступные действия</th>
+                <th scope="col">@Localizer["Symbol"]</th>
+                <th scope="col">@Localizer["Email"]</th>
+                <th scope="col">@Localizer["NikName"]</th>
+                <th scope="col">@Localizer["AvailableActions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
                         @if (User.Identity.Name != item.Email)
                         {
                             <form asp-action="Delete" asp-route-id="@item.Id" method="post">
-                                <button class="btn btn-outline-danger" type="submit" onclick="return confirm('@Localizer["ConfirmationMessage"]') ? catimg('del','30') : false;">Удалить</button>
+                                <button class="btn btn-outline-danger" type="submit" onclick="return confirm('@Localizer["ConfirmationMessage"]') ? catimg('del','30') : false;">@Localizer["Delete"]</button>
                             </form>
                         }
                     </td>
