@@ -1,7 +1,7 @@
 ﻿@model MessageViewModel
 
 @{
-    ViewData["Title"] = "Регистрация успешно завершена - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <script>
@@ -20,12 +20,12 @@
 </script>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Регистрация завершена</h1>
+    <h1 class="display-4">@Localizer["RegistrationCompleted"]</h1>
 
     <p class="lead">@Model.Message</p>
 
     <br /> <br />
 
-    <p class="lead">Через <a id="seconds">15</a> сек. вы будете переведены на главную страницу.</p>
-    <p class="lead">Если этого все еще не произошло нажмите <a asp-action="Index" asp-controller="Home" id="linq">здесь</a></p>
+           <p class="lead">@Localizer["After"] <a id="seconds">15</a> @Localizer["RedirrMessage"]</p>
+           <p class="lead">@Localizer["RedirrMessage2"] <a asp-action="Index" asp-controller="Home" id="linq">@Localizer["Here"]</a></p>
 </div>
