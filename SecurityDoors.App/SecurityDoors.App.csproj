@@ -22,14 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Resources\Views\Card\Edit.en.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Views\Card\Edit.en.resx" />
   </ItemGroup>
 
   <ItemGroup>

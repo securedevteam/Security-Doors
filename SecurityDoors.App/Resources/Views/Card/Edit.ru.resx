@@ -117,25 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNewCard" xml:space="preserve">
+    <value>Добавить новую карту</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Изменить</value>
   </data>
   <data name="EditCard" xml:space="preserve">
-    <value>Edit card</value>
+    <value>Редактировать карту</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Edit card - Security Doors</value>
+    <value>Редактировать карту - Security Doors</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Статус</value>
   </data>
   <data name="UniqueNumber" xml:space="preserve">
-    <value>Unique number</value>
+    <value>Уникальный номер</value>
   </data>
   <data name="UserAccount" xml:space="preserve">
-    <value>User account</value>
+    <value>Аккаунт пользователя</value>
   </data>
 </root>
