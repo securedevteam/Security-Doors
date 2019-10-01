@@ -1,11 +1,11 @@
 ﻿@model RoleViewModel
 
 @{
-    ViewData["Title"] = "Смена ролей для пользователя - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h2>Изменение ролей для пользователя @Model.UserEmail</h2>
+    <h2>@Localizer["ChangingRole"] @Model.UserEmail</h2>
 </div>
 
 <form asp-action="EditUsersRoles" method="post">
@@ -19,5 +19,5 @@
             }
     </div>
 
-    <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить изменения</button>
+    <button class="btn btn-primary btn-lg btn-block" type="submit">@Localizer["Save"]</button>
 </form>
