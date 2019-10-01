@@ -97,7 +97,8 @@ namespace SecurityDoors.App
             app.UseStatusCodePagesWithRedirects("/Errors/{0}.html");
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseCookiePolicy();
+			//TODO: Проверить работоспособность приложения после закомменчивания строки
+            //app.UseCookiePolicy();
             
             app.UseMvc(routes =>
             {
