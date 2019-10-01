@@ -58,7 +58,7 @@
 
                         @if (User.IsInRole("admin"))
                         {
-                            <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id">@Localizer["Delete"]</a>
+                            <a asp-action="Delete" asp-controller="Person" asp-route-id="@item.Id" onclick="return confirm('@Localizer["ConfirmationMessage"]') ? catimg('del','30') : false;">@Localizer["Delete"]</a>
                         }
                     </td>
                 </tr>

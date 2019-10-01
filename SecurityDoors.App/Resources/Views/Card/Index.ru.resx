@@ -126,6 +126,9 @@
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="ConfirmationMessage" xml:space="preserve">
+    <value>Подтвердите удаление</value>
+  </data>
   <data name="CreateCard" xml:space="preserve">
     <value>Создать новую карту</value>
   </data>

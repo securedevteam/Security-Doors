@@ -126,6 +126,9 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="ConfirmationMessage" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
   <data name="CreateEmployee" xml:space="preserve">
     <value>Create a new employee</value>
   </data>
