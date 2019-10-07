@@ -17,13 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SecurityDoors.App\SecurityDoors.App.csproj" />
     <ProjectReference Include="..\SecurityDoors.BusinessLogicLayer\SecurityDoors.BusinessLogicLayer.csproj" />
-    <ProjectReference Include="..\SecurityDoors.Core\SecurityDoors.Core.csproj" />
     <ProjectReference Include="..\SecurityDoors.DataAccessLayer\SecurityDoors.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\SecurityDoors.DoorController\SecurityDoors.DoorController.csproj" />
-    <ProjectReference Include="..\SecurityDoors.PresentationLayer\SecurityDoors.PresentationLayer.csproj" />
-    <ProjectReference Include="..\SecurityDoors.RemoteControl\SecurityDoors.RemoteControl.csproj" />
   </ItemGroup>
 
 </Project>
