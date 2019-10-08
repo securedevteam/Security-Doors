@@ -175,7 +175,7 @@ namespace SecurityDoors.RemoteControl.Implementations
                 var (status, level, location) = c.ConvertStatus();
 
                 Console.Write(string.Format("| {0,5} |", c.Id));
-                Console.Write(string.Format(" {0,36} |", c.UniqueNumber));               
+                Console.Write(string.Format(" {0,36} |", c.UniqueNumber));
                 Console.Write(string.Format(" {0,13} |", level));
                 Console.Write(string.Format(" {0,10} |", status));
                 Console.Write(string.Format(" {0,19} |", location));

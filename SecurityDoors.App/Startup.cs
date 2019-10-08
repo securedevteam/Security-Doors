@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,9 +59,9 @@ namespace SecurityDoors.App
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
-			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationContext>()
-				.AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IDoorRepository, DoorRepository>();
@@ -76,7 +75,7 @@ namespace SecurityDoors.App
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {                       
+        {
             if (env.IsDevelopment())
             {                
                 app.UseDeveloperExceptionPage();
@@ -98,9 +97,9 @@ namespace SecurityDoors.App
             app.UseStaticFiles();
             app.UseAuthentication();
 
-			//TODO: Проверить работоспособность приложения после закомменчивания строки
+            // Конвейер использования политики Cookie
             //app.UseCookiePolicy();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

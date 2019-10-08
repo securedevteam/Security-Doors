@@ -64,7 +64,7 @@ namespace SecurityDoors.App
                 }
             }
 
-            webHost.Run();           
-        }       
+            webHost.Run();
+        }
     }
 }
