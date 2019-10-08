@@ -58,7 +58,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _userManager.Users.ToListAsync();
 
-            if (models == null || models.Count == 0)
+            if (!models.Any())
             {
                 _logger.LogWarning(UserUnsuccessfulEvents.ListUsersItemsNotFound, UserLoggerConstants.USERS_LIST_IS_EMPTY);
             }
@@ -115,27 +115,27 @@ namespace SecurityDoors.App.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
 
-                var model = new RoleViewModel
-                {
-                    UserId = user.Id,
-                    UserEmail = user.Email,
-                    UserRoles = userRoles,
-                    AllRoles = allRoles
-                };
-
-                _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
-
-                return View(model);
+                return NotFound();
             }
 
-            _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var allRoles = _roleManager.Roles.ToList();
 
-            return NotFound();
+            var model = new RoleViewModel
+            {
+                UserId = user.Id,
+                UserEmail = user.Email,
+                UserRoles = userRoles,
+                AllRoles = allRoles
+            };
+
+            _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+            return View(model);
         }
 
         /// <summary>
@@ -150,24 +150,24 @@ namespace SecurityDoors.App.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = await _roleManager.Roles.ToListAsync();
-                var addedRoles = roles.Except(userRoles);
-                var removedRoles = userRoles.Except(roles);
+                _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
 
-                await _userManager.AddToRolesAsync(user, addedRoles);
-                await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
-                _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
-
-                return RedirectToAction(nameof(SettingUsersRoles));
+                return NotFound();
             }
 
-            _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var allRoles = await _roleManager.Roles.ToListAsync();
+            var addedRoles = roles.Except(userRoles);
+            var removedRoles = userRoles.Except(roles);
 
-            return NotFound();
+            await _userManager.AddToRolesAsync(user, addedRoles);
+            await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+            _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+            return RedirectToAction(nameof(SettingUsersRoles));
         }
 
 		/// <summary>
@@ -266,25 +266,22 @@ namespace SecurityDoors.App.Controllers
 
 			var result = await _userManager.ConfirmEmailAsync(user, code);
 
-			if (result.Succeeded)
-			{
-				var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
+            if (!result.Succeeded)
+            {
+                return View("Error");
+            }
 
+            var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
-                return View("SuccessRegistration", message);
-			}
-			else
-			{
-				return View("Error");
-			}
-		}
+            return View("SuccessRegistration", message);
+        }
 
-		/// <summary>
-		/// Вход в систему.
-		/// </summary>
-		/// <param name="returnUrl">возврат по определенному адресу.</param>
-		/// <returns></returns>
-		[HttpGet]
+        /// <summary>
+        /// Вход в систему.
+        /// </summary>
+        /// <param name="returnUrl">возврат по определенному адресу.</param>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });

@@ -16,8 +16,6 @@ using SecurityDoors.PresentationLayer.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 
-// TODO: Рефакторинг.
-
 namespace SecurityDoors.App.Controllers
 {
     /// <summary>
@@ -45,11 +43,14 @@ namespace SecurityDoors.App.Controllers
         [Authorize]
         public async Task<ActionResult> Index(int page = 1)
         {
-            if (User.IsInRole("admin") || User.IsInRole("moderator") || User.IsInRole("user") || User.IsInRole("visitor"))
+            if (User.IsInRole("admin") || 
+                User.IsInRole("moderator") || 
+                User.IsInRole("user") || 
+                User.IsInRole("visitor"))
             {
                 var models = await _serviceManager.DoorPassings.GetDoorPassingsAsync();
 
-                if (models == null || models.Count == 0)
+                if (!models.Any())
                 {
                     _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorPassingLoggerConstants.DOORPASSING_LIST_IS_EMPTY);
                 }
@@ -71,10 +72,8 @@ namespace SecurityDoors.App.Controllers
 
                 return View(viewModel);
             }
-            else
-            {
-                return View("Error");
-            }
+
+            return View("Error");
         }
 
         /// <summary>
@@ -112,26 +111,26 @@ namespace SecurityDoors.App.Controllers
                     infoCard = $"{DoorPassingConstants.UniqueCardNumber} - {report.Card}";
                 }
 
-                if (models.Count > 0)
-                {
-                    var reportType = (report.Type).ConvertType();
-                    var service = new CreateAndSendReportService(reportType);
-                    var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
+                MessageViewModel message;
 
-                    _logger.LogInformation(CommonSuccessfulEvents.GenerateItems, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_FOUND);
-
-                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_GENERATED} {report.Email}." };
-
-                    return View("ReportResult", message);
-                }
-                else
+                if (models.Count <= 0)
                 {
                     _logger.LogWarning(CommonUnsuccessfulEvents.GetItemNotFound, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_NOT_FOUND);
 
-                    var message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_NOT_GENERATED} Указанные данные: дата и время - с {report.Start} по {report.End}, {infoCard}." };
+                    message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_NOT_GENERATED} Указанные данные: дата и время - с {report.Start} по {report.End}, {infoCard}." };
 
                     return View("ReportResult", message);
-                }  		
+                }
+
+                var reportType = (report.Type).ConvertType();
+                var service = new CreateAndSendReportService(reportType);
+                var result = await service.RunServiceAsync(models, ReportType.IsDoorPassing, report.Header, report.Description, report.Footer, report.Email);
+
+                _logger.LogInformation(CommonSuccessfulEvents.GenerateItems, DoorPassingLoggerConstants.DOORPASSING_REPORT_DATA_FOUND);
+
+                message = new MessageViewModel() { Message = $"{ReportDataConstants.REPORT_GENERATED} {report.Email}." };
+
+                return View("ReportResult", message);
             }
 
             return RedirectToAction(nameof(Index));
@@ -167,12 +166,10 @@ namespace SecurityDoors.App.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorPassingLoggerConstants.DOORPASSING_IS_NOT_VALID);
 
-                return View(doorPassing);
-            }
+            _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorPassingLoggerConstants.DOORPASSING_IS_NOT_VALID);
+
+            return View(doorPassing);
         }
     }
 }

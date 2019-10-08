@@ -41,7 +41,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _serviceManager.Cards.GetCardsAsync();
 
-            if (models == null || models.Count == 0)
+            if (!models.Any())
             {
                 _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, CardLoggerConstants.CARDS_LIST_IS_EMPTY);
             }
@@ -92,12 +92,10 @@ namespace SecurityDoors.App.Controllers
                 await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
 
-                return View(card);
-            }
+            _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
+
+            return View(card);
         }
 
         /// <summary>
@@ -151,12 +149,10 @@ namespace SecurityDoors.App.Controllers
                 await _serviceManager.Cards.SaveCardAsync(card);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
 
-                return View(card);
-            }
+            _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, CardLoggerConstants.CARD_IS_NOT_VALID);
+
+            return View(card);
         }
 
         /// <summary>

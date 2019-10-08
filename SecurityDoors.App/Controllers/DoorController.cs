@@ -40,7 +40,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _serviceManager.Doors.GetDoorsAsync();
 
-            if (models == null || models.Count == 0)
+            if (!models.Any())
             {
                 _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, DoorLoggerConstants.DOORS_LIST_IS_EMPTY);
             }
@@ -89,12 +89,10 @@ namespace SecurityDoors.App.Controllers
                 await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
 
-                return View(door);
-            }
+            _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
+
+            return View(door);
         }
 
         /// <summary>
@@ -148,12 +146,10 @@ namespace SecurityDoors.App.Controllers
                 await _serviceManager.Doors.SaveDoorAsync(door);
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
 
-                return View(door);
-            }
+            _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, DoorLoggerConstants.DOOR_IS_NOT_VALID);
+
+            return View(door);
         }
 
         /// <summary>

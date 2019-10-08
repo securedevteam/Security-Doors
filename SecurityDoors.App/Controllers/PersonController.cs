@@ -41,7 +41,7 @@ namespace SecurityDoors.App.Controllers
 		{
             var models = await _serviceManager.People.GetPeopleAsync();
 
-            if (models == null || models.Count == 0)
+            if (!models.Any())
             {
                 _logger.LogWarning(CommonUnsuccessfulEvents.ListItemsNotFound, PersonLoggerConstants.PEOPLE_LIST_IS_EMPTY);
             }
@@ -80,28 +80,24 @@ namespace SecurityDoors.App.Controllers
                 allUniqueNumbersCards.Add(item.UniqueNumber);
             }
 
-            foreach (var p in people)
-            {
-                foreach (var c in cards)
-                {
-                    if (p.Card == c.UniqueNumber)
-                    {
-                        getAvailableCards.Add(c.UniqueNumber);
-                    }
-                }
-            }
+            var result = people.Join(cards,
+                                     p => p.Card,
+                                     c => c.UniqueNumber,
+                                     (p, c) => c.UniqueNumber);
+
+            getAvailableCards.AddRange(result);
 
             var availableCards = allUniqueNumbersCards.Except(getAvailableCards).ToList();
             var listSendCardsToViewModel = new List<string>();
 
-            if(form == 0)
+            if (form == 0)
             {
                 listSendCardsToViewModel.Add(AppConstants.NOT_SELECTED);
             }
 
             listSendCardsToViewModel.AddRange(availableCards);
 
-            if(form == 1)
+            if (form == 1)
             {
                 if (listSendCardsToViewModel.Count == 0)
                 {
@@ -128,30 +124,26 @@ namespace SecurityDoors.App.Controllers
         [Authorize(Roles = "admin, moderator")]
         public async Task<IActionResult> Create(PersonViewModel person)
 		{
-            if (person.Card != null &&
-                person.Card != AppConstants.NO_AVAILABLE_CARDS)
-            {
-                if (ModelState.IsValid)
-                {
-                    _logger.LogInformation(CommonSuccessfulEvents.CreateItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
-
-                    await _serviceManager.People.SavePersonAsync(person);
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
-
-                    return View();
-                }
-            }
-            else
+            if (person.Card == null && person.Card == AppConstants.NO_AVAILABLE_CARDS)
             {
                 var availableCards = await GetListAvailableCardsAsync(1);
                 var viewModel = new PersonViewModel { AvailableCards = availableCards };
+
                 return View(viewModel);
             }
-		}
+
+            if (ModelState.IsValid)
+            {
+                _logger.LogInformation(CommonSuccessfulEvents.CreateItem, PersonLoggerConstants.PERSON_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_ADDED);
+
+                await _serviceManager.People.SavePersonAsync(person);
+                return RedirectToAction(nameof(Index));
+            }
+
+            _logger.LogWarning(CommonUnsuccessfulEvents.CreateItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
+
+            return View();
+        }
 
         /// <summary>
         /// Информация о сотруднике.
@@ -213,14 +205,11 @@ namespace SecurityDoors.App.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
 
-                return View();
-            }
-            
-		}
+            _logger.LogWarning(CommonUnsuccessfulEvents.EditItemNotFound, PersonLoggerConstants.PERSON_IS_NOT_VALID);
+
+            return View();
+        }
 
         /// <summary>
         /// Удаление выбранного сотрудника.
