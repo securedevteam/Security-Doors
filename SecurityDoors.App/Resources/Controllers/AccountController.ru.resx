@@ -126,6 +126,9 @@
   <data name="InvalidData" xml:space="preserve">
     <value>Неправильный логин и (или) пароль.</value>
   </data>
+  <data name="InvalidNickname" xml:space="preserve">
+    <value>это имя пользователя уже занято.</value>
+  </data>
   <data name="RegistrationCompleted" xml:space="preserve">
     <value>Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме.</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="InvalidData" xml:space="preserve">
     <value>Incorrect username and / or password. Hello</value>
   </data>
+  <data name="InvalidNickname" xml:space="preserve">
+    <value>this nickname is already taken.</value>
+  </data>
   <data name="RegistrationCompleted" xml:space="preserve">
     <value>Registration successful! A letter has been sent to your email. To confirm the registration, follow the link in the letter.</value>
   </data>

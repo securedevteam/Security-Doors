@@ -233,7 +233,7 @@ namespace SecurityDoors.App.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, $"User nickname '{model.Nickname}' is already taken.");
+                    ModelState.AddModelError(string.Empty, model.Nickname + _localizer["InvalidNickname"]);
                 }
             }
 
