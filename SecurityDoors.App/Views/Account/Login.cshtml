@@ -22,7 +22,7 @@
     <form class="form-signin" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
         <div asp-validation-summary="ModelOnly"></div>
 
-        <h1 class="h3 mb-3 font-weight-normal">@Localizer["Autorisation"]</h1>
+        <h1 class="h3 mb-3 font-weight-normal">@Localizer["Authorization"]</h1>
 
         <div class="form-group">
             <input type="email" id="inputEmail" class="form-control" placeholder="@Localizer["E-mail"]" asp-for="Email" />

@@ -135,7 +135,7 @@
   <data name="Header" xml:space="preserve">
     <value>Список активных пользователей - Security Doors</value>
   </data>
-  <data name="NikName" xml:space="preserve">
+  <data name="Nickname" xml:space="preserve">
     <value>Псевдоним</value>
   </data>
   <data name="Symbol" xml:space="preserve">

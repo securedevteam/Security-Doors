@@ -126,8 +126,8 @@
   <data name="E-mailHelp" xml:space="preserve">
     <value>We will not share your email with 3rd parties.</value>
   </data>
-  <data name="NikName" xml:space="preserve">
-    <value>Nik name</value>
+  <data name="Nickname" xml:space="preserve">
+    <value>Niсkname</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

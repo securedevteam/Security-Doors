@@ -135,8 +135,8 @@
   <data name="Header" xml:space="preserve">
     <value>Active users list - Security Doors</value>
   </data>
-  <data name="NikName" xml:space="preserve">
-    <value>Nik name</value>
+  <data name="Nickname" xml:space="preserve">
+    <value>Nickname</value>
   </data>
   <data name="Symbol" xml:space="preserve">
     <value>#</value>
