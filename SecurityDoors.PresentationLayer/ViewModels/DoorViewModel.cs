@@ -11,8 +11,8 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Уровень.
         /// </summary>
-		[Required(ErrorMessage = "Неверный уровень")]
-        [Display(Name = "Уровень")]
+		[Required(ErrorMessage = "InvalidLevel")]
+        [Display(Name = "Level")]
         public string Level { get; set; }
 
         /// <summary>
@@ -36,29 +36,29 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Название.
         /// </summary>
-        [Required(ErrorMessage = "Неверное название")]
-        [Display(Name = "Название")]
+        [Required(ErrorMessage = "InvalidTitle")]
+        [Display(Name = "Title")]
         public string Name { get; set; }
 
         /// <summary>
         /// Описание.
         /// </summary>
-		[Required(ErrorMessage = "Неверное описание")]
-        [Display(Name = "Описание")]
+		[Required(ErrorMessage = "InvalidDescription")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Статус карточки.
         /// </summary>
-        [Required(ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
+        [Required(ErrorMessage = "InvalidStatus")]
+        [Display(Name = "Status")]
         public string Status { get; set; }
 
         /// <summary>
 		/// Комментарий.
 		/// </summary>
         //[Required(ErrorMessage = "Неверный комментарий")]
-        [Display(Name = "Комментарий")]
+        [Display(Name = "Comment")]
         public string Comment { get; set; }
     }
 }
