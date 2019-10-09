@@ -11,21 +11,21 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// Уникальный номер карты.
         /// </summary>
         //[Required(ErrorMessage = "Неверный уникальный номер")]
-        [Display(Name = "Уникальный номер")]
+        [Display(Name = "UniqueNumber")]
         public string UniqueNumber { get; set; }
 
         /// <summary>
         /// Уровень.
         /// </summary>
-        [Required(ErrorMessage = "Неверный уровень")]
-        [Display(Name = "Уровень")]
+        [Required(ErrorMessage = "InvalidLevel")]
+        [Display(Name = "Level")]
         public string Level { get; set; }
 
         /// <summary>
         /// Нахождение.
         /// </summary>
-        [Required(ErrorMessage = "Неверно указано нахождение")]
-        [Display(Name = "Нахождение")]
+        [Required(ErrorMessage = "InvalidLocation")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
     }
 
@@ -43,14 +43,14 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Статус карточки.
         /// </summary>
-        [Required (ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
+        [Required (ErrorMessage = "InvalidStatus")]
+        [Display(Name = "Status")]
         public string Status { get; set; }
 
         /// <summary>
         /// Аккаунт сотрудника.
         /// </summary>
-        [Display(Name = "Аккаунт сотрудника")]
+        [Display(Name = "UserAccount")]
         public string UserAccount { get; set; }
     }
 }
