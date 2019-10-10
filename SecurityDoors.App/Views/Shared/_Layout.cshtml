@@ -19,7 +19,7 @@
         {
             <nav class="my-2 my-md-0 mr-md-3">
                 <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">@Localizer["Main"]</a>
-                
+
                 @if (User.IsInRole("admin"))
                 {
                     <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">@Localizer["UserRights"]</a>
@@ -50,6 +50,7 @@
 
     </div>
     <div class="container">
+        <partial name="_CookieConsentPartial" />
         @RenderBody()
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">

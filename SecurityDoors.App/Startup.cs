@@ -97,8 +97,7 @@ namespace SecurityDoors.App
             app.UseStaticFiles();
             app.UseAuthentication();
 
-            // Конвейер использования политики Cookie
-            //app.UseCookiePolicy();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
