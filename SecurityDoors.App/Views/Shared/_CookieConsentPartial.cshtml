@@ -9,7 +9,7 @@
 @if (showBanner)
 {
     <div id="cookieConsent" class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        @Localizer["CookieInfo"]
         <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
             <span aria-hidden="true">&times;</span>
         </button>
