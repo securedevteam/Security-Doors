@@ -81,20 +81,17 @@ namespace SecurityDoors.App
                 app.UseDeveloperExceptionPage();
                 _logger.LogInformation("In Development environment");
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
 
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecurityDoors API version 1"));
+
             app.UseHttpsRedirection();
             app.UseStatusCodePagesWithRedirects("/Errors/{0}.html");
             app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseCookiePolicy();

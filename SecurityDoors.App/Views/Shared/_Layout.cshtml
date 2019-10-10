@@ -49,11 +49,16 @@
         }
 
     </div>
+
     <div class="container">
+
         <partial name="_CookieConsentPartial" />
+
         @RenderBody()
+
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
+
                 <div class="col-12 col-md">
                     <small class="d-block mb-3 text-muted">30 commits to bug © 2019</small>
                 </div>
@@ -70,9 +75,12 @@
                 <div class="col-6 col-md">
                     <h5>@Localizer["AppLang"]</h5>
                     <ul class="list-unstyled text-small">
-                        @await Html.PartialAsync("_SelectLanguagePartial")
+
+                        <partial name="_SelectLanguagePartial" />
+
                     </ul>
                 </div>
+
             </div>
         </footer>
     </div>
