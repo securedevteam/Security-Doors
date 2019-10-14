@@ -24,4 +24,4 @@
 - Microsoft Identity;
 - Система контроля версий: Git;
 - Система менеджмента заданий: Trello;
-- Непрерывная интеграция: CI by Travis;
+- Непрерывная интеграция: CI by Azure DevOps Pipelines;
