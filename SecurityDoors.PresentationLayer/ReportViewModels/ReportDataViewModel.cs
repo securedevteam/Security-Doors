@@ -10,35 +10,35 @@ namespace SecurityDoors.PresentationLayer.ReportViewModels
         /// <summary>
         /// Электронная почта.
         /// </summary>
-        [Required(ErrorMessage = "Неверная электронная почта")]
-        [Display(Name = "Электронная почта")]
+        [Required(ErrorMessage = "InvalidEmail")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         /// <summary>
         /// Тип отчета.
         /// </summary>
-        [Required(ErrorMessage = "Неверный тип отчета")]
-        [Display(Name = "Тип отчета")]
+        [Required(ErrorMessage = "InvalidReportType")]
+        [Display(Name = "ReportType")]
         public string Type { get; set; }
 
         /// <summary>
         /// Заголовок документа.
         /// </summary>
-        [Required(ErrorMessage = "Неверный заголовок письма")]
-        [Display(Name = "Заголовок письма")]
+        [Required(ErrorMessage = "InvalidLetterHeading")]
+        [Display(Name = "LetterHeading")]
         public string Header { get; set; }
 
         /// <summary>
         /// Описание таблицы.
         /// </summary>
-        [Display(Name = "Описание таблицы (необязательно)")]
+        [Display(Name = "TableDescription")]
         public string Description { get; set; }
 
         /// <summary>
         /// Нижний колонтитул.
         /// </summary>
-        [Required(ErrorMessage = "Неверный верхний колонтитул в документе")]
-        [Display(Name = "Верхний колонтитул в документе")]
+        [Required(ErrorMessage = "InvalidDocumentHeader")]
+        [Display(Name = "DocumentHeader")]
         public string Footer { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace SecurityDoors.DoorController
 
 			Console.Write("Please enter port number: ");
 			var valuePort = Console.ReadLine();
-			Int32.TryParse(valuePort, out int port); // TODO: Реализовать проверку на диапазон и если значение не цифра
+			Int32.TryParse(valuePort, out int port);
 
 			var GUID = Guid.NewGuid().ToString();
 			Console.WriteLine($"Secret key to work with door controller: {GUID}\n");

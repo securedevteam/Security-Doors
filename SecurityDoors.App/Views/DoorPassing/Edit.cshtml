@@ -1,11 +1,11 @@
 ﻿@model DoorPassingEditModel
 
 @{
-    ViewData["Title"] = "Редактировать дверной проход - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h2>Редактировать дверной проход №@Model.Id</h2>
+    <h2>@Localizer["Header"]@Model.Id</h2>
 </div>
 
 <br />
@@ -36,5 +36,5 @@
         <span asp-validation-for="UserAccount"></span>
     </div>
 
-    <button type="submit" class="btn btn-warning">Изменить</button>
+    <button type="submit" class="btn btn-warning">@Localizer["Edit"]</button>
 </form>

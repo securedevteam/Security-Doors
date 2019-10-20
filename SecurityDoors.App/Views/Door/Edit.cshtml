@@ -1,11 +1,11 @@
 ﻿@model DoorEditModel
 
 @{
-    ViewData["Title"] = "Редактировать дверь - Security Doors";
+    ViewData["Title"] = @Localizer["Header"];
 }
 
 <div class="text-center">
-    <h2>Редактировать дверь №@Model.Id</h2>
+    <h2>@Localizer["EditDoor"] @Model.Id</h2>
 </div>
 
 <br />
@@ -15,12 +15,12 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <b><label asp-for="Name"></label></b>
+            <b><label asp-for="Name">@Localizer["Name"]</label></b>
             <input type="text" asp-for="Name" class="form-control" />
             <span asp-validation-for="Name"></span>
         </div>
         <div class="form-group col-md-6">
-            <b><label asp-for="Description"></label></b>
+            <b><label asp-for="Description">@Localizer["Description"]</label></b>
             <input type="text" asp-for="Description" class="form-control" />
             <span asp-validation-for="Description"></span>
         </div>
@@ -28,7 +28,7 @@
 
     <div class="form-row">
         <div class="form-group col-md-4">
-            <b><label asp-for="Status"></label></b>
+            <b><label asp-for="Status">@Localizer["Status"]</label></b>
             <select asp-for="Status" class="form-control">
                 <option>@DoorConstants.IsActive</option>
                 <option>@DoorConstants.IsClosed</option>
@@ -36,11 +36,12 @@
             </select>
         </div>
         <div class="form-group col-md-8">
-            <b><label asp-for="Comment"></label></b>
+            <b><label asp-for="Comment">@Localizer["Comment"]</label></b>
             <input type="text" asp-for="Comment" class="form-control" />
             <span asp-validation-for="Comment"></span>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-warning">Изменить</button>
+    <button type="submit" class="btn btn-warning">@Localizer["Apply"]</button>
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Door">@Localizer["Cancel"]</a>
 </form>

@@ -1,17 +1,17 @@
 ﻿@model CardViewModel
 
 @{
-    ViewData["Title"] = "Информация о карточке - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h2>Информация о карточке №@Model.Id</h2>
+    <h2>@Localizer["Card details"] @Model.Id</h2>
 </div>
 
 <br />
 
-<li class="list-group-item">Уникальный номер: <b>@Model.UniqueNumber</b></li>
-<li class="list-group-item">Уровень доступа: <b>@Model.Level</b></li>
-<li class="list-group-item">Нахождение в данный момен: <b>@Model.Location</b></li>
-<li class="list-group-item">Статус: <b>@Model.Status</b></li>
-<li class="list-group-item">Аккаунт сотрудника: <b>@Model.UserAccount</b></li>
+<li class="list-group-item">@Localizer["UniqueNumber"] <b>@Model.UniqueNumber</b></li>
+<li class="list-group-item">@Localizer["AccessLevel"] <b>@Model.Level</b></li>
+<li class="list-group-item">@Localizer["CurrentLocation"] <b>@Model.Location</b></li>
+<li class="list-group-item">@Localizer["Status"] <b>@Model.Status</b></li>
+<li class="list-group-item">@Localizer["UserAccount"]: <b>@Model.UserAccount</b></li>

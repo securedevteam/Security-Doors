@@ -1,19 +1,19 @@
 ﻿@model PersonViewModel
 
 @{
-    ViewData["Title"] = "Информация о сотруднике - Security Doors";
+    ViewData["Title"] = @Localizer["Title"];
 }
 
 <div class="text-center">
-    <h2>Информация о сотруднике №@Model.Id</h2>
+    <h2>@Localizer["Header"]@Model.Id</h2>
 </div>
 
 <br />
 
-<li class="list-group-item">Имя: <b>@Model.FirstName</b></li>
-<li class="list-group-item">Фамилия: <b>@Model.LastName</b></li>
-<li class="list-group-item">Отчество: <b>@Model.SecondName</b></li>
-<li class="list-group-item">Пол: <b>@Model.Gender</b></li>
-<li class="list-group-item">Паспорт: <b>@Model.Passport</b></li>
-<li class="list-group-item">Уникальный номер карты: <b>@Model.Card</b></li>
-<li class="list-group-item">Коментарий: <b>@Model.Comment</b></li>
+<li class="list-group-item">@Localizer["FirstName"] <b>@Model.FirstName</b></li>
+<li class="list-group-item">@Localizer["LastNam"] <b>@Model.LastName</b></li>
+<li class="list-group-item">@Localizer["SecondName"] <b>@Model.SecondName</b></li>
+<li class="list-group-item">@Localizer["Gender"] <b>@Model.Gender</b></li>
+<li class="list-group-item">@Localizer["Passport"] <b>@Model.Passport</b></li>
+<li class="list-group-item">@Localizer["UniqueNumber"] <b>@Model.Card</b></li>
+<li class="list-group-item">@Localizer["Comment"] <b>@Model.Comment</b></li>

@@ -2,16 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.BusinessLogicLayer.Implementations;
 using SecurityDoors.BusinessLogicLayer.Interfaces;
 using SecurityDoors.Core.StaticClasses;
 using SecurityDoors.DataAccessLayer.Models;
+using System.Globalization;
 
 namespace SecurityDoors.App
 {
@@ -26,14 +28,29 @@ namespace SecurityDoors.App
             _logger = logger;
         }
        
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
+                .AddDataAnnotationsLocalization()
+                .AddViewLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("ru")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies 
-                // is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -42,46 +59,43 @@ namespace SecurityDoors.App
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
-			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationContext>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
-            // Добавлен DI
-            services.AddTransient<ICardRepository, CardRepository>();
-            services.AddTransient<IDoorRepository, DoorRepository>();
-            services.AddTransient<IDoorPassingRepository, DoorPassingRepository>();
-            services.AddTransient<IPersonRepository, PersonRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IDoorRepository, DoorRepository>();
+            services.AddScoped<IDoorPassingRepository, DoorPassingRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddScoped<DataManager>();
+            services.AddSingleton<DataManager>();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SecurityDoors API", Version = "v1" }));
-
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);         
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "SecurityDoors API", Version = "v1" }));   
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {                       
+        {
             if (env.IsDevelopment())
             {                
                 app.UseDeveloperExceptionPage();
                 _logger.LogInformation("In Development environment");
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SecurityDoors API version 1"));
+
             app.UseHttpsRedirection();
             app.UseStatusCodePagesWithRedirects("/Errors/{0}.html");
             app.UseStaticFiles();
+
             app.UseAuthentication();
+
             app.UseCookiePolicy();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

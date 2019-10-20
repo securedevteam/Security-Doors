@@ -14,7 +14,7 @@
         else
         {
             document.getElementById('submit').setAttribute('disabled', 'disabled');
-            output = 'Адрес электронной почты введен неправильно!';
+            output = '@Localizer["Error"]';
         }
 
         document.getElementById('message').innerHTML = output;
@@ -81,5 +81,5 @@
         <span asp-validation-for="Card"></span>
     </div>
 
-    <button id="submit" type="submit" class="btn btn-danger btn-lg btn-block" disabled>Отправить</button>
+    <button id="submit" type="submit" class="btn btn-danger btn-lg btn-block" disabled>@Localizer["Send"]</button>
 </form>

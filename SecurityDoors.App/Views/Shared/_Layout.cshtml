@@ -14,55 +14,73 @@
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Security Doors</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal">@Localizer["Logo"]</h5>
         @if (User.Identity.IsAuthenticated)
         {
             <nav class="my-2 my-md-0 mr-md-3">
-                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Главная</a>
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">@Localizer["Main"]</a>
+
                 @if (User.IsInRole("admin"))
                 {
-                    <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">Права пользователей</a>
-                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">Пользователи</a>
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="SettingUsersRoles">@Localizer["UserRights"]</a>
+                    <a class="p-2 text-dark" asp-controller="Account" asp-action="EditUsersList">@Localizer["Users"]</a>
                 }
                 @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                 {
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">Карточки</a>
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">Двери</a>
-                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">Сотрудники</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Card">@Localizer["Cards"]</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Door">@Localizer["Doors"]</a>
+                    <a class="p-2 text-dark" asp-action="Index" asp-controller="Person">@Localizer["Employees"]</a>
                 }
-                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">Дверные проходы</a>
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="DoorPassing">@Localizer["DoorPassings"]</a>
             </nav>
 
             <form method="post" asp-controller="Account" asp-action="LogOff">
-                <input class="btn btn-outline-primary" type="submit" value="Выход" />
+                <input class="btn btn-outline-primary" type="submit" value="@Localizer["LogOut"]" />
             </form>
         }
         else
         {
             <nav class="my-2 my-md-0 mr-md-3">
-                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">Главная</a>
-                <a class="p-2 text-dark" asp-action="Registration" asp-controller="Account">Зарегистрироваться</a>
+                <a class="p-2 text-dark" asp-action="Index" asp-controller="Home">@Localizer["Main"]</a>
+                <a class="p-2 text-dark" asp-action="Registration" asp-controller="Account">@Localizer["SignUp"]</a>
             </nav>
 
-            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Войти</a>
+            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
         }
 
     </div>
+
     <div class="container">
+
+        <partial name="_CookieConsentPartial" />
+
         @RenderBody()
+
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
+
                 <div class="col-12 col-md">
                     <small class="d-block mb-3 text-muted">30 commits to bug © 2019</small>
                 </div>
-                <div class="col-6 col-md"></div>
-                <div class="col-6 col-md"></div>
+
+                @*<div class="col-6 col-md"></div>*@
+
                 <div class="col-6 col-md">
-                    <h5>О проекте</h5>
+                    <h5>@Localizer["Project"]</h5>
                     <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" asp-action="About" asp-controller="Home">Команда</a></li>
+                        <li><a class="text-muted" asp-action="About" asp-controller="Home">@Localizer["Team"]</a></li>
                     </ul>
                 </div>
+
+                <div class="col-6 col-md">
+                    <h5>@Localizer["AppLang"]</h5>
+                    <ul class="list-unstyled text-small">
+
+                        <partial name="_SelectLanguagePartial" />
+
+                    </ul>
+                </div>
+
             </div>
         </footer>
     </div>

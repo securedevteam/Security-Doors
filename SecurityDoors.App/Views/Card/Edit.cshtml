@@ -1,11 +1,11 @@
 ﻿@model CardEditModel
 
 @{
-    ViewData["Title"] = "Редактировать карточку - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h2>Редактировать карточку №@Model.Id</h2>
+    <h2>@Localizer["EditCard"] @Model.Id</h2>
 </div>
 
 <br />
@@ -14,7 +14,7 @@
     <div asp-validation-summary="ModelOnly"></div>
 
     <div class="form-group">
-        <b><label asp-for="Status"></label></b>
+        <b><label asp-for="Status">@Localizer["Status"]</label></b>
         <select asp-for="Status" class="form-control">
             <option>@CardConstants.IsActive</option>
             <option>@CardConstants.IsClosed</option>
@@ -24,10 +24,11 @@
     </div>
 
     <div class="form-group">
-        <b><label asp-for="UserAccount"></label></b>
+        <b><label asp-for="UserAccount">@Localizer["UserAccount"]</label></b>
         <input type="text" asp-for="UserAccount" class="form-control" />
         <span asp-validation-for="UserAccount"></span>
     </div>
 
-    <button type="submit" class="btn btn-warning">Изменить</button>
+    <button type="submit" class="btn btn-warning">@Localizer["Edit"]</button>
+    <a class="btn btn-secondary" asp-action="Index" asp-controller="Card">@Localizer["Cancel"]</a>
 </form>

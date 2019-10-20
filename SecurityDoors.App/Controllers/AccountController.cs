@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SecurityDoors.BusinessLogicLayer;
 using SecurityDoors.Core.Constants;
@@ -27,18 +28,25 @@ namespace SecurityDoors.App.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
         private readonly ServicesManager _serviceManager;
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="singInManager">менеджер входа в систему.</param>
-        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, ILogger<CardController> logger, DataManager dataManager)
+        public AccountController(RoleManager<IdentityRole> roleManager, 
+                                 UserManager<User> userManager, 
+                                 SignInManager<User> signInManager, 
+                                 ILogger<CardController> logger, 
+                                 DataManager dataManager,
+                                 IStringLocalizer<AccountController> localizer)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _serviceManager = new ServicesManager(dataManager);
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -50,7 +58,7 @@ namespace SecurityDoors.App.Controllers
         {
             var models = await _userManager.Users.ToListAsync();
 
-            if (models == null || models.Count == 0)
+            if (!models.Any())
             {
                 _logger.LogWarning(UserUnsuccessfulEvents.ListUsersItemsNotFound, UserLoggerConstants.USERS_LIST_IS_EMPTY);
             }
@@ -107,27 +115,27 @@ namespace SecurityDoors.App.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
 
-                var model = new RoleViewModel
-                {
-                    UserId = user.Id,
-                    UserEmail = user.Email,
-                    UserRoles = userRoles,
-                    AllRoles = allRoles
-                };
-
-                _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
-
-                return View(model);
+                return NotFound();
             }
 
-            _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var allRoles = _roleManager.Roles.ToList();
 
-            return NotFound();
+            var model = new RoleViewModel
+            {
+                UserId = user.Id,
+                UserEmail = user.Email,
+                UserRoles = userRoles,
+                AllRoles = allRoles
+            };
+
+            _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+            return View(model);
         }
 
         /// <summary>
@@ -142,24 +150,24 @@ namespace SecurityDoors.App.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = await _roleManager.Roles.ToListAsync();
-                var addedRoles = roles.Except(userRoles);
-                var removedRoles = userRoles.Except(roles);
+                _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
 
-                await _userManager.AddToRolesAsync(user, addedRoles);
-                await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
-                _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
-
-                return RedirectToAction(nameof(SettingUsersRoles));
+                return NotFound();
             }
 
-            _logger.LogWarning(UserUnsuccessfulEvents.EditUserNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var allRoles = await _roleManager.Roles.ToListAsync();
+            var addedRoles = roles.Except(userRoles);
+            var removedRoles = userRoles.Except(roles);
 
-            return NotFound();
+            await _userManager.AddToRolesAsync(user, addedRoles);
+            await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+            _logger.LogInformation(UserSuccessfulEvents.EditUserItem, UserLoggerConstants.USER_IS_VALID + CommonLoggerConstants.MODEL_SUCCESSFULLY_UPDATED);
+
+            return RedirectToAction(nameof(SettingUsersRoles));
         }
 
 		/// <summary>
@@ -209,9 +217,9 @@ namespace SecurityDoors.App.Controllers
 							new { userId = user.Id, code },
 							protocol: HttpContext.Request.Scheme);
 						var emailService = new EmailService();
-						await emailService.SendEmailAsync(user.Email, "Подтверждение регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+						await emailService.SendEmailAsync(user.Email, $"{_localizer["ConfirmationRegistration"]}", $"{_localizer["FollowingLink"]} <a href='{callbackUrl}'>link</a>");
 
-                        var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+                        var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
                         return View("SuccessRegistration", message);
                     }
@@ -225,7 +233,7 @@ namespace SecurityDoors.App.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, $"User nickname '{model.Nickname}' is already taken.");
+                    ModelState.AddModelError(string.Empty, model.Nickname + _localizer["InvalidNickname"]);
                 }
             }
 
@@ -258,24 +266,22 @@ namespace SecurityDoors.App.Controllers
 
 			var result = await _userManager.ConfirmEmailAsync(user, code);
 
-			if (result.Succeeded)
-			{
-				var message = new MessageViewModel() { Message = "Регистрация успешна! На вашу почту было отправлено письмо. Для подтверждения регистрации перейдите по ссылке в письме." };
+            if (!result.Succeeded)
+            {
+                return View("Error");
+            }
 
-				return View("SuccessRegistration", message);
-			}
-			else
-			{
-				return View("Error");
-			}
-		}
+            var message = new MessageViewModel() { Message = $"{_localizer["RegistrationCompleted"]}" };
 
-		/// <summary>
-		/// Вход в систему.
-		/// </summary>
-		/// <param name="returnUrl">возврат по определенному адресу.</param>
-		/// <returns></returns>
-		[HttpGet]
+            return View("SuccessRegistration", message);
+        }
+
+        /// <summary>
+        /// Вход в систему.
+        /// </summary>
+        /// <param name="returnUrl">возврат по определенному адресу.</param>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -314,7 +320,7 @@ namespace SecurityDoors.App.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", $"{_localizer["InvalidData"]}");
 
                     _logger.LogWarning(UserUnsuccessfulEvents.LoginUserItemNotFound, UserLoggerConstants.USER_IS_NOT_VALID);
                 }

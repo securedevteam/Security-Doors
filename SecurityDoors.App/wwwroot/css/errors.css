@@ -1,0 +1,87 @@
+﻿* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#exception {
+    position: relative;
+    height: 100vh;
+}
+
+#exception .exception-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.exception-page {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 15px;
+}
+
+.exception-page .error {
+    position: relative;
+    height: 220px;
+}
+
+.exception-page .error h1 {
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 186px;
+    font-weight: 200;
+    margin: 0px;
+    background: linear-gradient(130deg, #ffa34f, #ff6f68);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-transform: uppercase;
+}
+
+.exception-page h2 {
+    font-family: 'Kanit', sans-serif;
+    font-size: 33px;
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.exception-page p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 480px) {
+    .exception-page .error {
+        position: relative;
+        height: 168px;
+    }
+
+    .exception-page .error h1 {
+        font-size: 142px;
+    }
+
+    .exception-page h2 {
+        font-size: 22px;
+    }
+}

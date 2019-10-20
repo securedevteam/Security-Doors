@@ -6,51 +6,27 @@ namespace SecurityDoors.PresentationLayer.ViewModels
     /// <summary>
     /// Модель дверного контроллера для просмотра.
     /// </summary>
-    public class DoorPassingViewModel
-	{
-        /// <summary>
-        /// Id дверного контроллера.
-        /// </summary>
-		public int Id { get; set; }
-
+    public class DoorPassingViewModel : DoorPassingEditModel
+    {
         /// <summary>
         /// Время прохода.
         /// </summary>
-		[Required(ErrorMessage = "Неверное время прохода")]
-		[Display(Name = "Время прохода")]
+		[Required(ErrorMessage = "InvalidPassingTime")]
+		[Display(Name = "PassingTime")]
 		public DateTime PassingTime { get; set; } = DateTime.Now;
-
-        /// <summary>
-        /// Статус.
-        /// </summary>
-        [Required(ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
-        public string Status { get; set; }
-
-        /// <summary>
-        /// Нахождение.
-        /// </summary>
-        [Display(Name = "Нахождение")]
-        public string Location { get; set; }
-
-        /// <summary>
-        /// Комментарий.
-        /// </summary>
-        [Display(Name = "Аккаунт сотрудника")]
-		public string UserAccount { get; set; }
 		
         /// <summary>
         /// Название двери.
         /// </summary>
-		[Required(ErrorMessage = "Неверное название двери")]
-		[Display(Name = "Дверь")]
+		[Required(ErrorMessage = "InvalidDoorName")]
+		[Display(Name = "DoorName")]
 		public string Door { get; set; }
 
         /// <summary>
         /// Уникальный номер карты.
         /// </summary>
-		[Required(ErrorMessage = "Неверный уникальный номер карточки")]
-		[Display(Name = "Уникальный номер карточки")]
+		[Required(ErrorMessage = "InvalidUniqueNumber")]
+		[Display(Name = "UniqueNumber")]
 		public string Card { get; set; }
 	}
 
@@ -62,25 +38,26 @@ namespace SecurityDoors.PresentationLayer.ViewModels
         /// <summary>
         /// Id дверного контроллера.
         /// </summary>
-		public int Id { get; set; }
+        [Display(Name = "Id")]
+        public int Id { get; set; }
 
         /// <summary>
         /// Статус
         /// </summary>
-        [Required(ErrorMessage = "Неверный статус")]
-        [Display(Name = "Статус")]
+        [Required(ErrorMessage = "InvalidStatus")]
+        [Display(Name = "Status")]
         public string Status { get; set; }
 
         /// <summary>
         /// Нахождение.
         /// </summary>
-        [Display(Name = "Нахождение")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
 
         /// <summary>
         /// Комментарий.
         /// </summary>
-        [Display(Name = "Аккаунт сотрудника")]
+        [Display(Name = "Account")]
         public string UserAccount { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<SecurityDoors.DataAccessLayer.Models.User>
 
 @{
-    ViewData["Title"] = "Разграничение прав пользователей - Security Doors";
+    ViewData["Title"] = Localizer["Header"];
 }
 
 <div class="text-center">
-    <h1>Разграничение прав пользователей</h1>
+    <h1>@Localizer["DiffUserRights"]</h1>
 </div>
 
 <br />
@@ -14,9 +14,9 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Электронная почта</th>
-                <th scope="col">Доступные действия</th>
+                <th scope="col">@Localizer["Symbol"]</th>
+                <th scope="col">@Localizer["E-mail"]</th>
+                <th scope="col">@Localizer["AvailableActions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Email</td>
-                    <td><a asp-action="EditUsersRoles" asp-route-userid="@item.Id">Права доступа</a></td>
+                    <td><a asp-action="EditUsersRoles" asp-route-userid="@item.Id">@Localizer["AccessRights"]</a></td>
                 </tr>
             }
         </tbody>

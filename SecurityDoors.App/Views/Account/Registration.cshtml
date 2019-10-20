@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Регистрация - Security Doors</title>
+    <title>@Localizer["Title"]</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -32,7 +32,7 @@
             else
             {
                 document.getElementById('submit').setAttribute('disabled', 'disabled');
-                output = 'Адрес электронной почты введен неправильно!';
+                output = '@Localizer["ValidationMessage"]';
             }
 
             document.getElementById('message').innerHTML = output;
@@ -45,32 +45,32 @@
     <form class="form-signin" method="post" asp-controller="Account" asp-action="Registration">
         <div asp-validation-summary="ModelOnly"></div>
 
-        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        <h1 class="h3 mb-3 font-weight-normal">@Localizer["Registration"]</h1>
 
         <div class="form-group" onblur="emailValidation()">
-            <input id="email" type="email" class="form-control" placeholder="Электронная почта" asp-for="Email" oninput="emailValidation()" onblur="emailValidation()">
+            <input id="email" type="email" class="form-control" placeholder="@Localizer["E-mail"]" asp-for="Email" oninput="emailValidation()" onblur="emailValidation()">
             <span asp-validation-for="Email"></span>
-            <small id="emailHelp" class="form-text text-muted">Мы не передадим ваш email 3-им лицам.</small>
+            <small id="emailHelp" class="form-text text-muted">@Localizer["E-mailHelp"]</small>
             <small id="message" class="form-text text-muted"></small>
         </div>
 
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Псевдоним" required asp-for="Nickname" />
+            <input type="text" class="form-control" placeholder="@Localizer["NickName"]" required asp-for="Nickname" />
             <span asp-validation-for="Nickname"></span>
         </div>
 
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Пароль" required asp-for="Password" />
+            <input type="password" class="form-control" placeholder="@Localizer["Password"]" required asp-for="Password" />
             <span asp-validation-for="Password"></span>
         </div>
 
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Повторите пароль" required asp-for="PasswordConfirm" />
+            <input type="password" class="form-control" placeholder="@Localizer["PasswordConfirm"]" required asp-for="PasswordConfirm" />
             <span asp-validation-for="PasswordConfirm"></span>
         </div>
 
-        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit" disabled>Зарегистрироваться</button>
+        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit" disabled>@Localizer["SignUp"]</button>
         <p class="mt-5 mb-3 text-muted">30 commits to bug &copy; 2019</p>
 
     </form>
