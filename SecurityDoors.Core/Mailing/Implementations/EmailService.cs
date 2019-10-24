@@ -45,6 +45,9 @@ namespace SecurityDoors.Core.Mailing.Implementations
             ConfigureSmtpClient();
 		}
 
+		/// <summary>
+		/// Инициализирует локальный приватный экзмепляр класса SmtpClient.
+		/// </summary>
 		private void ConfigureSmtpClient()
 		{
 			_smtpClient = new SmtpClient()
@@ -56,6 +59,9 @@ namespace SecurityDoors.Core.Mailing.Implementations
 			};
 		}
 
+		/// <summary>
+		/// Получить конфигурацию из файла для инициализации SmtpClient.
+		/// </summary>
 		private void GetConfigurationFromFile()
 		{
 			try
@@ -71,6 +77,10 @@ namespace SecurityDoors.Core.Mailing.Implementations
 					_smtpServerAddress = config.smtpServerAddress;
 					_smtpServerPort = config.smtpServerPort;
 				}
+			}
+			catch (FileNotFoundException fnfExc)
+			{
+				throw fnfExc;
 			}
 			catch (Exception exc)
 			{
@@ -90,7 +100,7 @@ namespace SecurityDoors.Core.Mailing.Implementations
 
 			if (attachment != null)
 			{
-				mailMessage.Attachments.Add(attachment ?? null);
+				mailMessage.Attachments.Add(attachment);
 			}
 			
 			await _smtpClient.SendMailAsync(mailMessage);
