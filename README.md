@@ -30,6 +30,7 @@ The developed set of applications is as close as possible to the IT sphere. The 
 ## Authors
 - [Mikhail M.](https://mikhailmasny.github.io/) - Architect & .NET Developer;
 - [Alexandr G.](https://s207883.github.io/) - Full-stack .NET Developer;
+
 See also the list of [contributors](https://github.com/securedevteam/Security-Doors/graphs/contributors) who participated in this project.
 
 ## License
