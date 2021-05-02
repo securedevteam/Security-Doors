@@ -52,12 +52,10 @@ namespace Secure.SecurityDoors.Logic.Managers
             }
 
             var doors = await doorQuery.ToListAsync();
-            if (!doors.Any())
-            {
-                return new List<DoorDto>();
-            }
 
-            return _mapper.Map<IEnumerable<DoorDto>>(doors);
+            return !doors.Any()
+                ? new List<DoorDto>()
+                : _mapper.Map<IEnumerable<DoorDto>>(doors);
         }
 
         public async Task UpdateAsync(DoorDto doorDto)

@@ -52,12 +52,10 @@ namespace Secure.SecurityDoors.Logic.Managers
             }
 
             var cards = await cardQuery.ToListAsync();
-            if (!cards.Any())
-            {
-                return new List<CardDto>();
-            }
 
-            return _mapper.Map<IEnumerable<CardDto>>(cards);
+            return !cards.Any()
+                ? new List<CardDto>()
+                : _mapper.Map<IEnumerable<CardDto>>(cards);
         }
 
         public async Task UpdateAsync(CardDto cardDto)

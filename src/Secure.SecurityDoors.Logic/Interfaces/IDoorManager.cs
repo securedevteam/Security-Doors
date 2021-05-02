@@ -19,12 +19,12 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <summary>
         /// Get all doors.
         /// </summary>
-        /// <param name="whereLevelType">Filter by level type.</param>
-        /// <param name="whereDoorStatusType">Filter by status type.</param>
+        /// <param name="filterByLevelType">Filter by level type.</param>
+        /// <param name="filterByDoorStatusType">Filter by status type.</param>
         /// <returns>Get all door data transfer objects.</returns>
         Task<IEnumerable<DoorDto>> GetAllAsync(
-            LevelType? whereLevelType = default,
-            DoorStatusType? whereDoorStatusType = default);
+            LevelType? filterByLevelType = default,
+            DoorStatusType? filterByDoorStatusType = default);
 
         /// <summary>
         /// Update door.

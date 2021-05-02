@@ -64,10 +64,10 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                     .GetAwaiter()
                     .GetResult());
 
-            //Assert.Throws<ArgumentNullException>(() =>
-            //    _cardManager.UpdateAsync(null)
-            //        .GetAwaiter()
-            //        .GetResult());
+            Assert.Throws<ArgumentNullException>(() =>
+                _cardManager.UpdateAsync(null)
+                    .GetAwaiter()
+                    .GetResult());
         }
 
         [Fact]
@@ -171,7 +171,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(whereLevelType: LevelType.Admin)
+                .GetAllAsync(filterByLevelType: LevelType.Admin)
                 .GetAwaiter()
                 .GetResult();
 
@@ -206,7 +206,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(whereCardStatusType: CardStatusType.Active)
+                .GetAllAsync(filterByCardStatusType: CardStatusType.Active)
                 .GetAwaiter()
                 .GetResult();
 
