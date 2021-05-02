@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.DoorControlle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.Tests", "SecurityDoors.Tests\SecurityDoors.Tests.csproj", "{26C3FC08-4F7E-4631-A144-A99DFDD3882E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Data", "src\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj", "{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,14 @@ Global
 		{26C3FC08-4F7E-4631-A144-A99DFDD3882E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26C3FC08-4F7E-4631-A144-A99DFDD3882E}.Release|x64.ActiveCfg = Release|Any CPU
 		{26C3FC08-4F7E-4631-A144-A99DFDD3882E}.Release|x64.Build.0 = Release|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Debug|x64.Build.0 = Debug|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|x64.ActiveCfg = Release|Any CPU
+		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
