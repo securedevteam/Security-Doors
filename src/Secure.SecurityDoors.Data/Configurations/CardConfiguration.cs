@@ -24,11 +24,11 @@ namespace Secure.SecurityDoors.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthMedium);
 
-            builder.Property(card => card.Level)
-                .HasConversion(new EnumToNumberConverter<LevelType, int>());
-
             builder.Property(card => card.Status)
                 .HasConversion(new EnumToNumberConverter<CardStatusType, int>());
+
+            builder.Property(card => card.Level)
+                .HasConversion(new EnumToNumberConverter<LevelType, int>());
 
             builder.Property(card => card.Comment)
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthLong);

@@ -1,0 +1,52 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Secure.SecurityDoors.Data.Enums;
+using Secure.SecurityDoors.Data.Models;
+using System.Linq;
+
+namespace Secure.SecurityDoors.Logic.Specifications
+{
+    /// <summary>
+    /// Card specification.
+    /// </summary>
+    public static class CardSpecification
+    {
+        /// <summary>
+        /// Card query with no tracking.
+        /// </summary>
+        /// <param name="cardDbSet">Database set of Card.</param>
+        /// <param name="withNoTracking">With no tracking.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<Card> GetCardQuery(
+            this DbSet<Card> cardDbSet,
+            bool withNoTracking) =>
+                withNoTracking
+                    ? cardDbSet.AsNoTracking()
+                    : cardDbSet;
+
+        /// <summary>
+        /// Apply filter by card status.
+        /// </summary>
+        /// <param name="cardQuery">Card query.</param>
+        /// <param name="filterCardStatusType">Filter by status type.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<Card> ApplyFilterByStatus(
+            this IQueryable<Card> cardQuery,
+            CardStatusType? filterCardStatusType) =>
+                filterCardStatusType.HasValue
+                    ? cardQuery.Where(card => card.Status == filterCardStatusType)
+                    : cardQuery;
+
+        /// <summary>
+        /// Apply filter by card level.
+        /// </summary>
+        /// <param name="doorActionQuery">DoorAction query.</param>
+        /// <param name="filterLevelType">Filter by level.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<Card> ApplyFilterByLevel(
+            this IQueryable<Card> cardQuery,
+            LevelType? filterLevelType) =>
+                filterLevelType.HasValue
+                    ? cardQuery.Where(card => card.Level == filterLevelType)
+                    : cardQuery;
+    }
+}

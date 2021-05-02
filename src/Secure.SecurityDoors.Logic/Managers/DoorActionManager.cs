@@ -36,13 +36,13 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorActionDto>> GetAllAsync(
-            DoorActionType? filterDoorActionType = default,
-            DoorActionStatusType? filterDoorActionStatusType = default)
+            DoorActionStatusType? filterDoorActionStatusType = default,
+            DoorActionType? filterDoorActionType = default)
         {
             var doorActions = await _applicationContext.DoorActions
                 .GetDoorActionQuery(false)
-                .ApplyFilterByType(filterDoorActionType)
                 .ApplyFilterByStatus(filterDoorActionStatusType)
+                .ApplyFilterByType(filterDoorActionType)
                 .ToListAsync();
 
             return !doorActions.Any()
@@ -52,13 +52,13 @@ namespace Secure.SecurityDoors.Logic.Managers
 
         public async Task<DoorActionDto> GetByIdAsync(
             int id,
-            DoorActionType? filterDoorActionType = default,
-            DoorActionStatusType? filterDoorActionStatusType = default)
+            DoorActionStatusType? filterDoorActionStatusType = default,
+            DoorActionType? filterDoorActionType = default)
         {
             var doorAction = await _applicationContext.DoorActions
                 .GetDoorActionQuery(false)
-                .ApplyFilterByType(filterDoorActionType)
                 .ApplyFilterByStatus(filterDoorActionStatusType)
+                .ApplyFilterByType(filterDoorActionType)
                 .SingleOrDefaultAsync(doorAction => doorAction.Id == id);
 
             return doorAction is null

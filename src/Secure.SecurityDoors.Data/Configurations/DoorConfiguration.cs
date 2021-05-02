@@ -28,11 +28,11 @@ namespace Secure.SecurityDoors.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthMedium);
 
-            builder.Property(door => door.Level)
-                .HasConversion(new EnumToNumberConverter<LevelType, int>());
-
             builder.Property(door => door.Status)
                 .HasConversion(new EnumToNumberConverter<DoorStatusType, int>());
+
+            builder.Property(door => door.Level)
+                .HasConversion(new EnumToNumberConverter<LevelType, int>());
 
             builder.Property(door => door.Comment)
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthLong);

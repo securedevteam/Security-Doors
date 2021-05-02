@@ -6,6 +6,7 @@ using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Exceptions;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
+using Secure.SecurityDoors.Logic.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,23 +36,14 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<CardDto>> GetAllAsync(
-            LevelType? whereLevelType = default,
-            CardStatusType? whereCardStatusType = default)
+            LevelType? filterLevelType = default,
+            CardStatusType? filterByCardStatusType = default)
         {
-            var cardQuery = _applicationContext.Cards
-                .AsNoTracking();
-
-            if (whereLevelType.HasValue)
-            {
-                cardQuery = cardQuery.Where(card => card.Level == whereLevelType);
-            }
-
-            if (whereCardStatusType.HasValue)
-            {
-                cardQuery = cardQuery.Where(card => card.Status == whereCardStatusType);
-            }
-
-            var cards = await cardQuery.ToListAsync();
+            var cards = await _applicationContext.Cards
+                .GetCardQuery(false)
+                .ApplyFilterByStatus(filterByCardStatusType)
+                .ApplyFilterByLevel(filterLevelType)
+                .ToListAsync();
 
             return !cards.Any()
                 ? new List<CardDto>()

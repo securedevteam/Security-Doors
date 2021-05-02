@@ -74,8 +74,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 1,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -99,8 +99,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 1,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -109,8 +109,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -152,8 +152,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 1,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -162,8 +162,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -189,8 +189,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 1,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -199,8 +199,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Unknown,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Unknown,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -227,8 +227,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = doorActionIdentifier,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -237,8 +237,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -265,8 +265,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = doorActionIdentifier,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -275,8 +275,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -305,8 +305,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = doorActionIdentifier,
                 CardId = 1,
                 DoorId = 1,
-                Type = DoorActionType.Entrance,
                 Status = DoorActionStatusType.Success,
+                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -315,8 +315,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 2,
                 CardId = 1,
                 DoorId = 2,
-                Type = DoorActionType.Unknown,
                 Status = DoorActionStatusType.Error,
+                Type = DoorActionType.Unknown,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 

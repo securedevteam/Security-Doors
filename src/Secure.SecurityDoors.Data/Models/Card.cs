@@ -29,14 +29,14 @@ namespace Secure.SecurityDoors.Data.Models
         public string Number { get; set; }
 
         /// <summary>
-        /// Level.
-        /// </summary>
-        public LevelType Level { get; set; }
-
-        /// <summary>
         /// Status.
         /// </summary>
         public CardStatusType Status { get; set; }
+
+        /// <summary>
+        /// Level.
+        /// </summary>
+        public LevelType Level { get; set; }
 
         /// <summary>
         /// Comment.

@@ -20,11 +20,11 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.ToTable(DbTable.DoorActions, DbSchema.Org)
                 .HasKey(doorAction => doorAction.Id);
 
-            builder.Property(doorAction => doorAction.Type)
-                .HasConversion(new EnumToNumberConverter<DoorActionType, int>());
-
             builder.Property(doorAction => doorAction.Status)
                 .HasConversion(new EnumToNumberConverter<DoorActionStatusType, int>());
+
+            builder.Property(doorAction => doorAction.Type)
+                .HasConversion(new EnumToNumberConverter<DoorActionType, int>());
 
             builder.HasOne(doorAction => doorAction.Door)
                 .WithMany(door => door.DoorActions)

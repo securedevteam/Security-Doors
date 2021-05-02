@@ -39,13 +39,13 @@ namespace Secure.SecurityDoors.Data.Models
         public DateTime TimeStamp { get; set; }
 
         /// <summary>
-        /// Type.
-        /// </summary>
-        public DoorActionType Type { get; set; }
-
-        /// <summary>
         /// Status.
         /// </summary>
         public DoorActionStatusType Status { get; set; }
+
+        /// <summary>
+        /// Type.
+        /// </summary>
+        public DoorActionType Type { get; set; }
     }
 }

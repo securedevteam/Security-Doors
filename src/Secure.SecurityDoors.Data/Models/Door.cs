@@ -24,14 +24,14 @@ namespace Secure.SecurityDoors.Data.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Level.
-        /// </summary>
-        public LevelType Level { get; set; }
-
-        /// <summary>
         /// Status.
         /// </summary>
         public DoorStatusType Status { get; set; }
+
+        /// <summary>
+        /// Level.
+        /// </summary>
+        public LevelType Level { get; set; }
 
         /// <summary>
         /// Comment.
