@@ -26,27 +26,27 @@ namespace Secure.SecurityDoors.Logic.Specifications
         /// <summary>
         /// Apply filter by door action status.
         /// </summary>
-        /// <param name="doorActionQuery">DoorAction query.</param>
-        /// <param name="filterDoorActionStatusType">Filter by status.</param>
+        /// <param name="doorActionQuery">Query.</param>
+        /// <param name="statusFilter">Status filter.</param>
         /// <returns>DoorAction query.</returns>
         public static IQueryable<DoorAction> ApplyFilterByStatus(
             this IQueryable<DoorAction> doorActionQuery,
-            DoorActionStatusType? filterDoorActionStatusType) =>
-                filterDoorActionStatusType.HasValue
-                    ? doorActionQuery.Where(doorAction => doorAction.Status == filterDoorActionStatusType)
+            DoorActionStatusType? statusFilter) =>
+                statusFilter.HasValue
+                    ? doorActionQuery.Where(doorAction => doorAction.Status == statusFilter)
                     : doorActionQuery;
 
         /// <summary>
         /// Apply filter by door action type.
         /// </summary>
-        /// <param name="doorActionQuery">DoorAction query.</param>
-        /// <param name="filterDoorActionType">Filter by type.</param>
+        /// <param name="doorActionQuery">Query.</param>
+        /// <param name="typeFilter">Type filter.</param>
         /// <returns>DoorAction query.</returns>
         public static IQueryable<DoorAction> ApplyFilterByType(
             this IQueryable<DoorAction> doorActionQuery,
-            DoorActionType? filterDoorActionType) =>
-                filterDoorActionType.HasValue
-                    ? doorActionQuery.Where(doorAction => doorAction.Type == filterDoorActionType)
+            DoorActionType? typeFilter) =>
+                typeFilter.HasValue
+                    ? doorActionQuery.Where(doorAction => doorAction.Type == typeFilter)
                     : doorActionQuery;
 
     }

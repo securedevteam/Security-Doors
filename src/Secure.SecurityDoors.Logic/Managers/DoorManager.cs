@@ -6,6 +6,7 @@ using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Exceptions;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
+using Secure.SecurityDoors.Logic.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,23 +36,14 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorDto>> GetAllAsync(
-            LevelType? whereLevelType = default,
-            DoorStatusType? whereDoorStatusType = default)
+            DoorStatusType? statusFilter = default,
+            LevelType? levelFilter = default)
         {
-            var doorQuery = _applicationContext.Doors
-                .AsNoTracking();
-
-            if (whereLevelType.HasValue)
-            {
-                doorQuery = doorQuery.Where(door => door.Level == whereLevelType);
-            }
-
-            if (whereDoorStatusType.HasValue)
-            {
-                doorQuery = doorQuery.Where(door => door.Status == whereDoorStatusType);
-            }
-
-            var doors = await doorQuery.ToListAsync();
+            var doors = await _applicationContext.Doors
+                .GetDoorQuery(false)
+                .ApplyFilterByStatus(statusFilter)
+                .ApplyFilterByLevel(levelFilter)
+                .ToListAsync();
 
             return !doors.Any()
                 ? new List<DoorDto>()
@@ -62,7 +54,7 @@ namespace Secure.SecurityDoors.Logic.Managers
         {
             doorDto = doorDto ?? throw new ArgumentNullException(nameof(doorDto));
 
-            if (doorDto.Id == 0)
+            if (doorDto.Id <= 0)
             {
                 throw new ArgumentException(nameof(doorDto));
             }

@@ -36,13 +36,13 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<CardDto>> GetAllAsync(
-            LevelType? filterLevelType = default,
-            CardStatusType? filterByCardStatusType = default)
+            CardStatusType? statusFilter = default,
+            LevelType? levelFilter = default)
         {
             var cards = await _applicationContext.Cards
                 .GetCardQuery(false)
-                .ApplyFilterByStatus(filterByCardStatusType)
-                .ApplyFilterByLevel(filterLevelType)
+                .ApplyFilterByStatus(statusFilter)
+                .ApplyFilterByLevel(levelFilter)
                 .ToListAsync();
 
             return !cards.Any()
@@ -54,7 +54,7 @@ namespace Secure.SecurityDoors.Logic.Managers
         {
             cardDto = cardDto ?? throw new ArgumentNullException(nameof(cardDto));
 
-            if (cardDto.Id == 0)
+            if (cardDto.Id <= 0)
             {
                 throw new ArgumentException(nameof(cardDto));
             }

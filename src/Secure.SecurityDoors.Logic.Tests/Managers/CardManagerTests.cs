@@ -171,7 +171,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(filterByLevelType: LevelType.Admin)
+                .GetAllAsync(levelFilter: LevelType.Admin)
                 .GetAwaiter()
                 .GetResult();
 
@@ -206,7 +206,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(filterByCardStatusType: CardStatusType.Active)
+                .GetAllAsync(statusFilter: CardStatusType.Active)
                 .GetAwaiter()
                 .GetResult();
 

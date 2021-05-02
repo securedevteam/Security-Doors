@@ -19,12 +19,12 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <summary>
         /// Get all cards.
         /// </summary>
-        /// <param name="filterByLevelType">Filter by level type.</param>
-        /// <param name="filterByCardStatusType">Filter by status type.</param>
+        /// <param name="statusFilter">Status filter.</param>
+        /// <param name="levelFilter">Level type filter.</param>
         /// <returns>Get all card data transfer objects.</returns>
         Task<IEnumerable<CardDto>> GetAllAsync(
-            LevelType? filterByLevelType = default,
-            CardStatusType? filterByCardStatusType = default);
+            CardStatusType? statusFilter = default,
+            LevelType? levelFilter = default);
 
         /// <summary>
         /// Update card.

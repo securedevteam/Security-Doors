@@ -26,27 +26,27 @@ namespace Secure.SecurityDoors.Logic.Specifications
         /// <summary>
         /// Apply filter by card status.
         /// </summary>
-        /// <param name="cardQuery">Card query.</param>
-        /// <param name="filterCardStatusType">Filter by status type.</param>
+        /// <param name="cardQuery">Query.</param>
+        /// <param name="statusFilter">Status type filter.</param>
         /// <returns>Card query.</returns>
         public static IQueryable<Card> ApplyFilterByStatus(
             this IQueryable<Card> cardQuery,
-            CardStatusType? filterCardStatusType) =>
-                filterCardStatusType.HasValue
-                    ? cardQuery.Where(card => card.Status == filterCardStatusType)
+            CardStatusType? statusFilter) =>
+                statusFilter.HasValue
+                    ? cardQuery.Where(card => card.Status == statusFilter)
                     : cardQuery;
 
         /// <summary>
         /// Apply filter by card level.
         /// </summary>
-        /// <param name="doorActionQuery">DoorAction query.</param>
-        /// <param name="filterLevelType">Filter by level.</param>
+        /// <param name="cardQuery">Query.</param>
+        /// <param name="levelFilter">Level filter.</param>
         /// <returns>Card query.</returns>
         public static IQueryable<Card> ApplyFilterByLevel(
             this IQueryable<Card> cardQuery,
-            LevelType? filterLevelType) =>
-                filterLevelType.HasValue
-                    ? cardQuery.Where(card => card.Level == filterLevelType)
+            LevelType? levelFilter) =>
+                levelFilter.HasValue
+                    ? cardQuery.Where(card => card.Level == levelFilter)
                     : cardQuery;
     }
 }

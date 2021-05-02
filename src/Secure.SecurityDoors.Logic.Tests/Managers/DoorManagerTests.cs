@@ -166,7 +166,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedDoorDtos = _doorManager
-                .GetAllAsync(filterByLevelType: LevelType.Admin)
+                .GetAllAsync(levelFilter: LevelType.Admin)
                 .GetAwaiter()
                 .GetResult();
 
@@ -199,7 +199,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedDoorDtos = _doorManager
-                .GetAllAsync(filterByDoorStatusType: DoorStatusType.Active)
+                .GetAllAsync(statusFilter: DoorStatusType.Active)
                 .GetAwaiter()
                 .GetResult();
 

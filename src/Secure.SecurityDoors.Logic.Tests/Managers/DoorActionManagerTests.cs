@@ -172,7 +172,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(filterDoorActionStatusType: DoorActionStatusType.Success)
+                .GetAllAsync(statusFilter: DoorActionStatusType.Success)
                 .GetAwaiter()
                 .GetResult();
 
@@ -209,7 +209,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(filterDoorActionType: DoorActionType.Entrance)
+                .GetAllAsync(typeFilter: DoorActionType.Entrance)
                 .GetAwaiter()
                 .GetResult();
 
@@ -287,7 +287,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var receivedDoorActionDto = _doorActionManager
                 .GetByIdAsync(
                     doorActionIdentifier,
-                    filterDoorActionStatusType: DoorActionStatusType.Success)
+                    statusFilter: DoorActionStatusType.Success)
                 .GetAwaiter()
                 .GetResult();
 
@@ -327,7 +327,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var receivedDoorActionDto = _doorActionManager
                 .GetByIdAsync(
                     doorActionIdentifier,
-                    filterDoorActionType: DoorActionType.Entrance)
+                    typeFilter: DoorActionType.Entrance)
                 .GetAwaiter()
                 .GetResult();
 
