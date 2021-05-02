@@ -24,7 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.DoorControlle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.Tests", "SecurityDoors.Tests\SecurityDoors.Tests.csproj", "{26C3FC08-4F7E-4631-A144-A99DFDD3882E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Data", "src\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj", "{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Data", "src\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj", "{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Logic", "src\Secure.SecurityDoors.Logic\Secure.SecurityDoors.Logic.csproj", "{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Logic.Tests", "src\Secure.SecurityDoors.Logic.Tests\Secure.SecurityDoors.Logic.Tests.csproj", "{99634C02-DA73-4A79-960E-659B243B964F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +110,22 @@ Global
 		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|x64.ActiveCfg = Release|Any CPU
 		{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}.Release|x64.Build.0 = Release|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Debug|x64.Build.0 = Debug|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Release|x64.ActiveCfg = Release|Any CPU
+		{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}.Release|x64.Build.0 = Release|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Debug|x64.Build.0 = Debug|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Release|x64.ActiveCfg = Release|Any CPU
+		{99634C02-DA73-4A79-960E-659B243B964F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
