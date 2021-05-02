@@ -5,13 +5,13 @@ using Secure.SecurityDoors.Logic.Models;
 namespace Secure.SecurityDoors.Logic.Mappings
 {
     /// <summary>
-    /// AutoMapper for mapping entity <-> dto of Door type.
+    /// AutoMapper for mapping entity <-> dto of Card type.
     /// </summary>
-    public class DoorProfile : Profile
+    public class CardProfile : Profile
     {
-        public DoorProfile()
+        public CardProfile()
         {
-            CreateMap<Door, DoorDto>().ReverseMap();
+            CreateMap<Card, CardDto>().ReverseMap();
         }
     }
 }

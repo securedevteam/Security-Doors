@@ -52,7 +52,6 @@ namespace Secure.SecurityDoors.Logic.Managers
             }
 
             var doors = await doorQuery.ToListAsync();
-
             if (!doors.Any())
             {
                 return new List<DoorDto>();
@@ -77,7 +76,7 @@ namespace Secure.SecurityDoors.Logic.Managers
             }
 
             door = _mapper.Map(doorDto, door);
-            _applicationContext.Update(door);
+            _applicationContext.Doors.Update(door);
         }
 
         public async Task DeleteAsync(int id)
