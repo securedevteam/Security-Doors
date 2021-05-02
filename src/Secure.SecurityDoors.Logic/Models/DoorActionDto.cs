@@ -29,13 +29,13 @@ namespace Secure.SecurityDoors.Logic.Models
         public DateTime TimeStamp { get; set; }
 
         /// <summary>
+        /// Type.
+        /// </summary>
+        public DoorActionType Type { get; set; }
+
+        /// <summary>
         /// Status.
         /// </summary>
         public DoorActionStatusType Status { get; set; }
-
-        /// <summary>
-        /// Is entrance.
-        /// </summary>
-        public bool? IsEntrance { get; set; }
     }
 }

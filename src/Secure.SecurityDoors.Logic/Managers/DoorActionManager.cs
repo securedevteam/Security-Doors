@@ -6,6 +6,7 @@ using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Exceptions;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
+using Secure.SecurityDoors.Logic.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,20 +27,6 @@ namespace Secure.SecurityDoors.Logic.Managers
             _applicationContext = applicationContext ?? throw new ArgumentNullException(nameof(applicationContext));
         }
 
-        private IQueryable<DoorAction> GetDoorActonQuery(bool withNoTracking)
-        {
-            var doorActionQuery = _applicationContext.DoorActions;
-
-            return withNoTracking
-                ? doorActionQuery.AsNoTracking()
-                : doorActionQuery;
-        }
-
-        private static IQueryable<DoorAction> ApplyFilterByStatusType(
-            IQueryable<DoorAction> doorActionQuery,
-            DoorActionStatusType? filterDoorActionStatusType) =>
-                doorActionQuery.Where(doorAction => doorAction.Status == filterDoorActionStatusType);
-
         public async Task AddAsync(DoorActionDto doorActionDto)
         {
             doorActionDto = doorActionDto ?? throw new ArgumentNullException(nameof(doorActionDto));
@@ -49,18 +36,14 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorActionDto>> GetAllAsync(
+            DoorActionType? filterDoorActionType = default,
             DoorActionStatusType? filterDoorActionStatusType = default)
         {
-            var doorActionQuery = GetDoorActonQuery(false);
-
-            if (filterDoorActionStatusType.HasValue)
-            {
-                doorActionQuery = ApplyFilterByStatusType(
-                    doorActionQuery,
-                    filterDoorActionStatusType);
-            }
-
-            var doorActions = await doorActionQuery.ToListAsync();
+            var doorActions = await _applicationContext.DoorActions
+                .GetDoorActionQuery(false)
+                .ApplyFilterByType(filterDoorActionType)
+                .ApplyFilterByStatus(filterDoorActionStatusType)
+                .ToListAsync();
 
             return !doorActions.Any()
                 ? new List<DoorActionDto>()
@@ -69,18 +52,13 @@ namespace Secure.SecurityDoors.Logic.Managers
 
         public async Task<DoorActionDto> GetByIdAsync(
             int id,
+            DoorActionType? filterDoorActionType = default,
             DoorActionStatusType? filterDoorActionStatusType = default)
         {
-            var doorActionQuery = GetDoorActonQuery(false);
-
-            if (filterDoorActionStatusType.HasValue)
-            {
-                doorActionQuery = ApplyFilterByStatusType(
-                    doorActionQuery,
-                    filterDoorActionStatusType);
-            }
-
-            var doorAction = await doorActionQuery
+            var doorAction = await _applicationContext.DoorActions
+                .GetDoorActionQuery(false)
+                .ApplyFilterByType(filterDoorActionType)
+                .ApplyFilterByStatus(filterDoorActionStatusType)
                 .SingleOrDefaultAsync(doorAction => doorAction.Id == id);
 
             return doorAction is null
