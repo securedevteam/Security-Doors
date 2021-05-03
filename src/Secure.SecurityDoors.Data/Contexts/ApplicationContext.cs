@@ -20,17 +20,22 @@ namespace Secure.SecurityDoors.Data.Contexts
         }
 
         /// <summary>
-        /// Cards.
+        /// Database set of Cards.
         /// </summary>
         public DbSet<Card> Cards { get; set; }
 
         /// <summary>
-        /// Doors.
+        /// Database set of Doors.
         /// </summary>
         public DbSet<Door> Doors { get; set; }
 
         /// <summary>
-        /// DoorActions.
+        /// Database set of DoorReader.
+        /// </summary>
+        public DbSet<DoorReader> DoorReaders { get; set; }
+
+        /// <summary>
+        /// Database set of DoorActions.
         /// </summary>
         public DbSet<DoorAction> DoorActions { get; set; }
 
@@ -38,6 +43,7 @@ namespace Secure.SecurityDoors.Data.Contexts
         {
             builder.ApplyConfiguration(new CardConfiguration());
             builder.ApplyConfiguration(new DoorConfiguration());
+            builder.ApplyConfiguration(new DoorReaderConfiguration());
             builder.ApplyConfiguration(new DoorActionConfiguration());
 
             base.OnModelCreating(builder);

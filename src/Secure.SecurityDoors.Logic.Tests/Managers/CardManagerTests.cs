@@ -50,10 +50,10 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var mapper = new Mock<IMapper>().Object;
 
             Assert.Throws<ArgumentNullException>(() =>
-                new DoorManager(null, null));
+                new CardManager(null, null));
 
             Assert.Throws<ArgumentNullException>(() =>
-                new DoorManager(mapper, null));
+                new CardManager(mapper, null));
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var cardDto = new CardDto
             {
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -101,7 +101,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -110,7 +110,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 2,
                 UserId = "QWERTY321",
-                Number = "123-67",
+                UniqueNumber = "123-67",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -152,7 +152,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -161,7 +161,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 2,
                 UserId = "QWERTY321",
-                Number = "123-67",
+                UniqueNumber = "123-67",
                 Status = CardStatusType.Locked,
                 Level = LevelType.Employee,
             };
@@ -187,7 +187,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -196,7 +196,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 2,
                 UserId = "QWERTY321",
-                Number = "123-67",
+                UniqueNumber = "123-67",
                 Status = CardStatusType.Locked,
                 Level = LevelType.Employee,
             };
@@ -222,7 +222,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -278,7 +278,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };
@@ -301,7 +301,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = cardIdentifier,
                 UserId = "QWERTY123",
-                Number = "123-45",
+                UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
                 Level = LevelType.Admin,
             };

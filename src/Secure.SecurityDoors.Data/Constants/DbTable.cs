@@ -16,6 +16,11 @@
         public const string Doors = nameof(Doors);
 
         /// <summary>
+        /// DoorReaders.
+        /// </summary>
+        public const string DoorReaders = nameof(DoorReaders);
+
+        /// <summary>
         /// DoorActions.
         /// </summary>
         public const string DoorActions = nameof(DoorActions);

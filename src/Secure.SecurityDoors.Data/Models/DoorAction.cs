@@ -14,14 +14,14 @@ namespace Secure.SecurityDoors.Data.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Door identifier.
+        /// AccessController identifier.
         /// </summary>
-        public int DoorId { get; set; }
+        public int AccessControllerId { get; set; }
 
         /// <summary>
-        /// Navigation for Door.
+        /// Navigation for AccessController.
         /// </summary>
-        public Door Door { get; set; }
+        public DoorReader AccessController { get; set; }
 
         /// <summary>
         /// Card identifier.
@@ -34,18 +34,13 @@ namespace Secure.SecurityDoors.Data.Models
         public Card Card { get; set; }
 
         /// <summary>
-        /// Time stamp.
-        /// </summary>
-        public DateTime TimeStamp { get; set; }
-
-        /// <summary>
         /// Status.
         /// </summary>
         public DoorActionStatusType Status { get; set; }
 
         /// <summary>
-        /// Type.
+        /// Time stamp.
         /// </summary>
-        public DoorActionType Type { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

@@ -11,9 +11,9 @@
         Unknown = 0,
 
         /// <summary>
-        /// Admin.
+        /// Administrator.
         /// </summary>
-        Admin = 1,
+        Administrator = 1,
 
         /// <summary>
         /// Employee.
@@ -21,13 +21,23 @@
         Employee = 2,
 
         /// <summary>
+        /// Manager.
+        /// </summary>
+        Manager = 3,
+
+        /// <summary>
+        /// Intern.
+        /// </summary>
+        Intern = 4,
+
+        /// <summary>
         /// Visitor.
         /// </summary>
-        Visitor = 3,
+        Visitor = 5,
 
         /// <summary>
         /// Other.
         /// </summary>
-        Other = 4,
+        Other = 6,
     }
 }

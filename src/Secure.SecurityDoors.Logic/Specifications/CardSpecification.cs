@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Secure.SecurityDoors.Logic.Specifications
@@ -8,6 +9,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
     /// <summary>
     /// Card specification.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class CardSpecification
     {
         /// <summary>

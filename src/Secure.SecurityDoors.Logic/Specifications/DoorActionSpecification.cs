@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Secure.SecurityDoors.Logic.Specifications
@@ -8,6 +9,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
     /// <summary>
     /// DoorAction specification.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class DoorActionSpecification
     {
         /// <summary>
@@ -18,7 +20,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
         /// <returns>DoorAction query.</returns>
         public static IQueryable<DoorAction> GetDoorActionQuery(
             this DbSet<DoorAction> doorActionDbSet,
-            bool withNoTracking) => 
+            bool withNoTracking) =>
                 withNoTracking
                     ? doorActionDbSet.AsNoTracking()
                     : doorActionDbSet;
@@ -35,19 +37,5 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 statusFilter.HasValue
                     ? doorActionQuery.Where(doorAction => doorAction.Status == statusFilter)
                     : doorActionQuery;
-
-        /// <summary>
-        /// Apply filter by door action type.
-        /// </summary>
-        /// <param name="doorActionQuery">Query.</param>
-        /// <param name="typeFilter">Type filter.</param>
-        /// <returns>DoorAction query.</returns>
-        public static IQueryable<DoorAction> ApplyFilterByType(
-            this IQueryable<DoorAction> doorActionQuery,
-            DoorActionType? typeFilter) =>
-                typeFilter.HasValue
-                    ? doorActionQuery.Where(doorAction => doorAction.Type == typeFilter)
-                    : doorActionQuery;
-
     }
 }

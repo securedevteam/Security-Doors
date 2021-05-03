@@ -1,10 +1,9 @@
 ﻿namespace Secure.SecurityDoors.Data.Enums
 {
-
     /// <summary>
     /// DoorAction entrance type.
     /// </summary>
-    public enum DoorActionType
+    public enum DoorReaderType
     {
         /// <summary>
         /// Unknown.

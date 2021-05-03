@@ -1,12 +1,12 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
 using System.Collections.Generic;
 
-namespace Secure.SecurityDoors.Logic.Models
+namespace Secure.SecurityDoors.Data.Models
 {
     /// <summary>
-    /// Door data transfer object.
+    /// DoorReader entity.
     /// </summary>
-    public class DoorDto
+    public class DoorReader
     {
         /// <summary>
         /// Identifier.
@@ -14,24 +14,24 @@ namespace Secure.SecurityDoors.Logic.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Name.
+        /// Serial number.
         /// </summary>
-        public string Name { get; set; }
+        public string SerialNumber { get; set; }
 
         /// <summary>
-        /// Description.
+        /// Door identifier.
         /// </summary>
-        public string Description { get; set; }
+        public int DoorId { get; set; }
 
         /// <summary>
-        /// Status.
+        /// Navigation for Door.
         /// </summary>
-        public DoorStatusType Status { get; set; }
+        public Door Door { get; set; }
 
         /// <summary>
-        /// Level.
+        /// Type.
         /// </summary>
-        public LevelType Level { get; set; }
+        public DoorReaderType Type { get; set; }
 
         /// <summary>
         /// Comment.
@@ -39,8 +39,8 @@ namespace Secure.SecurityDoors.Logic.Models
         public string Comment { get; set; }
 
         /// <summary>
-        /// Nested object DoorReader.
+        /// Navigation for DoorActions.
         /// </summary>
-        public ICollection<DoorReaderDto> DoorReaders { get; set; }
+        public ICollection<DoorAction> DoorActions { get; set; }
     }
 }

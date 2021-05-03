@@ -39,8 +39,8 @@ namespace Secure.SecurityDoors.Data.Models
         public string Comment { get; set; }
 
         /// <summary>
-        /// Navigation for DoorActions.
+        /// Navigation for DoorReaders.
         /// </summary>
-        public ICollection<DoorAction> DoorActions { get; set; }
+        public ICollection<DoorReader> DoorReaders { get; set; }
     }
 }

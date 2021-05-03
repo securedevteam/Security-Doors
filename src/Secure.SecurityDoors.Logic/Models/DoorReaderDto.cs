@@ -1,12 +1,11 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
-using System;
 
 namespace Secure.SecurityDoors.Logic.Models
 {
     /// <summary>
-    /// DoorAction data transfer object.
+    /// DoorReader data transfer object.
     /// </summary>
-    public class DoorActionDto
+    public class DoorReaderDto
     {
         /// <summary>
         /// Identifier.
@@ -14,23 +13,23 @@ namespace Secure.SecurityDoors.Logic.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// AccessController identifier.
+        /// Serial number.
         /// </summary>
-        public int AccessControllerId { get; set; }
+        public string SerialNumber { get; set; }
 
         /// <summary>
-        /// Card identifier.
+        /// Door identifier.
         /// </summary>
-        public int CardId { get; set; }
+        public int DoorId { get; set; }
 
         /// <summary>
-        /// Status.
+        /// Type.
         /// </summary>
-        public DoorActionStatusType Status { get; set; }
+        public DoorReaderType Type { get; set; }
 
         /// <summary>
-        /// Time stamp.
+        /// Comment.
         /// </summary>
-        public DateTime TimeStamp { get; set; }
+        public string Comment { get; set; }
     }
 }

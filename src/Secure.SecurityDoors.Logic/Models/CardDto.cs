@@ -18,9 +18,9 @@ namespace Secure.SecurityDoors.Logic.Models
         public string UserId { get; set; }
 
         /// <summary>
-        /// Number.
+        /// Unique number.
         /// </summary>
-        public string Number { get; set; }
+        public string UniqueNumber { get; set; }
 
         /// <summary>
         /// Status.

@@ -24,9 +24,9 @@ namespace Secure.SecurityDoors.Data.Models
         public User User { get; set; }
 
         /// <summary>
-        /// Number.
+        /// Unique number.
         /// </summary>
-        public string Number { get; set; }
+        public string UniqueNumber { get; set; }
 
         /// <summary>
         /// Status.

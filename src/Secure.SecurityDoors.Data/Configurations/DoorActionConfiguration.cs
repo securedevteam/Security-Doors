@@ -23,12 +23,9 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.Property(doorAction => doorAction.Status)
                 .HasConversion(new EnumToNumberConverter<DoorActionStatusType, int>());
 
-            builder.Property(doorAction => doorAction.Type)
-                .HasConversion(new EnumToNumberConverter<DoorActionType, int>());
-
-            builder.HasOne(doorAction => doorAction.Door)
-                .WithMany(door => door.DoorActions)
-                .HasForeignKey(doorAction => doorAction.DoorId)
+            builder.HasOne(doorAction => doorAction.AccessController)
+                .WithMany(doorReader => doorReader.DoorActions)
+                .HasForeignKey(doorAction => doorAction.AccessControllerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(doorAction => doorAction.Card)

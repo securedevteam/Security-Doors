@@ -72,10 +72,9 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorActionDto = new DoorActionDto
             {
                 Id = 1,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 1,
                 Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
@@ -97,20 +96,18 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 1,
                 Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
             var doorAction2 = new DoorAction
             {
                 Id = 2,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 2,
                 Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -150,20 +147,18 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 1,
                 Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
             var doorAction2 = new DoorAction
             {
                 Id = 2,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 2,
                 Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -181,43 +176,6 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
-        public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByTypeFilter()
-        {
-            // Arrange
-            var doorAction1 = new DoorAction
-            {
-                Id = 1,
-                CardId = 1,
-                DoorId = 1,
-                Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
-                TimeStamp = new DateTime(2000, 1, 1),
-            };
-
-            var doorAction2 = new DoorAction
-            {
-                Id = 2,
-                CardId = 1,
-                DoorId = 2,
-                Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Unknown,
-                TimeStamp = new DateTime(2000, 1, 2),
-            };
-
-            _applicationContext.DoorActions.AddRange(doorAction1, doorAction2);
-            _applicationContext.SaveChanges();
-
-            // Act
-            var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(typeFilter: DoorActionType.Entrance)
-                .GetAwaiter()
-                .GetResult();
-
-            // Assert
-            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
-        }
-
-        [Fact]
         public void GetByIdAsync_DoorActionsExist_DoorActionRetrieved()
         {
             // Arrange
@@ -225,20 +183,18 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = doorActionIdentifier,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 1,
                 Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
             var doorAction2 = new DoorAction
             {
                 Id = 2,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 2,
                 Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -263,20 +219,18 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = doorActionIdentifier,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 1,
                 Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 1),
             };
 
             var doorAction2 = new DoorAction
             {
                 Id = 2,
+                AccessControllerId = 1,
                 CardId = 1,
-                DoorId = 2,
                 Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Entrance,
                 TimeStamp = new DateTime(2000, 1, 2),
             };
 
@@ -288,46 +242,6 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 .GetByIdAsync(
                     doorActionIdentifier,
                     statusFilter: DoorActionStatusType.Success)
-                .GetAwaiter()
-                .GetResult();
-
-            // Assert
-            Assert.Equal(doorActionIdentifier, receivedDoorActionDto.Id);
-        }
-
-        [Fact]
-        public void GetByIdAsync_DoorActionsExist_DoorActionRetrievedByTypeFilter()
-        {
-            // Arrange
-            var doorActionIdentifier = 1;
-            var doorAction1 = new DoorAction
-            {
-                Id = doorActionIdentifier,
-                CardId = 1,
-                DoorId = 1,
-                Status = DoorActionStatusType.Success,
-                Type = DoorActionType.Entrance,
-                TimeStamp = new DateTime(2000, 1, 1),
-            };
-
-            var doorAction2 = new DoorAction
-            {
-                Id = 2,
-                CardId = 1,
-                DoorId = 2,
-                Status = DoorActionStatusType.Error,
-                Type = DoorActionType.Unknown,
-                TimeStamp = new DateTime(2000, 1, 2),
-            };
-
-            _applicationContext.DoorActions.AddRange(doorAction1, doorAction2);
-            _applicationContext.SaveChanges();
-
-            // Act
-            var receivedDoorActionDto = _doorActionManager
-                .GetByIdAsync(
-                    doorActionIdentifier,
-                    typeFilter: DoorActionType.Entrance)
                 .GetAwaiter()
                 .GetResult();
 

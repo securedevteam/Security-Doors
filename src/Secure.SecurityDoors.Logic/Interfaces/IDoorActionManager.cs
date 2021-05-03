@@ -20,22 +20,18 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// Get all door actions.
         /// </summary>
         /// <param name="statusFilter">Status filter.</param>
-        /// <param name="typeFilter">Type filter.</param>
         /// <returns>Get all door action data transfer objects.</returns>
         Task<IEnumerable<DoorActionDto>> GetAllAsync(
-            DoorActionStatusType? statusFilter = default,
-            DoorActionType? typeFilter = default);
+            DoorActionStatusType? statusFilter = default);
 
         /// <summary>
         /// Get door by identifier.
         /// </summary>
         /// <param name="id">Identifier.</param>
         /// <param name="statusFilter">Status filter.</param>
-        /// <param name="typeFilter">Type filter.</param>
         /// <returns>Get door action data transfer object.</returns>
         Task<DoorActionDto> GetByIdAsync(
             int id,
-            DoorActionStatusType? statusFilter = default,
-            DoorActionType? typeFilter = default);
+            DoorActionStatusType? statusFilter = default);
     }
 }

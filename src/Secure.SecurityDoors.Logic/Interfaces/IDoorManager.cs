@@ -11,12 +11,6 @@ namespace Secure.SecurityDoors.Logic.Interfaces
     public interface IDoorManager
     {
         /// <summary>
-        /// Add door.
-        /// </summary>
-        /// <param name="doorDto">Door data transfer object.</param>
-        Task AddAsync(DoorDto doorDto);
-
-        /// <summary>
         /// Get all doors.
         /// </summary>
         /// <param name="statusFilter">Status filter.</param>
@@ -25,17 +19,5 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         Task<IEnumerable<DoorDto>> GetAllAsync(
             DoorStatusType? statusFilter = default,
             LevelType? levelFilter = default);
-
-        /// <summary>
-        /// Update door.
-        /// </summary>
-        /// <param name="doorDto">Door data transfer object.</param>
-        Task UpdateAsync(DoorDto doorDto);
-
-        /// <summary>
-        /// Delete door.
-        /// </summary>
-        /// <param name="id">Door identifier.</param>
-        Task DeleteAsync(int id);
     }
 }
