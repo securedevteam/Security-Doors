@@ -26,9 +26,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityDoors.Tests", "Secu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Data", "src\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj", "{7A2D8AD8-A2E7-48E5-A812-4E02AD649889}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Logic", "src\Secure.SecurityDoors.Logic\Secure.SecurityDoors.Logic.csproj", "{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Logic", "src\Secure.SecurityDoors.Logic\Secure.SecurityDoors.Logic.csproj", "{60ED63C4-C2F2-486D-B7B9-D701D52B66F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Logic.Tests", "src\Secure.SecurityDoors.Logic.Tests\Secure.SecurityDoors.Logic.Tests.csproj", "{99634C02-DA73-4A79-960E-659B243B964F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Logic.Tests", "src\Secure.SecurityDoors.Logic.Tests\Secure.SecurityDoors.Logic.Tests.csproj", "{99634C02-DA73-4A79-960E-659B243B964F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Web", "src\Secure.SecurityDoors.Web\Secure.SecurityDoors.Web.csproj", "{02235C50-2EF0-46C3-A113-E72942EEEDA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +128,14 @@ Global
 		{99634C02-DA73-4A79-960E-659B243B964F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99634C02-DA73-4A79-960E-659B243B964F}.Release|x64.ActiveCfg = Release|Any CPU
 		{99634C02-DA73-4A79-960E-659B243B964F}.Release|x64.Build.0 = Release|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Debug|x64.Build.0 = Debug|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|x64.ActiveCfg = Release|Any CPU
+		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
