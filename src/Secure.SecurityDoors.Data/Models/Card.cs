@@ -47,5 +47,7 @@ namespace Secure.SecurityDoors.Data.Models
         /// Navigation for DoorActions.
         /// </summary>
         public ICollection<DoorAction> DoorActions { get; set; }
+
+        //TODO: Add expiration time
     }
 }
