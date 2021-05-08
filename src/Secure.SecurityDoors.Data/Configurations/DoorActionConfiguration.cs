@@ -25,7 +25,7 @@ namespace Secure.SecurityDoors.Data.Configurations
 
             builder.HasOne(doorAction => doorAction.DoorReader)
                 .WithMany(doorReader => doorReader.DoorActions)
-                .HasForeignKey(doorAction => doorAction.AccessControllerId)
+                .HasForeignKey(doorAction => doorAction.DoorReaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(doorAction => doorAction.Card)

@@ -1,4 +1,5 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Secure.SecurityDoors.Data.Models
@@ -39,6 +40,11 @@ namespace Secure.SecurityDoors.Data.Models
         public LevelType Level { get; set; }
 
         /// <summary>
+        /// Expiration time.
+        /// </summary>
+        public DateTime ExpirationTime { get; set; }
+
+        /// <summary>
         /// Comment.
         /// </summary>
         public string Comment { get; set; }
@@ -47,7 +53,5 @@ namespace Secure.SecurityDoors.Data.Models
         /// Navigation for DoorActions.
         /// </summary>
         public ICollection<DoorAction> DoorActions { get; set; }
-
-        //TODO: Add expiration time
     }
 }

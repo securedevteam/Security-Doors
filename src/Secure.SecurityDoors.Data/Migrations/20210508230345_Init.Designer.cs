@@ -10,7 +10,7 @@ using Secure.SecurityDoors.Data.Contexts;
 namespace Secure.SecurityDoors.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210507203142_Init")]
+    [Migration("20210508230345_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,6 +163,9 @@ namespace Secure.SecurityDoors.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<DateTime>("ExpirationTime")
+                        .HasColumnType("date");
+
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
@@ -223,10 +226,10 @@ namespace Secure.SecurityDoors.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccessControllerId")
+                    b.Property<int>("CardId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CardId")
+                    b.Property<int>("DoorReaderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -237,9 +240,9 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccessControllerId");
-
                     b.HasIndex("CardId");
+
+                    b.HasIndex("DoorReaderId");
 
                     b.ToTable("DoorActions", "org");
                 });
@@ -425,21 +428,21 @@ namespace Secure.SecurityDoors.Data.Migrations
 
             modelBuilder.Entity("Secure.SecurityDoors.Data.Models.DoorAction", b =>
                 {
-                    b.HasOne("Secure.SecurityDoors.Data.Models.DoorReader", "AccessController")
-                        .WithMany("DoorActions")
-                        .HasForeignKey("AccessControllerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Secure.SecurityDoors.Data.Models.Card", "Card")
                         .WithMany("DoorActions")
                         .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("AccessController");
+                    b.HasOne("Secure.SecurityDoors.Data.Models.DoorReader", "DoorReader")
+                        .WithMany("DoorActions")
+                        .HasForeignKey("DoorReaderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Card");
+
+                    b.Navigation("DoorReader");
                 });
 
             modelBuilder.Entity("Secure.SecurityDoors.Data.Models.DoorReader", b =>

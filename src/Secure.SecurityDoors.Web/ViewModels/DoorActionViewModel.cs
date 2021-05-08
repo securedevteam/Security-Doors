@@ -17,9 +17,9 @@ namespace Secure.SecurityDoors.Web.ViewModels
         public int Id { get; set; }
 
         /// <summary>
-        /// AccessController identifier.
+        /// DoorReader identifier.
         /// </summary>
-        public int AccessControllerId { get; set; }
+        public int DoorReaderId { get; set; }
 
         /// <summary>
         /// Card identifier.

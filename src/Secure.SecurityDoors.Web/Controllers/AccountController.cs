@@ -73,7 +73,6 @@ namespace Secure.SecurityDoors.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            // TODO: add position title
             var profileViewModel = new ProfileViewModel
             {
                 FirstName = user.FirstName,

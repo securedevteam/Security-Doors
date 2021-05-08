@@ -14,12 +14,12 @@ namespace Secure.SecurityDoors.Data.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// AccessController identifier.
+        /// DoorReader identifier.
         /// </summary>
-        public int AccessControllerId { get; set; }
+        public int DoorReaderId { get; set; }
 
         /// <summary>
-        /// Navigation for AccessController.
+        /// Navigation for DoorReader.
         /// </summary>
         public DoorReader DoorReader { get; set; }
 

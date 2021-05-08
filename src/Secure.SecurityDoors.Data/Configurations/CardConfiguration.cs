@@ -30,6 +30,9 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.Property(card => card.Level)
                 .HasConversion(new EnumToNumberConverter<LevelType, int>());
 
+            builder.Property(card => card.ExpirationTime)
+                .HasColumnType(SqlConfiguration.SqlDateFormat);
+
             builder.Property(card => card.Comment)
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthLong);
 

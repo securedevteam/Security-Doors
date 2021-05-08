@@ -192,6 +192,7 @@ namespace Secure.SecurityDoors.Data.Migrations
                     UniqueNumber = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
+                    ExpirationTime = table.Column<DateTime>(type: "date", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
@@ -236,7 +237,7 @@ namespace Secure.SecurityDoors.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccessControllerId = table.Column<int>(type: "int", nullable: false),
+                    DoorReaderId = table.Column<int>(type: "int", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -252,8 +253,8 @@ namespace Secure.SecurityDoors.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DoorActions_DoorReaders_AccessControllerId",
-                        column: x => x.AccessControllerId,
+                        name: "FK_DoorActions_DoorReaders_DoorReaderId",
+                        column: x => x.DoorReaderId,
                         principalSchema: "org",
                         principalTable: "DoorReaders",
                         principalColumn: "Id",
@@ -306,16 +307,16 @@ namespace Secure.SecurityDoors.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DoorActions_AccessControllerId",
-                schema: "org",
-                table: "DoorActions",
-                column: "AccessControllerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DoorActions_CardId",
                 schema: "org",
                 table: "DoorActions",
                 column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoorActions_DoorReaderId",
+                schema: "org",
+                table: "DoorActions",
+                column: "DoorReaderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoorReaders_DoorId",

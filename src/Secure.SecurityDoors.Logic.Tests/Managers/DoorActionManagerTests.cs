@@ -72,7 +72,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorActionDto = new DoorActionDto
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -96,7 +96,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -105,7 +105,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -153,7 +153,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -162,7 +162,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -190,7 +190,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = defaultDate,
@@ -199,7 +199,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -225,7 +225,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -234,7 +234,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -260,7 +260,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -269,7 +269,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -297,7 +297,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction1 = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
@@ -306,7 +306,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction2 = new DoorAction
             {
                 Id = 2,
-                AccessControllerId = 1,
+                DoorReaderId = 1,
                 CardId = 1,
                 Status = DoorActionStatusType.Error,
                 TimeStamp = new DateTime(2000, 1, 2),
@@ -376,7 +376,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             var doorAction = new DoorAction
             {
                 Id = 1,
-                AccessControllerId = doorReader.Id,
+                DoorReaderId = doorReader.Id,
                 CardId = card.Id,
                 Status = DoorActionStatusType.Success,
                 TimeStamp = new DateTime(2000, 1, 1),
