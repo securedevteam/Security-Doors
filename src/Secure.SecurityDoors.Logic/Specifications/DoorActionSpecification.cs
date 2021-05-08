@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Models;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,34 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 dateFilter.HasValue && dateFilter.Value.Date != DateTime.MinValue.Date
                     ? doorActionQuery.Where(doorAction => doorAction.TimeStamp.Date == dateFilter.Value.Date)
                     : doorActionQuery;
+
+        /// <summary>
+        /// Apply filter by date range.
+        /// </summary>
+        /// <param name="doorActionQuery">Query.</param>
+        /// <param name="dateRangeFilter">Date filter.</param>
+        /// <returns>DoorAction query.</returns>
+        public static IQueryable<DoorAction> ApplyFilterByDateRange(
+            this IQueryable<DoorAction> doorActionQuery,
+            DateRangeHelper dateRangeFilter)
+        {
+            if (dateRangeFilter is not null)
+            {
+                if (dateRangeFilter.Start.HasValue)
+                {
+                    doorActionQuery = doorActionQuery
+                        .Where(doorAction => doorAction.TimeStamp.Date >= dateRangeFilter.Start.Value.Date);
+                }
+
+                if (dateRangeFilter.End.HasValue)
+                {
+                    doorActionQuery = doorActionQuery
+                        .Where(doorAction => doorAction.TimeStamp.Date <= dateRangeFilter.End.Value.Date);
+                }
+            }
+
+            return doorActionQuery;
+        }
 
         /// <summary>
         /// Apply filter by door action status.

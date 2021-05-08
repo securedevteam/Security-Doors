@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
 using Secure.SecurityDoors.Logic.Specifications;
@@ -37,6 +38,7 @@ namespace Secure.SecurityDoors.Logic.Managers
         public async Task<IEnumerable<DoorActionDto>> GetAllAsync(
             PageDto pageDto = default,
             DateTime? dateFilter = default,
+            DateRangeHelper dateRangeFilter = default,
             DoorActionStatusType? filterDoorActionStatusType = default,
             IList<int> cardIds = default,
             IList<int> doorIds = default,
@@ -47,6 +49,7 @@ namespace Secure.SecurityDoors.Logic.Managers
                 .Includes(includes)
                 .ApplyPagination(pageDto)
                 .ApplyFilterByDate(dateFilter)
+                .ApplyFilterByDateRange(dateRangeFilter)
                 .ApplyFilterByCardIds(cardIds)
                 .ApplyFilterByDoorIds(doorIds)
                 .ApplyFilterByStatus(filterDoorActionStatusType)

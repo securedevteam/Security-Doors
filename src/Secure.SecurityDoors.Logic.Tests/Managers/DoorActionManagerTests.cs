@@ -5,7 +5,7 @@ using Moq;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
-using Secure.SecurityDoors.Logic.Exceptions;
+using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
 using Secure.SecurityDoors.Logic.Models;
@@ -216,6 +216,71 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Assert
             Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
+        }
+
+        [Fact]
+        public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByDateRangeFilter()
+        {
+            // Arrange
+            var defaultStartDate = new DateTime(2000, 1, 2);
+            var defaultEndDate = new DateTime(2000, 1, 3);
+
+            var dateRange = new DateRangeHelper(defaultStartDate, defaultEndDate);
+
+            var doorAction1 = new DoorAction
+            {
+                Id = 1,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Success,
+                TimeStamp = new DateTime(2000, 1, 1),
+            };
+
+            var doorAction2 = new DoorAction
+            {
+                Id = 2,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Error,
+                TimeStamp = defaultStartDate,
+            };
+
+            var doorAction3 = new DoorAction
+            {
+                Id = 3,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Error,
+                TimeStamp = defaultEndDate,
+            };
+
+            var doorAction4 = new DoorAction
+            {
+                Id = 4,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Error,
+                TimeStamp = new DateTime(2000, 1, 4),
+            };
+
+            _applicationContext.DoorActions.AddRange(
+                doorAction1,
+                doorAction2,
+                doorAction3,
+                doorAction4);
+
+            _applicationContext.SaveChanges();
+
+            // Act
+            var receivedDoorActionDtos = _doorActionManager
+                .GetAllAsync(dateRangeFilter: dateRange)
+                .GetAwaiter()
+                .GetResult();
+
+            // Assert
+            Assert.Equal(2, receivedDoorActionDtos.Count());
+            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction2.Id));
+            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction3.Id));
         }
 
         [Fact]
