@@ -23,32 +23,5 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 withNoTracking
                     ? doorDbSet.AsNoTracking()
                     : doorDbSet;
-
-        // TODO: delete it
-        ///// <summary>
-        ///// Apply filter by door status.
-        ///// </summary>
-        ///// <param name="doorQuery">Query.</param>
-        ///// <param name="statusFilter">Status filter.</param>
-        ///// <returns>Door query.</returns>
-        //public static IQueryable<Door> ApplyFilterByStatus(
-        //    this IQueryable<Door> doorQuery,
-        //    DoorStatusType? statusFilter) =>
-        //        statusFilter.HasValue
-        //            ? doorQuery.Where(door => door.Status == statusFilter)
-        //            : doorQuery;
-
-        ///// <summary>
-        ///// Apply filter by door level.
-        ///// </summary>
-        ///// <param name="doorQuery">Query.</param>
-        ///// <param name="levelFilter">Level filter.</param>
-        ///// <returns>Door query.</returns>
-        //public static IQueryable<Door> ApplyFilterByLevel(
-        //    this IQueryable<Door> doorQuery,
-        //    LevelType? levelFilter) =>
-        //        levelFilter.HasValue
-        //            ? doorQuery.Where(door => door.Level == levelFilter)
-        //            : doorQuery;
     }
 }

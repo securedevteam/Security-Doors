@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
-using Secure.SecurityDoors.Logic.Exceptions;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
 using Secure.SecurityDoors.Logic.Specifications;
@@ -36,10 +35,20 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorActionDto>> GetAllAsync(
-            DoorActionStatusType? filterDoorActionStatusType = default)
+            PageDto pageDto = default,
+            DateTime? dateFilter = default,
+            DoorActionStatusType? filterDoorActionStatusType = default,
+            IList<int> cardIds = default,
+            IList<int> doorIds = default,
+            params string[] includes)
         {
             var doorActions = await _applicationContext.DoorActions
                 .GetDoorActionQuery(false)
+                .Includes(includes)
+                .ApplyPagination(pageDto)
+                .ApplyFilterByDate(dateFilter)
+                .ApplyFilterByCardIds(cardIds)
+                .ApplyFilterByDoorIds(doorIds)
                 .ApplyFilterByStatus(filterDoorActionStatusType)
                 .ToListAsync();
 
@@ -48,18 +57,7 @@ namespace Secure.SecurityDoors.Logic.Managers
                 : _mapper.Map<IEnumerable<DoorActionDto>>(doorActions);
         }
 
-        public async Task<DoorActionDto> GetByIdAsync(
-            int id,
-            DoorActionStatusType? filterDoorActionStatusType = default)
-        {
-            var doorAction = await _applicationContext.DoorActions
-                .GetDoorActionQuery(false)
-                .ApplyFilterByStatus(filterDoorActionStatusType)
-                .SingleOrDefaultAsync(doorAction => doorAction.Id == id);
-
-            return doorAction is null
-                ? throw new NotFoundException(nameof(doorAction))
-                : _mapper.Map<DoorActionDto>(doorAction);
-        }
+        public async Task<int> GetTotalCountAsync() =>
+            await _applicationContext.DoorActions.CountAsync();
     }
 }

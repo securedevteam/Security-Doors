@@ -10,6 +10,7 @@ using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
 using Secure.SecurityDoors.Logic.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -145,6 +146,41 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
+        public void GetAllAsync_CardsExist_CardRetrievedByStatusFilter()
+        {
+            // Arrange
+            var card1 = new Card
+            {
+                Id = 1,
+                UserId = "QWERTY123",
+                UniqueNumber = "123-45",
+                Status = CardStatusType.Active,
+                Level = LevelType.Administrator,
+            };
+
+            var card2 = new Card
+            {
+                Id = 2,
+                UserId = "QWERTY321",
+                UniqueNumber = "123-67",
+                Status = CardStatusType.Locked,
+                Level = LevelType.Employee,
+            };
+
+            _applicationContext.Cards.AddRange(card1, card2);
+            _applicationContext.SaveChanges();
+
+            // Act
+            var receivedCardDtos = _cardManager
+                .GetAllAsync(statusFilter: CardStatusType.Active)
+                .GetAwaiter()
+                .GetResult();
+
+            // Assert
+            Assert.Single(receivedCardDtos.Where(cardDto => cardDto.Id == card1.Id));
+        }
+
+        [Fact]
         public void GetAllAsync_CardsExist_CardRetrievedByLevelFilter()
         {
             // Arrange
@@ -180,7 +216,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
-        public void GetAllAsync_CardsExist_CardRetrievedByStatusFilter()
+        public void GetAllAsync_CardsExist_CardRetrievedByEmployeeIdsFilter()
         {
             // Arrange
             var card1 = new Card
@@ -206,7 +242,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(statusFilter: CardStatusType.Active)
+                .GetAllAsync(employeeIds: new List<string> { card1.UserId })
                 .GetAwaiter()
                 .GetResult();
 

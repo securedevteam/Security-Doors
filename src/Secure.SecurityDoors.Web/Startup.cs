@@ -44,7 +44,9 @@ namespace Secure.SecurityDoors.Web
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            services.AddAutoMapper(Assembly.Load("Secure.SecurityDoors.Logic"));
+            services.AddAutoMapper(
+                Assembly.Load("Secure.SecurityDoors.Logic"),
+                Assembly.Load("Secure.SecurityDoors.Web"));
 
             services.ConfigureApplicationCookie(config =>
             {

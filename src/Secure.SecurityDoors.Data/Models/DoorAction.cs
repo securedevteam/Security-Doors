@@ -21,7 +21,7 @@ namespace Secure.SecurityDoors.Data.Models
         /// <summary>
         /// Navigation for AccessController.
         /// </summary>
-        public DoorReader AccessController { get; set; }
+        public DoorReader DoorReader { get; set; }
 
         /// <summary>
         /// Card identifier.

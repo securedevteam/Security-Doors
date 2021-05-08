@@ -1,11 +1,18 @@
 ﻿@model ProfileViewModel
 
 @{
-    ViewData["Title"] = "";
+    ViewData["Title"] = "Profile Page";
 }
 
-<p>FirstName: @Model.FirstName</p>
-<p>LastName: @Model.LastName</p>
-<p>SecondName: @Model.SecondName</p>
-<p>Passport: @Model.Passport</p>
-<p>IdentificationNumber: @Model.IdentificationNumber</p>
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        User info
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">FirstName: @Model.FirstName</li>
+        <li class="list-group-item">LastName: @Model.LastName</li>
+        <li class="list-group-item">SecondName: @Model.SecondName</li>
+        <li class="list-group-item">Passport: @Model.Passport</li>
+        <li class="list-group-item">IdentificationNumber: @Model.IdentificationNumber</li>
+    </ul>
+</div>

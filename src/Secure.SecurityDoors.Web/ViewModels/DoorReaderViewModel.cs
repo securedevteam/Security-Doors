@@ -1,11 +1,11 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
 
-namespace Secure.SecurityDoors.Logic.Models
+namespace Secure.SecurityDoors.Web.ViewModels
 {
     /// <summary>
-    /// DoorReader data transfer object.
+    /// DoorReader view model.
     /// </summary>
-    public class DoorReaderDto
+    public class DoorReaderViewModel
     {
         /// <summary>
         /// Identifier.
@@ -33,8 +33,8 @@ namespace Secure.SecurityDoors.Logic.Models
         public string Comment { get; set; }
 
         /// <summary>
-        /// Door data transfer object.
+        /// Door view model.
         /// </summary>
-        public DoorDto Door { get; set; }
+        public DoorViewModel Door { get; set; }
     }
 }

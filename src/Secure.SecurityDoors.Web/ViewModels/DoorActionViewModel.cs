@@ -1,12 +1,15 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Secure.SecurityDoors.Logic.Models
+namespace Secure.SecurityDoors.Web.ViewModels
 {
     /// <summary>
-    /// DoorAction data transfer object.
+    /// DoorAction view model.
     /// </summary>
-    public class DoorActionDto
+    public class DoorActionViewModel
     {
         /// <summary>
         /// Identifier.
@@ -34,13 +37,17 @@ namespace Secure.SecurityDoors.Logic.Models
         public DateTime TimeStamp { get; set; }
 
         /// <summary>
-        /// Card data transfer object.
+        /// Card view model.
         /// </summary>
-        public CardDto Card { get; set; }
+        public CardViewModel Card { get; set; }
 
         /// <summary>
-        /// DoorReader data transfer object.
+        /// DoorReader view model.
         /// </summary>
-        public DoorReaderDto DoorReader { get; set; }
+        public DoorReaderViewModel DoorReader { get; set; }
+
+        
+
+        
     }
 }

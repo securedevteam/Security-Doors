@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -49,6 +50,19 @@ namespace Secure.SecurityDoors.Logic.Specifications
             LevelType? levelFilter) =>
                 levelFilter.HasValue
                     ? cardQuery.Where(card => card.Level == levelFilter)
+                    : cardQuery;
+
+        /// <summary>
+        /// Apply filter by employee identifiers.
+        /// </summary>
+        /// <param name="cardQuery">Query.</param>
+        /// <param name="employeeIds">Employee identifiers filter.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<Card> ApplyFilterByEmployeeIds(
+            this IQueryable<Card> cardQuery,
+            IList<string> employeeIds) =>
+                employeeIds is not null && employeeIds.Any()
+                    ? cardQuery.Where(card => employeeIds.Contains(card.UserId))
                     : cardQuery;
     }
 }

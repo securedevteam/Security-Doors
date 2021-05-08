@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Secure.SecurityDoors.Web.Models;
-using System;
-using System.Collections.Generic;
+using Secure.SecurityDoors.Web.ViewModels;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Web.Controllers
 {
@@ -24,6 +20,11 @@ namespace Secure.SecurityDoors.Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }

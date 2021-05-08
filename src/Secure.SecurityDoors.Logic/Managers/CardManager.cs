@@ -37,10 +37,12 @@ namespace Secure.SecurityDoors.Logic.Managers
 
         public async Task<IEnumerable<CardDto>> GetAllAsync(
             CardStatusType? statusFilter = default,
-            LevelType? levelFilter = default)
+            LevelType? levelFilter = default,
+            IList<string> peopleIds = default)
         {
             var cards = await _applicationContext.Cards
                 .GetCardQuery(false)
+                .ApplyFilterByEmployeeIds(peopleIds)
                 .ApplyFilterByStatus(statusFilter)
                 .ApplyFilterByLevel(levelFilter)
                 .ToListAsync();
