@@ -47,16 +47,15 @@ namespace Secure.SecurityDoors.Web
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            services.AddAutoMapper(
-                Assembly.Load("Secure.SecurityDoors.Logic"),
-                Assembly.Load("Secure.SecurityDoors.Web"));
-
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Secure.SecurityDoors.Cookie";
             });
 
-            // NuGet services
+            services.AddAutoMapper(
+                Assembly.Load("Secure.SecurityDoors.Logic"),
+                Assembly.Load("Secure.SecurityDoors.Web"));
+
             var mailKitOptions = Configuration.GetSection("Mail").Get<MailKitOptions>();
             services.AddMailKit(optionBuilder =>
             {

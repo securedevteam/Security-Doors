@@ -144,7 +144,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         public void GetAllAsync_DoorActionsExist_DoorActionRetrievedWithPagination()
         {
             // Arrange
-            var pageDto = new PageDto
+            var pageDto = new PageHelper
             {
                 Page = 1,
                 PageSize = 1,

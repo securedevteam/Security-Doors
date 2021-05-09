@@ -141,7 +141,7 @@ namespace Secure.SecurityDoors.Web.Controllers
                 var result = await _userManager.CreateAsync(user, generatedPassword);
                 if (result.Succeeded)
                 {
-                    var role = model.Level.ConvertToRole();
+                    var role = model.Role.ConvertToConstant();
 
                     await _userManager.AddToRoleAsync(user, role);
 

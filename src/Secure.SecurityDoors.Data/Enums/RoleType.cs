@@ -1,9 +1,9 @@
 ﻿namespace Secure.SecurityDoors.Data.Enums
 {
     /// <summary>
-    /// Level type.
+    /// Role type.
     /// </summary>
-    public enum LevelType
+    public enum RoleType
     {
         /// <summary>
         /// Unknown.
@@ -11,28 +11,28 @@
         Unknown = 0,
 
         /// <summary>
-        /// Visitor.
+        /// Administrator.
         /// </summary>
-        Visitor = 1,
-
-        /// <summary>
-        /// Intern.
-        /// </summary>
-        Intern = 2,
+        Admin = 1,
 
         /// <summary>
         /// Employee.
         /// </summary>
-        Employee = 3,
+        Employee = 2,
 
         /// <summary>
         /// Manager.
         /// </summary>
-        Manager = 4,
+        Manager = 3,
 
         /// <summary>
-        /// Administrator.
+        /// Intern.
         /// </summary>
-        Admin = 5,
+        Intern = 4,
+
+        /// <summary>
+        /// Visitor.
+        /// </summary>
+        Visitor = 5,
     }
 }

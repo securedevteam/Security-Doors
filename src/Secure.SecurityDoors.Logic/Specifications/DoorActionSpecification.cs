@@ -63,14 +63,14 @@ namespace Secure.SecurityDoors.Logic.Specifications
         /// Apply pagination for DoorActionQuery.
         /// </summary>
         /// <param name="doorActionQuery">Query.</param>
-        /// <param name="pageDto">Page data transfer object.</param>
+        /// <param name="pageFilter">Page data transfer object.</param>
         /// <returns>DoorAction query.</returns>
         public static IQueryable<DoorAction> ApplyPagination(
             this IQueryable<DoorAction> doorActionQuery,
-            PageDto pageDto) =>
-                pageDto is not null
-                    ? doorActionQuery.Skip((pageDto.Page - 1) * pageDto.PageSize)
-                        .Take(pageDto.PageSize)
+            PageHelper pageFilter) =>
+                pageFilter is not null
+                    ? doorActionQuery.Skip((pageFilter.Page - 1) * pageFilter.PageSize)
+                        .Take(pageFilter.PageSize)
                     : doorActionQuery;
 
         /// <summary>

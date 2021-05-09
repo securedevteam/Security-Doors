@@ -55,9 +55,9 @@ namespace Secure.SecurityDoors.Web.ViewModels
         public string IdentificationNumber { get; set; }
 
         /// <summary>
-        /// Level.
+        /// Role.
         /// </summary>
-        public LevelType Level { get; set; }
+        public RoleType Role { get; set; }
 
         /// <summary>
         /// Comment.

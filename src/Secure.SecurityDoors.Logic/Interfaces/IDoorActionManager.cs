@@ -30,7 +30,7 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <param name="includes">Array of includes.</param>
         /// <returns>Get all door action data transfer objects.</returns>
         Task<IEnumerable<DoorActionDto>> GetAllAsync(
-            PageDto pageDto = default,
+            PageHelper pageFilter = default,
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
             DoorActionStatusType? statusFilter = default,

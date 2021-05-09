@@ -38,7 +38,7 @@ namespace Secure.SecurityDoors.Web.Controllers
             const int defaultPage = 1;
             const int pageSize = 10;
 
-            var pageDto = new PageDto
+            var pageDto = new PageHelper
             {
                 Page = page ?? defaultPage,
                 PageSize = pageSize,

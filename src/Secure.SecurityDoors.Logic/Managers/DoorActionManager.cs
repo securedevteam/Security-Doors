@@ -36,7 +36,7 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorActionDto>> GetAllAsync(
-            PageDto pageDto = default,
+            PageHelper pageFilter = default,
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
             DoorActionStatusType? filterDoorActionStatusType = default,
@@ -47,7 +47,7 @@ namespace Secure.SecurityDoors.Logic.Managers
             var doorActions = await _applicationContext.DoorActions
                 .GetDoorActionQuery(false)
                 .Includes(includes)
-                .ApplyPagination(pageDto)
+                .ApplyPagination(pageFilter)
                 .ApplyFilterByDate(dateFilter)
                 .ApplyFilterByDateRange(dateRangeFilter)
                 .ApplyFilterByCardIds(cardIds)

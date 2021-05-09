@@ -4,17 +4,17 @@ using Serilog;
 using Serilog.Events;
 using System;
 
-namespace Secure.SecurityDoors.Web
+namespace Secure.SecurityDoors.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .CreateLogger();
+                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                 .Enrich.FromLogContext()
+                 .WriteTo.Console()
+                 .CreateLogger();
 
             try
             {
