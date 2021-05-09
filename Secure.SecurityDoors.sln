@@ -30,7 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Logic"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Logic.Tests", "src\Secure.SecurityDoors.Logic.Tests\Secure.SecurityDoors.Logic.Tests.csproj", "{99634C02-DA73-4A79-960E-659B243B964F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.Web", "src\Secure.SecurityDoors.Web\Secure.SecurityDoors.Web.csproj", "{02235C50-2EF0-46C3-A113-E72942EEEDA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secure.SecurityDoors.Web", "src\Secure.SecurityDoors.Web\Secure.SecurityDoors.Web.csproj", "{02235C50-2EF0-46C3-A113-E72942EEEDA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secure.SecurityDoors.DatabaseSeed", "src\Secure.SecurityDoors.DatabaseSeed\Secure.SecurityDoors.DatabaseSeed.csproj", "{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,6 +138,14 @@ Global
 		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|x64.ActiveCfg = Release|Any CPU
 		{02235C50-2EF0-46C3-A113-E72942EEEDA4}.Release|x64.Build.0 = Release|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD0F5E73-5A5A-493F-B6CB-4B39C1AFD769}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

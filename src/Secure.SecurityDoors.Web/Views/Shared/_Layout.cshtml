@@ -30,7 +30,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="Index">Door actions</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="List">Door actions</a>
                             </li>
                         }
                         @if (User.IsInRole(RoleConstant.Admin))
