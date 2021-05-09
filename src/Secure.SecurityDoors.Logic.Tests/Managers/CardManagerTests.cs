@@ -80,7 +80,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             // Act
@@ -104,7 +104,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             var card2 = new Card
@@ -113,7 +113,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY321",
                 UniqueNumber = "123-67",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             _applicationContext.Cards.AddRange(card1, card2);
@@ -155,7 +155,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             var card2 = new Card
@@ -190,7 +190,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             var card2 = new Card
@@ -207,7 +207,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedCardDtos = _cardManager
-                .GetAllAsync(levelFilter: LevelType.Administrator)
+                .GetAllAsync(levelFilter: LevelType.Admin)
                 .GetAwaiter()
                 .GetResult();
 
@@ -225,7 +225,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             var card2 = new Card
@@ -260,7 +260,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             _applicationContext.Cards.Add(card);
@@ -316,7 +316,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             // Act
@@ -339,7 +339,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             _applicationContext.Cards.Add(card);

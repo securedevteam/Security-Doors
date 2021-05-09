@@ -1,45 +1,43 @@
-﻿namespace Secure.SecurityDoors.Data.Enums
+﻿namespace Secure.SecurityDoors.Web.Constants
 {
-    // TODO: add role convertor
-
     /// <summary>
-    /// Level type.
+    /// Role constant.
     /// </summary>
-    public enum LevelType
+    public static class RoleConstant
     {
         /// <summary>
         /// Unknown.
         /// </summary>
-        Unknown = 0,
+        public const string Unknown = nameof(Unknown);
 
         /// <summary>
         /// Administrator.
         /// </summary>
-        Admin = 1,
+        public const string Admin = nameof(Admin);
 
         /// <summary>
         /// Employee.
         /// </summary>
-        Employee = 2,
+        public const string Employee = nameof(Employee);
 
         /// <summary>
         /// Manager.
         /// </summary>
-        Manager = 3,
+        public const string Manager = nameof(Manager);
 
         /// <summary>
         /// Intern.
         /// </summary>
-        Intern = 4,
+        public const string Intern = nameof(Intern);
 
         /// <summary>
         /// Visitor.
         /// </summary>
-        Visitor = 5,
+        public const string Visitor = nameof(Visitor);
 
         /// <summary>
         /// Other.
         /// </summary>
-        Other = 6,
+        public const string Other = nameof(Other);
     }
 }

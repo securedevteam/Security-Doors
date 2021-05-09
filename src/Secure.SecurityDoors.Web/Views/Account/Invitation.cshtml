@@ -1,0 +1,73 @@
+﻿@using Secure.SecurityDoors.Data.Enums
+@model InvitationViewModel
+
+@{
+    ViewData["Title"] = "Invitation Page";
+}
+
+<form method="post" asp-controller="Account" asp-action="Invitation" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Email"></label>
+            <input class="form-control" type="text" asp-for="Email" placeholder="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Username"></label>
+            <input class="form-control" type="text" asp-for="Username" placeholder="Username" />
+            <span asp-validation-for="Username"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="FirstName"></label>
+            <input class="form-control" type="text" asp-for="FirstName" placeholder="First name" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="LastName"></label>
+            <input class="form-control" type="text" asp-for="LastName" placeholder="Last name" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="SecondName"></label>
+            <input class="form-control" type="text" asp-for="SecondName" placeholder="Second name" />
+            <span asp-validation-for="SecondName"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="IdentificationNumber"></label>
+            <input class="form-control" type="text" asp-for="IdentificationNumber" placeholder="Identification number" />
+            <span asp-validation-for="IdentificationNumber"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Passport"></label>
+            <input class="form-control" type="text" asp-for="Passport" placeholder="Passport" />
+            <span asp-validation-for="Passport"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="Gender"></label>
+            <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
+                <option selected="selected" value="">Please select</option>
+            </select>
+            <span asp-validation-for="Gender"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-10">
+            <label asp-for="Comment"></label>
+            <input class="form-control" type="text" asp-for="Comment" placeholder="Comment" />
+            <span asp-validation-for="Comment"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label>Role</label>
+            <select class="form-control" asp-for="Level" asp-items="Html.GetEnumSelectList<LevelType>()">
+                <option selected="selected" value="">Please select</option>
+            </select>
+            <span asp-validation-for="Level"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Send</button>
+</form>

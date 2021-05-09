@@ -62,7 +62,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             {
                 Id = 1,
                 Name = "Test door 1",
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
                 Status = DoorStatusType.Active,
             };
 

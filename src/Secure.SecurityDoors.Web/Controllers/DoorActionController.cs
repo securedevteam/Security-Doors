@@ -33,7 +33,7 @@ namespace Secure.SecurityDoors.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> IndexAsync(DateTime? date, int? page)
+        public async Task<IActionResult> List(DateTime? date, int? page)
         {
             const int defaultPage = 1;
             const int pageSize = 10;

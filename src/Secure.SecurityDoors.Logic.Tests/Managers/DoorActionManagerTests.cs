@@ -418,7 +418,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 UserId = "QWERTY123",
                 UniqueNumber = "123-45",
                 Status = CardStatusType.Active,
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
             };
 
             var door = new Door
@@ -426,7 +426,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 Id = 1,
                 Name = "Door1",
                 Description = "DoorDescription1",
-                Level = LevelType.Administrator,
+                Level = LevelType.Admin,
                 Status = DoorStatusType.Active,
             };
 

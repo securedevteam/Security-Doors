@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Interfaces;
@@ -36,7 +38,8 @@ namespace Secure.SecurityDoors.Web
 
             // ASP.NET Core Identity
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
             // Microsoft services & etc
             services.AddControllersWithViews()
@@ -51,6 +54,22 @@ namespace Secure.SecurityDoors.Web
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Secure.SecurityDoors.Cookie";
+            });
+
+            // NuGet services
+            var mailKitOptions = Configuration.GetSection("Mail").Get<MailKitOptions>();
+            services.AddMailKit(optionBuilder =>
+            {
+                optionBuilder.UseMailKit(new MailKitOptions()
+                {
+                    Server = mailKitOptions.Server,
+                    Port = mailKitOptions.Port,
+                    SenderName = mailKitOptions.SenderName,
+                    SenderEmail = mailKitOptions.SenderEmail,
+                    Account = mailKitOptions.Account,
+                    Password = mailKitOptions.Password,
+                    Security = true
+                });
             });
         }
 
