@@ -193,13 +193,8 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
             _applicationContext.SaveChanges();
 
             // Act
-            var includes = new string[]
-            {
-                nameof(DoorReader.Door)
-            };
-
             var receivedDoorReaderDtos = _doorReaderManager
-                .GetAllAsync(includes: includes)
+                .GetAllAsync(includes: new string[] { nameof(DoorReader.Door) })
                 .GetAwaiter()
                 .GetResult();
 

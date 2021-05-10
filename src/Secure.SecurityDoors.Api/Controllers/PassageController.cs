@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Secure.SecurityDoors.Api.Contracts.Requests;
 using Secure.SecurityDoors.Data.Enums;
+using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
 using System;
@@ -46,7 +47,9 @@ namespace Secure.SecurityDoors.Api.Controllers
             }
 
             var currentDoorReaderDto = (await _doorReaderManager
-                .GetAllAsync(serialNumbers: new string[] { request.DoorReaderSerialNumber }))
+                .GetAllAsync(
+                    serialNumbers: new string[] { request.DoorReaderSerialNumber },
+                    includes: new string[] { nameof(DoorReader.Door) }))
                 .FirstOrDefault();
 
             if (currentDoorReaderDto is null)

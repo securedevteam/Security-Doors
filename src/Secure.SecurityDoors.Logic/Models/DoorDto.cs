@@ -37,10 +37,5 @@ namespace Secure.SecurityDoors.Logic.Models
         /// Comment.
         /// </summary>
         public string Comment { get; set; }
-
-        /// <summary>
-        /// Nested object DoorReader.
-        /// </summary>
-        public ICollection<DoorReaderDto> DoorReaders { get; set; }
     }
 }
