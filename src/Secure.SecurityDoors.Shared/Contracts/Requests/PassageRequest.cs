@@ -1,4 +1,4 @@
-﻿namespace Secure.SecurityDoors.Api.Contracts.Requests
+﻿namespace Secure.SecurityDoors.Shared.Contracts.Requests
 {
     /// <summary>
     /// Passage request.

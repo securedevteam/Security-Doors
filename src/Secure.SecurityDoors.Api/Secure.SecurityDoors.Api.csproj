@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Secure.SecurityDoors.Logic\Secure.SecurityDoors.Logic.csproj" />
+    <ProjectReference Include="..\Secure.SecurityDoors.Shared\Secure.SecurityDoors.Shared.csproj" />
   </ItemGroup>
 
 </Project>

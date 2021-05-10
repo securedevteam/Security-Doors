@@ -16,7 +16,7 @@ namespace Secure.SecurityDoors.DatabaseSeed
         public static void Main(string[] args)
         {
             var creationService = GetServiceProvider()
-                .GetService<ICreationService>();
+                .GetRequiredService<ICreationService>();
 
             if (Question("role"))
             {

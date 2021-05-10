@@ -36,30 +36,21 @@ namespace Secure.SecurityDoors.DatabaseSeed.Services
 
         public async Task CreateUser()
         {
-            var email = ConsoleInput("email");
-            var userName = ConsoleInput("username");
-            var firstName = ConsoleInput("first name");
-            var lastName = ConsoleInput("last name");
-            var secondName = ConsoleInput("second name");
-            var gender = ConsoleInput("gender");
-            var passport = ConsoleInput("passport");
-            var identificationNumber = ConsoleInput("identification number");
-            var comment = ConsoleInput("comment");
-            var password = ConsoleInput("password");
-            var role = ConsoleInput("role");
-
             var user = new User
             {
-                Email = email,
-                UserName = userName,
-                FirstName = firstName,
-                LastName = lastName,
-                SecondName = secondName,
-                Gender = Enum.Parse<GenderType>(gender),
-                Passport = passport,
-                IdentificationNumber = identificationNumber,
-                Comment = comment,
+                Email = ConsoleInput("email"),
+                UserName = ConsoleInput("username"),
+                FirstName = ConsoleInput("first name"),
+                LastName = ConsoleInput("last name"),
+                SecondName = ConsoleInput("second name"),
+                Gender = Enum.Parse<GenderType>(ConsoleInput("gender")),
+                Passport = ConsoleInput("passport"),
+                IdentificationNumber = ConsoleInput("identification number"),
+                Comment = ConsoleInput("comment"),
             };
+
+            var password = ConsoleInput("password");
+            var role = ConsoleInput("role");
 
             var result = await _userManager.CreateAsync(user, password);
             if (!result.Succeeded)

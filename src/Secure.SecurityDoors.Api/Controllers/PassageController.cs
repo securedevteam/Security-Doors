@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Secure.SecurityDoors.Api.Contracts.Requests;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
+using Secure.SecurityDoors.Shared.Contracts.Requests;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
