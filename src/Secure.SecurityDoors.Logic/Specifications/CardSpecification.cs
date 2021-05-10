@@ -64,5 +64,18 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 employeeIds is not null && employeeIds.Any()
                     ? cardQuery.Where(card => employeeIds.Contains(card.UserId))
                     : cardQuery;
+
+        /// <summary>
+        /// Apply filter by unique numbers.
+        /// </summary>
+        /// <param name="cardQuery">Query.</param>
+        /// <param name="uniqueNumbers">Unique numbers filter.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<Card> ApplyFilterByUniqueNumbers(
+            this IQueryable<Card> cardQuery,
+            IList<string> uniqueNumbers) =>
+                uniqueNumbers is not null && uniqueNumbers.Any()
+                    ? cardQuery.Where(card => uniqueNumbers.Contains(card.UniqueNumber))
+                    : cardQuery;
     }
 }

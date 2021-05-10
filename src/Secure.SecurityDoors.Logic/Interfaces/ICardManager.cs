@@ -21,11 +21,13 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// </summary>
         /// <param name="statusFilter">Status filter.</param>
         /// <param name="levelFilter">Level type filter.</param>
+        /// <param name="uniqueNumbers">Unique numbers filter.</param>
         /// <param name="employeeIds">Employee identifiers filter.</param>
         /// <returns>Get all card data transfer objects.</returns>
         Task<IEnumerable<CardDto>> GetAllAsync(
             CardStatusType? statusFilter = default,
             LevelType? levelFilter = default,
+            IList<string> uniqueNumbers = default,
             IList<string> employeeIds = default);
 
         /// <summary>

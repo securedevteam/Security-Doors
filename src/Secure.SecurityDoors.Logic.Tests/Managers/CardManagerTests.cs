@@ -251,6 +251,41 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
+        public void GetAllAsync_CardsExist_CardRetrievedByUniqueNumbersFilter()
+        {
+            // Arrange
+            var card1 = new Card
+            {
+                Id = 1,
+                UserId = "QWERTY123",
+                UniqueNumber = "123-45",
+                Status = CardStatusType.Active,
+                Level = LevelType.Admin,
+            };
+
+            var card2 = new Card
+            {
+                Id = 2,
+                UserId = "QWERTY321",
+                UniqueNumber = "123-67",
+                Status = CardStatusType.Locked,
+                Level = LevelType.Employee,
+            };
+
+            _applicationContext.Cards.AddRange(card1, card2);
+            _applicationContext.SaveChanges();
+
+            // Act
+            var receivedCardDtos = _cardManager
+                .GetAllAsync(uniqueNumbers: new string[] { card1.UniqueNumber })
+                .GetAwaiter()
+                .GetResult();
+
+            // Assert
+            Assert.Single(receivedCardDtos.Where(cardDto => cardDto.Id == card1.Id));
+        }
+
+        [Fact]
         public void UpdateAsync_CardDto_CardFounded()
         {
             // Arrange

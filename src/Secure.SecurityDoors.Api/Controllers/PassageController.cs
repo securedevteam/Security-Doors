@@ -35,18 +35,18 @@ namespace Secure.SecurityDoors.Api.Controllers
         {
             // TODO: to service and use cache
             // TODO: use messages for response
-            // TODO: add filters UniqueNumber and SerialNumber
+            // TODO: add filters SerialNumber
 
-            var cardDtos = await _cardManager.GetAllAsync();
-            var doorReaderDtos = await _doorReaderManager.GetAllAsync();
-
-            var currentCard = cardDtos
-                .FirstOrDefault(cardDto => cardDto.UniqueNumber == request.CardUniqueNumber);
+            var currentCard = (await _cardManager
+                .GetAllAsync(uniqueNumbers: new string[] { request.CardUniqueNumber }))
+                .FirstOrDefault();
 
             if (currentCard is null)
             {
                 return NotFound();
             }
+
+            var doorReaderDtos = await _doorReaderManager.GetAllAsync();
 
             var currentDoorReader = doorReaderDtos
                 .FirstOrDefault(doorReaderDto =>
