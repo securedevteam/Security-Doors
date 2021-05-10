@@ -113,20 +113,6 @@ namespace Secure.SecurityDoors.Logic.Specifications
 
             return doorActionQuery;
         }
-
-        /// <summary>
-        /// Apply filter by door action status.
-        /// </summary>
-        /// <param name="doorActionQuery">Query.</param>
-        /// <param name="statusFilter">Status filter.</param>
-        /// <returns>DoorAction query.</returns>
-        public static IQueryable<DoorAction> ApplyFilterByStatus(
-            this IQueryable<DoorAction> doorActionQuery,
-            DoorActionStatusType? statusFilter) =>
-                statusFilter.HasValue
-                    ? doorActionQuery.Where(doorAction => doorAction.Status == statusFilter)
-                    : doorActionQuery;
-
         /// <summary>
         /// Apply filter by card identifiers.
         /// </summary>
@@ -153,6 +139,19 @@ namespace Secure.SecurityDoors.Logic.Specifications
                     ? doorActionQuery
                         .Include(doorAction => doorAction.DoorReader)
                         .Where(doorAction => doorIds.Contains(doorAction.DoorReader.DoorId))
+                    : doorActionQuery;
+
+        /// <summary>
+        /// Apply filter by door action status.
+        /// </summary>
+        /// <param name="doorActionQuery">Query.</param>
+        /// <param name="statusFilter">Status filter.</param>
+        /// <returns>DoorAction query.</returns>
+        public static IQueryable<DoorAction> ApplyFilterByStatus(
+            this IQueryable<DoorAction> doorActionQuery,
+            DoorActionStatusType? statusFilter) =>
+                statusFilter.HasValue
+                    ? doorActionQuery.Where(doorAction => doorAction.Status == statusFilter)
                     : doorActionQuery;
     }
 }

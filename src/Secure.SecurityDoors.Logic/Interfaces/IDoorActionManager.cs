@@ -21,7 +21,7 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <summary>
         /// Get all door actions.
         /// </summary>
-        /// <param name="pageDto">Pagination.</param>
+        /// <param name="pageFilter">Pagination.</param>
         /// <param name="dateFilter">Date filter.</param>
         /// <param name="dateRangeFilter">Date filter.</param>
         /// <param name="statusFilter">Status filter.</param>

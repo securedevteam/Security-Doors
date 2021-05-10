@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -43,6 +44,19 @@ namespace Secure.SecurityDoors.Logic.Specifications
 
             return doorReaderQuery;
         }
+
+        /// <summary>
+        /// Apply filter by serial number.
+        /// </summary>
+        /// <param name="doorReaderQuery">Query.</param>
+        /// <param name="serialNumbers">Serial numbers filter.</param>
+        /// <returns>Card query.</returns>
+        public static IQueryable<DoorReader> ApplyFilterBySerialNumbers(
+            this IQueryable<DoorReader> doorReaderQuery,
+            IList<string> serialNumbers) =>
+                serialNumbers is not null && serialNumbers.Any()
+                    ? doorReaderQuery.Where(doorReader => serialNumbers.Contains(doorReader.SerialNumber))
+                    : doorReaderQuery;
 
         /// <summary>
         /// Apply filter by door reader type.

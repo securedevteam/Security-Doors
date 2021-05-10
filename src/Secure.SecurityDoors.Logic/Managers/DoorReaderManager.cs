@@ -25,14 +25,15 @@ namespace Secure.SecurityDoors.Logic.Managers
             _applicationContext = applicationContext ?? throw new ArgumentNullException(nameof(applicationContext));
         }
 
-        // TODO: tests
         public async Task<IEnumerable<DoorReaderDto>> GetAllAsync(
             DoorReaderType? typeFilter = default,
+            IList<string> serialNumbers = default,
             params string[] includes)
         {
             var doors = await _applicationContext.DoorReaders
                 .GetDoorReaderQuery(false)
                 .Includes(includes)
+                .ApplyFilterBySerialNumbers(serialNumbers)
                 .ApplyFilterByType(typeFilter)
                 .ToListAsync();
 

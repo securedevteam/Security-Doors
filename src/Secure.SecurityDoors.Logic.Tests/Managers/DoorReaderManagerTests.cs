@@ -136,6 +136,39 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
+        public void GetAllAsync_DoorReadersExist_DoorReadersRetrievedBySerialNumbersFilter()
+        {
+            // Arrange
+            var doorReader1 = new DoorReader
+            {
+                Id = 1,
+                SerialNumber = "123-01",
+                DoorId = 1,
+                Type = DoorReaderType.Entrance,
+            };
+
+            var doorReader2 = new DoorReader
+            {
+                Id = 2,
+                SerialNumber = "123-02",
+                DoorId = 1,
+                Type = DoorReaderType.Exit,
+            };
+
+            _applicationContext.DoorReaders.AddRange(doorReader1, doorReader2);
+            _applicationContext.SaveChanges();
+
+            // Act
+            var receivedDoorReaderDtos = _doorReaderManager
+                .GetAllAsync(serialNumbers: new string[] { doorReader1.SerialNumber })
+                .GetAwaiter()
+                .GetResult();
+
+            // Assert
+            Assert.Single(receivedDoorReaderDtos.Where(doorReaderDto => doorReaderDto.Id == doorReader1.Id));
+        }
+
+        [Fact]
         public void GetAllAsync_DoorReadersExist_DoorReadersRetrievedWithIncludes()
         {
             // Arrange

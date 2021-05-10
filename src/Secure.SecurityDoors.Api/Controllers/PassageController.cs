@@ -35,49 +35,46 @@ namespace Secure.SecurityDoors.Api.Controllers
         {
             // TODO: to service and use cache
             // TODO: use messages for response
-            // TODO: add filters SerialNumber
 
-            var currentCard = (await _cardManager
+            var currentCardDto = (await _cardManager
                 .GetAllAsync(uniqueNumbers: new string[] { request.CardUniqueNumber }))
                 .FirstOrDefault();
 
-            if (currentCard is null)
+            if (currentCardDto is null)
             {
                 return NotFound();
             }
 
-            var doorReaderDtos = await _doorReaderManager.GetAllAsync();
+            var currentDoorReaderDto = (await _doorReaderManager
+                .GetAllAsync(serialNumbers: new string[] { request.DoorReaderSerialNumber }))
+                .FirstOrDefault();
 
-            var currentDoorReader = doorReaderDtos
-                .FirstOrDefault(doorReaderDto =>
-                    doorReaderDto.SerialNumber == request.DoorReaderSerialNumber);
-
-            if (currentDoorReader is null)
+            if (currentDoorReaderDto is null)
             {
                 return NotFound();
             }
 
             var doorActionStatus = DoorActionStatusType.Success;
 
-            if (currentCard.Status == CardStatusType.Locked)
+            if (currentCardDto.Status == CardStatusType.Locked)
             {
                 doorActionStatus = DoorActionStatusType.Error;
             }
 
-            if (currentDoorReader.Door.Status != DoorStatusType.Active)
+            if (currentDoorReaderDto.Door.Status != DoorStatusType.Active)
             {
                 doorActionStatus = DoorActionStatusType.Error;
             }
 
-            if (currentCard.Level < currentDoorReader.Door.Level)
+            if (currentCardDto.Level < currentDoorReaderDto.Door.Level)
             {
                 doorActionStatus = DoorActionStatusType.Denied;
             }
 
             var doorActionDto = new DoorActionDto
             {
-                CardId = currentCard.Id,
-                DoorReaderId = currentDoorReader.Id,
+                CardId = currentCardDto.Id,
+                DoorReaderId = currentDoorReaderDto.Id,
                 Status = doorActionStatus,
                 TimeStamp = DateTime.Now,
             };
