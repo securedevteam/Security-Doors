@@ -121,6 +121,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
                 .GetResult();
 
             // Assert
+            Assert.Equal(2, receivedDoorActionDtos.Count());
             Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
             Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction2.Id));
         }
@@ -144,7 +145,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         public void GetAllAsync_DoorActionsExist_DoorActionRetrievedWithPagination()
         {
             // Arrange
-            var pageDto = new PageHelper
+            var pageFilter = new PageHelper
             {
                 Page = 1,
                 PageSize = 1,
@@ -173,7 +174,7 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Act
             var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(pageDto: pageDto)
+                .GetAllAsync(pageFilter: pageFilter)
                 .GetAwaiter()
                 .GetResult();
 

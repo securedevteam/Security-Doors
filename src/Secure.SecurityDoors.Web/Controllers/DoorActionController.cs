@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Secure.SecurityDoors.Data.Models;
+using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
 using Secure.SecurityDoors.Web.ViewModels;
@@ -38,7 +39,7 @@ namespace Secure.SecurityDoors.Web.Controllers
             const int defaultPage = 1;
             const int pageSize = 10;
 
-            var pageDto = new PageHelper
+            var pageFilter = new PageHelper
             {
                 Page = page ?? defaultPage,
                 PageSize = pageSize,
@@ -52,7 +53,7 @@ namespace Secure.SecurityDoors.Web.Controllers
                 .ToArray();
 
             var doorActionDtosByPerson = (await _doorActionManager.GetAllAsync(
-                pageDto: pageDto,
+                pageFilter: pageFilter,
                 dateFilter: date,
                 cardIds: personCardIds,
                 includes: new string[]
@@ -68,8 +69,8 @@ namespace Secure.SecurityDoors.Web.Controllers
                 DoorActionViewModels = _mapper.Map<IEnumerable<DoorActionViewModel>>(doorActionDtosByPerson),
                 PageViewModel = new PageViewModel(
                     await _doorActionManager.GetTotalCountAsync(),
-                    pageDto.Page,
-                    pageDto.PageSize),
+                    pageFilter.Page,
+                    pageFilter.PageSize),
                 Date = date ?? DateTime.Now,
             });
         }

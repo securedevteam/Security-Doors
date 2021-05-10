@@ -30,7 +30,6 @@ namespace Secure.SecurityDoors.Web
             // Managers & services
             services.AddScoped<ICardManager, CardManager>();
             services.AddScoped<IDoorActionManager, DoorActionManager>();
-            services.AddScoped<IDoorManager, DoorManager>();
 
             // Database context
             services.AddDbContext<ApplicationContext>(options =>

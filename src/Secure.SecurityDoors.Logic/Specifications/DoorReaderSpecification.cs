@@ -56,39 +56,5 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 typeFilter.HasValue
                     ? doorReaderQuery.Where(doorReader => doorReader.Type == typeFilter)
                     : doorReaderQuery;
-
-        /// <summary>
-        /// Apply filter by door status.
-        /// </summary>
-        /// <param name="doorReaderQuery">Query.</param>
-        /// <param name="doorStatusFilter">Door status filter.</param>
-        /// <returns>DoorReader query.</returns>
-        public static IQueryable<DoorReader> ApplyFilterByDoorStatus(
-            this IQueryable<DoorReader> doorReaderQuery,
-            DoorStatusType? doorStatusFilter)
-        {
-            return doorStatusFilter.HasValue
-                ? doorReaderQuery
-                    .Include(doorReader => doorReader.Door)
-                    .Where(doorReader => doorReader.Door.Status == doorStatusFilter)
-                : doorReaderQuery;
-        }
-
-        /// <summary>
-        /// Apply filter by door level.
-        /// </summary>
-        /// <param name="doorReaderQuery">Query.</param>
-        /// <param name="doorLevelType">Door level filter.</param>
-        /// <returns>DoorReader query.</returns>
-        public static IQueryable<DoorReader> ApplyFilterByDoorLevel(
-            this IQueryable<DoorReader> doorReaderQuery,
-            LevelType? doorLevelType)
-        {
-            return doorLevelType.HasValue
-                ? doorReaderQuery
-                    .Include(doorReader => doorReader.Door)
-                    .Where(doorReader => doorReader.Door.Level == doorLevelType)
-                : doorReaderQuery;
-        }
     }
 }

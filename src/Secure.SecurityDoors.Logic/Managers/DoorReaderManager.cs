@@ -28,16 +28,12 @@ namespace Secure.SecurityDoors.Logic.Managers
         // TODO: tests
         public async Task<IEnumerable<DoorReaderDto>> GetAllAsync(
             DoorReaderType? typeFilter = default,
-            DoorStatusType? doorStatusFilter = default,
-            LevelType? doorlevelFilter = default,
             params string[] includes)
         {
             var doors = await _applicationContext.DoorReaders
                 .GetDoorReaderQuery(false)
                 .Includes(includes)
                 .ApplyFilterByType(typeFilter)
-                .ApplyFilterByDoorStatus(doorStatusFilter)
-                .ApplyFilterByDoorLevel(doorlevelFilter)
                 .ToListAsync();
 
             return !doors.Any()
