@@ -198,6 +198,7 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.UniqueConstraint("AK_Cards_UniqueNumber", x => x.UniqueNumber);
                     table.ForeignKey(
                         name: "FK_Cards_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -221,6 +222,7 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DoorReaders", x => x.Id);
+                    table.UniqueConstraint("AK_DoorReaders_SerialNumber", x => x.SerialNumber);
                     table.ForeignKey(
                         name: "FK_DoorReaders_Doors_DoorId",
                         column: x => x.DoorId,

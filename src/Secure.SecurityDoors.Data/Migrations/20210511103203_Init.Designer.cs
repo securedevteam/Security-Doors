@@ -10,7 +10,7 @@ using Secure.SecurityDoors.Data.Contexts;
 namespace Secure.SecurityDoors.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210508230345_Init")]
+    [Migration("20210511103203_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -182,6 +182,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("UniqueNumber");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Cards", "org");
@@ -270,6 +272,8 @@ namespace Secure.SecurityDoors.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("SerialNumber");
 
                     b.HasIndex("DoorId");
 

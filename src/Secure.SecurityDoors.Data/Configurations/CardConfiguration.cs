@@ -20,6 +20,8 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.ToTable(DbTable.Cards, DbSchema.Org)
                 .HasKey(card => card.Id);
 
+            builder.HasAlternateKey(card => card.UniqueNumber);
+
             builder.Property(card => card.UniqueNumber)
                 .IsRequired()
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthMedium);

@@ -180,6 +180,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("UniqueNumber");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Cards", "org");
@@ -268,6 +270,8 @@ namespace Secure.SecurityDoors.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("SerialNumber");
 
                     b.HasIndex("DoorId");
 

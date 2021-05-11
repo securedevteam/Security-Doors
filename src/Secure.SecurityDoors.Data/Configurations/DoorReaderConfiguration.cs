@@ -20,6 +20,8 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.ToTable(DbTable.DoorReaders, DbSchema.Org)
                 .HasKey(doorReader => doorReader.Id);
 
+            builder.HasAlternateKey(doorReader => doorReader.SerialNumber);
+
             builder.Property(doorReader => doorReader.SerialNumber)
                 .IsRequired()
                 .HasMaxLength(SqlConfiguration.SqlMaxLengthMedium);
