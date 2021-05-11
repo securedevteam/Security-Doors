@@ -123,6 +123,30 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="ErrorMessageEmail" xml:space="preserve">
+    <value>"Email" field is required.</value>
+  </data>
+  <data name="ErrorMessageFirstName" xml:space="preserve">
+    <value>"First name" field is required.</value>
+  </data>
+  <data name="ErrorMessageGender" xml:space="preserve">
+    <value>"Gender" field is required.</value>
+  </data>
+  <data name="ErrorMessageIdNumber" xml:space="preserve">
+    <value>"Id number" field is required.</value>
+  </data>
+  <data name="ErrorMessageLastName" xml:space="preserve">
+    <value>"Last name" field is required.</value>
+  </data>
+  <data name="ErrorMessagePassport" xml:space="preserve">
+    <value>"Passport" field is required.</value>
+  </data>
+  <data name="ErrorMessageRole" xml:space="preserve">
+    <value>"Role" field is required.</value>
+  </data>
+  <data name="ErrorMessageUsername" xml:space="preserve">
+    <value>"Username" field is required.</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>

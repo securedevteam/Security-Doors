@@ -123,6 +123,30 @@
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
+  <data name="ErrorMessageEmail" xml:space="preserve">
+    <value>"Электронная почта" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageFirstName" xml:space="preserve">
+    <value>"Имя" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageGender" xml:space="preserve">
+    <value>"Пол" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageIdNumber" xml:space="preserve">
+    <value>"Идентификационный номер" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageLastName" xml:space="preserve">
+    <value>"Фамилия" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessagePassport" xml:space="preserve">
+    <value>"Пасспорт" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageRole" xml:space="preserve">
+    <value>"Роль" обязательное поле.</value>
+  </data>
+  <data name="ErrorMessageUsername" xml:space="preserve">
+    <value>"Имя пользователя" обязательное поле.</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
   </data>

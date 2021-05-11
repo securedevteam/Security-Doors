@@ -10,14 +10,14 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// <summary>
         /// User name.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "ErrorMessageUsername")]
         [Display(Name = "Username")]
         public string Username { get; set; }
 
         /// <summary>
         /// Password.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "ErrorMessagePassword")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

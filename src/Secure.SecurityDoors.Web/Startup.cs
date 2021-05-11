@@ -50,7 +50,7 @@ namespace Secure.SecurityDoors.Web
                 // cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 // requires using Microsoft.AspNetCore.Http;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
 
 
