@@ -10,7 +10,7 @@ using Secure.SecurityDoors.Data.Contexts;
 namespace Secure.SecurityDoors.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210511103203_Init")]
+    [Migration("20210511103509_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,6 +217,8 @@ namespace Secure.SecurityDoors.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Name");
 
                     b.ToTable("Doors", "org");
                 });

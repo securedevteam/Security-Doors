@@ -216,6 +216,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Name");
+
                     b.ToTable("Doors", "org");
                 });
 

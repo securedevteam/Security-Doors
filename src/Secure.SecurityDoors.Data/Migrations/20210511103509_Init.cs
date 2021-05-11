@@ -73,6 +73,7 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Doors", x => x.Id);
+                    table.UniqueConstraint("AK_Doors_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
