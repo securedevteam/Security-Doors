@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Page"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome!</h1>
-    <p>The main ideas of this project is the passage of people or employees of a certain organization through door controllers using cards of various levels. The main interface of the complex is implemented as a web application, which allows you to log in and use the application in a specific role: admin, employee or etc.</p>
+    <h1 class="display-4">@Localizer["Title"]</h1>
+    <p>@Localizer["Text"]</p>
 </div>

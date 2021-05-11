@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.DatabaseSeed.Interfaces;
+using Secure.SecurityDoors.DatabaseSeed.Resources;
 using Secure.SecurityDoors.DatabaseSeed.Services;
 using System;
 
 namespace Secure.SecurityDoors.DatabaseSeed
 {
-    // TODO: use resource files
     class Program
     {
         public static void Main(string[] args)
@@ -33,15 +33,15 @@ namespace Secure.SecurityDoors.DatabaseSeed
                     .GetAwaiter()
                     .GetResult();
             }
-
-            Console.ReadKey();
         }
 
         private static bool Question(string model)
         {
-            Console.WriteLine($"It is necessary to create {model}? Y/N");
+            const string actionСancellation = "n";
+
+            Console.Write(string.Format(MessageResource.QuestionCreate, model));
             var userInput = Console.ReadLine();
-            return !string.IsNullOrWhiteSpace(userInput) && userInput.ToLower() != "n";
+            return !string.IsNullOrWhiteSpace(userInput) && userInput.ToLower() != actionСancellation;
         }
 
         private static ServiceProvider GetServiceProvider()

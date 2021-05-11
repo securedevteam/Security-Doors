@@ -1,63 +1,63 @@
-﻿@model Secure.SecurityDoors.Web.ViewModels.DoorActionIndexViewModel
+﻿@model DoorActionIndexViewModel
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "DoorAction Page";
+    ViewData["Title"] = Localizer["Page"];
 }
 
-<h1>Door actions</h1>
+<h1>@Localizer["Title"]</h1>
 
 @if (Model.DoorActionViewModels.Any())
 {
     <form class="form-inline">
         <div class="form-group mb-2">
-            <label class="control-label">Date:</label>
+            <label class="control-label">@Localizer["LabelDate"]</label>
         </div>
         <div class="form-group mx-sm-3 mb-2">
             <input type="date" asp-for="Date" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-success mb-2">Apply</button>
+        <button type="submit" class="btn btn-success mb-2">@Localizer["ButtonApply"]</button>
     </form>
 
     <table class="table table-sm table-hover">
-        <caption>List of door actions</caption>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Card</th>
-                <th>Door</th>
-                <th>Door reader type</th>
-                <th>Status</th>
-                <th>TimeStamp</th>
+                <th>@Localizer["TableId"]</th>
+                <th>@Localizer["TableCard"]</th>
+                <th>@Localizer["TableDoor"]</th>
+                <th>@Localizer["TableDoorReader"]</th>
+                <th>@Localizer["TableStatus"]</th>
+                <th>@Localizer["TableTimeStamp"]</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.DoorActionViewModels)
+            @foreach (var doorActionViewModel in Model.DoorActionViewModels)
             {
                 <tr>
-                    <th scope="row">@item.Id</th>
+                    <th scope="row">@doorActionViewModel.Id</th>
                     <td>
-                        @item.Card.UniqueNumber - @item.Card.Level <img src="~/images/info-circle.svg" alt="Info" title="@item.Card.Status">
+                        @doorActionViewModel.Card.UniqueNumber - @doorActionViewModel.Card.Level <img src="~/images/info-circle.svg" alt="Info" title="@doorActionViewModel.Card.Status">
                     </td>
                     <td>
-                        @item.DoorReader.Door.Name <img src="~/images/info-circle.svg" alt="Info" title="@item.DoorReader.Door.Description">
+                        @doorActionViewModel.DoorReader.Door.Name <img src="~/images/info-circle.svg" alt="Info" title="@doorActionViewModel.DoorReader.Door.Description">
                     </td>
                     <td>
-                        @item.DoorReader.Type
+                        @doorActionViewModel.DoorReader.Type
                     </td>
                     <td>
-                        @item.Status
+                        @doorActionViewModel.Status
                     </td>
                     <td>
-                        @item.TimeStamp
+                        @doorActionViewModel.TimeStamp
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <page-link page-model="@Model.PageViewModel" page-action="Index"></page-link>
+    <page-link page-model="@Model.PageViewModel" page-action="List"></page-link>
 }
 else
 {
-    <p>Empty list of door actions..</p>
+    <p>@Localizer["TextEmptyCollection"]</p>
 }

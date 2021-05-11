@@ -1,6 +1,7 @@
 ﻿using Flurl;
 using Flurl.Http;
 using Secure.SecurityDoors.Controller.Interfaces;
+using Secure.SecurityDoors.Controller.Resources;
 using Secure.SecurityDoors.Shared.Contracts.Requests;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Secure.SecurityDoors.Controller.Services
             string url,
             params string[] segments)
         {
-            string message = "Success!";
+            var message = MessageResource.Success;
 
             try
             {

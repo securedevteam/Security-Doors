@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using NETCore.MailKit.Core;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Web.Attributes;
 using Secure.SecurityDoors.Web.Constants;
 using Secure.SecurityDoors.Web.Extensions;
+using Secure.SecurityDoors.Web.Resources;
 using Secure.SecurityDoors.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,15 +21,18 @@ namespace Secure.SecurityDoors.Web.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IEmailService _emailService;
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         public AccountController(
             SignInManager<User> signInManager,
             UserManager<User> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            IStringLocalizer<AccountController> localizer)
         {
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+            _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         }
 
         [HttpGet]
@@ -37,6 +42,7 @@ namespace Secure.SecurityDoors.Web.Controllers
             {
                 ReturnUrl = returnUrl
             };
+
 
             return View(loginViewModel);
         }
@@ -49,25 +55,23 @@ namespace Secure.SecurityDoors.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Username);
-                if (user is null)
-                {
-                    ModelState.AddModelError(string.Empty, "User not found");
-                    return View(model);
-                }
-
-                var result = await _userManager.IsEmailConfirmedAsync(user);
-                if (!result)
-                {
-                    ModelState.AddModelError("", "Email not confirmed!");
-                    return View(model);
-                }
-
                 var signInResult = await _signInManager
-                    .PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+                    .PasswordSignInAsync(
+                        model.Username,
+                        model.Password,
+                        model.RememberMe,
+                        false);
 
                 if (signInResult.Succeeded)
                 {
+                    var user = await _userManager.FindByNameAsync(model.Username);
+                    var isConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+                    if (!isConfirmed)
+                    {
+                        ModelState.AddModelError(string.Empty, _localizer["EmailNotConfirmed"]);
+                        return View(model);
+                    }
+
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -76,7 +80,7 @@ namespace Secure.SecurityDoors.Web.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                //ModelState.AddModelError(string.Empty, CommonResource.AccountLoginError);
+                ModelState.AddModelError(string.Empty, _localizer["UserLoginError"]);
             }
 
             return View(model);
@@ -147,10 +151,10 @@ namespace Secure.SecurityDoors.Web.Controllers
 
                     _emailService.Send(
                         model.Email,
-                        "Welcome to SecurityDoors App!",
-                        $"Link: {await GenerateConfirmationLinkAsync(user)}\n" +
-                        $"Password: {generatedPassword}\n" +
-                        $"Role: {role}");
+                        CommonResource.EmailSubject,
+                        string.Format(CommonResource.EmailTextLink, await GenerateConfirmationLinkAsync(user)) +
+                        string.Format(CommonResource.EmailTextPassword, generatedPassword) +
+                        string.Format(CommonResource.EmailTextRole, role));
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -167,15 +171,8 @@ namespace Secure.SecurityDoors.Web.Controllers
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
-            {
-                ViewBag.Message = "Email confirmed successfully!";
-                return View();
-            }
-
-            ViewBag.Message = "Error while confirming your email!";
-            return View();
+            var identityResult = await _userManager.ConfirmEmailAsync(user, token);
+            return View(identityResult.Succeeded);
         }
 
         private static Task<string> GenerateRandomPassword(PasswordOptions opts = null)

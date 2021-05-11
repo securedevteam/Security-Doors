@@ -1,7 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Confirm email Page";
+﻿@model bool
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = @Localizer["Page"];
 }
 
-<h1>Email confirmation</h1>
+<h1>@Localizer["Title"]</h1>
 
-<p>@ViewBag.Message</p>
+@if (Model)
+{
+    <p>@Localizer["TextEmailConfirmed"]</p>
+}
+else
+{
+    <p>@Localizer["TextEmailConfirmedError"]</p>
+}

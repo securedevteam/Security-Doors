@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Secure.SecurityDoors.Controller.Interfaces;
+using Secure.SecurityDoors.Controller.Resources;
 using Secure.SecurityDoors.Controller.Services;
 using Secure.SecurityDoors.Shared.Contracts.Requests;
 using System;
@@ -51,15 +52,17 @@ namespace Secure.SecurityDoors.Controller
 
         private static string ConsoleInput(string type)
         {
-            Console.Write($"Enter {type}: ");
+            Console.Write(string.Format(MessageResource.QuestionEnter, type));
             return Console.ReadLine();
         }
 
         private static bool Question()
         {
-            Console.Write($"Continue? Enter Y/N: ");
+            const string actionСancellation = "n";
+
+            Console.Write(MessageResource.QuestionContinue);
             var userInput = Console.ReadLine();
-            return !string.IsNullOrWhiteSpace(userInput) && userInput.ToLower() != "n";
+            return !string.IsNullOrWhiteSpace(userInput) && userInput.ToLower() != actionСancellation;
         }
     }
 }

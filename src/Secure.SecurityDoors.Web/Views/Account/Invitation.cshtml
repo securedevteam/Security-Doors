@@ -1,56 +1,59 @@
 ﻿@using Secure.SecurityDoors.Data.Enums
 @model InvitationViewModel
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Invitation Page";
+    ViewData["Title"] = @Localizer["Page"];
 }
+
+<h1>@Localizer["Title"]</h1>
 
 <form method="post" asp-controller="Account" asp-action="Invitation" asp-antiforgery="true">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label asp-for="Email"></label>
-            <input class="form-control" type="text" asp-for="Email" placeholder="Email" />
+            <input class="form-control" type="text" asp-for="Email" placeholder="@Localizer["PlaceholderEmail"]" />
             <span asp-validation-for="Email"></span>
         </div>
         <div class="form-group col-md-6">
             <label asp-for="Username"></label>
-            <input class="form-control" type="text" asp-for="Username" placeholder="Username" />
+            <input class="form-control" type="text" asp-for="Username" placeholder="@Localizer["PlaceholderUsername"]" />
             <span asp-validation-for="Username"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             <label asp-for="FirstName"></label>
-            <input class="form-control" type="text" asp-for="FirstName" placeholder="First name" />
+            <input class="form-control" type="text" asp-for="FirstName" placeholder="@Localizer["PlaceholderFirstName"]" />
             <span asp-validation-for="FirstName"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="LastName"></label>
-            <input class="form-control" type="text" asp-for="LastName" placeholder="Last name" />
+            <input class="form-control" type="text" asp-for="LastName" placeholder="@Localizer["PlaceholderLastName"]" />
             <span asp-validation-for="LastName"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="SecondName"></label>
-            <input class="form-control" type="text" asp-for="SecondName" placeholder="Second name" />
+            <input class="form-control" type="text" asp-for="SecondName" placeholder="@Localizer["PlaceholderSecondName"]" />
             <span asp-validation-for="SecondName"></span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label asp-for="IdentificationNumber"></label>
-            <input class="form-control" type="text" asp-for="IdentificationNumber" placeholder="Identification number" />
+            <input class="form-control" type="text" asp-for="IdentificationNumber" placeholder="@Localizer["PlaceholderIdNumber"]" />
             <span asp-validation-for="IdentificationNumber"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="Passport"></label>
-            <input class="form-control" type="text" asp-for="Passport" placeholder="Passport" />
+            <input class="form-control" type="text" asp-for="Passport" placeholder="@Localizer["PlaceholderPassport"]" />
             <span asp-validation-for="Passport"></span>
         </div>
         <div class="form-group col-md-2">
             <label asp-for="Gender"></label>
             <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<GenderType>()">
-                <option selected="selected" value="">Please select</option>
+                <option selected="selected" value="">@Localizer["TextSelect"]</option>
             </select>
             <span asp-validation-for="Gender"></span>
         </div>
@@ -58,16 +61,16 @@
     <div class="form-row">
         <div class="form-group col-md-10">
             <label asp-for="Comment"></label>
-            <input class="form-control" type="text" asp-for="Comment" placeholder="Comment" />
+            <input class="form-control" type="text" asp-for="Comment" placeholder="@Localizer["PlaceholderComment"]" />
             <span asp-validation-for="Comment"></span>
         </div>
         <div class="form-group col-md-2">
-            <label>Role</label>
+            <label asp-for="Role"></label>
             <select class="form-control" asp-for="Role" asp-items="Html.GetEnumSelectList<RoleType>()">
-                <option selected="selected" value="">Please select</option>
+                <option selected="selected" value="">@Localizer["TextSelect"]</option>
             </select>
             <span asp-validation-for="Role"></span>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Send</button>
+    <button type="submit" class="btn btn-success">@Localizer["ButtonSend"]</button>
 </form>

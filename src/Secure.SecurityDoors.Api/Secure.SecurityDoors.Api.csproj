@@ -16,4 +16,19 @@
     <ProjectReference Include="..\Secure.SecurityDoors.Shared\Secure.SecurityDoors.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\CommonResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\CommonResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

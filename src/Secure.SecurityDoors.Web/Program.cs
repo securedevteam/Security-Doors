@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Secure.SecurityDoors.Web.Resources;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -18,12 +19,12 @@ namespace Secure.SecurityDoors.Web
 
             try
             {
-                Log.Information("Starting web host");
+                Log.Information(CommonResource.HostStart);
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, CommonResource.HostFatalError);
             }
             finally
             {
@@ -37,6 +38,7 @@ namespace Secure.SecurityDoors.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("https://localhost:5001", "http://localhost:5000");
                 });
     }
 }

@@ -13,4 +13,19 @@
     <ProjectReference Include="..\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\MessageResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MessageResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\MessageResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

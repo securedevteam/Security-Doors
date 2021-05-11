@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Secure.SecurityDoors.Api.Resources;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -18,12 +19,12 @@ namespace Secure.SecurityDoors.Api
 
             try
             {
-                Log.Information("Starting web host");
+                Log.Information(CommonResource.HostStart);
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, CommonResource.HostFatalError);
             }
             finally
             {

@@ -2,6 +2,7 @@
 using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.DatabaseSeed.Interfaces;
+using Secure.SecurityDoors.DatabaseSeed.Resources;
 using System;
 using System.Threading.Tasks;
 
@@ -26,11 +27,11 @@ namespace Secure.SecurityDoors.DatabaseSeed.Services
             if (!await _roleManager.RoleExistsAsync(role))
             {
                 await _roleManager.CreateAsync(new IdentityRole(role));
-                Console.WriteLine("Done.");
+                Console.WriteLine(MessageResource.Done);
             }
             else
             {
-                Console.WriteLine("Role already exist.");
+                Console.WriteLine(MessageResource.RoleExist);
             }
         }
 
@@ -38,7 +39,7 @@ namespace Secure.SecurityDoors.DatabaseSeed.Services
         {
             var user = new User
             {
-                Email = ConsoleInput("email"),
+                Email = ConsoleInput("user"),
                 UserName = ConsoleInput("username"),
                 FirstName = ConsoleInput("first name"),
                 LastName = ConsoleInput("last name"),
@@ -64,13 +65,13 @@ namespace Secure.SecurityDoors.DatabaseSeed.Services
             {
                 await _userManager.AddToRoleAsync(user, role);
 
-                Console.WriteLine("Done.");
+                Console.WriteLine(MessageResource.Done);
             }
         }
 
         private static string ConsoleInput(string type)
         {
-            Console.Write($"Enter {type}: ");
+            Console.Write(string.Format(MessageResource.QuestionEnter, type));
             return Console.ReadLine();
         }
     }

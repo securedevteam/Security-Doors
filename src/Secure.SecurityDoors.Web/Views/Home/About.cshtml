@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "About Page";
+﻿@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Page"];
 }
 
 <div class="text-center">
@@ -7,7 +9,7 @@
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">About</h1>
+    <h1 class="display-4">@Localizer["Title"]</h1>
 
     <br />
 

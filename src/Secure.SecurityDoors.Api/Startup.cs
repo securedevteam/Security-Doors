@@ -22,7 +22,6 @@ namespace Secure.SecurityDoors.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Managers & services
@@ -39,22 +38,29 @@ namespace Secure.SecurityDoors.Api
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Secure.SecurityDoors.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Secure.SecurityDoors.Api",
+                    Version = "v1" 
+                });
             });
 
             services.AddAutoMapper(Assembly.Load("Secure.SecurityDoors.Logic"));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Secure.SecurityDoors.Api v1"));
+                app.UseSwaggerUI(c =>
+                    c.SwaggerEndpoint(
+                        "/swagger/v1/swagger.json", 
+                        "Secure.SecurityDoors.Api v1"));
             }
 
             app.UseSerilogRequestLogging();

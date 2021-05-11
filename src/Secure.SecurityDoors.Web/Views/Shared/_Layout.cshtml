@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Secure.SecurityDoors.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SecurityDoors</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,25 +21,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">@Localizer["About"]</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="List">Door actions</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="List">@Localizer["DoorAction"]</a>
                             </li>
                         }
                         @if (User.IsInRole(RoleConstant.Admin))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Invitation">Invitation</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Invitation">@Localizer["Invitation"]</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
@@ -51,9 +47,17 @@
         </main>
     </div>
 
+    @*<footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>© 2017-2021 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </footer>*@
+
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Secure.SecurityDoors.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <div class="float-right">
+                    <partial name="_SelectLanguagePartial" />
+                </div>
+            <div>&copy; 2021 - SecurityDoors - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a></div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,6 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy Page";
-}
-<h1>Privacy Policy</h1>
+﻿@inject IViewLocalizer Localizer
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = Localizer["Page"];
+}
+
+<h1>@Localizer["Title"]</h1>
+
+<p>@Localizer["Text"]</p>

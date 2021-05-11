@@ -35,7 +35,6 @@ namespace Secure.SecurityDoors.Api.Controllers
         public async Task<IActionResult> PostAsync([FromBody] PassageRequest request)
         {
             // TODO: to service and use cache
-            // TODO: use messages for response
 
             var currentCardDto = (await _cardManager
                 .GetAllAsync(uniqueNumbers: new string[] { request.CardUniqueNumber }))

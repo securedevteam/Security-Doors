@@ -11,7 +11,7 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// User name.
         /// </summary>
         [Required]
-        [Display(Name = nameof(Username))]
+        [Display(Name = "Username")]
         public string Username { get; set; }
 
         /// <summary>
@@ -19,13 +19,13 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// </summary>
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = nameof(Password))]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         /// <summary>
         /// Remember me.
         /// </summary>
-        [Display(Name = "Remember me")]
+        [Display(Name = "RememberMe")]
         public bool RememberMe { get; set; }
 
         /// <summary>
