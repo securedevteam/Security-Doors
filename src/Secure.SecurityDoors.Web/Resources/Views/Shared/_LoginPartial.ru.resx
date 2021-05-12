@@ -123,7 +123,4 @@
   <data name="ButtonLogout" xml:space="preserve">
     <value>Выход</value>
   </data>
-  <data name="TextHello" xml:space="preserve">
-    <value>Привет</value>
-  </data>
 </root>

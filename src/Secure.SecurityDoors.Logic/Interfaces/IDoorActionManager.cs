@@ -24,18 +24,20 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <param name="pageFilter">Pagination.</param>
         /// <param name="dateFilter">Date filter.</param>
         /// <param name="dateRangeFilter">Date filter.</param>
-        /// <param name="statusFilter">Status filter.</param>
         /// <param name="cardIds">Card identifiers filter.</param>
         /// <param name="doorIds">Door identifiers filter.</param>
+        /// <param name="userIds">User identifiers filter.</param>
+        /// <param name="statusFilter">Status filter.</param>
         /// <param name="includes">Array of includes.</param>
         /// <returns>Get all door action data transfer objects.</returns>
         Task<IEnumerable<DoorActionDto>> GetAllAsync(
             PageHelper pageFilter = default,
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
-            DoorActionStatusType? statusFilter = default,
             IList<int> cardIds = default,
             IList<int> doorIds = default,
+            IList<string> userIds = default,
+            DoorActionStatusType? statusFilter = default,
             params string[] includes);
 
         /// <summary>

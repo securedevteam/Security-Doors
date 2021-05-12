@@ -21,17 +21,20 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">@Localizer["About"]</a>
-                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile" title="Profile">@Localizer["Profile"]</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="List">@Localizer["DoorAction"]</a>
                             </li>
                         }
                         @if (User.IsInRole(RoleConstant.Admin))
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DoorAction" asp-action="Report">@Localizer["Report"]</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Invitation">@Localizer["Invitation"]</a>
                             </li>
@@ -54,7 +57,11 @@
                 <div class="float-right">
                     <partial name="_SelectLanguagePartial" />
                 </div>
-            <div>&copy; 2021 - SecurityDoors - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a></div>
+            <div>
+                &copy; 2021 - SecurityDoors
+                - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
+                - <a asp-area="" asp-controller="Home" asp-action="About">@Localizer["About"]</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

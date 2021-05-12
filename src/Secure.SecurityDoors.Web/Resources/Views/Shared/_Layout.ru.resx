@@ -121,12 +121,18 @@
     <value>О команде</value>
   </data>
   <data name="DoorAction" xml:space="preserve">
-    <value>Действия дверей</value>
+    <value>Проходы</value>
   </data>
   <data name="Invitation" xml:space="preserve">
     <value>Приглашение</value>
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>Конфиденциальность</value>
+    <value>Политика</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Отчет</value>
   </data>
 </root>

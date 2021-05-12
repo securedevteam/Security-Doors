@@ -113,6 +113,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
 
             return doorActionQuery;
         }
+
         /// <summary>
         /// Apply filter by card identifiers.
         /// </summary>
@@ -139,6 +140,21 @@ namespace Secure.SecurityDoors.Logic.Specifications
                     ? doorActionQuery
                         .Include(doorAction => doorAction.DoorReader)
                         .Where(doorAction => doorIds.Contains(doorAction.DoorReader.DoorId))
+                    : doorActionQuery;
+
+        /// <summary>
+        /// Apply filter by card identifiers.
+        /// </summary>
+        /// <param name="doorActionQuery">Query.</param>
+        /// <param name="userIds">User identifiers filter.</param>
+        /// <returns>DoorAction query.</returns>
+        public static IQueryable<DoorAction> ApplyFilterByUserIds(
+            this IQueryable<DoorAction> doorActionQuery,
+            IList<string> userIds) => 
+                userIds is not null && userIds.Any()
+                    ? doorActionQuery
+                        .Include(doorAction => doorAction.Card)
+                        .Where(doorAction => userIds.Contains(doorAction.Card.UserId))
                     : doorActionQuery;
 
         /// <summary>

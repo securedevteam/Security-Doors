@@ -69,8 +69,16 @@ namespace Secure.SecurityDoors.Logic.Managers
                 throw new NotFoundException(nameof(cardDto));
             }
 
-            card = _mapper.Map(cardDto, card);
-            _applicationContext.Cards.Update(card);
+            // TODO: resolve this issue and check tests
+            card.UserId = cardDto.UserId;
+            //card.UniqueNumber = cardDto.UniqueNumber;
+            card.Status = cardDto.Status;
+            card.Level = cardDto.Level;
+            card.Comment = cardDto.Comment;
+
+            //card = _mapper.Map(cardDto, card);
+            //var cardFromDto = _mapper.Map<Card>(cardDto);
+            //_applicationContext.Cards.Update(cardFromDto);
         }
 
         public async Task DeleteAsync(int id)

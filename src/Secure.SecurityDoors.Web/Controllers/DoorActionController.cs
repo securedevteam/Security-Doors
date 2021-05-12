@@ -2,10 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
+using Secure.SecurityDoors.Web.Attributes;
+using Secure.SecurityDoors.Web.Constants;
+using Secure.SecurityDoors.Web.Services;
 using Secure.SecurityDoors.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,17 +24,23 @@ namespace Secure.SecurityDoors.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ICardManager _cardManager;
         private readonly IDoorActionManager _doorActionManager;
+        private readonly IReportService _reportService;
+        private readonly RazorViewToStringRenderer _razorViewEngine;
 
         public DoorActionController(
             IMapper mapper,
             UserManager<User> userManager,
             ICardManager cardManager,
-            IDoorActionManager doorActionManager)
+            IDoorActionManager doorActionManager,
+            IReportService reportService,
+            RazorViewToStringRenderer razorViewEngine)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _cardManager = cardManager ?? throw new ArgumentNullException(nameof(cardManager));
             _doorActionManager = doorActionManager ?? throw new ArgumentNullException(nameof(doorActionManager));
+            _reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
+            _razorViewEngine = razorViewEngine ?? throw new ArgumentNullException(nameof(razorViewEngine));
         }
 
         [Authorize]
@@ -73,6 +83,55 @@ namespace Secure.SecurityDoors.Web.Controllers
                     pageFilter.PageSize),
                 Date = date ?? DateTime.Now,
             });
+        }
+
+        [AuthorizeRoles(RoleConstant.Admin)]
+        public IActionResult Report()
+        {
+            var users = _userManager.Users.ToList();
+            ViewBag.Users = new SelectList(users, "Id", "Email");
+            return View();
+        }
+
+        [AuthorizeRoles(RoleConstant.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> GenerateReport(string userId, DateTime? start, DateTime? end)
+        {
+            IList<string> CheckUserId() =>
+                userId is not null
+                    ? new string[] { userId }
+                    : Array.Empty<string>();
+
+            var doorActionDtos = (await _doorActionManager.GetAllAsync(
+                dateRangeFilter: new DateRangeHelper
+                {
+                    Start = start,
+                    End = end,
+                },
+                userIds: CheckUserId(),
+                includes: new string[]
+                {
+                    nameof(DoorActionDto.Card),
+                    nameof(DoorActionDto.DoorReader),
+                    nameof(DoorReader.Door)
+                }))
+                .OrderBy(doorActionDto => doorActionDto.TimeStamp);
+
+            var reportTemplateViewModel = new ReportTemplateViewModel
+            {
+                DoorActionViewModels =
+                    _mapper.Map<IEnumerable<DoorActionViewModel>>(doorActionDtos)
+            };
+
+            var html = await _razorViewEngine
+                .RenderViewToStringAsync(
+                    "Views/Report/Template.cshtml",
+                        reportTemplateViewModel);
+
+            return File(
+                await _reportService.GeneratePdfAsync(html), 
+                "application/octet-stream", 
+                $"Report_{DateTime.Now}.pdf");
         }
     }
 }

@@ -355,6 +355,53 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
+        public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByUserIdsFilter()
+        {
+            // Arrange
+            var doorAction1 = new DoorAction
+            {
+                Id = 1,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Success,
+                TimeStamp = new DateTime(2000, 1, 1),
+            };
+
+            var doorAction2 = new DoorAction
+            {
+                Id = 2,
+                DoorReaderId = 1,
+                CardId = 1,
+                Status = DoorActionStatusType.Error,
+                TimeStamp = new DateTime(2000, 1, 2),
+            };
+
+            var card1 = new Card
+            {
+                Id = 1,
+                UserId = "QWERTY123",
+                UniqueNumber = "123-45",
+                Status = CardStatusType.Active,
+                Level = LevelType.Admin,
+            };
+
+            _applicationContext.DoorActions.AddRange(doorAction1, doorAction2);
+            _applicationContext.Cards.Add(card1);
+            _applicationContext.SaveChanges();
+
+            // Act
+            var receivedDoorActionDtos = _doorActionManager
+                .GetAllAsync(userIds: new string[] { card1.UserId })
+                .GetAwaiter()
+                .GetResult();
+
+            // Assert
+            Assert.Equal(2, receivedDoorActionDtos.Count());
+            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
+            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction2.Id));
+        }
+
+        [Fact]
         public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByDoorIdsFilter()
         {
             // Arrange

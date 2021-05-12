@@ -7,18 +7,18 @@
 
 <h1>@Localizer["Title"]</h1>
 
-@if (Model.DoorActionViewModels.Any())
-{
-    <form class="form-inline">
-        <div class="form-group mb-2">
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-4">
             <label class="control-label">@Localizer["LabelDate"]</label>
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
             <input type="date" asp-for="Date" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-success mb-2">@Localizer["ButtonApply"]</button>
-    </form>
+    </div>
+    <button type="submit" class="btn btn-success mb-2">@Localizer["ButtonApply"]</button>
+</form>
 
+@if (Model.DoorActionViewModels.Any())
+{
     <table class="table table-sm table-hover">
         <thead>
             <tr>

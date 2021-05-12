@@ -4,11 +4,8 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile" title="Profile">@Localizer["TextHello"], @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">@Localizer["ButtonLogout"]</button>
+                <button type="submit" class="nav-link btn btn btn-link text-dark">@Localizer["ButtonLogout"]</button>
             </form>
         </li>
     }
@@ -16,6 +13,6 @@
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">@Localizer["ButtonLogin"]</a>
-</li>
+        </li>
     }
 </ul>

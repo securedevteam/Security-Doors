@@ -39,9 +39,10 @@ namespace Secure.SecurityDoors.Logic.Managers
             PageHelper pageFilter = default,
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
-            DoorActionStatusType? statusFilter = default,
             IList<int> cardIds = default,
             IList<int> doorIds = default,
+            IList<string> userIds = default,
+            DoorActionStatusType? statusFilter = default,
             params string[] includes)
         {
             var doorActions = await _applicationContext.DoorActions
@@ -52,6 +53,7 @@ namespace Secure.SecurityDoors.Logic.Managers
                 .ApplyFilterByDateRange(dateRangeFilter)
                 .ApplyFilterByCardIds(cardIds)
                 .ApplyFilterByDoorIds(doorIds)
+                .ApplyFilterByUserIds(userIds)
                 .ApplyFilterByStatus(statusFilter)
                 .ToListAsync();
 

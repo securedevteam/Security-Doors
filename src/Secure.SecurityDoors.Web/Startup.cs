@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +15,8 @@ using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
+using Secure.SecurityDoors.Logic.Services;
+using Secure.SecurityDoors.Web.Services;
 using Serilog;
 using System.Globalization;
 using System.Reflection;
@@ -30,9 +34,13 @@ namespace Secure.SecurityDoors.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Managers & services
+            // Managers
             services.AddScoped<ICardManager, CardManager>();
             services.AddScoped<IDoorActionManager, DoorActionManager>();
+
+            // Services
+            services.AddScoped<RazorViewToStringRenderer>();
+            services.AddTransient<IReportService, ReportService>();
 
             // Database context
             services.AddDbContext<ApplicationContext>(options =>
@@ -52,7 +60,6 @@ namespace Secure.SecurityDoors.Web
                 // requires using Microsoft.AspNetCore.Http;
                 options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
-
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -80,6 +87,8 @@ namespace Secure.SecurityDoors.Web
             {
                 config.Cookie.Name = "Secure.SecurityDoors.Cookie";
             });
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             services.AddAutoMapper(
                 Assembly.Load("Secure.SecurityDoors.Logic"),

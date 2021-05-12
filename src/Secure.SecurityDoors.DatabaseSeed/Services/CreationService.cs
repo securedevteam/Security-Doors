@@ -39,7 +39,7 @@ namespace Secure.SecurityDoors.DatabaseSeed.Services
         {
             var user = new User
             {
-                Email = ConsoleInput("user"),
+                Email = ConsoleInput("email"),
                 UserName = ConsoleInput("username"),
                 FirstName = ConsoleInput("first name"),
                 LastName = ConsoleInput("last name"),
