@@ -20,7 +20,8 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.ToTable(DbTable.DoorReaders, DbSchema.Org)
                 .HasKey(doorReader => doorReader.Id);
 
-            builder.HasAlternateKey(doorReader => doorReader.SerialNumber);
+            builder.HasIndex(doorReader => doorReader.SerialNumber)
+                .IsUnique();
 
             builder.Property(doorReader => doorReader.SerialNumber)
                 .IsRequired()

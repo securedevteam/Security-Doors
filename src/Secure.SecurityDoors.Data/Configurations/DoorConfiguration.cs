@@ -20,7 +20,8 @@ namespace Secure.SecurityDoors.Data.Configurations
             builder.ToTable(DbTable.Doors, DbSchema.Org)
                 .HasKey(door => door.Id);
 
-            builder.HasAlternateKey(door => door.Name);
+            builder.HasIndex(door => door.Name)
+                .IsUnique();
 
             builder.Property(door => door.Name)
                 .IsRequired()

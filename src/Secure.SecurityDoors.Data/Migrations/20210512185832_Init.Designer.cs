@@ -10,7 +10,7 @@ using Secure.SecurityDoors.Data.Contexts;
 namespace Secure.SecurityDoors.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210511103509_Init")]
+    [Migration("20210512185832_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -182,7 +182,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("UniqueNumber");
+                    b.HasIndex("UniqueNumber")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -218,7 +219,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Doors", "org");
                 });
@@ -275,9 +277,10 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("SerialNumber");
-
                     b.HasIndex("DoorId");
+
+                    b.HasIndex("SerialNumber")
+                        .IsUnique();
 
                     b.ToTable("DoorReaders", "org");
                 });

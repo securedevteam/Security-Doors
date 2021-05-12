@@ -180,7 +180,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("UniqueNumber");
+                    b.HasIndex("UniqueNumber")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -216,7 +217,8 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Doors", "org");
                 });
@@ -273,9 +275,10 @@ namespace Secure.SecurityDoors.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("SerialNumber");
-
                     b.HasIndex("DoorId");
+
+                    b.HasIndex("SerialNumber")
+                        .IsUnique();
 
                     b.ToTable("DoorReaders", "org");
                 });

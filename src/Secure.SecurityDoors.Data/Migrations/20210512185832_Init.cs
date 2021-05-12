@@ -73,7 +73,6 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Doors", x => x.Id);
-                    table.UniqueConstraint("AK_Doors_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,7 +198,6 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cards", x => x.Id);
-                    table.UniqueConstraint("AK_Cards_UniqueNumber", x => x.UniqueNumber);
                     table.ForeignKey(
                         name: "FK_Cards_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -223,7 +221,6 @@ namespace Secure.SecurityDoors.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DoorReaders", x => x.Id);
-                    table.UniqueConstraint("AK_DoorReaders_SerialNumber", x => x.SerialNumber);
                     table.ForeignKey(
                         name: "FK_DoorReaders_Doors_DoorId",
                         column: x => x.DoorId,
@@ -304,6 +301,13 @@ namespace Secure.SecurityDoors.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cards_UniqueNumber",
+                schema: "org",
+                table: "Cards",
+                column: "UniqueNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cards_UserId",
                 schema: "org",
                 table: "Cards",
@@ -326,6 +330,20 @@ namespace Secure.SecurityDoors.Data.Migrations
                 schema: "org",
                 table: "DoorReaders",
                 column: "DoorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoorReaders_SerialNumber",
+                schema: "org",
+                table: "DoorReaders",
+                column: "SerialNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Doors_Name",
+                schema: "org",
+                table: "Doors",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
