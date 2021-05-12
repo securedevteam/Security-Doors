@@ -126,6 +126,12 @@
   <data name="Page" xml:space="preserve">
     <value>Действия дверей</value>
   </data>
+  <data name="PaginationTextNext" xml:space="preserve">
+    <value>Вперед</value>
+  </data>
+  <data name="PaginationTextPrevious" xml:space="preserve">
+    <value>Назад</value>
+  </data>
   <data name="TableCard" xml:space="preserve">
     <value>Карта</value>
   </data>

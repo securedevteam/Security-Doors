@@ -11,7 +11,7 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label class="control-label">@Localizer["LabelDate"]</label>
-            <input type="date" asp-for="Date" class="form-control" />
+            <input type="date" asp-for="DateFilter" class="form-control" />
         </div>
     </div>
     <button type="submit" class="btn btn-success mb-2">@Localizer["ButtonApply"]</button>
@@ -55,7 +55,26 @@
         </tbody>
     </table>
 
-    <page-link page-model="@Model.PageViewModel" page-action="List"></page-link>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="List"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           asp-route-dateFilter="@Model.DateFilter"
+           class="btn btn-outline-dark">
+            @Localizer["PaginationTextPrevious"]
+        </a>
+    }
+
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a
+           asp-action="List"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           asp-route-dateFilter="@Model.DateFilter"
+           class="btn btn-outline-dark">
+            @Localizer["PaginationTextNext"]
+        </a>
+    }
 }
 else
 {

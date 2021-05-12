@@ -44,6 +44,8 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// Get total count.
         /// </summary>
         /// <returns>Number.</returns>
-        Task<int> GetTotalCountAsync();
+        Task<int> GetTotalCountAsync(
+            DateTime? dateFilter = default,
+            IList<int> cardIds = default);
     }
 }

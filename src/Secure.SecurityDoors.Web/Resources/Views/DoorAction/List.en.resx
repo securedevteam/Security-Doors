@@ -126,6 +126,12 @@
   <data name="Page" xml:space="preserve">
     <value>Doors actions</value>
   </data>
+  <data name="PaginationTextNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="PaginationTextPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
   <data name="TableCard" xml:space="preserve">
     <value>Card</value>
   </data>

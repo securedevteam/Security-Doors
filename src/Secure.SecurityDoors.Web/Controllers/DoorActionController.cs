@@ -44,7 +44,7 @@ namespace Secure.SecurityDoors.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> List(DateTime? date, int? page)
+        public async Task<IActionResult> List(DateTime? dateFilter, int? page)
         {
             const int defaultPage = 1;
             const int pageSize = 10;
@@ -64,7 +64,7 @@ namespace Secure.SecurityDoors.Web.Controllers
 
             var doorActionDtosByPerson = (await _doorActionManager.GetAllAsync(
                 pageFilter: pageFilter,
-                dateFilter: date,
+                dateFilter: dateFilter,
                 cardIds: personCardIds,
                 includes: new string[]
                 {
@@ -78,10 +78,14 @@ namespace Secure.SecurityDoors.Web.Controllers
             {
                 DoorActionViewModels = _mapper.Map<IEnumerable<DoorActionViewModel>>(doorActionDtosByPerson),
                 PageViewModel = new PageViewModel(
-                    await _doorActionManager.GetTotalCountAsync(),
+                    await _doorActionManager.GetTotalCountAsync(
+                        dateFilter: dateFilter,
+                        cardIds: personCardIds),
                     pageFilter.Page,
                     pageFilter.PageSize),
-                Date = date ?? DateTime.Now,
+                DateFilter = dateFilter.HasValue
+                    ? dateFilter.Value.ToString("yyyy-MM-dd")
+                    : null
             });
         }
 

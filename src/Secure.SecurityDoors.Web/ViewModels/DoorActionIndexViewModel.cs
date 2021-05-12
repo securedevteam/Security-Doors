@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace Secure.SecurityDoors.Web.ViewModels
 {
@@ -20,9 +18,8 @@ namespace Secure.SecurityDoors.Web.ViewModels
         public PageViewModel PageViewModel { get; set; }
 
         /// <summary>
-        /// Date.
+        /// Date filter.
         /// </summary>
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public string DateFilter { get; set; }
     }
 }

@@ -62,7 +62,12 @@ namespace Secure.SecurityDoors.Logic.Managers
                 : _mapper.Map<IEnumerable<DoorActionDto>>(doorActions);
         }
 
-        public async Task<int> GetTotalCountAsync() =>
-            await _applicationContext.DoorActions.CountAsync();
+        public async Task<int> GetTotalCountAsync(
+            DateTime? dateFilter = default,
+            IList<int> cardIds = default) =>
+                await _applicationContext.DoorActions
+                .ApplyFilterByDate(dateFilter)
+                .ApplyFilterByCardIds(cardIds)
+                .CountAsync();
     }
 }
