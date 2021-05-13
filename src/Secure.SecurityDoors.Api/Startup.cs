@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
+using Secure.SecurityDoors.Shared.Constants;
 using Serilog;
 using System.Reflection;
 
@@ -32,7 +33,7 @@ namespace Secure.SecurityDoors.Api
 
             // Database context
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection")));
+                options.UseSqlServer(AppConstant.ConnectionString));
 
             // Microsoft services & etc
             services.AddControllers()

@@ -7,6 +7,7 @@ using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.DatabaseSeed.Interfaces;
 using Secure.SecurityDoors.DatabaseSeed.Resources;
 using Secure.SecurityDoors.DatabaseSeed.Services;
+using Secure.SecurityDoors.Shared.Constants;
 using System;
 
 namespace Secure.SecurityDoors.DatabaseSeed
@@ -46,12 +47,9 @@ namespace Secure.SecurityDoors.DatabaseSeed
 
         private static ServiceProvider GetServiceProvider()
         {
-            const string connectionString =
-                "Server=(localdb)\\mssqllocaldb;Database=SecurityDoorsApp;Trusted_Connection=True;";
-
             var services = new ServiceCollection()
                 .AddDbContext<ApplicationContext>(options =>
-                    options.UseSqlServer(connectionString))
+                    options.UseSqlServer(AppConstant.ConnectionString))
                 .AddSingleton<ILoggerFactory, LoggerFactory>()
                 .AddSingleton(typeof(ILogger<>), typeof(Logger<>))
                 .AddScoped<ICreationService, CreationService>();

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Secure.SecurityDoors.Data\Secure.SecurityDoors.Data.csproj" />
+    <ProjectReference Include="..\Secure.SecurityDoors.Shared\Secure.SecurityDoors.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,6 +16,7 @@ using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
 using Secure.SecurityDoors.Logic.Services;
+using Secure.SecurityDoors.Shared.Constants;
 using Secure.SecurityDoors.Web.Services;
 using Serilog;
 using System.Globalization;
@@ -44,7 +45,7 @@ namespace Secure.SecurityDoors.Web
 
             // Database context
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection")));
+                options.UseSqlServer(AppConstant.ConnectionString));
 
             // ASP.NET Core Identity
             services.AddIdentity<User, IdentityRole>()
