@@ -9,18 +9,18 @@
 
 @if (showBanner)
 {
-<div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-    @Localizer["TextPrivacy"] <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["TextLearn"]</a>.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<script>
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        @Localizer["TextPrivacy"] <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["TextLearn"]</a>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <script>
     (function () {
         var button = document.querySelector("#cookieConsent button[data-cookie-string]");
         button.addEventListener("click", function (event) {
             document.cookie = button.dataset.cookieString;
         }, false);
     })();
-</script>
+    </script>
 }

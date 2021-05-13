@@ -25,6 +25,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
                 withNoTracking
                     ? cardDbSet.AsNoTracking()
                     : cardDbSet;
+
         /// <summary>
         /// Apply filter by employee identifiers.
         /// </summary>

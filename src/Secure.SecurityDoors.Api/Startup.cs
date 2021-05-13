@@ -45,7 +45,7 @@ namespace Secure.SecurityDoors.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Secure.SecurityDoors.Api",
-                    Version = "v1" 
+                    Version = "v1"
                 });
             });
 
@@ -60,7 +60,7 @@ namespace Secure.SecurityDoors.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                     c.SwaggerEndpoint(
-                        "/swagger/v1/swagger.json", 
+                        "/swagger/v1/swagger.json",
                         "Secure.SecurityDoors.Api v1"));
             }
 

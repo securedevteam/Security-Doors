@@ -43,6 +43,8 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <summary>
         /// Get total count.
         /// </summary>
+        /// <param name="dateFilter">Date filter.</param>
+        /// <param name="cardIds">Card identifiers filter.</param>
         /// <returns>Number.</returns>
         Task<int> GetTotalCountAsync(
             DateTime? dateFilter = default,

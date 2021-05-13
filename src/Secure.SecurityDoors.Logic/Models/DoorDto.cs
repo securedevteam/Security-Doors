@@ -1,5 +1,4 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
-using System.Collections.Generic;
 
 namespace Secure.SecurityDoors.Logic.Models
 {

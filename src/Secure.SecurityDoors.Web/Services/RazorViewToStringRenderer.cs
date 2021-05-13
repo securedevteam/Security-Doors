@@ -52,15 +52,15 @@ namespace Secure.SecurityDoors.Web.Services
 
             using var output = new StringWriter();
 
-            ViewContext viewContext = new ViewContext(
+            var viewContext = new ViewContext(
                 actionContext,
                 view,
                 new ViewDataDictionary<TModel>(
                     metadataProvider: new EmptyModelMetadataProvider(),
                     modelState: new ModelStateDictionary())
-                    {
-                        Model = model
-                    },
+                {
+                    Model = model
+                },
                 new TempDataDictionary(
                     actionContext.HttpContext,
                     _tempDataProvider),
@@ -70,7 +70,6 @@ namespace Secure.SecurityDoors.Web.Services
             await view.RenderAsync(viewContext);
 
             return output.ToString();
-
         }
 
         private IView FindView(ActionContext actionContext, string viewName)

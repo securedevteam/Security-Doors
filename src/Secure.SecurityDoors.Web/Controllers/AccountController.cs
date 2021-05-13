@@ -43,7 +43,6 @@ namespace Secure.SecurityDoors.Web.Controllers
                 ReturnUrl = returnUrl
             };
 
-
             return View(loginViewModel);
         }
 

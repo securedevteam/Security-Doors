@@ -150,7 +150,7 @@ namespace Secure.SecurityDoors.Logic.Specifications
         /// <returns>DoorAction query.</returns>
         public static IQueryable<DoorAction> ApplyFilterByUserIds(
             this IQueryable<DoorAction> doorActionQuery,
-            IList<string> userIds) => 
+            IList<string> userIds) =>
                 userIds is not null && userIds.Any()
                     ? doorActionQuery
                         .Include(doorAction => doorAction.Card)

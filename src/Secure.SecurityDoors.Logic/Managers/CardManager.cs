@@ -69,7 +69,6 @@ namespace Secure.SecurityDoors.Logic.Managers
                 throw new NotFoundException(nameof(cardDto));
             }
 
-
             card = _mapper.Map(cardDto, card);
             _applicationContext.Cards.Update(card);
         }

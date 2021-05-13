@@ -7,7 +7,7 @@
 
 <h1>@Localizer["Title"]</h1>
 
-<form>
+<form asp-controller="DoorAction" asp-action="List">
     <div class="form-row">
         <div class="form-group col-md-4">
             <label class="control-label">@Localizer["LabelDate"]</label>
@@ -67,8 +67,7 @@
 
     @if (Model.PageViewModel.HasNextPage)
     {
-        <a
-           asp-action="List"
+        <a asp-action="List"
            asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
            asp-route-dateFilter="@Model.DateFilter"
            class="btn btn-outline-dark">

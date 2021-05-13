@@ -36,8 +36,8 @@ namespace Secure.SecurityDoors.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel
-            { 
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
 
@@ -48,8 +48,8 @@ namespace Secure.SecurityDoors.Web.Controllers
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions
-                { 
-                    Expires = DateTimeOffset.UtcNow.AddYears(1) 
+                {
+                    Expires = DateTimeOffset.UtcNow.AddYears(1)
                 }
             );
 

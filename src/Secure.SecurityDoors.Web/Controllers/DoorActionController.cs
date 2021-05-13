@@ -133,8 +133,8 @@ namespace Secure.SecurityDoors.Web.Controllers
                         reportTemplateViewModel);
 
             return File(
-                await _reportService.GeneratePdfAsync(html), 
-                "application/octet-stream", 
+                await _reportService.GeneratePdfAsync(html),
+                "application/octet-stream",
                 $"Report_{DateTime.Now}.pdf");
         }
     }

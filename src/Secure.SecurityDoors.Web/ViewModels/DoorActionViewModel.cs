@@ -1,8 +1,5 @@
 ﻿using Secure.SecurityDoors.Data.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Web.ViewModels
 {
@@ -45,9 +42,5 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// DoorReader view model.
         /// </summary>
         public DoorReaderViewModel DoorReader { get; set; }
-
-        
-
-        
     }
 }

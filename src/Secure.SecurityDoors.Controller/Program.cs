@@ -7,9 +7,9 @@ using System;
 
 namespace Secure.SecurityDoors.Controller
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var requestService = GetServiceProvider()
                 .GetRequiredService<IRequestService>();
