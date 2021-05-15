@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Contexts;
-using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Interfaces;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Logic.Managers
 {
+    /// <inheritdoc cref="IDoorActionManager"/>
     public class DoorActionManager : IDoorActionManager
     {
         private readonly IMapper _mapper;
@@ -40,9 +40,7 @@ namespace Secure.SecurityDoors.Logic.Managers
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
             IList<int> cardIds = default,
-            IList<int> doorIds = default,
             IList<string> userIds = default,
-            DoorActionStatusType? statusFilter = default,
             params string[] includes)
         {
             var doorActions = await _applicationContext.DoorActions
@@ -52,9 +50,7 @@ namespace Secure.SecurityDoors.Logic.Managers
                 .ApplyFilterByDate(dateFilter)
                 .ApplyFilterByDateRange(dateRangeFilter)
                 .ApplyFilterByCardIds(cardIds)
-                .ApplyFilterByDoorIds(doorIds)
                 .ApplyFilterByUserIds(userIds)
-                .ApplyFilterByStatus(statusFilter)
                 .ToListAsync();
 
             return !doorActions.Any()

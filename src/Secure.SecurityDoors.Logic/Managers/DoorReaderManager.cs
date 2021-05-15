@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Secure.SecurityDoors.Data.Contexts;
-using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Models;
 using Secure.SecurityDoors.Logic.Specifications;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Logic.Managers
 {
+    /// <inheritdoc cref="IDoorReaderManager"/>
     public class DoorReaderManager : IDoorReaderManager
     {
         private readonly IMapper _mapper;
@@ -26,7 +26,6 @@ namespace Secure.SecurityDoors.Logic.Managers
         }
 
         public async Task<IEnumerable<DoorReaderDto>> GetAllAsync(
-            DoorReaderType? typeFilter = default,
             IList<string> serialNumbers = default,
             params string[] includes)
         {
@@ -34,7 +33,6 @@ namespace Secure.SecurityDoors.Logic.Managers
                 .GetDoorReaderQuery(false)
                 .Includes(includes)
                 .ApplyFilterBySerialNumbers(serialNumbers)
-                .ApplyFilterByType(typeFilter)
                 .ToListAsync();
 
             return !doors.Any()

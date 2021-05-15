@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Logic.Managers
 {
+    /// <inheritdoc cref="ICommitManager"/>
     [ExcludeFromCodeCoverage]
     public class CommitManager : ICommitManager
     {

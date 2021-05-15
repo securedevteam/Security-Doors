@@ -36,7 +36,7 @@ namespace Secure.SecurityDoors.Logic.Services
             var headerSettings = new HeaderSettings
             {
                 FontSize = 15,
-                FontName = "Ariel",
+                FontName = "Arial",
                 Right = "Page [page] of [toPage]",
                 Line = true
             };

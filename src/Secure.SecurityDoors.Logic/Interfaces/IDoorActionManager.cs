@@ -1,5 +1,4 @@
-﻿using Secure.SecurityDoors.Data.Enums;
-using Secure.SecurityDoors.Logic.Helpers;
+﻿using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Models;
 using System;
 using System.Collections.Generic;
@@ -25,9 +24,7 @@ namespace Secure.SecurityDoors.Logic.Interfaces
         /// <param name="dateFilter">Date filter.</param>
         /// <param name="dateRangeFilter">Date filter.</param>
         /// <param name="cardIds">Card identifiers filter.</param>
-        /// <param name="doorIds">Door identifiers filter.</param>
         /// <param name="userIds">User identifiers filter.</param>
-        /// <param name="statusFilter">Status filter.</param>
         /// <param name="includes">Array of includes.</param>
         /// <returns>Get all door action data transfer objects.</returns>
         Task<IEnumerable<DoorActionDto>> GetAllAsync(
@@ -35,9 +32,7 @@ namespace Secure.SecurityDoors.Logic.Interfaces
             DateTime? dateFilter = default,
             DateRangeHelper dateRangeFilter = default,
             IList<int> cardIds = default,
-            IList<int> doorIds = default,
             IList<string> userIds = default,
-            DoorActionStatusType? statusFilter = default,
             params string[] includes);
 
         /// <summary>

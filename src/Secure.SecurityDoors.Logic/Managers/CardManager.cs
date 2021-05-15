@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Logic.Managers
 {
+    /// <inheritdoc cref="ICardManager"/>
     public class CardManager : ICardManager
     {
         private readonly IMapper _mapper;

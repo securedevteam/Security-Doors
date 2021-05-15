@@ -285,41 +285,6 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
         }
 
         [Fact]
-        public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByStatusFilter()
-        {
-            // Arrange
-            var doorAction1 = new DoorAction
-            {
-                Id = 1,
-                DoorReaderId = 1,
-                CardId = 1,
-                Status = DoorActionStatusType.Success,
-                TimeStamp = new DateTime(2000, 1, 1),
-            };
-
-            var doorAction2 = new DoorAction
-            {
-                Id = 2,
-                DoorReaderId = 1,
-                CardId = 1,
-                Status = DoorActionStatusType.Error,
-                TimeStamp = new DateTime(2000, 1, 2),
-            };
-
-            _applicationContext.DoorActions.AddRange(doorAction1, doorAction2);
-            _applicationContext.SaveChanges();
-
-            // Act
-            var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(statusFilter: DoorActionStatusType.Success)
-                .GetAwaiter()
-                .GetResult();
-
-            // Assert
-            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
-        }
-
-        [Fact]
         public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByCardIdsFilter()
         {
             // Arrange
@@ -397,61 +362,6 @@ namespace Secure.SecurityDoors.Logic.Tests.Managers
 
             // Assert
             Assert.Equal(2, receivedDoorActionDtos.Count());
-            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
-            Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction2.Id));
-        }
-
-        [Fact]
-        public void GetAllAsync_DoorActionsExist_DoorActionRetrievedByDoorIdsFilter()
-        {
-            // Arrange
-            var doorId = 1;
-
-            var doorAction1 = new DoorAction
-            {
-                Id = 1,
-                DoorReaderId = 1,
-                CardId = 1,
-                Status = DoorActionStatusType.Success,
-                TimeStamp = new DateTime(2000, 1, 1),
-            };
-
-            var doorAction2 = new DoorAction
-            {
-                Id = 2,
-                DoorReaderId = 1,
-                CardId = 1,
-                Status = DoorActionStatusType.Error,
-                TimeStamp = new DateTime(2000, 1, 2),
-            };
-
-            var doorReader1 = new DoorReader
-            {
-                Id = 1,
-                SerialNumber = "123-01",
-                DoorId = doorId,
-                Type = DoorReaderType.Entrance,
-            };
-
-            var doorReader2 = new DoorReader
-            {
-                Id = 2,
-                SerialNumber = "123-02",
-                DoorId = doorId,
-                Type = DoorReaderType.Exit,
-            };
-
-            _applicationContext.DoorActions.AddRange(doorAction1, doorAction2);
-            _applicationContext.DoorReaders.AddRange(doorReader1, doorReader2);
-            _applicationContext.SaveChanges();
-
-            // Act
-            var receivedDoorActionDtos = _doorActionManager
-                .GetAllAsync(doorIds: new int[] { doorId })
-                .GetAwaiter()
-                .GetResult();
-
-            // Assert
             Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction1.Id));
             Assert.Single(receivedDoorActionDtos.Where(doorActionDto => doorActionDto.Id == doorAction2.Id));
         }

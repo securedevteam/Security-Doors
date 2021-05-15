@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Secure.SecurityDoors.Data.Enums;
 using Secure.SecurityDoors.Data.Models;
 using Secure.SecurityDoors.Logic.Helpers;
 using Secure.SecurityDoors.Logic.Models;
@@ -128,21 +127,6 @@ namespace Secure.SecurityDoors.Logic.Specifications
                     : doorActionQuery;
 
         /// <summary>
-        /// Apply filter by door identifiers.
-        /// </summary>
-        /// <param name="doorActionQuery">Query.</param>
-        /// <param name="doorIds">Door identifiers filter.</param>
-        /// <returns>DoorAction query.</returns>
-        public static IQueryable<DoorAction> ApplyFilterByDoorIds(
-            this IQueryable<DoorAction> doorActionQuery,
-            IList<int> doorIds) =>
-                doorIds is not null && doorIds.Any()
-                    ? doorActionQuery
-                        .Include(doorAction => doorAction.DoorReader)
-                        .Where(doorAction => doorIds.Contains(doorAction.DoorReader.DoorId))
-                    : doorActionQuery;
-
-        /// <summary>
         /// Apply filter by card identifiers.
         /// </summary>
         /// <param name="doorActionQuery">Query.</param>
@@ -155,19 +139,6 @@ namespace Secure.SecurityDoors.Logic.Specifications
                     ? doorActionQuery
                         .Include(doorAction => doorAction.Card)
                         .Where(doorAction => userIds.Contains(doorAction.Card.UserId))
-                    : doorActionQuery;
-
-        /// <summary>
-        /// Apply filter by door action status.
-        /// </summary>
-        /// <param name="doorActionQuery">Query.</param>
-        /// <param name="statusFilter">Status filter.</param>
-        /// <returns>DoorAction query.</returns>
-        public static IQueryable<DoorAction> ApplyFilterByStatus(
-            this IQueryable<DoorAction> doorActionQuery,
-            DoorActionStatusType? statusFilter) =>
-                statusFilter.HasValue
-                    ? doorActionQuery.Where(doorAction => doorAction.Status == statusFilter)
                     : doorActionQuery;
     }
 }
