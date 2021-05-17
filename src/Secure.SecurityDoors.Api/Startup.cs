@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Secure.SecurityDoors.Api.Extensions;
 using Secure.SecurityDoors.Data.Contexts;
 using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
@@ -71,6 +72,8 @@ namespace Secure.SecurityDoors.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCustomErrorHandler();
 
             app.UseEndpoints(endpoints =>
             {

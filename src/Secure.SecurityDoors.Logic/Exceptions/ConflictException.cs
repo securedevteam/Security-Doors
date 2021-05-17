@@ -4,16 +4,16 @@ using System.Diagnostics.CodeAnalysis;
 namespace Secure.SecurityDoors.Logic.Exceptions
 {
     /// <summary>
-    /// Not found exception.
+    /// Conflict exception.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class NotFoundException : Exception
+    public class ConflictException : Exception
     {
         /// <summary>
         /// Constructor with parameter.
         /// </summary>
         /// <param name="message">Message.</param>
-        public NotFoundException(string message)
+        public ConflictException(string message)
             : base(message)
         {
         }
