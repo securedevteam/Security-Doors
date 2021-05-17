@@ -32,10 +32,8 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// <summary>
         /// Has previous page.
         /// </summary>
-        public bool HasPreviousPage
-        {
-            get
-            {
+        public bool HasPreviousPage {
+            get {
                 return (PageNumber > 1);
             }
         }
@@ -43,10 +41,8 @@ namespace Secure.SecurityDoors.Web.ViewModels
         /// <summary>
         /// Has next page.
         /// </summary>
-        public bool HasNextPage
-        {
-            get
-            {
+        public bool HasNextPage {
+            get {
                 return (PageNumber < TotalSize);
             }
         }
