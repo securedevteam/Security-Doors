@@ -17,6 +17,7 @@ using Secure.SecurityDoors.Logic.Interfaces;
 using Secure.SecurityDoors.Logic.Managers;
 using Secure.SecurityDoors.Logic.Services;
 using Secure.SecurityDoors.Shared.Constants;
+using Secure.SecurityDoors.Web.Extensions;
 using Secure.SecurityDoors.Web.Services;
 using Serilog;
 using System.Globalization;
@@ -119,7 +120,8 @@ namespace Secure.SecurityDoors.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/500");
+                app.UseCustomPageNotFoundHandler();
                 app.UseHsts();
             }
 

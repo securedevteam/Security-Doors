@@ -58,12 +58,17 @@ namespace Secure.SecurityDoors.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                    c.SwaggerEndpoint(
-                        "/swagger/v1/swagger.json",
-                        "Secure.SecurityDoors.Api v1"));
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint(
+                    "/swagger/v1/swagger.json",
+                    "Secure.SecurityDoors.Api v1"));
 
             app.UseSerilogRequestLogging();
 
