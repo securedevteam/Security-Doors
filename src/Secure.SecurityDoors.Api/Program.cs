@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Secure.SecurityDoors.Api.Resources;
+using Secure.SecurityDoors.Shared.Constants;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 using System;
 
 namespace Secure.SecurityDoors.Api
@@ -15,6 +17,13 @@ namespace Secure.SecurityDoors.Api
                  .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                  .Enrich.FromLogContext()
                  .WriteTo.Console()
+                 .WriteTo.MSSqlServer(
+                    connectionString: AppConstant.ConnectionString,
+                    sinkOptions: new MSSqlServerSinkOptions
+                    {
+                        AutoCreateSqlTable = true,
+                        TableName = "Logs",
+                    })
                  .CreateLogger();
 
             try

@@ -17,9 +17,7 @@ namespace Secure.SecurityDoors.Logic.Managers
             _applicationContext = applicationContext ?? throw new ArgumentNullException(nameof(applicationContext));
         }
 
-        public async Task SaveAsync()
-        {
+        public async Task SaveAsync() =>
             await _applicationContext.SaveChangesAsync();
-        }
     }
 }

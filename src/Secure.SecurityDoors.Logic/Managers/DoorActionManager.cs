@@ -62,8 +62,8 @@ namespace Secure.SecurityDoors.Logic.Managers
             DateTime? dateFilter = default,
             IList<int> cardIds = default) =>
                 await _applicationContext.DoorActions
-                .ApplyFilterByDate(dateFilter)
-                .ApplyFilterByCardIds(cardIds)
-                .CountAsync();
+                    .ApplyFilterByDate(dateFilter)
+                    .ApplyFilterByCardIds(cardIds)
+                    .CountAsync();
     }
 }

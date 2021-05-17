@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Secure.SecurityDoors.Web.Resources;
 using Serilog;
 using Serilog.Events;
+using Serilog.Formatting.Compact;
 using System;
 
 namespace Secure.SecurityDoors.Web
@@ -15,6 +16,11 @@ namespace Secure.SecurityDoors.Web
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
+                .WriteTo.File(
+                    new CompactJsonFormatter(),
+                    "log.txt",
+                    rollingInterval: RollingInterval.Day,
+                    rollOnFileSizeLimit: true)
                 .CreateLogger();
 
             try

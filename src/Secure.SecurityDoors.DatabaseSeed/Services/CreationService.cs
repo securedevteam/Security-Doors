@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.DatabaseSeed.Services
 {
+    /// <inheritdoc cref="ICreationService"/>
     public class CreationService : ICreationService
     {
         public readonly UserManager<User> _userManager;

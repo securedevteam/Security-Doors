@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Secure.SecurityDoors.Controller.Services
 {
+    /// <inheritdoc cref="IRequestService"/>
     public class RequestService : IRequestService
     {
         public async Task<string> SendAsync(
