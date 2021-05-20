@@ -346,3 +346,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Serilog logs
+log*.txt

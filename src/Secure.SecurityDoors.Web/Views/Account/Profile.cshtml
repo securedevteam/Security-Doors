@@ -1,0 +1,21 @@
+﻿@model ProfileViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Page"];
+}
+
+<h1>@Localizer["Title"]</h1>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        @Localizer["TextInfo"]
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Model.FirstName</li>
+        <li class="list-group-item">@Model.LastName</li>
+        <li class="list-group-item">@Model.SecondName</li>
+        <li class="list-group-item">@Model.Passport</li>
+        <li class="list-group-item">@Model.IdentificationNumber</li>
+    </ul>
+</div>

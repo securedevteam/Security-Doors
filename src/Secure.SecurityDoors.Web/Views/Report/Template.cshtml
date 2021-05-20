@@ -1,0 +1,47 @@
+﻿@model ReportTemplateViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Report</title>
+</head>
+<body>
+    <div>
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>User identifier</th>
+                    <th>Card</th>
+                    <th>Status</th>
+                    <th>Door</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Time stamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doorActionViewModel in Model.DoorActionViewModels)
+                {
+                    <tr>
+                        <th scope="row">@doorActionViewModel.Id</th>
+                        <td>@doorActionViewModel.Card.UserId</td>
+                        <td>@doorActionViewModel.Card.UniqueNumber</td>
+                        <td>@doorActionViewModel.Card.Status</td>
+                        <td>@doorActionViewModel.DoorReader.Door.Name</td>
+                        <td>@doorActionViewModel.DoorReader.Type</td>
+                        <td>@doorActionViewModel.Status</td>
+                        <td>@doorActionViewModel.TimeStamp</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

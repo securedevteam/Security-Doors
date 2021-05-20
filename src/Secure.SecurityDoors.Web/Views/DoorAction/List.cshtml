@@ -1,0 +1,81 @@
+﻿@model DoorActionIndexViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Page"];
+}
+
+<h1>@Localizer["Title"]</h1>
+
+<form asp-controller="DoorAction" asp-action="List">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label class="control-label">@Localizer["LabelDate"]</label>
+            <input type="date" asp-for="DateFilter" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mb-2">@Localizer["ButtonApply"]</button>
+</form>
+
+@if (Model.DoorActionViewModels.Any())
+{
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>@Localizer["TableId"]</th>
+                <th>@Localizer["TableCard"]</th>
+                <th>@Localizer["TableDoor"]</th>
+                <th>@Localizer["TableDoorReader"]</th>
+                <th>@Localizer["TableStatus"]</th>
+                <th>@Localizer["TableTimeStamp"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doorActionViewModel in Model.DoorActionViewModels)
+            {
+                <tr>
+                    <th scope="row">@doorActionViewModel.Id</th>
+                    <td>
+                        @doorActionViewModel.Card.UniqueNumber - @doorActionViewModel.Card.Level <img src="~/images/info-circle.svg" alt="Info" title="@doorActionViewModel.Card.Status">
+                    </td>
+                    <td>
+                        @doorActionViewModel.DoorReader.Door.Name <img src="~/images/info-circle.svg" alt="Info" title="@doorActionViewModel.DoorReader.Door.Description">
+                    </td>
+                    <td>
+                        @doorActionViewModel.DoorReader.Type
+                    </td>
+                    <td>
+                        @doorActionViewModel.Status
+                    </td>
+                    <td>
+                        @doorActionViewModel.TimeStamp
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="List"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           asp-route-dateFilter="@Model.DateFilter"
+           class="btn btn-outline-dark">
+            @Localizer["PaginationTextPrevious"]
+        </a>
+    }
+
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="List"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           asp-route-dateFilter="@Model.DateFilter"
+           class="btn btn-outline-dark">
+            @Localizer["PaginationTextNext"]
+        </a>
+    }
+}
+else
+{
+    <p>@Localizer["TextEmptyCollection"]</p>
+}
